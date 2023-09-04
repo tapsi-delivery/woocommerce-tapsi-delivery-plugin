@@ -1,10 +1,10 @@
 <?php
 
-if( !class_exists( 'Coderockz_Woo_Delivery_Helper' ) ) {
+if( !class_exists( 'Tapsi_Woo_Delivery_Helper' ) ) {
 
-	class Coderockz_Woo_Delivery_Helper {
+	class Tapsi_Woo_Delivery_Helper {
 
-		public function coderockz_woo_delivery_array_sanitize($array) {
+		public function tapsi_woo_delivery_array_sanitize($array) {
 		    $newArray = array();
 		    if (count($array)>0) {
 		        foreach ($array as $key => $value) {
@@ -36,7 +36,7 @@ if( !class_exists( 'Coderockz_Woo_Delivery_Helper' ) ) {
 
 		public function get_the_timezone() {
 			
-			$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
+			$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
 			if(isset($delivery_time_settings['store_location_timezone']) &&
 			$delivery_time_settings['store_location_timezone'] != "") {
 				return $delivery_time_settings['store_location_timezone'];

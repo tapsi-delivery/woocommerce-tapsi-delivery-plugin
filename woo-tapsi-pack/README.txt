@@ -1,10 +1,10 @@
 === Delivery & Pickup Date Time for WooCommerce ===
 Contributors: CodeRockz
-Donate link: https://coderockz.com
+Donate link: https://tapsi.com
 Tags: WooCommerce, Delivery Date, Pickup Date, WooCommerce Delivery Date, WooCommerce Pickup Date, Delivery Time, Pickup Time, WooCommerce Delivery Time, WooCommerce Pickup Time, Delivery Date Time, Pickup Date Time, WooCommerce Delivery Date Time, WooCommerce Pickup Date Time, WooCommerce Delivery & Pickup Date Time, Delivery & Pickup Date Time for WooCommerce 
 Requires at least: 4.0.1
 Tested up to: 6.2
-Stable tag: 1.3.59
+Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,15 +17,15 @@ Gives the facility of selecting delivery/pickup date and time at order checkout 
 <blockquote>
 <h4>Free version only has the basic setup of delivery/pickup date and time.</h4>
 <br/>
-<h4><b><a target="_blank" href="https://coderockz.com/downloads/woocommerce-delivery-date-time-wordpress-plugin/">Premium Version</a></b> has many more additional awesome features that you can't imagine</h4>
+<h4><b><a target="_blank" href="https://tapsi.com/downloads/woocommerce-delivery-date-time-wordpress-plugin/">Premium Version</a></b> has many more additional awesome features that you can't imagine</h4>
 <br/>
-<h4>To see live demo of <b>Premium Version </b><a target="_blank" href="https://coderockz.com/downloads/woocommerce-delivery-date-time-wordpress-plugin/">click here</a> and go to the live demo tab for the details</h4>
+<h4>To see live demo of <b>Premium Version </b><a target="_blank" href="https://tapsi.com/downloads/woocommerce-delivery-date-time-wordpress-plugin/">click here</a> and go to the live demo tab for the details</h4>
 <br/>
 </blockquote>
 
 == Support ==
 
-To make your journey with us more easier & error free, We’ve a dedicated team. So, if you use our plugin or facing any problem feel free to contact with us by going to our <a target="_blank" href="https://coderockz.com/support/">support page</a>.
+To make your journey with us more easier & error free, We’ve a dedicated team. So, if you use our plugin or facing any problem feel free to contact with us by going to our <a target="_blank" href="https://tapsi.com/support/">support page</a>.
 
 == PRO Version Features ==
 
@@ -179,7 +179,7 @@ e.g.
 
 == Changelog ==
 
-= 1.3.59 =
+= 0.1.0 =
 * fixed: Delivery details is not showing on My Accounts > Orders page.
 
 = 1.3.58 =
@@ -297,7 +297,7 @@ e.g.
 * Tweak: Compatability issue with WC 6.0
 
 = 1.3.20 =
-* Fixed: Uncaught Error: Call to undefined method Coderockz_Woo_Delivery_Helper :: weekday_conversion_to_locale () for invoice plugin.
+* Fixed: Uncaught Error: Call to undefined method Tapsi_Woo_Delivery_Helper :: weekday_conversion_to_locale () for invoice plugin.
 
 = 1.3.19 =
 * Fixed: Deprecated warning for PHP 8 fixed.

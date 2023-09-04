@@ -19,10 +19,10 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       https://coderockz.com
+ * @link       https://tapsi.com
  * @since      1.0.0
  *
- * @package    Coderockz_Woo_Delivery
+ * @package    Tapsi_Woo_Delivery
  */
 
 // If uninstall not called from WordPress, then exit.
@@ -31,7 +31,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 /*global $wpdb;
-$plugin_options = $wpdb->get_results( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE '%coderockz_woo_delivery_%'" );
+$plugin_options = $wpdb->get_results( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE '%tapsi_woo_delivery_%'" );
 
 foreach( $plugin_options as $option ) {
     delete_option( $option->option_name );

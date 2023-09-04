@@ -3,11 +3,11 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://coderockz.com
+ * @link       https://tapsi.com
  * @since      1.0.0
  *
- * @package    Coderockz_Woo_Delivery
- * @subpackage Coderockz_Woo_Delivery/includes
+ * @package    Tapsi_Woo_Delivery
+ * @subpackage Tapsi_Woo_Delivery/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Coderockz_Woo_Delivery
- * @subpackage Coderockz_Woo_Delivery/includes
- * @author     CodeRockz <admin@coderockz.com>
+ * @package    Tapsi_Woo_Delivery
+ * @subpackage Tapsi_Woo_Delivery/includes
+ * @author     CodeRockz <admin@tapsi.com>
  */
-class Coderockz_Woo_Delivery_Loader {
+class Tapsi_Woo_Delivery_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

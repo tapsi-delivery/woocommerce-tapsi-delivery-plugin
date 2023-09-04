@@ -3,11 +3,11 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       https://coderockz.com
+ * @link       https://tapsi.com
  * @since      1.0.0
  *
- * @package    Coderockz_Woo_Delivery
- * @subpackage Coderockz_Woo_Delivery/includes
+ * @package    Tapsi_Woo_Delivery
+ * @subpackage Tapsi_Woo_Delivery/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Coderockz_Woo_Delivery
- * @subpackage Coderockz_Woo_Delivery/includes
- * @author     CodeRockz <admin@coderockz.com>
+ * @package    Tapsi_Woo_Delivery
+ * @subpackage Tapsi_Woo_Delivery/includes
+ * @author     CodeRockz <admin@tapsi.com>
  */
-class Coderockz_Woo_Delivery_Deactivator {
+class Tapsi_Woo_Delivery_Deactivator {
 
 	/**
 	 * Short Description. (use period)

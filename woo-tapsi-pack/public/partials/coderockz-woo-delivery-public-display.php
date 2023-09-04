@@ -5,11 +5,11 @@
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @link       https://coderockz.com
+ * @link       https://tapsi.com
  * @since      1.0.0
  *
- * @package    Coderockz_Woo_Delivery
- * @subpackage Coderockz_Woo_Delivery/public/partials
+ * @package    Tapsi_Woo_Delivery
+ * @subpackage Tapsi_Woo_Delivery/public/partials
  */
 ?>
 

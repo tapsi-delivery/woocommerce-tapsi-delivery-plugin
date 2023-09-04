@@ -6,11 +6,11 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://coderockz.com
+ * @link       https://tapsi.com
  * @since      1.0.0
  *
- * @package    Coderockz_Woo_Delivery
- * @subpackage Coderockz_Woo_Delivery/includes
+ * @package    Tapsi_Woo_Delivery
+ * @subpackage Tapsi_Woo_Delivery/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Coderockz_Woo_Delivery
- * @subpackage Coderockz_Woo_Delivery/includes
- * @author     CodeRockz <admin@coderockz.com>
+ * @package    Tapsi_Woo_Delivery
+ * @subpackage Tapsi_Woo_Delivery/includes
+ * @author     CodeRockz <admin@tapsi.com>
  */
-class Coderockz_Woo_Delivery_i18n {
+class Tapsi_Woo_Delivery_i18n {
 
 
 	/**

@@ -3,11 +3,11 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://coderockz.com
+ * @link       https://tapsi.com
  * @since      1.0.0
  *
- * @package    Coderockz_Woo_Delivery
- * @subpackage Coderockz_Woo_Delivery/public
+ * @package    Tapsi_Woo_Delivery
+ * @subpackage Tapsi_Woo_Delivery/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    Coderockz_Woo_Delivery
- * @subpackage Coderockz_Woo_Delivery/public
- * @author     CodeRockz <admin@coderockz.com>
+ * @package    Tapsi_Woo_Delivery
+ * @subpackage Tapsi_Woo_Delivery/public
+ * @author     CodeRockz <admin@tapsi.com>
  */
-class Coderockz_Woo_Delivery_Public {
+class Tapsi_Woo_Delivery_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -53,7 +53,7 @@ class Coderockz_Woo_Delivery_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->helper = new Coderockz_Woo_Delivery_Helper();
+		$this->helper = new Tapsi_Woo_Delivery_Helper();
 
 	}
 
@@ -68,16 +68,16 @@ class Coderockz_Woo_Delivery_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Coderockz_Woo_Delivery_Loader as all of the hooks are defined
+		 * defined in Tapsi_Woo_Delivery_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Coderockz_Woo_Delivery_Loader will then create the relationship
+		 * The Tapsi_Woo_Delivery_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 		if( is_checkout() && ! ( is_wc_endpoint_url( 'order-pay' ) || is_wc_endpoint_url( 'order-received' )) ) {
 			wp_enqueue_style( "flatpickr_css", plugin_dir_url( __FILE__ ) . 'css/flatpickr.min.css', array(), $this->version, 'all' );
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/coderockz-woo-delivery-public.css', array(), $this->version, 'all' );
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/tapsi-woo-delivery-public.css', array(), $this->version, 'all' );
 		}
 
 	}
@@ -93,10 +93,10 @@ class Coderockz_Woo_Delivery_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Coderockz_Woo_Delivery_Loader as all of the hooks are defined
+		 * defined in Tapsi_Woo_Delivery_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Coderockz_Woo_Delivery_Loader will then create the relationship
+		 * The Tapsi_Woo_Delivery_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -110,18 +110,18 @@ class Coderockz_Woo_Delivery_Public {
 			$theme = wp_get_theme( );
 
 			if(strpos($theme_name,"Flatsome") !== false || strpos($theme->parent_theme,"Flatsome") !== false) {
-				wp_enqueue_script( "select2_js", plugin_dir_url( __FILE__ ) . 'js/select2.coderockz.delivery.min.js', array('jquery'), $this->version, true );
-				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/coderockz-woo-delivery-public-flatsome.js', array( 'jquery','select2_js', 'flatpickr_js' ), $this->version, true );
+				wp_enqueue_script( "select2_js", plugin_dir_url( __FILE__ ) . 'js/select2.tapsi.delivery.min.js', array('jquery'), $this->version, true );
+				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tapsi-woo-delivery-public-flatsome.js', array( 'jquery','select2_js', 'flatpickr_js' ), $this->version, true );
 			} else {
-				wp_enqueue_script( "selectWoo_js", plugin_dir_url( __FILE__ ) . 'js/selectWoo.coderockz.delivery.min.js', array('jquery'), $this->version, true );
-				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/coderockz-woo-delivery-public.js', array( 'jquery','selectWoo_js', 'flatpickr_js' ), $this->version, true );
+				wp_enqueue_script( "selectWoo_js", plugin_dir_url( __FILE__ ) . 'js/selectWoo.tapsi.delivery.min.js', array('jquery'), $this->version, true );
+				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tapsi-woo-delivery-public.js', array( 'jquery','selectWoo_js', 'flatpickr_js' ), $this->version, true );
 			}
 
 		}
-		$coderockz_woo_delivery_nonce = wp_create_nonce('coderockz_woo_delivery_nonce');
-	        wp_localize_script($this->plugin_name, 'coderockz_woo_delivery_ajax_obj', array(
-	            'coderockz_woo_delivery_ajax_url' => admin_url('admin-ajax.php'),
-	            'nonce' => $coderockz_woo_delivery_nonce,
+		$tapsi_woo_delivery_nonce = wp_create_nonce('tapsi_woo_delivery_nonce');
+	        wp_localize_script($this->plugin_name, 'tapsi_woo_delivery_ajax_obj', array(
+	            'tapsi_woo_delivery_ajax_url' => admin_url('admin-ajax.php'),
+	            'nonce' => $tapsi_woo_delivery_nonce,
 	        ));
 
 	}
@@ -140,25 +140,25 @@ class Coderockz_Woo_Delivery_Public {
 
 
 		// This function adds the delivery time and delivery date fields and it's functionalities
-	public function coderockz_woo_delivery_add_custom_field() {
+	public function tapsi_woo_delivery_add_custom_field() {
 
 		//unset the plugin session & cookie first
 
-		if(isset($_COOKIE['coderockz_woo_delivery_option_time_pickup'])) {
-		    unset($_COOKIE['coderockz_woo_delivery_option_time_pickup']);
-			setcookie("coderockz_woo_delivery_option_time_pickup", null, -1, '/');
+		if(isset($_COOKIE['tapsi_woo_delivery_option_time_pickup'])) {
+		    unset($_COOKIE['tapsi_woo_delivery_option_time_pickup']);
+			setcookie("tapsi_woo_delivery_option_time_pickup", null, -1, '/');
 		} elseif(!is_null(WC()->session)) {		  
-			WC()->session->__unset( 'coderockz_woo_delivery_option_time_pickup' );  
+			WC()->session->__unset( 'tapsi_woo_delivery_option_time_pickup' );  
 		}
 
 
 		// retrieving the data for delivery time
-		$delivery_date_settings = get_option('coderockz_woo_delivery_date_settings');
-		$pickup_date_settings = get_option('coderockz_woo_delivery_pickup_date_settings');
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
-		$pickup_time_settings = get_option('coderockz_woo_delivery_pickup_settings');
-		$delivery_option_settings = get_option('coderockz_woo_delivery_option_delivery_settings');
-		$other_settings = get_option('coderockz_woo_delivery_other_settings');
+		$delivery_date_settings = get_option('tapsi_woo_delivery_date_settings');
+		$pickup_date_settings = get_option('tapsi_woo_delivery_pickup_date_settings');
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
+		$pickup_time_settings = get_option('tapsi_woo_delivery_pickup_settings');
+		$delivery_option_settings = get_option('tapsi_woo_delivery_option_delivery_settings');
+		$other_settings = get_option('tapsi_woo_delivery_other_settings');
 
 		// if any timezone data is saved, set default timezone with the data
 		$timezone = $this->helper->get_the_timezone();
@@ -167,17 +167,17 @@ class Coderockz_Woo_Delivery_Public {
 
 		$today = date('Y-m-d', time());
 		
-		echo "<div data-today_date='".$today."' data-plugin-url='".CODEROCKZ_WOO_DELIVERY_URL."' id='coderockz_woo_delivery_setting_wrapper'>";
+		echo "<div data-today_date='".$today."' data-plugin-url='".TAPSI_WOO_DELIVERY_URL."' id='tapsi_woo_delivery_setting_wrapper'>";
 
 		$delivery_heading_checkout = (isset($other_settings['delivery_heading_checkout']) && !empty($other_settings['delivery_heading_checkout'])) ? stripslashes($other_settings['delivery_heading_checkout']) : "";
 
 		if($delivery_heading_checkout != "") {
-			echo "<div id='coderockz-woo-delivery-public-delivery-details'>";
+			echo "<div id='tapsi-woo-delivery-public-delivery-details'>";
 			echo "<h3 style='margin-bottom:0;padding: 20px 0;'>".__($delivery_heading_checkout, 'woo-delivery')."</h3>";
 			echo "</div>";
 		}
 
-		$disable_fields_for_downloadable_products = (isset(get_option('coderockz_woo_delivery_other_settings')['disable_fields_for_downloadable_products']) && !empty(get_option('coderockz_woo_delivery_other_settings')['disable_fields_for_downloadable_products'])) ? get_option('coderockz_woo_delivery_other_settings')['disable_fields_for_downloadable_products'] : false;
+		$disable_fields_for_downloadable_products = (isset(get_option('tapsi_woo_delivery_other_settings')['disable_fields_for_downloadable_products']) && !empty(get_option('tapsi_woo_delivery_other_settings')['disable_fields_for_downloadable_products'])) ? get_option('tapsi_woo_delivery_other_settings')['disable_fields_for_downloadable_products'] : false;
 
 		$has_virtual_downloadable_products = $this->helper->check_virtual_downloadable_products();
 
@@ -187,18 +187,18 @@ class Coderockz_Woo_Delivery_Public {
 		$pickup_field_label = (isset($delivery_option_settings['pickup_label']) && !empty($delivery_option_settings['pickup_label'])) ? stripslashes($delivery_option_settings['pickup_label']) : __("Pickup","woo-delivery");
 
 		if($enable_delivery_option && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
-			echo '<div id="coderockz_woo_delivery_delivery_selection_field" style="display:none;">';
-				woocommerce_form_field('coderockz_woo_delivery_delivery_selection_box',
+			echo '<div id="tapsi_woo_delivery_delivery_selection_field" style="display:none;">';
+				woocommerce_form_field('tapsi_woo_delivery_delivery_selection_box',
 				[
 					'type' => 'select',
 					'class' => [
-						'coderockz_woo_delivery_delivery_selection_box form-row-wide'
+						'tapsi_woo_delivery_delivery_selection_box form-row-wide'
 					],
 					'label' => __($delivery_option_field_label, 'woo-delivery'),
 					'placeholder' => __($delivery_option_field_label, 'woo-delivery'),
-				    'options' => Coderockz_Woo_Delivery_Delivery_Option::delivery_option($delivery_option_settings),
+				    'options' => Tapsi_Woo_Delivery_Delivery_Option::delivery_option($delivery_option_settings),
 					'required' => true,
-				], WC()->checkout->get_value('coderockz_woo_delivery_delivery_selection_box'));
+				], WC()->checkout->get_value('tapsi_woo_delivery_delivery_selection_box'));
 			echo '</div>';
 		}
 
@@ -259,14 +259,14 @@ class Coderockz_Woo_Delivery_Public {
 			$disable_dates = array_unique($disable_dates, false);
 			$disable_dates = array_values($disable_dates);
 
-			echo '<div id="coderockz_woo_delivery_delivery_date_section" style="display:none;">';
-			woocommerce_form_field('coderockz_woo_delivery_date_field',
+			echo '<div id="tapsi_woo_delivery_delivery_date_section" style="display:none;">';
+			woocommerce_form_field('tapsi_woo_delivery_date_field',
 			[
 				'type' => 'text',
 				'class' => array(
-				  'coderockz_woo_delivery_date_field form-row-wide'
+				  'tapsi_woo_delivery_date_field form-row-wide'
 				) ,
-				'id' => "coderockz_woo_delivery_date_datepicker",
+				'id' => "tapsi_woo_delivery_date_datepicker",
 				'label' => $delivery_date_field_label,
 				'placeholder' => $delivery_date_field_label,
 				'required' => $delivery_date_mandatory,
@@ -278,7 +278,7 @@ class Coderockz_Woo_Delivery_Public {
 					'data-week_starts_from' => $week_starts_from,
 					'data-default_date' => $auto_select_first_date,
 				],
-			] , WC()->checkout->get_value('coderockz_woo_delivery_date_field'));
+			] , WC()->checkout->get_value('tapsi_woo_delivery_date_field'));
 			echo '</div>';
 		}
 
@@ -294,27 +294,27 @@ class Coderockz_Woo_Delivery_Public {
 
 		$auto_select_first_time = (isset($delivery_time_settings['auto_select_first_time']) && !empty($delivery_time_settings['auto_select_first_time'])) ? $delivery_time_settings['auto_select_first_time'] : false;
 
-		$order_limit_notice = (isset(get_option('coderockz_woo_delivery_localization_settings')['order_limit_notice']) && !empty(get_option('coderockz_woo_delivery_localization_settings')['order_limit_notice'])) ? "(".get_option('coderockz_woo_delivery_localization_settings')['order_limit_notice'].")" : __("(Maximum Order Limit Exceed)","woo-delivery");
+		$order_limit_notice = (isset(get_option('tapsi_woo_delivery_localization_settings')['order_limit_notice']) && !empty(get_option('tapsi_woo_delivery_localization_settings')['order_limit_notice'])) ? "(".get_option('tapsi_woo_delivery_localization_settings')['order_limit_notice'].")" : __("(Maximum Order Limit Exceed)","woo-delivery");
 
 		if( $enable_delivery_time && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products)) {
 
-			echo '<div id="coderockz_woo_delivery_delivery_time_section" style="display:none;">';
+			echo '<div id="tapsi_woo_delivery_delivery_time_section" style="display:none;">';
 			
-			woocommerce_form_field('coderockz_woo_delivery_time_field',
+			woocommerce_form_field('tapsi_woo_delivery_time_field',
 			[
 				'type' => 'select',
 				'class' => [
-					'coderockz_woo_delivery_time_field form-row-wide'
+					'tapsi_woo_delivery_time_field form-row-wide'
 				],
 				'label' => __($delivery_time_field_label, "woo-delivery"),
 				'placeholder' => __($delivery_time_field_label, "woo-delivery"),
-				'options' => Coderockz_Woo_Delivery_Time_Option::delivery_time_option($delivery_time_settings),
+				'options' => Tapsi_Woo_Delivery_Time_Option::delivery_time_option($delivery_time_settings),
 				'required' => $delivery_time_mandatory,
 				'custom_attributes' => [
 					'data-default_time' => $auto_select_first_time,
 					'data-order_limit_notice' => $order_limit_notice
 				],
-			], WC()->checkout->get_value('coderockz_woo_delivery_time_field'));
+			], WC()->checkout->get_value('tapsi_woo_delivery_time_field'));
 			echo '</div>';
 		}
 		
@@ -348,15 +348,15 @@ class Coderockz_Woo_Delivery_Public {
 
 			$pickup_date_field_heading = (isset($pickup_date_settings['pickup_field_label']) && !empty($pickup_date_settings['pickup_field_label'])) ? stripslashes($pickup_date_settings['pickup_field_label']) : __("Pickup Date","woo-delivery");
 
-			echo '<div id="coderockz_woo_delivery_pickup_date_section" style="display:none;">';
+			echo '<div id="tapsi_woo_delivery_pickup_date_section" style="display:none;">';
 
-			woocommerce_form_field('coderockz_woo_delivery_pickup_date_field',
+			woocommerce_form_field('tapsi_woo_delivery_pickup_date_field',
 			[
 				'type' => 'text',
 				'class' => array(
-				  'coderockz_woo_delivery_pickup_date_field form-row-wide'
+				  'tapsi_woo_delivery_pickup_date_field form-row-wide'
 				) ,
-				'id' => "coderockz_woo_delivery_pickup_date_datepicker",
+				'id' => "tapsi_woo_delivery_pickup_date_datepicker",
 				'label' => __($pickup_date_field_heading, 'woo-delivery'),
 				'placeholder' => __($pickup_date_field_heading, 'woo-delivery'),
 				'required' => $pickup_date_mandatory, 
@@ -368,7 +368,7 @@ class Coderockz_Woo_Delivery_Public {
 					'data-pickup_week_starts_from' => $pickup_week_starts_from,
 					'data-pickup_default_date' => $auto_select_first_pickup_date,
 				],
-			] , WC()->checkout->get_value('coderockz_woo_delivery_pickup_date_field'));
+			] , WC()->checkout->get_value('tapsi_woo_delivery_pickup_date_field'));
 			echo '</div>';
 
 		}
@@ -384,28 +384,28 @@ class Coderockz_Woo_Delivery_Public {
 		$pickup_time_mandatory = (isset($pickup_time_settings['pickup_time_mandatory']) && !empty($pickup_time_settings['pickup_time_mandatory'])) ? $pickup_time_settings['pickup_time_mandatory'] : false;
 		$pickup_auto_select_first_time = (isset($pickup_time_settings['auto_select_first_time']) && !empty($pickup_time_settings['auto_select_first_time'])) ? $pickup_time_settings['auto_select_first_time'] : false;
 
-		$pickup_limit_notice = (isset(get_option('coderockz_woo_delivery_localization_settings')['pickup_limit_notice']) && !empty(get_option('coderockz_woo_delivery_localization_settings')['pickup_limit_notice'])) ? "(".stripslashes(get_option('coderockz_woo_delivery_localization_settings')['pickup_limit_notice']).")" : __("(Maximum Pickup Limit Exceed)","woo-delivery");
+		$pickup_limit_notice = (isset(get_option('tapsi_woo_delivery_localization_settings')['pickup_limit_notice']) && !empty(get_option('tapsi_woo_delivery_localization_settings')['pickup_limit_notice'])) ? "(".stripslashes(get_option('tapsi_woo_delivery_localization_settings')['pickup_limit_notice']).")" : __("(Maximum Pickup Limit Exceed)","woo-delivery");
 
 		if($enable_pickup_time && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products)) {
 
 
-			echo '<div id="coderockz_woo_delivery_pickup_time_section" style="display:none;">';
+			echo '<div id="tapsi_woo_delivery_pickup_time_section" style="display:none;">';
 
-			woocommerce_form_field('coderockz_woo_delivery_pickup_time_field',
+			woocommerce_form_field('tapsi_woo_delivery_pickup_time_field',
 			[
 				'type' => 'select',
 				'class' => [
-					'coderockz_woo_delivery_pickup_time_field form-row-wide'
+					'tapsi_woo_delivery_pickup_time_field form-row-wide'
 				],
 				'label' => __($pickup_time_field_label, 'woo-delivery'),
 				'placeholder' => __($pickup_time_field_label, 'woo-delivery'),
-				'options' => Coderockz_Woo_Delivery_Pickup_Option::pickup_time_option($pickup_time_settings),
+				'options' => Tapsi_Woo_Delivery_Pickup_Option::pickup_time_option($pickup_time_settings),
 				'required' => $pickup_time_mandatory,
 				'custom_attributes' => [
 					'data-default_time' => $pickup_auto_select_first_time,
 					'data-pickup_limit_notice' => $pickup_limit_notice,
 				],
-			], WC()->checkout->get_value('coderockz_woo_delivery_pickup_time_field'));
+			], WC()->checkout->get_value('tapsi_woo_delivery_pickup_time_field'));
 			echo '</div>';
 
 		}
@@ -417,13 +417,13 @@ class Coderockz_Woo_Delivery_Public {
 	/**
 	 * Checkout Process
 	*/	
-	public function coderockz_woo_delivery_customise_checkout_field_process() {
+	public function tapsi_woo_delivery_customise_checkout_field_process() {
 		
-		$delivery_option_settings = get_option('coderockz_woo_delivery_option_delivery_settings');
-		$delivery_date_settings = get_option('coderockz_woo_delivery_date_settings');
-		$pickup_date_settings = get_option('coderockz_woo_delivery_pickup_date_settings');
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
-		$pickup_time_settings = get_option('coderockz_woo_delivery_pickup_settings');
+		$delivery_option_settings = get_option('tapsi_woo_delivery_option_delivery_settings');
+		$delivery_date_settings = get_option('tapsi_woo_delivery_date_settings');
+		$pickup_date_settings = get_option('tapsi_woo_delivery_pickup_date_settings');
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
+		$pickup_time_settings = get_option('tapsi_woo_delivery_pickup_settings');
 		$enable_delivery_option = (isset($delivery_option_settings['enable_option_time_pickup']) && !empty($delivery_option_settings['enable_option_time_pickup'])) ? $delivery_option_settings['enable_option_time_pickup'] : false;
 
 		$enable_delivery_date = (isset($delivery_date_settings['enable_delivery_date']) && !empty($delivery_date_settings['enable_delivery_date'])) ? $delivery_date_settings['enable_delivery_date'] : false;
@@ -440,9 +440,9 @@ class Coderockz_Woo_Delivery_Public {
 		$enable_pickup_time = (isset($pickup_time_settings['enable_pickup_time']) && !empty($pickup_time_settings['enable_pickup_time'])) ? $pickup_time_settings['enable_pickup_time'] : false;
 		$pickup_time_mandatory = (isset($pickup_time_settings['pickup_time_mandatory']) && !empty($pickup_time_settings['pickup_time_mandatory'])) ? $pickup_time_settings['pickup_time_mandatory'] : false;
 
-		$disable_fields_for_downloadable_products = (isset(get_option('coderockz_woo_delivery_other_settings')['disable_fields_for_downloadable_products']) && !empty(get_option('coderockz_woo_delivery_other_settings')['disable_fields_for_downloadable_products'])) ? get_option('coderockz_woo_delivery_other_settings')['disable_fields_for_downloadable_products'] : false;
+		$disable_fields_for_downloadable_products = (isset(get_option('tapsi_woo_delivery_other_settings')['disable_fields_for_downloadable_products']) && !empty(get_option('tapsi_woo_delivery_other_settings')['disable_fields_for_downloadable_products'])) ? get_option('tapsi_woo_delivery_other_settings')['disable_fields_for_downloadable_products'] : false;
 
-		$checkout_notice = get_option('coderockz_woo_delivery_localization_settings');
+		$checkout_notice = get_option('tapsi_woo_delivery_localization_settings');
 		$checkout_delivery_option_notice = (isset($checkout_notice['checkout_delivery_option_notice']) && !empty($checkout_notice['checkout_delivery_option_notice'])) ? stripslashes($checkout_notice['checkout_delivery_option_notice']) : __("Please Select Your Order Type.","woo-delivery");
 		$checkout_date_notice = (isset($checkout_notice['checkout_date_notice']) && !empty($checkout_notice['checkout_date_notice'])) ? stripslashes($checkout_notice['checkout_date_notice']) : __("Please Enter Delivery Date.","woo-delivery");
 		$checkout_pickup_date_notice = (isset($checkout_notice['checkout_pickup_date_notice']) && !empty($checkout_notice['checkout_pickup_date_notice'])) ? stripslashes($checkout_notice['checkout_pickup_date_notice']) : __("Please Enter Pickup Date.","woo-delivery");
@@ -453,77 +453,77 @@ class Coderockz_Woo_Delivery_Public {
 
 		$has_virtual_downloadable_products = $this->helper->check_virtual_downloadable_products();
 
-		if(isset($_COOKIE['coderockz_woo_delivery_option_time_pickup'])) {
-		  $delivery_option_session = $_COOKIE['coderockz_woo_delivery_option_time_pickup'];
+		if(isset($_COOKIE['tapsi_woo_delivery_option_time_pickup'])) {
+		  $delivery_option_session = $_COOKIE['tapsi_woo_delivery_option_time_pickup'];
 		} elseif(!is_null(WC()->session)) {
-		  $delivery_option_session = WC()->session->get( 'coderockz_woo_delivery_option_time_pickup' );
+		  $delivery_option_session = WC()->session->get( 'tapsi_woo_delivery_option_time_pickup' );
 		}
 
 		if ($enable_delivery_option && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products)) {
-			if (!isset($_POST['coderockz_woo_delivery_delivery_selection_box'])) wc_add_notice(__($checkout_delivery_option_notice, "woo-delivery") , 'error');
+			if (!isset($_POST['tapsi_woo_delivery_delivery_selection_box'])) wc_add_notice(__($checkout_delivery_option_notice, "woo-delivery") , 'error');
 		}
 
 		// if the field is set, if not then show an error message.
 
-		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "delivery") && $enable_delivery_date && $delivery_date_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) && isset($_POST['coderockz_woo_delivery_date_field'])) {
-			if ($_POST['coderockz_woo_delivery_date_field'] == "") wc_add_notice(__($checkout_date_notice, "woo-delivery") , 'error');
-		} elseif (!$enable_delivery_option && $enable_delivery_date && $delivery_date_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) && isset($_POST['coderockz_woo_delivery_date_field'])) {
-			if ($_POST['coderockz_woo_delivery_date_field'] == "") wc_add_notice(__($checkout_date_notice, "woo-delivery") , 'error');
+		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "delivery") && $enable_delivery_date && $delivery_date_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) && isset($_POST['tapsi_woo_delivery_date_field'])) {
+			if ($_POST['tapsi_woo_delivery_date_field'] == "") wc_add_notice(__($checkout_date_notice, "woo-delivery") , 'error');
+		} elseif (!$enable_delivery_option && $enable_delivery_date && $delivery_date_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) && isset($_POST['tapsi_woo_delivery_date_field'])) {
+			if ($_POST['tapsi_woo_delivery_date_field'] == "") wc_add_notice(__($checkout_date_notice, "woo-delivery") , 'error');
 		}
 
 
-		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "pickup") && $enable_pickup_date && $pickup_date_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) && isset($_POST['coderockz_woo_delivery_pickup_date_field'])) {
-			if ($_POST['coderockz_woo_delivery_pickup_date_field'] == "") wc_add_notice(__($checkout_pickup_date_notice, "woo-delivery") , 'error');
-		} elseif (!$enable_delivery_option && $enable_pickup_date && $pickup_date_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) && isset($_POST['coderockz_woo_delivery_pickup_date_field'])) {
-			if ($_POST['coderockz_woo_delivery_pickup_date_field'] == "") wc_add_notice(__($checkout_pickup_date_notice, "woo-delivery") , 'error');
+		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "pickup") && $enable_pickup_date && $pickup_date_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) && isset($_POST['tapsi_woo_delivery_pickup_date_field'])) {
+			if ($_POST['tapsi_woo_delivery_pickup_date_field'] == "") wc_add_notice(__($checkout_pickup_date_notice, "woo-delivery") , 'error');
+		} elseif (!$enable_delivery_option && $enable_pickup_date && $pickup_date_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) && isset($_POST['tapsi_woo_delivery_pickup_date_field'])) {
+			if ($_POST['tapsi_woo_delivery_pickup_date_field'] == "") wc_add_notice(__($checkout_pickup_date_notice, "woo-delivery") , 'error');
 		}
 
 		// if the field is set, if not then show an error message.
 		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "delivery") && $enable_delivery_time && $delivery_time_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products)) {
 
-			if (!$_POST['coderockz_woo_delivery_time_field']) wc_add_notice(__($checkout_time_notice, "woo-delivery") , 'error');
+			if (!$_POST['tapsi_woo_delivery_time_field']) wc_add_notice(__($checkout_time_notice, "woo-delivery") , 'error');
 
 
-			if(($enable_delivery_date && $_POST['coderockz_woo_delivery_date_field'] && !empty($_POST['coderockz_woo_delivery_date_field'])) && ($enable_delivery_time && $_POST['coderockz_woo_delivery_time_field'] && $_POST['coderockz_woo_delivery_time_field'] != "")) {
-				$this->check_delivery_quantity_before_placed($_POST['coderockz_woo_delivery_date_field'],$_POST['coderockz_woo_delivery_time_field']);
-			} elseif((!$enable_delivery_date) && ($enable_delivery_time && $_POST['coderockz_woo_delivery_time_field'] && $_POST['coderockz_woo_delivery_time_field'] != "")) {
+			if(($enable_delivery_date && $_POST['tapsi_woo_delivery_date_field'] && !empty($_POST['tapsi_woo_delivery_date_field'])) && ($enable_delivery_time && $_POST['tapsi_woo_delivery_time_field'] && $_POST['tapsi_woo_delivery_time_field'] != "")) {
+				$this->check_delivery_quantity_before_placed($_POST['tapsi_woo_delivery_date_field'],$_POST['tapsi_woo_delivery_time_field']);
+			} elseif((!$enable_delivery_date) && ($enable_delivery_time && $_POST['tapsi_woo_delivery_time_field'] && $_POST['tapsi_woo_delivery_time_field'] != "")) {
 
-				$this->check_delivery_quantity_before_placed('no_date',$_POST['coderockz_woo_delivery_time_field'],true);
+				$this->check_delivery_quantity_before_placed('no_date',$_POST['tapsi_woo_delivery_time_field'],true);
 
 			}
 			
 		} elseif (!$enable_delivery_option && $enable_delivery_time && $delivery_time_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products)) {
-			if (!$_POST['coderockz_woo_delivery_time_field']) wc_add_notice(__($checkout_time_notice, "woo-delivery") , 'error');
-			if(($enable_delivery_date && $_POST['coderockz_woo_delivery_date_field'] && !empty($_POST['coderockz_woo_delivery_date_field'])) && ($enable_delivery_time && $_POST['coderockz_woo_delivery_time_field'] && !empty($_POST['coderockz_woo_delivery_time_field']) )) {
-				$this->check_delivery_quantity_before_placed($_POST['coderockz_woo_delivery_date_field'],$_POST['coderockz_woo_delivery_time_field']);
-			} elseif((!$enable_delivery_date) && ($enable_delivery_time && $_POST['coderockz_woo_delivery_time_field'] && !empty($_POST['coderockz_woo_delivery_time_field']) )) {
+			if (!$_POST['tapsi_woo_delivery_time_field']) wc_add_notice(__($checkout_time_notice, "woo-delivery") , 'error');
+			if(($enable_delivery_date && $_POST['tapsi_woo_delivery_date_field'] && !empty($_POST['tapsi_woo_delivery_date_field'])) && ($enable_delivery_time && $_POST['tapsi_woo_delivery_time_field'] && !empty($_POST['tapsi_woo_delivery_time_field']) )) {
+				$this->check_delivery_quantity_before_placed($_POST['tapsi_woo_delivery_date_field'],$_POST['tapsi_woo_delivery_time_field']);
+			} elseif((!$enable_delivery_date) && ($enable_delivery_time && $_POST['tapsi_woo_delivery_time_field'] && !empty($_POST['tapsi_woo_delivery_time_field']) )) {
 
-				$this->check_delivery_quantity_before_placed('no_date',$_POST['coderockz_woo_delivery_time_field'],true);
+				$this->check_delivery_quantity_before_placed('no_date',$_POST['tapsi_woo_delivery_time_field'],true);
 
 			}
 		}
 		
 		// if the field is set, if not then show an error message.
 		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "pickup") && $enable_pickup_time && $pickup_time_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products)) {
-			if (!$_POST['coderockz_woo_delivery_pickup_time_field']) wc_add_notice(__($checkout_pickup_time_notice, "woo-delivery") , 'error');
+			if (!$_POST['tapsi_woo_delivery_pickup_time_field']) wc_add_notice(__($checkout_pickup_time_notice, "woo-delivery") , 'error');
 
-			if(($enable_pickup_date && $_POST['coderockz_woo_delivery_pickup_date_field'] && !empty($_POST['coderockz_woo_delivery_pickup_date_field'])) && ($enable_pickup_time && $_POST['coderockz_woo_delivery_pickup_time_field'] && !empty($_POST['coderockz_woo_delivery_pickup_time_field']))) {
-				$this->check_pickup_quantity_before_placed($_POST['coderockz_woo_delivery_pickup_date_field'],$_POST['coderockz_woo_delivery_pickup_time_field']);
-			} elseif((!$enable_pickup_date) && ($enable_pickup_time && $_POST['coderockz_woo_delivery_pickup_time_field'] && !empty($_POST['coderockz_woo_delivery_pickup_time_field']))) {
+			if(($enable_pickup_date && $_POST['tapsi_woo_delivery_pickup_date_field'] && !empty($_POST['tapsi_woo_delivery_pickup_date_field'])) && ($enable_pickup_time && $_POST['tapsi_woo_delivery_pickup_time_field'] && !empty($_POST['tapsi_woo_delivery_pickup_time_field']))) {
+				$this->check_pickup_quantity_before_placed($_POST['tapsi_woo_delivery_pickup_date_field'],$_POST['tapsi_woo_delivery_pickup_time_field']);
+			} elseif((!$enable_pickup_date) && ($enable_pickup_time && $_POST['tapsi_woo_delivery_pickup_time_field'] && !empty($_POST['tapsi_woo_delivery_pickup_time_field']))) {
 
-				$this->check_pickup_quantity_before_placed('no_date',$_POST['coderockz_woo_delivery_pickup_time_field'],true);
+				$this->check_pickup_quantity_before_placed('no_date',$_POST['tapsi_woo_delivery_pickup_time_field'],true);
 
 			}
 
 
 
 		} elseif(!$enable_delivery_option && $enable_pickup_time && $pickup_time_mandatory && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products)) {
-			if (!$_POST['coderockz_woo_delivery_pickup_time_field']) wc_add_notice(__($checkout_pickup_time_notice, "woo-delivery") , 'error');
-			if(($enable_pickup_date && $_POST['coderockz_woo_delivery_pickup_date_field'] && !empty($_POST['coderockz_woo_delivery_pickup_date_field'])) && ($enable_pickup_time && $_POST['coderockz_woo_delivery_pickup_time_field'] && !empty($_POST['coderockz_woo_delivery_pickup_time_field']))) {
-				$this->check_pickup_quantity_before_placed($_POST['coderockz_woo_delivery_pickup_date_field'],$_POST['coderockz_woo_delivery_pickup_time_field']);
-			} elseif((!$enable_pickup_date) && ($enable_pickup_time && $_POST['coderockz_woo_delivery_pickup_time_field'] && !empty($_POST['coderockz_woo_delivery_pickup_time_field']))) {
+			if (!$_POST['tapsi_woo_delivery_pickup_time_field']) wc_add_notice(__($checkout_pickup_time_notice, "woo-delivery") , 'error');
+			if(($enable_pickup_date && $_POST['tapsi_woo_delivery_pickup_date_field'] && !empty($_POST['tapsi_woo_delivery_pickup_date_field'])) && ($enable_pickup_time && $_POST['tapsi_woo_delivery_pickup_time_field'] && !empty($_POST['tapsi_woo_delivery_pickup_time_field']))) {
+				$this->check_pickup_quantity_before_placed($_POST['tapsi_woo_delivery_pickup_date_field'],$_POST['tapsi_woo_delivery_pickup_time_field']);
+			} elseif((!$enable_pickup_date) && ($enable_pickup_time && $_POST['tapsi_woo_delivery_pickup_time_field'] && !empty($_POST['tapsi_woo_delivery_pickup_time_field']))) {
 
-				$this->check_pickup_quantity_before_placed('no_date',$_POST['coderockz_woo_delivery_pickup_time_field'],true);
+				$this->check_pickup_quantity_before_placed('no_date',$_POST['tapsi_woo_delivery_pickup_time_field'],true);
 
 			}
 		}
@@ -531,7 +531,7 @@ class Coderockz_Woo_Delivery_Public {
 	}
 
 	public function check_delivery_quantity_before_placed($delivery_date,$delivery_time,$no_delivery_date = false) {
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
 		$timezone = $this->helper->get_the_timezone();
 		date_default_timezone_set($timezone);
 		if($delivery_date == "no_date") {
@@ -579,7 +579,7 @@ class Coderockz_Woo_Delivery_Public {
 		if($today == $selected_date && $current_time > $delivery_time_last_time) wc_add_notice(__('Selected delivery time already passed. Please Reload The Page', "woo-delivery") , 'error');
 
 
-	    $time_settings = get_option('coderockz_woo_delivery_time_settings');
+	    $time_settings = get_option('tapsi_woo_delivery_time_settings');
   		$x = (int)$time_settings['delivery_time_starts'];
   		$each_time_slot = (isset($time_settings['each_time_slot']) && !empty($time_settings['each_time_slot'])) ? (int)$time_settings['each_time_slot'] : (int)$time_settings['delivery_time_ends']-(int)$time_settings['delivery_time_starts'];
   		$max_order = (isset($time_settings['max_order_per_slot']) && $time_settings['max_order_per_slot'] != "") ? $time_settings['max_order_per_slot'] : 10000000000000;
@@ -658,7 +658,7 @@ class Coderockz_Woo_Delivery_Public {
 		if($today == $selected_date && $current_time > $pickup_time_last_time) wc_add_notice(__('Selected pickup time already passed. Please Reload The Page', "woo-delivery") , 'error');
 
 
-	    $pickup_settings = get_option('coderockz_woo_delivery_pickup_settings');
+	    $pickup_settings = get_option('tapsi_woo_delivery_pickup_settings');
   		$x = (int)$pickup_settings['pickup_time_starts'];
   		$each_time_slot = (isset($pickup_settings['each_time_slot']) && !empty($pickup_settings['each_time_slot'])) ? (int)$pickup_settings['each_time_slot'] : (int)$pickup_settings['pickup_time_ends']-(int)$pickup_settings['pickup_time_starts'];
   		$max_order = (isset($pickup_settings['max_pickup_per_slot']) && $pickup_settings['max_pickup_per_slot'] != "") ? $pickup_settings['max_pickup_per_slot'] : 10000000000000;
@@ -685,24 +685,24 @@ class Coderockz_Woo_Delivery_Public {
 	/**
 	 * Update value of field
 	*/
-	public function coderockz_woo_delivery_customise_checkout_field_update_order_meta($order_id) {
+	public function tapsi_woo_delivery_customise_checkout_field_update_order_meta($order_id) {
 		
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
 		$timezone = $this->helper->get_the_timezone();
 		date_default_timezone_set($timezone);
 
-		if(isset($_POST['coderockz_woo_delivery_date_field'])) {
-			$en_delivery_date = sanitize_text_field($_POST['coderockz_woo_delivery_date_field']);
+		if(isset($_POST['tapsi_woo_delivery_date_field'])) {
+			$en_delivery_date = sanitize_text_field($_POST['tapsi_woo_delivery_date_field']);
 		}
 		
-		if(isset($_POST['coderockz_woo_delivery_pickup_date_field'])) {
-			$en_pickup_date = sanitize_text_field($_POST['coderockz_woo_delivery_pickup_date_field']);
+		if(isset($_POST['tapsi_woo_delivery_pickup_date_field'])) {
+			$en_pickup_date = sanitize_text_field($_POST['tapsi_woo_delivery_pickup_date_field']);
 		}
 		
-		$delivery_option_settings = get_option('coderockz_woo_delivery_option_delivery_settings');
-		$delivery_date_settings = get_option('coderockz_woo_delivery_date_settings');
-		$pickup_date_settings = get_option('coderockz_woo_delivery_pickup_date_settings');
-		$pickup_time_settings = get_option('coderockz_woo_delivery_pickup_settings');
+		$delivery_option_settings = get_option('tapsi_woo_delivery_option_delivery_settings');
+		$delivery_date_settings = get_option('tapsi_woo_delivery_date_settings');
+		$pickup_date_settings = get_option('tapsi_woo_delivery_pickup_date_settings');
+		$pickup_time_settings = get_option('tapsi_woo_delivery_pickup_settings');
 		$enable_delivery_option = (isset($delivery_option_settings['enable_option_time_pickup']) && !empty($delivery_option_settings['enable_option_time_pickup'])) ? $delivery_option_settings['enable_option_time_pickup'] : false;
 
 		$enable_delivery_date = (isset($delivery_date_settings['enable_delivery_date']) && !empty($delivery_date_settings['enable_delivery_date'])) ? $delivery_date_settings['enable_delivery_date'] : false;
@@ -713,63 +713,63 @@ class Coderockz_Woo_Delivery_Public {
 	  	
 		$enable_pickup_time = (isset($pickup_time_settings['enable_pickup_time']) && !empty($pickup_time_settings['enable_pickup_time'])) ? $pickup_time_settings['enable_pickup_time'] : false;
 
-		$disable_fields_for_downloadable_products = (isset(get_option('coderockz_woo_delivery_other_settings')['disable_fields_for_downloadable_products']) && !empty(get_option('coderockz_woo_delivery_other_settings')['disable_fields_for_downloadable_products'])) ? get_option('coderockz_woo_delivery_other_settings')['disable_fields_for_downloadable_products'] : false;
+		$disable_fields_for_downloadable_products = (isset(get_option('tapsi_woo_delivery_other_settings')['disable_fields_for_downloadable_products']) && !empty(get_option('tapsi_woo_delivery_other_settings')['disable_fields_for_downloadable_products'])) ? get_option('tapsi_woo_delivery_other_settings')['disable_fields_for_downloadable_products'] : false;
 
 		$has_virtual_downloadable_products = $this->helper->check_virtual_downloadable_products();
 
 		$previousErrorLevel = error_reporting();
 		error_reporting(\E_ERROR);
 	  	
-		if ($enable_delivery_option && $_POST['coderockz_woo_delivery_delivery_selection_box'] != "" ) {
-			update_post_meta($order_id, 'delivery_type', $_POST['coderockz_woo_delivery_delivery_selection_box']);
-		} elseif(!$enable_delivery_option && (($enable_delivery_time && !$enable_pickup_time) || ($enable_delivery_date && !$enable_pickup_date)) && $_POST['coderockz_woo_delivery_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+		if ($enable_delivery_option && $_POST['tapsi_woo_delivery_delivery_selection_box'] != "" ) {
+			update_post_meta($order_id, 'delivery_type', $_POST['tapsi_woo_delivery_delivery_selection_box']);
+		} elseif(!$enable_delivery_option && (($enable_delivery_time && !$enable_pickup_time) || ($enable_delivery_date && !$enable_pickup_date)) && $_POST['tapsi_woo_delivery_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
 			update_post_meta($order_id, 'delivery_type', 'delivery');
-		} elseif(!$enable_delivery_option && ((!$enable_delivery_time && $enable_pickup_time) || (!$enable_delivery_date && $enable_pickup_date)) && $_POST['coderockz_woo_delivery_pickup_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+		} elseif(!$enable_delivery_option && ((!$enable_delivery_time && $enable_pickup_time) || (!$enable_delivery_date && $enable_pickup_date)) && $_POST['tapsi_woo_delivery_pickup_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
 			update_post_meta($order_id, 'delivery_type', 'pickup');
 		}
 
 
-		if(isset($_COOKIE['coderockz_woo_delivery_option_time_pickup'])) {
-		  $delivery_option_session = $_COOKIE['coderockz_woo_delivery_option_time_pickup'];
+		if(isset($_COOKIE['tapsi_woo_delivery_option_time_pickup'])) {
+		  $delivery_option_session = $_COOKIE['tapsi_woo_delivery_option_time_pickup'];
 		} elseif(!is_null(WC()->session)) {
-		  $delivery_option_session = WC()->session->get( 'coderockz_woo_delivery_option_time_pickup' );
+		  $delivery_option_session = WC()->session->get( 'tapsi_woo_delivery_option_time_pickup' );
 		}
 
-	  	if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "delivery") && $enable_delivery_date && $_POST['coderockz_woo_delivery_date_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+	  	if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "delivery") && $enable_delivery_date && $_POST['tapsi_woo_delivery_date_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
 			update_post_meta($order_id, 'delivery_date', date("Y-m-d", strtotime($en_delivery_date)));
-		} elseif (!$enable_delivery_option && $enable_delivery_date && $_POST['coderockz_woo_delivery_date_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+		} elseif (!$enable_delivery_option && $enable_delivery_date && $_POST['tapsi_woo_delivery_date_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
 			update_post_meta($order_id, 'delivery_date', date("Y-m-d", strtotime($en_delivery_date)));
 		}
 
-		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "pickup") && $enable_pickup_date && $_POST['coderockz_woo_delivery_pickup_date_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "pickup") && $enable_pickup_date && $_POST['tapsi_woo_delivery_pickup_date_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
 			update_post_meta($order_id, 'pickup_date', date("Y-m-d", strtotime($en_pickup_date)));
-		} elseif (!$enable_delivery_option && $enable_pickup_date && $_POST['coderockz_woo_delivery_pickup_date_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+		} elseif (!$enable_delivery_option && $enable_pickup_date && $_POST['tapsi_woo_delivery_pickup_date_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
 			update_post_meta($order_id, 'pickup_date', date("Y-m-d", strtotime($en_pickup_date)));
 		}
 
 
-		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "delivery") && $enable_delivery_time && $_POST['coderockz_woo_delivery_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
-			update_post_meta($order_id, 'delivery_time', sanitize_text_field($_POST['coderockz_woo_delivery_time_field']));
-		} elseif (!$enable_delivery_option && $enable_delivery_time && $_POST['coderockz_woo_delivery_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
-			update_post_meta($order_id, 'delivery_time', sanitize_text_field($_POST['coderockz_woo_delivery_time_field']));
+		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "delivery") && $enable_delivery_time && $_POST['tapsi_woo_delivery_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+			update_post_meta($order_id, 'delivery_time', sanitize_text_field($_POST['tapsi_woo_delivery_time_field']));
+		} elseif (!$enable_delivery_option && $enable_delivery_time && $_POST['tapsi_woo_delivery_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+			update_post_meta($order_id, 'delivery_time', sanitize_text_field($_POST['tapsi_woo_delivery_time_field']));
 		}
 
-		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "pickup") && $enable_pickup_time && $_POST['coderockz_woo_delivery_pickup_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
-			update_post_meta($order_id, 'pickup_time', sanitize_text_field($_POST['coderockz_woo_delivery_pickup_time_field']));
-		} elseif(!$enable_delivery_option && $enable_pickup_time && $_POST['coderockz_woo_delivery_pickup_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
-			update_post_meta($order_id, 'pickup_time', sanitize_text_field($_POST['coderockz_woo_delivery_pickup_time_field']));
+		if(($enable_delivery_option && isset($delivery_option_session) && $delivery_option_session == "pickup") && $enable_pickup_time && $_POST['tapsi_woo_delivery_pickup_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+			update_post_meta($order_id, 'pickup_time', sanitize_text_field($_POST['tapsi_woo_delivery_pickup_time_field']));
+		} elseif(!$enable_delivery_option && $enable_pickup_time && $_POST['tapsi_woo_delivery_pickup_time_field'] != "" && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products) ) {
+			update_post_meta($order_id, 'pickup_time', sanitize_text_field($_POST['tapsi_woo_delivery_pickup_time_field']));
 		}
 
 		error_reporting($previousErrorLevel);
 
 	}
 
-	public function coderockz_woo_delivery_option_delivery_time_pickup() {
-		check_ajax_referer('coderockz_woo_delivery_nonce');
+	public function tapsi_woo_delivery_option_delivery_time_pickup() {
+		check_ajax_referer('tapsi_woo_delivery_nonce');
 
 		$delivery_option = (isset($_POST['deliveryOption']) && $_POST['deliveryOption'] !="") ? sanitize_text_field($_POST['deliveryOption']) : "";
-		setcookie('coderockz_woo_delivery_option_time_pickup', $delivery_option, time() + 60 * 60 * 24, '/');
-		WC()->session->set( 'coderockz_woo_delivery_option_time_pickup', $delivery_option );
+		setcookie('tapsi_woo_delivery_option_time_pickup', $delivery_option, time() + 60 * 60 * 24, '/');
+		WC()->session->set( 'tapsi_woo_delivery_option_time_pickup', $delivery_option );
 
 
 		$timezone = $this->helper->get_the_timezone();
@@ -779,8 +779,8 @@ class Coderockz_Woo_Delivery_Public {
 		$disable_delivery_date_passed_time = [];
 		$disable_pickup_date_passed_time = [];
 
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
-		$pickup_time_settings = get_option('coderockz_woo_delivery_pickup_settings');
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
+		$pickup_time_settings = get_option('tapsi_woo_delivery_pickup_settings');
 
 		$enable_delivery_time = (isset($delivery_time_settings['enable_delivery_time']) && !empty($delivery_time_settings['enable_delivery_time'])) ? $delivery_time_settings['enable_delivery_time'] : false;
 	  	
@@ -789,7 +789,7 @@ class Coderockz_Woo_Delivery_Public {
 		
 		if($enable_delivery_time) {
 			$time_slot_end = [0];
-			$time_settings = get_option('coderockz_woo_delivery_time_settings');
+			$time_settings = get_option('tapsi_woo_delivery_time_settings');
 			$time_slot_end[] = (int)$time_settings['delivery_time_ends'];												
 			$highest_timeslot_end = max($time_slot_end);
 
@@ -805,7 +805,7 @@ class Coderockz_Woo_Delivery_Public {
 
 			$pickup_slot_end = [0];
 
-		    $pickup_settings = get_option('coderockz_woo_delivery_pickup_settings');
+		    $pickup_settings = get_option('tapsi_woo_delivery_pickup_settings');
 			$pickup_slot_end[] = (int)$pickup_settings['pickup_time_ends'];
 
 			$highest_pickupslot_end = max($pickup_slot_end);
@@ -825,7 +825,7 @@ class Coderockz_Woo_Delivery_Public {
 	}
 
 	//Without this function of filter "woocommerce_order_data_store_cpt_get_orders_query" query with post_meta "delivery_date" is not possible
-	public function coderockz_woo_delivery_handle_custom_query_var( $query, $query_vars ) {
+	public function tapsi_woo_delivery_handle_custom_query_var( $query, $query_vars ) {
 		if ( ! empty( $query_vars['delivery_date'] ) ) {
 			$query['meta_query'][] = array(
 				'key' => 'delivery_date',
@@ -864,11 +864,11 @@ class Coderockz_Woo_Delivery_Public {
 		return $query;
 	}
 
-	public function coderockz_woo_delivery_get_orders() {
+	public function tapsi_woo_delivery_get_orders() {
 
-		check_ajax_referer('coderockz_woo_delivery_nonce');
+		check_ajax_referer('tapsi_woo_delivery_nonce');
 		
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
 		// if any timezone data is saved, set default timezone with the data
 		$timezone = $this->helper->get_the_timezone();
 		date_default_timezone_set($timezone);
@@ -920,11 +920,11 @@ class Coderockz_Woo_Delivery_Public {
 	}
 
 
-	public function coderockz_woo_delivery_get_orders_pickup() {
+	public function tapsi_woo_delivery_get_orders_pickup() {
 
-		check_ajax_referer('coderockz_woo_delivery_nonce');
+		check_ajax_referer('tapsi_woo_delivery_nonce');
 		
-		$delivery_pickup_settings = get_option('coderockz_woo_delivery_pickup_settings');
+		$delivery_pickup_settings = get_option('tapsi_woo_delivery_pickup_settings');
 		// if any timezone data is saved, set default timezone with the data
 		$timezone = $this->helper->get_the_timezone();
 		date_default_timezone_set($timezone);
@@ -981,8 +981,8 @@ class Coderockz_Woo_Delivery_Public {
 	}
 
 
-	public function coderockz_woo_delivery_disable_max_delivery_pickup_date() {
-		check_ajax_referer('coderockz_woo_delivery_nonce');
+	public function tapsi_woo_delivery_disable_max_delivery_pickup_date() {
+		check_ajax_referer('tapsi_woo_delivery_nonce');
 		// if any timezone data is saved, set default timezone with the data
 		$timezone = $this->helper->get_the_timezone();
 		date_default_timezone_set($timezone);
@@ -990,8 +990,8 @@ class Coderockz_Woo_Delivery_Public {
 		$disable_delivery_date_passed_time = [];
 		$disable_pickup_date_passed_time = [];
 
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
-		$pickup_time_settings = get_option('coderockz_woo_delivery_pickup_settings');
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
+		$pickup_time_settings = get_option('tapsi_woo_delivery_pickup_settings');
 
 		$enable_delivery_time = (isset($delivery_time_settings['enable_delivery_time']) && !empty($delivery_time_settings['enable_delivery_time'])) ? $delivery_time_settings['enable_delivery_time'] : false;
 	  	
@@ -1002,7 +1002,7 @@ class Coderockz_Woo_Delivery_Public {
 
 			$time_slot_end = [0];
 
-			$time_settings = get_option('coderockz_woo_delivery_time_settings');
+			$time_settings = get_option('tapsi_woo_delivery_time_settings');
 			$time_slot_end[] = (int)$time_settings['delivery_time_ends'];												
 			$highest_timeslot_end = max($time_slot_end);
 			$current_time = (date("G")*60)+date("i");
@@ -1016,7 +1016,7 @@ class Coderockz_Woo_Delivery_Public {
 
 			$pickup_slot_end = [0];
 
-	    	$pickup_settings = get_option('coderockz_woo_delivery_pickup_settings');
+	    	$pickup_settings = get_option('tapsi_woo_delivery_pickup_settings');
 			$pickup_slot_end[] = (int)$pickup_settings['pickup_time_ends'];
 
 			$highest_pickupslot_end = max($pickup_slot_end);
@@ -1039,8 +1039,8 @@ class Coderockz_Woo_Delivery_Public {
 	}
 
 	
-	public function coderockz_woo_delivery_add_account_orders_column( $columns ) {
-		if(class_exists('Coderockz_Woo_Delivery')) {
+	public function tapsi_woo_delivery_add_account_orders_column( $columns ) {
+		if(class_exists('Tapsi_Woo_Delivery')) {
 			$columns  = array_splice($columns, 0, 3, true) +
 				['order_delivery_details' => "Delivery Details"] +
 				array_splice($columns, 1, count($columns) - 1, true);
@@ -1049,15 +1049,15 @@ class Coderockz_Woo_Delivery_Public {
 	    return $columns;
 	}
 
-	public function coderockz_woo_delivery_show_delivery_details_my_account_tab($order) {
-		if(class_exists('Coderockz_Woo_Delivery')) {
+	public function tapsi_woo_delivery_show_delivery_details_my_account_tab($order) {
+		if(class_exists('Tapsi_Woo_Delivery')) {
 
-			$delivery_date_settings = get_option('coderockz_woo_delivery_date_settings');			
-			$pickup_date_settings = get_option('coderockz_woo_delivery_pickup_date_settings');			
-			$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
-			$pickup_time_settings = get_option('coderockz_woo_delivery_pickup_settings');
-			$delivery_pickup_settings = get_option('coderockz_woo_delivery_pickup_location_settings');
-			$additional_field_settings = get_option('coderockz_woo_delivery_additional_field_settings');
+			$delivery_date_settings = get_option('tapsi_woo_delivery_date_settings');			
+			$pickup_date_settings = get_option('tapsi_woo_delivery_pickup_date_settings');			
+			$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
+			$pickup_time_settings = get_option('tapsi_woo_delivery_pickup_settings');
+			$delivery_pickup_settings = get_option('tapsi_woo_delivery_pickup_location_settings');
+			$additional_field_settings = get_option('tapsi_woo_delivery_additional_field_settings');
 
 			$delivery_date_field_label = (isset($delivery_date_settings['field_label']) && !empty($delivery_date_settings['field_label'])) ? stripslashes($delivery_date_settings['field_label']) : __("Delivery Date", "woo-delivery");
 			$pickup_date_field_label = (isset($pickup_date_settings['pickup_field_label']) && !empty($pickup_date_settings['pickup_field_label'])) ? stripslashes($pickup_date_settings['pickup_field_label']) : __("Pickup Date", "woo-delivery");
@@ -1133,12 +1133,12 @@ class Coderockz_Woo_Delivery_Public {
 		}
 	}
 
-	public function coderockz_woo_delivery_add_delivery_information_row( $total_rows, $order ) {
+	public function tapsi_woo_delivery_add_delivery_information_row( $total_rows, $order ) {
  
-		$delivery_date_settings = get_option('coderockz_woo_delivery_date_settings');			
-		$pickup_date_settings = get_option('coderockz_woo_delivery_pickup_date_settings');			
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
-		$pickup_time_settings = get_option('coderockz_woo_delivery_pickup_settings');
+		$delivery_date_settings = get_option('tapsi_woo_delivery_date_settings');			
+		$pickup_date_settings = get_option('tapsi_woo_delivery_pickup_date_settings');			
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
+		$pickup_time_settings = get_option('tapsi_woo_delivery_pickup_settings');
 
 		$delivery_date_field_label = (isset($delivery_date_settings['field_label']) && !empty($delivery_date_settings['field_label'])) ? stripslashes($delivery_date_settings['field_label']) : __("Delivery Date", "woo-delivery");
 		$pickup_date_field_label = (isset($pickup_date_settings['pickup_field_label']) && !empty($pickup_date_settings['pickup_field_label'])) ? stripslashes($pickup_date_settings['pickup_field_label']) : __("Pickup Date", "woo-delivery");
@@ -1175,7 +1175,7 @@ class Coderockz_Woo_Delivery_Public {
 	        $order_id = $order->id;
 	    }
 
-	    $delivery_option_settings = get_option('coderockz_woo_delivery_option_delivery_settings');
+	    $delivery_option_settings = get_option('tapsi_woo_delivery_option_delivery_settings');
 	    $enable_delivery_option = (isset($delivery_option_settings['enable_option_time_pickup']) && !empty($delivery_option_settings['enable_option_time_pickup'])) ? $delivery_option_settings['enable_option_time_pickup'] : false;
 	    /*$order_type_field_label = (isset($delivery_option_settings['delivery_option_label']) && !empty($delivery_option_settings['delivery_option_label'])) ? stripslashes($delivery_option_settings['delivery_option_label']) : __("Order Type", "woo-delivery");
 	    $delivery_field_label = (isset($delivery_option_settings['delivery_label']) && !empty($delivery_option_settings['delivery_label'])) ? stripslashes($delivery_option_settings['delivery_label']) : __("Delivery", "woo-delivery");
@@ -1244,9 +1244,9 @@ class Coderockz_Woo_Delivery_Public {
 		return $total_rows;
 	}
 
-	public function coderockz_woo_delivery_load_custom_css() {
+	public function tapsi_woo_delivery_load_custom_css() {
 		if( is_checkout() && ! ( is_wc_endpoint_url( 'order-pay' ) || is_wc_endpoint_url( 'order-received' )) ){
-			$other_settings = get_option('coderockz_woo_delivery_other_settings');
+			$other_settings = get_option('tapsi_woo_delivery_other_settings');
 			$custom_css = isset($other_settings['custom_css']) && $other_settings['custom_css'] != "" ? stripslashes($other_settings['custom_css']) : "";
 			$custom_css = wp_unslash($custom_css);
 			echo '<style>' . $custom_css . '</style>';
@@ -1254,10 +1254,10 @@ class Coderockz_Woo_Delivery_Public {
 		
 	}
 
-	public function coderockz_woo_delivery_prevent_field_value_change( $field, $key, $args, $value ) {
+	public function tapsi_woo_delivery_prevent_field_value_change( $field, $key, $args, $value ) {
 		include_once(ABSPATH.'wp-admin/includes/plugin.php');
 		if ( is_plugin_active( 'woocommerce-checkout-manager/woocommerce-checkout-manager.php' ) || is_plugin_active( 'add-fields-to-checkout-page-woocommerce/checkout-form-editor.php' ) ) {
-			if ( 'select' === $args['type'] && ( 'coderockz_woo_delivery_delivery_selection_box' === $key || 'coderockz_woo_delivery_time_field' === $key || 'coderockz_woo_delivery_pickup_time_field' === $key || 'coderockz_woo_delivery_pickup_location_field' === $key ) ) {
+			if ( 'select' === $args['type'] && ( 'tapsi_woo_delivery_delivery_selection_box' === $key || 'tapsi_woo_delivery_time_field' === $key || 'tapsi_woo_delivery_pickup_time_field' === $key || 'tapsi_woo_delivery_pickup_location_field' === $key ) ) {
 				$sort            = $args['priority'] ? $args['priority'] : '';
 				$field_container = '<p class="form-row %1$s" id="%2$s" data-priority="' . esc_attr( $sort ) . '">%3$s</p>';
 
@@ -1336,7 +1336,7 @@ class Coderockz_Woo_Delivery_Public {
 		return $field;
 	}
 
-	public function coderockz_woo_delivery_info_at_wpi_invoice( $invoice ) {
+	public function tapsi_woo_delivery_info_at_wpi_invoice( $invoice ) {
 
 		if ( version_compare( get_option( 'woocommerce_version' ), '3.0.0', '>=' ) ) {
 			$order_id = $invoice->order->get_id();
@@ -1344,19 +1344,19 @@ class Coderockz_Woo_Delivery_Public {
 			$order_id = $invoice->order->id;
 		}
 
-		$delivery_date_settings = get_option('coderockz_woo_delivery_date_settings');			
-		$pickup_date_settings = get_option('coderockz_woo_delivery_pickup_date_settings');			
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
-		$pickup_time_settings = get_option('coderockz_woo_delivery_pickup_settings');
-		$delivery_pickup_settings = get_option('coderockz_woo_delivery_pickup_location_settings');
-		$additional_field_settings = get_option('coderockz_woo_delivery_additional_field_settings');
+		$delivery_date_settings = get_option('tapsi_woo_delivery_date_settings');			
+		$pickup_date_settings = get_option('tapsi_woo_delivery_pickup_date_settings');			
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
+		$pickup_time_settings = get_option('tapsi_woo_delivery_pickup_settings');
+		$delivery_pickup_settings = get_option('tapsi_woo_delivery_pickup_location_settings');
+		$additional_field_settings = get_option('tapsi_woo_delivery_additional_field_settings');
 
-		$delivery_date_field_label = (isset($delivery_date_settings['field_label']) && !empty($delivery_date_settings['field_label'])) ? stripslashes($delivery_date_settings['field_label']) : __( "Delivery Date", 'coderockz-woo-delivery' );
-		$pickup_date_field_label = (isset($pickup_date_settings['pickup_field_label']) && !empty($pickup_date_settings['pickup_field_label'])) ? stripslashes($pickup_date_settings['pickup_field_label']) : __( "Pickup Date", 'coderockz-woo-delivery' );
-		$delivery_time_field_label = (isset($delivery_time_settings['field_label']) && !empty($delivery_time_settings['field_label'])) ? stripslashes($delivery_time_settings['field_label']) : __( "Delivery Time", 'coderockz-woo-delivery' );
-		$pickup_time_field_label = (isset($pickup_time_settings['field_label']) && !empty($pickup_time_settings['field_label'])) ? stripslashes($pickup_time_settings['field_label']) : __( "Pickup Time", 'coderockz-woo-delivery' );
-		$pickup_location_field_label = (isset($delivery_pickup_settings['field_label']) && !empty($delivery_pickup_settings['field_label'])) ? stripslashes($delivery_pickup_settings['field_label']) : __( "Pickup Location", 'coderockz-woo-delivery' );
-		$additional_field_field_label = (isset($additional_field_settings['field_label']) && !empty($additional_field_settings['field_label'])) ? stripslashes($additional_field_settings['field_label']) : __( "Special Note About Delivery", 'coderockz-woo-delivery' );
+		$delivery_date_field_label = (isset($delivery_date_settings['field_label']) && !empty($delivery_date_settings['field_label'])) ? stripslashes($delivery_date_settings['field_label']) : __( "Delivery Date", 'tapsi-woo-delivery' );
+		$pickup_date_field_label = (isset($pickup_date_settings['pickup_field_label']) && !empty($pickup_date_settings['pickup_field_label'])) ? stripslashes($pickup_date_settings['pickup_field_label']) : __( "Pickup Date", 'tapsi-woo-delivery' );
+		$delivery_time_field_label = (isset($delivery_time_settings['field_label']) && !empty($delivery_time_settings['field_label'])) ? stripslashes($delivery_time_settings['field_label']) : __( "Delivery Time", 'tapsi-woo-delivery' );
+		$pickup_time_field_label = (isset($pickup_time_settings['field_label']) && !empty($pickup_time_settings['field_label'])) ? stripslashes($pickup_time_settings['field_label']) : __( "Pickup Time", 'tapsi-woo-delivery' );
+		$pickup_location_field_label = (isset($delivery_pickup_settings['field_label']) && !empty($delivery_pickup_settings['field_label'])) ? stripslashes($delivery_pickup_settings['field_label']) : __( "Pickup Location", 'tapsi-woo-delivery' );
+		$additional_field_field_label = (isset($additional_field_settings['field_label']) && !empty($additional_field_settings['field_label'])) ? stripslashes($additional_field_settings['field_label']) : __( "Special Note About Delivery", 'tapsi-woo-delivery' );
 
 
 		// if any timezone data is saved, set default timezone with the data
@@ -1454,26 +1454,26 @@ class Coderockz_Woo_Delivery_Public {
 
 	}
 
-	public function coderockz_woo_delivery_cloud_print_fields( $order ) {
+	public function tapsi_woo_delivery_cloud_print_fields( $order ) {
 		if ( version_compare( get_option( 'woocommerce_version' ), '3.0.0', '>=' ) ) {
 			$order_id = $order->get_id();
 		} else {
 			$order_id = $order->id;
 		}
 
-		$delivery_date_settings = get_option('coderockz_woo_delivery_date_settings');			
-		$pickup_date_settings = get_option('coderockz_woo_delivery_pickup_date_settings');			
-		$delivery_time_settings = get_option('coderockz_woo_delivery_time_settings');
-		$pickup_time_settings = get_option('coderockz_woo_delivery_pickup_settings');
-		$delivery_pickup_settings = get_option('coderockz_woo_delivery_pickup_location_settings');
-		$additional_field_settings = get_option('coderockz_woo_delivery_additional_field_settings');
+		$delivery_date_settings = get_option('tapsi_woo_delivery_date_settings');			
+		$pickup_date_settings = get_option('tapsi_woo_delivery_pickup_date_settings');			
+		$delivery_time_settings = get_option('tapsi_woo_delivery_time_settings');
+		$pickup_time_settings = get_option('tapsi_woo_delivery_pickup_settings');
+		$delivery_pickup_settings = get_option('tapsi_woo_delivery_pickup_location_settings');
+		$additional_field_settings = get_option('tapsi_woo_delivery_additional_field_settings');
 
-		$delivery_date_field_label = (isset($delivery_date_settings['field_label']) && !empty($delivery_date_settings['field_label'])) ? stripslashes($delivery_date_settings['field_label']) : __( "Delivery Date", 'coderockz-woo-delivery' );
-		$pickup_date_field_label = (isset($pickup_date_settings['pickup_field_label']) && !empty($pickup_date_settings['pickup_field_label'])) ? stripslashes($pickup_date_settings['pickup_field_label']) : __( "Pickup Date", 'coderockz-woo-delivery' );
-		$delivery_time_field_label = (isset($delivery_time_settings['field_label']) && !empty($delivery_time_settings['field_label'])) ? stripslashes($delivery_time_settings['field_label']) : __( "Delivery Time", 'coderockz-woo-delivery' );
-		$pickup_time_field_label = (isset($pickup_time_settings['field_label']) && !empty($pickup_time_settings['field_label'])) ? stripslashes($pickup_time_settings['field_label']) : __( "Pickup Time", 'coderockz-woo-delivery' );
-		$pickup_location_field_label = (isset($delivery_pickup_settings['field_label']) && !empty($delivery_pickup_settings['field_label'])) ? stripslashes($delivery_pickup_settings['field_label']) : __( "Pickup Location", 'coderockz-woo-delivery' );
-		$additional_field_field_label = (isset($additional_field_settings['field_label']) && !empty($additional_field_settings['field_label'])) ? stripslashes($additional_field_settings['field_label']) : __( "Special Note About Delivery", 'coderockz-woo-delivery' );
+		$delivery_date_field_label = (isset($delivery_date_settings['field_label']) && !empty($delivery_date_settings['field_label'])) ? stripslashes($delivery_date_settings['field_label']) : __( "Delivery Date", 'tapsi-woo-delivery' );
+		$pickup_date_field_label = (isset($pickup_date_settings['pickup_field_label']) && !empty($pickup_date_settings['pickup_field_label'])) ? stripslashes($pickup_date_settings['pickup_field_label']) : __( "Pickup Date", 'tapsi-woo-delivery' );
+		$delivery_time_field_label = (isset($delivery_time_settings['field_label']) && !empty($delivery_time_settings['field_label'])) ? stripslashes($delivery_time_settings['field_label']) : __( "Delivery Time", 'tapsi-woo-delivery' );
+		$pickup_time_field_label = (isset($pickup_time_settings['field_label']) && !empty($pickup_time_settings['field_label'])) ? stripslashes($pickup_time_settings['field_label']) : __( "Pickup Time", 'tapsi-woo-delivery' );
+		$pickup_location_field_label = (isset($delivery_pickup_settings['field_label']) && !empty($delivery_pickup_settings['field_label'])) ? stripslashes($delivery_pickup_settings['field_label']) : __( "Pickup Location", 'tapsi-woo-delivery' );
+		$additional_field_field_label = (isset($additional_field_settings['field_label']) && !empty($additional_field_settings['field_label'])) ? stripslashes($additional_field_settings['field_label']) : __( "Special Note About Delivery", 'tapsi-woo-delivery' );
 
 
 		// if any timezone data is saved, set default timezone with the data
@@ -1556,7 +1556,7 @@ class Coderockz_Woo_Delivery_Public {
 	}
 
 
-	public function coderockz_woo_delivery_init_functionality() {
+	public function tapsi_woo_delivery_init_functionality() {
 		
 		$theme_name = esc_html( wp_get_theme()->get( 'Name' ) );
 		if(strpos($theme_name,"Divi") !== false) {

@@ -45,12 +45,13 @@ $store_location_timezone = isset($time_settings['store_location_timezone']) && $
 		<p style="margin: 0!important;text-transform:uppercase;border-bottom:2px solid #1F9E60;padding-bottom:3px;font-size: 20px;font-weight: 700;color: #654C29;">WooCommerce</p>
 		<p style="margin: 0!important;text-transform:uppercase;padding-top:3px;font-size: 11px;color: #654C29;font-weight: 600;">Delivery & Pickup Date Time</p>
 		</div>
-		
+
 		<!-- <a style="float: right;margin-top: 10px;" href="https://tapsi.com/woo-delivery/its-my-life/" target="_blank" class="tapsi-woo-delivery-buy-now-btn">Live Demo</a> -->
 		<a style="float: right;margin-top: 10px;margin-right:10px;" href="https://tapsi.com/downloads/woocommerce-delivery-date-time-wordpress-plugin/" target="_blank" class="tapsi-woo-delivery-buy-now-btn">Get Pro</a>
 	</div>
 	<div class="tapsi-woo-delivery-free-vertical-tabs">
 		<div class="tapsi-woo-delivery-free-tabs">
+            <button data-tab="tab11"><i class="dashicons dashicons-admin-network" style="margin-bottom: 3px;margin-right: 10px;"></i><?php _e('Login', 'woo-delivery'); ?></button>
 			<button data-tab="tab1"><i class="dashicons dashicons-location-alt" style="margin-bottom: 3px;margin-right: 10px;"></i><?php _e('Timezone Settings', 'woo-delivery'); ?></button>
 			<button data-tab="tab2"><i class="dashicons dashicons-plugins-checked" style="margin-bottom: 3px;margin-right: 10px;"></i><?php _e('Order Settings', 'woo-delivery'); ?></button>
 			<button data-tab="tab3"><i class="dashicons dashicons-calendar-alt" style="margin-bottom: 3px;margin-right: 10px;"></i><?php _e('Delivery Date', 'woo-delivery'); ?></button>
@@ -63,7 +64,31 @@ $store_location_timezone = isset($time_settings['store_location_timezone']) && $
 			<button data-tab="tab10"><i class="dashicons dashicons-clipboard" style="margin-bottom: 3px;margin-right: 10px;"></i><?php _e('Free VS Pro', 'woo-delivery'); ?></button>
 		</div>
 		<div class="tapsi-woo-delivery-maincontent">
-			<div data-tab="tab1" class="tapsi-woo-delivery-tabcontent">
+            <div data-tab="tab11" class="tapsi-woo-delivery-tabcontent">
+                <div class="tapsi-woo-delivery-card">
+                    <p class="tapsi-woo-delivery-card-header"><?php _e('Order Type Settings', 'woo-delivery'); ?></p>
+                    <div class="tapsi-woo-delivery-card-body">
+                        <p class="tapsi-woo-delivery-delivery-option-notice"><span class="dashicons dashicons-yes"></span><?php _e(' Settings Changed Successfully', 'woo-delivery'); ?></p>
+                        <form action="" method="post" id ="tapsi_delivery_delivery_option_form_submit">
+                            <?php wp_nonce_field('tapsi_woo_delivery_nonce'); ?>
+
+<!--                            Login-->
+
+                            <div class="tapsi-woo-delivery-form-group">
+                                <label class="tapsi-woo-delivery-form-label" for="tapsi_woo_delivery_option_tapsi_token"><?php _e('Delivery Option Label', 'woo-delivery'); ?></label>
+                                <p class="tapsi-woo-delivery-tooltip" tooltip="Order Type's Home Delivery option label. Default is Delivery."><span class="dashicons dashicons-editor-help"></span></p>
+                                <input id="tapsi_woo_delivery_option_tapsi_token" name="tapsi_woo_delivery_option_tapsi_token" type="text" class="tapsi-woo-delivery-input-field" value="<?php echo (isset($delivery_option_settings['tapsi_token']) && !empty($delivery_option_settings['tapsi_token'])) ? stripslashes($delivery_option_settings['tapsi_tokentapsi_token']) : "" ?>" placeholder="" autocomplete="off"/>
+                            </div>
+
+                            <input class="tapsi-woo-delivery-submit-btn" type="submit" name="tapsi_delivery_delivery_option_form_submit" value="<?php _e('Save Changes', 'woo-delivery'); ?>" />
+
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+            <div data-tab="tab1" class="tapsi-woo-delivery-tabcontent">
 				<div class="tapsi-woo-delivery-card">
 					<p class="tapsi-woo-delivery-card-header"><?php _e('TimeZone Settings', 'woo-delivery'); ?></p>
 					<div class="tapsi-woo-delivery-card-body">
@@ -530,7 +555,6 @@ $store_location_timezone = isset($time_settings['store_location_timezone']) && $
 
                 </div>
 			</div>
-
 			<div data-tab="tab2" class="tapsi-woo-delivery-tabcontent">
 				<div class="tapsi-woo-delivery-card">
 					<p class="tapsi-woo-delivery-card-header"><?php _e('Order Type Settings', 'woo-delivery'); ?></p>
@@ -589,7 +613,6 @@ $store_location_timezone = isset($time_settings['store_location_timezone']) && $
                 </div>
 
 			</div>
-
 			<div data-tab="tab3" class="tapsi-woo-delivery-tabcontent">
 				
 				<div class="tapsi-woo-delivery-card">
@@ -682,7 +705,6 @@ $store_location_timezone = isset($time_settings['store_location_timezone']) && $
                 </div>
 
 			</div>
-
 			<div data-tab="tab4" class="tapsi-woo-delivery-tabcontent">
 				<div class="tapsi-woo-delivery-card">
 					<p class="tapsi-woo-delivery-card-header"><?php _e('General Pickup Date Settings', 'woo-delivery'); ?></p>
@@ -777,7 +799,6 @@ $store_location_timezone = isset($time_settings['store_location_timezone']) && $
 
                 </div>
 			</div>
-
 			<div data-tab="tab5" class="tapsi-woo-delivery-tabcontent">
 				<div class="tapsi-woo-delivery-card">
 					<p class="tapsi-woo-delivery-card-header"><?php _e('Off Days', 'woo-delivery'); ?></p>
@@ -869,7 +890,6 @@ $store_location_timezone = isset($time_settings['store_location_timezone']) && $
 
                 </div>
 			</div>
-
 			<div data-tab="tab6" class="tapsi-woo-delivery-tabcontent">
 				<div class="tapsi-woo-delivery-card">
 					<p class="tapsi-woo-delivery-card-header"><?php _e('General Delivery Time Settings', 'woo-delivery'); ?></p>

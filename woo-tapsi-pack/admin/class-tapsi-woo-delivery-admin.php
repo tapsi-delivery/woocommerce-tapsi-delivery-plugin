@@ -168,12 +168,15 @@ class Tapsi_Woo_Delivery_Admin {
 
 		$delivery_field_label = sanitize_text_field($form_data['tapsi_woo_delivery_option_delivery_label']);
 
+        $delivery_tapsi_token = sanitize_text_field($form_data['tapsi_woo_delivery_option_tapsi_token']);
+
 		$pickup_field_label = sanitize_text_field($form_data['tapsi_woo_delivery_option_pickup_label']);
 
 		$delivery_option_settings_form_settings['enable_option_time_pickup'] = $tapsi_enable_option_time_pickup;
 		$delivery_option_settings_form_settings['delivery_option_label'] = $delivery_option_field_label;
 		$delivery_option_settings_form_settings['delivery_label'] = $delivery_field_label;
-		$delivery_option_settings_form_settings['pickup_label'] = $pickup_field_label;
+        $delivery_option_settings_form_settings['tapsi_token'] = $delivery_tapsi_token;
+        $delivery_option_settings_form_settings['pickup_label'] = $pickup_field_label;
 
 		
 		if(get_option('tapsi_woo_delivery_option_delivery_settings') == false) {

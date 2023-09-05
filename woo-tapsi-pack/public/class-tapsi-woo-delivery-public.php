@@ -302,26 +302,69 @@ class Tapsi_Woo_Delivery_Public
 
         $order_limit_notice = (isset(get_option('tapsi_woo_delivery_localization_settings')['order_limit_notice']) && !empty(get_option('tapsi_woo_delivery_localization_settings')['order_limit_notice'])) ? "(" . get_option('tapsi_woo_delivery_localization_settings')['order_limit_notice'] . ")" : __("(Maximum Order Limit Exceed)", "woo-delivery");
 
+        $tapsi_token = (isset($delivery_option_settings['tapsi_token']) && !empty($delivery_option_settings['tapsi_token'])) ? $delivery_option_settings['tapsi_token'] : 'NoToken';
         if ($enable_delivery_time && (!$has_virtual_downloadable_products || $disable_fields_for_downloadable_products)) {
 
             echo '<div id="tapsi_woo_delivery_delivery_time_section" style="display:none;">';
 
-            woocommerce_form_field('tapsi_woo_delivery_time_field',
-                [
-                    'type' => 'select',
-                    'class' => [
-                        'tapsi_woo_delivery_time_field form-row-wide'
-                    ],
-                    'label' => __($delivery_time_field_label, "woo-delivery"),
-                    'placeholder' => __($delivery_time_field_label, "woo-delivery"),
-                    'options' => Tapsi_Woo_Delivery_Time_Option::delivery_time_option($delivery_time_settings),
-                    'required' => $delivery_time_mandatory,
-                    'custom_attributes' => [
-                        'data-default_time' => $auto_select_first_time,
-                        'data-order_limit_notice' => $order_limit_notice
-                    ],
-                ], WC()->checkout->get_value('tapsi_woo_delivery_time_field'));
+// Define the API endpoint URL
+            $api_url = 'https://api.tapsi.ir/api/v1/delivery/order/preview';
+            $originLat = 35.63064956665039;
+            $originLong = 51.36489486694336;
+            $destinationLat = 35.632899231302616;
+            $destinationLong = 51.36615198055347;
+            $dateTimestamp = 1693859400000;
+
+            $request_url = $api_url . '?originLat=' . $originLat . '&originLong=' . $originLong . '&destinationLat=' . $destinationLat . '&destinationLong=' . $destinationLong . '&dateTimestamp=' . $dateTimestamp;
+
+            $headers = ['x-authorization' => $tapsi_token];
+            $request_args = ['headers' => $headers];
+            $response = wp_remote_get($request_url,  $request_args);
+
+            if (is_wp_error($response)) {
+                echo 'Failed to fetch delivery times. Please try again later.';
+            } else {
+                // Parse the JSON response
+                $body = wp_remote_retrieve_body($response);
+                $data = json_decode($body);
+
+                if ($data) {
+                    $timeslots = $data->invoicePerTimeslots;
+
+                    if (!empty($timeslots)) {
+                        echo '<select name="tapsi_woo_delivery_time_field" class="tapsi_woo_delivery_time_field form-row-wide" required>';
+                        echo '<option value="">Select Delivery Time</option>';
+                        foreach ($timeslots as $timeslot) {
+                            $timeslotId = $timeslot->timeslotId;
+                            $startTimestamp = $timeslot->startTimestamp / 1000;
+                            $endTimestamp = $timeslot->endTimestamp / 1000;
+                            $timeslot_display = date('H:i', $startTimestamp) . ' - ' . date('H:i', $endTimestamp);
+
+                            if ($timeslot->isAvailable) {
+                                $price = $timeslot->invoice->amount;
+                                $displayText = $timeslot_display . ' (Price: ' . $price . ' toman)';
+                                $option_attributes = 'value="' . $timeslotId . '"';
+
+                                WC()->cart->add_fee(__('Shipping', 'woocommerce'), $price);
+
+                            } else {
+                                $displayText = $timeslot_display . ' is not available';
+                                $option_attributes = 'disabled="disabled"';
+                            }
+
+                            echo '<option ' . $option_attributes . '>' . $displayText . '</option>';
+                        }
+                        echo '</select>';
+                    } else {
+                        echo 'No available delivery times found.';
+                    }
+                } else {
+                    echo 'Failed to parse API response. Body: ' . $body . 'Token: ' . $tapsi_token;
+                }
+            }
+
             echo '</div>';
+
         }
 
         // End Delivery Time

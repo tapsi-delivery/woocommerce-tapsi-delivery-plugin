@@ -1,0 +1,207 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+/**
+ * Formats table headers to match the WooCommerce admin table format.
+ */
+table.wc-doordash-locations thead th {
+	vertical-align: middle;
+}
+
+/**
+ * Formats the table td and th cells to match WooCommerce's admin styling.
+ */
+table.wc-doordash-locations td,
+table.wc-doordash-locations th,
+table.wc-doordash-location-row td,
+table.wc-doordash-location-row th {
+	vertical-align: top;
+	line-height: 24px;
+	padding: 1em !important;
+	font-size: 14px;
+	background: #fff;
+	display: table-cell !important;
+}
+
+/**
+ * Adds before pseudo sort handle from WooCommerce/WordPress/Dashicons.
+ */
+table.wc-doordash-locations td.wc-doordash-location-sort::before {
+	content: "\f333";
+	font-family: Dashicons;
+	text-align: center;
+	color: #999;
+	display: block;
+	width: 17px;
+	float: left;
+	height: 100%;
+	line-height: 24px;
+}
+
+/**
+ * Adds table body td border styling and removes from the first child.
+ */
+table.wc-doordash-locations tbody.wc-doordash-location-rows tr > td {
+	border-top: 2px solid #f9f9f9;
+}
+
+table.wc-doordash-locations tbody.wc-doordash-location-row tr:first-child > td {
+	border-top: 0;
+}
+
+/**
+ * Adds table body delete action styles.
+ */
+table.wc-doordash-locations .wc-doordash-location-name a.wc-doordash-location-delete {
+	color: #a00;
+}
+
+table.wc-doordash-locations .wc-doordash-location-name a.wc-doordash-location-delete:hover {
+	color: red;
+}
+
+
+/**
+ * Adds styles for Locations listings.
+ */
+section.wc-doordash-location:not(.option) p {
+ 	display: flex;
+ 	flex-wrap: nowrap;
+ 	flex-direction: row;
+ 	align-items: center;
+	margin: 0 auto;
+ }
+
+section.wc-doordash-location:not(.option) p label,
+section.wc-doordash-location:not(.option) p label + span {
+ 	vertical-align: top;
+ 	text-align: left;
+ 	padding: 20px 10px 20px 0;
+ 	width: 200px;
+ 	line-height: 1.3;
+ 	font-weight: 600;
+ 	position: relative;
+ 	padding-right: 24px;
+ 	font-size: 14px;
+ }
+
+section.wc-doordash-location:not(.option) p label + span {
+	width: auto;
+}
+
+section.wc-doordash-location:not(.option) p label + span input {
+ 	width: 400px;
+ 	height: auto;
+ 	min-height: 30px;
+ 	line-height: 2;
+ 	margin: 0;
+ 	box-sizing: border-box;
+ 	vertical-align: top;
+ 	padding: 0 8px;
+ 	font-weight: 400;
+ }
+
+section.wc-doordash-location .optional {
+	visibility: hidden;
+}
+
+section.wc-doordash-location.hours.is-hidden {
+	display: none !important;
+}
+
+section.wc-doordash-location.hours.is-visible {
+	display: block;
+}
+
+
+/**
+ * Adds styles for the blank locations.
+ */
+table.wc-doordash-locations td.wc-doordash-locations-blank-state {
+	background: #f7f1f6 !important;
+	overflow: hidden;
+	position: relative;
+	padding: 7.5em 7.5% !important;
+	border-bottom: 2px solid #eee2ec;
+}
+
+table.wc-doordash-locations td.wc-doordash-locations-blank-state::before {
+	/* WooCommerce Icons - https: //github.com/woocommerce/woocommerce-icons*/
+	/* WooCommerce icon of globe */
+	/* content: "\e01b"; */
+	/* WooCommerce icon of store */
+	/* content: "\e900"; */
+	/* font-family: WooCommerce; */
+	/* top: 50%; */
+	/* right: -3.75%; */
+
+	text-align: center;
+	line-height: 1;
+	color: #eee2ec;
+	display: block;
+	width: 1em;
+	font-size: 40em;
+
+	/* Dashicons - https: //developer.wordpress.org/resource/dashicons/#location */
+	content: "\f230";
+	font-family: Dashicons;
+	top: 43%;
+	right: -6.75%;
+	margin-top: -.1875em;
+	position: absolute;
+}
+
+table.wc-doordash-locations td.wc-doordash-locations-blank-state p,
+table.wc-doordash-locations td.wc-doordash-locations-blank-state li {
+	color: #a46497;
+	font-size: 1.5em;
+	line-height: 1.5em;
+	margin: 0 0 1em;
+	position: relative;
+	z-index: 1;
+	text-shadow: 1px 1px 1px #fff;
+}
+
+table.wc-doordash-locations td.wc-doordash-locations-blank-state p.main {
+	font-size: 2em;
+}
+
+table.wc-doordash-locations td.wc-doordash-locations-blank-state li {
+	margin-left: 1em;
+	list-style: circle inside;
+}
+
+table.wc-doordash-locations td.wc-doordash-locations-blank-state .button-primary {
+	background-color: #804877;
+	border-color: #804877;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 0 rgba(0, 0, 0, .15);
+	margin: 0;
+	opacity: 1;
+	text-shadow: 0 -1px 1px #8a4f7f, 1px 0 1px #8a4f7f, 0 1px 1px #8a4f7f, -1px 0 1px #8a4f7f;
+	font-size: 1.5em;
+	padding: .75em 1em;
+	height: auto;
+	position: relative;
+	z-index: 1;
+}
+
+/**
+ * Styles for Webhooks screen
+ */
+p.form-row .woocommerce-input-wrapper {
+	display: flex;
+}
+p.form-row.copied input {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+	outline: 2px solid transparent;
+}
+p.form-row .copy-button {
+	min-width: 100px;
+	margin-left: 20px;
+}
+p.form-row .copy-button:hover {
+	cursor: pointer;
+}

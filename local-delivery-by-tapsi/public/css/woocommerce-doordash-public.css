@@ -1,0 +1,212 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+/**
+ * Base Flexbox Setup
+ */
+.wcdd-delivery-options-powered,
+.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper,
+.wcdd-delivery-options .wcdd-delivery-type-select .woocommerce-input-wrapper,
+.wcdd-delivery-options .woocommerce-input-wrapper label.radio,
+.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper label.radio,
+.wcdd-delivery-schedule {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper,
+.wcdd-delivery-options .wcdd-delivery-type-select .woocommerce-input-wrapper,
+.wcdd-delivery-schedule {
+	justify-content: space-between;
+}
+
+.wcdd-delivery-options .woocommerce-input-wrapper label.radio,
+.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper label.radio {
+	align-items: center;
+}
+
+.wcdd-delivery-schedule > p,
+.wcdd-delivery-options .woocommerce-input-wrapper label.radio,
+.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper label.radio {
+	flex-basis: 48.75%;
+}
+
+/**
+ * Flexbox Changes
+ */
+.wcdd-delivery-schedule {
+	flex-wrap: nowrap;
+}
+
+.wcdd-delivery-options-powered > p {
+	flex-basis: 100%;
+}
+
+/**
+ * Base Style Setup
+ */
+.wcdd-delivery-options {
+	color: rgb(105, 107, 113); /*#696b71*/
+}
+
+.wcdd-delivery-options .required {
+	color: rgb(202, 60, 29); /*#ca3c1d*/
+}
+ul#shipping_method .wcdd-delivery-options input#doordash_dropoff_instructions {
+	margin: 0 !important;
+	box-shadow: none;
+	border: 1px solid rgb(170, 170, 170); /*#696b71*/
+	border-radius: 5px;
+	background: rgb(255, 255, 255); /*#fff*/
+	color: rgb(105, 107, 113); /*#696b71*/
+}
+
+.wcdd-delivery-options p,
+.wcdd-delivery-options p:last-child {
+	margin-bottom: 0.75rem; /*12px*/
+}
+
+.wcdd-delivery-options select {
+	background-color: rgb(255, 255, 255); /*#fff*/
+	border-radius: 0.313rem; /*5px*/
+	border: 1px solid rgb(170, 170, 170); /*#aaa*/
+	color: rgb(109, 109, 109); /*#6d6d6d;*/
+	padding: 0.219rem; /*3.5px*/
+}
+
+.wcdd-delivery-options select,
+.wcdd-delivery-options select + span
+.wcdd-delivery-options .woocommerce-input-wrapper,
+.wcdd-delivery-options .woocommerce-input-wrapper > select#doordash_pickup_location,
+.wcdd-delivery-options .woocommerce-input-wrapper > select#doordash_pickup_location + span {
+ 	width: 100% !important;
+ 	display: block;
+}
+
+.wcdd-delivery-options .woocommerce-input-wrapper > select#doordash_pickup_location + span > span > span {
+	padding: 0.313rem; /*5px*/
+	height: auto;
+}
+
+.wcdd-delivery-options .woocommerce-input-wrapper > select#doordash_pickup_location + span > span > span .select2-selection__arrow {
+	height: auto;
+	padding: 20px 15px;
+}
+
+/**
+ * Add styles for the Doordash shipping method & the inner wrapper.
+ */
+.wcdd-delivery-options {
+ 	border: 1px solid rgb(170, 170, 170); /*#aaa*/
+	background-color: rgb(255, 255, 255); /*#fff*/
+ 	border-radius: 0.313rem; /*5px*/
+ 	padding: 0.625rem; /*10px*/
+ 	margin-top: 0.625rem; /*10px*/
+	/*
+	min-width: 12.188rem;
+	*/
+	/*195pxpx*/
+
+}
+
+/**
+ * Add styles for the Doordash shipping method radio buttons & labels.
+ */
+
+.wcdd-delivery-options .form-row > label > .optional {
+	display: none;
+}
+
+.wcdd-delivery-options .woocommerce-input-wrapper input[type="radio"] {
+ 	position: absolute;
+ 	width: 1px;
+ 	height: 1px;
+ 	overflow: hidden;
+ 	padding: 0;
+ 	border: 0;
+ 	clip: rect(0, 0, 0, 0);
+ 	clip-path: inset(-50%);
+ 	margin: -1px;
+ 	color: transparent;
+}
+
+.wcdd-delivery-options .woocommerce-input-wrapper label.radio {
+ 	align-items: center;
+ 	text-align: center;
+ 	padding: 0.313rem; /*5px 0*/
+ 	border-radius: 0.313rem; /*5px*/
+ 	border: 1px solid rgb(170, 170, 170); /*#aaa*/
+ 	cursor: pointer;
+ 	transition: border 0.3s, background 0.3s;
+ 	margin: 0;
+ 	font-size: 1rem; /*16px*/
+	line-height: 1.2;
+	box-sizing: border-box;
+}
+
+/**
+ * Adds margin to the top of lables after the 4th child becasue we also have to count the radio inputs before hand.
+ */
+.wcdd-delivery-options .woocommerce-input-wrapper label.radio:nth-child(n+5) {
+	margin: 3.5% 0 0 0;
+}
+
+.wcdd-delivery-options .woocommerce-input-wrapper label.radio:hover,
+.wcdd-delivery-options .woocommerce-input-wrapper label.radio:active,
+.wcdd-delivery-options .woocommerce-input-wrapper input[type="radio"]:checked+label.radio {
+	border-color: rgb(170, 170, 170); /*#aaa*/
+	background: rgb(238, 238, 238); /*#eee*/
+	color: rgb(105 107 113); /*#696b71*/
+}
+
+.wcdd-delivery-options .woocommerce-input-wrapper label.radio:focus {
+	border-color: rgb(170, 170, 170); /*#aaa*/
+	outline: 1px dotted rgb(170, 170, 170); /*#aaa*/
+	outline-offset: -4px;
+	background: rgb(238, 238, 238); /*#eee*/
+}
+
+/**
+ * Add styles for the Doordash shipping method powered by section.
+ */
+.wcdd-delivery-options-powered > p {
+ 	flex-basis: 100%;
+ 	width: 100%;
+ 	text-align: center;
+ 	margin: 0 0 0.125rem 0; /*2px*/
+ 	font-size: 0.875rem; /*14px*/
+}
+
+.wcdd-delivery-options-powered > img {
+ 	max-width: 6.25rem; /*100px*/
+}
+
+
+/**
+ * Add styles for the Doordash shipping method when the container it is in becomes to thin.
+ */
+.wcdd-delivery-options.mobile-view #doordash_tip_select_field .woocommerce-input-wrapper,
+.wcdd-delivery-options.mobile-view .wcdd-delivery-type-select .woocommerce-input-wrapper,
+.wcdd-delivery-options.mobile-view .wcdd-delivery-schedule {
+	flex-wrap: wrap;
+}
+
+.wcdd-delivery-options.mobile-view .wcdd-delivery-schedule > p,
+.wcdd-delivery-options.mobile-view .woocommerce-input-wrapper label.radio,
+.wcdd-delivery-options.tiny-view #doordash_tip_select_field .woocommerce-input-wrapper label.radio {
+	flex-basis: 100%;
+}
+
+.wcdd-delivery-options.mobile-view #doordash_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+3) {
+	margin-top: 0;
+}
+
+.wcdd-delivery-options.mobile-view .woocommerce-input-wrapper label.radio:nth-child(n+3),
+.wcdd-delivery-options.mobile-view #doordash_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+5),
+.wcdd-delivery-options.tiny-view #doordash_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+3) {
+	margin-top: 3.5%;
+}

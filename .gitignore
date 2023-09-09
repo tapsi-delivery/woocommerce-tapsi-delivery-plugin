@@ -1,4 +1,4 @@
-index.php
+/index.php
 woocommerce
 woo-delivery
 delivery-p-wp
@@ -8,3 +8,4 @@ myongkir
 sendy-api
 class-wc-connect-shipping-method/class-wc-connect-shipping-method_.php
 cider-shipping-method/
+local-delivery-by-doordash/

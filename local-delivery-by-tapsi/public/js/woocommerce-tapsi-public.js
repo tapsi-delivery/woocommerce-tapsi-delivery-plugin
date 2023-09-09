@@ -46,11 +46,11 @@
 
 		// Enhanced select on location dropdown
 		// Need to make this fire when the shipping method is selected/updated as well
-		// $('#doordash_pickup_location').selectWoo();
+		// $('#tapsi_pickup_location').selectWoo();
 
 
 		// Updates session when changing pickup location on cart
-		$('body.woocommerce-cart').on( 'change', '#doordash_pickup_location', function() {
+		$('body.woocommerce-cart').on( 'change', '#tapsi_pickup_location', function() {
 			block( $('.cart_totals') );
 			$.ajax({
 				type: 'POST',
@@ -106,7 +106,7 @@
 		// Automatically update the quote every four minutes to avoid expirations
 		updateTimeout = setTimeout( function() {
 			$( document.body ).trigger( 'update_checkout' );
-			console.log('Updated Tapsi delivery quote', $('#doordash_external_delivery_id').val());
+			console.log('Updated Tapsi delivery quote', $('#tapsi_external_delivery_id').val());
 		}, 1000 * 60 * 4 );
 
 		// Add tabindex to tip radio labels for accessibility

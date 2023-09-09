@@ -38,7 +38,7 @@ class Woocommerce_Tapsi_Logger {
 	 * @var array
 	 */
 	public $context = array(
-		'source' => 'local-delivery-by-doordash'
+		'source' => 'local-delivery-by-tapsi'
 	);
 
 	/**

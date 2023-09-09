@@ -28,10 +28,10 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method {
 	 * @since    1.0.0
 	 */
 	public function __construct( $instance_id = 0 ) {
-		$this->id = 'woocommerce_doordash';
+		$this->id = 'woocommerce_tapsi';
 		$this->instance_id = absint( $instance_id );
-		$this->method_title = __( 'Tapsi', 'local-delivery-by-doordash' );
-		$this->method_description = __( 'Allow customers to have their orders delivered via Tapsi', 'local-delivery-by-doordash' );
+		$this->method_title = __( 'Tapsi', 'local-delivery-by-tapsi' );
+		$this->method_description = __( 'Allow customers to have their orders delivered via Tapsi', 'local-delivery-by-tapsi' );
 		$this->supports = array( 
 			'shipping-zones',
 			'instance-settings',
@@ -65,17 +65,17 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method {
 	public function calculate_shipping( $package = array() ) {
 
 		$chosen_shipping_rate_id = WC()->session->get( 'chosen_shipping_methods' )[0];
-		if ( false === strpos( $chosen_shipping_rate_id, 'woocommerce_doordash' ) ) {
+		if ( false === strpos( $chosen_shipping_rate_id, 'woocommerce_tapsi' ) ) {
 			$this->add_rate( array( 
 				'label' => $this->title,
 				'package' => $package,
 				'cost' => 0,
 			) );
-			WC()->session->set( 'doordash_external_delivery_id', '' );
+			WC()->session->set( 'tapsi_external_delivery_id', '' );
 			return;
 		}
 
-		// $doordash_pickup_location = WC()->session->get( 'doordash_pickup_location' );
+		// $tapsi_pickup_location = WC()->session->get( 'tapsi_pickup_location' );
 		$delivery = new Woocommerce_Tapsi_Delivery(); // create from session data
 
 		// Only fire an API request if certain params have been set for the delivery
@@ -84,22 +84,22 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method {
 		}
 		
 		// Save the delivery id
-		WC()->session->set( 'doordash_external_delivery_id', $delivery->get_id() );
+		WC()->session->set( 'tapsi_external_delivery_id', $delivery->get_id() );
 
 		$this->add_rate( array(
 			'label' => $this->title,
 			'package' => $package,
 			'cost' => $delivery->get_fee(),
 			'meta_data' => array(
-				'doordash_delivery' => $delivery,
-				'doordash_external_delivery_id' => $delivery->get_id(),
-				'doordash_pickup_time' => $delivery->get_pickup_time(),
-				'doordash_dropoff_time' => $delivery->get_dropoff_time(),
-				'doordash_support_reference' => $delivery->get_support_reference(),
+				'tapsi_delivery' => $delivery,
+				'tapsi_external_delivery_id' => $delivery->get_id(),
+				'tapsi_pickup_time' => $delivery->get_pickup_time(),
+				'tapsi_dropoff_time' => $delivery->get_dropoff_time(),
+				'tapsi_support_reference' => $delivery->get_support_reference(),
 			)
 		) );
 
-		if ( wp_remote_retrieve_response_code( $quote_result ) !== 200 ) WC()->session->set( 'doordash_external_delivery_id', '' );
+		if ( wp_remote_retrieve_response_code( $quote_result ) !== 200 ) WC()->session->set( 'tapsi_external_delivery_id', '' );
 	}
 
 	public function init_form_fields() {

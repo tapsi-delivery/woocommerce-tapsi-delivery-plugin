@@ -38,7 +38,7 @@ class Woocommerce_Tapsi_Encryption {
 	 */
 	public function encrypt_meta( $value, $old_value, $option ) {
 		// Don't save obfuscated signing secrets
-		if ( is_admin() && substr( $value, 0, 4 ) == '****' && ( $option == 'woocommerce_doordash_production_signing_secret' || $option == 'woocommerce_doordash_sandbox_signing_secret' ) ) {
+		if ( is_admin() && substr( $value, 0, 4 ) == '****' && ( $option == 'woocommerce_tapsi_production_signing_secret' || $option == 'woocommerce_tapsi_sandbox_signing_secret' ) ) {
 			// If the value is full of stars, it's obfuscated. Ignore and return the old value for the option.
 			$value = $old_value;
 		}
@@ -57,7 +57,7 @@ class Woocommerce_Tapsi_Encryption {
 		$decrypted = $this->decrypt( $value );
 
 		// Obfuscate the value of signing secrets
-		if ( is_admin() && did_action( 'woocommerce_settings_woocommerce-doordash' ) && ( $option == 'woocommerce_doordash_production_signing_secret' || $option == 'woocommerce_doordash_sandbox_signing_secret' ) ) {
+		if ( is_admin() && did_action( 'woocommerce_settings_woocommerce-tapsi' ) && ( $option == 'woocommerce_tapsi_production_signing_secret' || $option == 'woocommerce_tapsi_sandbox_signing_secret' ) ) {
 			// Fill it with stars, but only if we're on the settings page where it's being output
 			$decrypted = str_pad( substr( $decrypted, -9 ), 32, '*', STR_PAD_LEFT );
 		}
@@ -76,10 +76,10 @@ class Woocommerce_Tapsi_Encryption {
 
 		// The option names that need to be decrypted
 		$decrypt = array(
-			'woocommerce_doordash_production_signing_secret',
-			'woocommerce_doordash_sandbox_signing_secret',
-			'woocommerce_doordash_production_key_id',
-			'woocommerce_doordash_sandbox_key_id',
+			'woocommerce_tapsi_production_signing_secret',
+			'woocommerce_tapsi_sandbox_signing_secret',
+			'woocommerce_tapsi_production_key_id',
+			'woocommerce_tapsi_sandbox_key_id',
 		);
 
 		// Loop through the option names

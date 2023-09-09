@@ -73,7 +73,7 @@ class Woocommerce_Tapsi_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/woocommerce-doordash-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/woocommerce-tapsi-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,9 +96,9 @@ class Woocommerce_Tapsi_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/woocommerce-doordash-admin.js', array( 'jquery', 'wp-i18n' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/woocommerce-tapsi-admin.js', array( 'jquery', 'wp-i18n' ), $this->version, false );
 
-		wp_register_script( 'woocommerce-doordash-admin-locations', plugin_dir_url( __FILE__ ) . 'js/woocommerce-doordash-admin-locations.js', array( 'jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-backbone-modal' ), $this->version, false );
+		wp_register_script( 'woocommerce-tapsi-admin-locations', plugin_dir_url( __FILE__ ) . 'js/woocommerce-tapsi-admin-locations.js', array( 'jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-backbone-modal' ), $this->version, false );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Woocommerce_Tapsi_Admin {
 	 * @return array Filtered settings array containing new section
 	 */
 	public function add_settings( $settings ) {
-		$settings[] = include_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-woocommerce-doordash-settings.php';
+		$settings[] = include_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-woocommerce-tapsi-settings.php';
 		return $settings;
 	}
 
@@ -120,12 +120,12 @@ class Woocommerce_Tapsi_Admin {
 	public function register_pickup_location_cpt() {
 
 		$labels = array(
-			'name'                  => _x( 'Pickup Locations', 'Post Type General Name', 'local-delivery-by-doordash' ),
-			'singular_name'         => _x( 'Pickup Location', 'Post Type Singular Name', 'local-delivery-by-doordash' ),
+			'name'                  => _x( 'Pickup Locations', 'Post Type General Name', 'local-delivery-by-tapsi' ),
+			'singular_name'         => _x( 'Pickup Location', 'Post Type Singular Name', 'local-delivery-by-tapsi' ),
 		);
 		$args = array(
-			'label'                 => __( 'Pickup Location', 'local-delivery-by-doordash' ),
-			'description'           => __( 'Tapsi Pickup Location', 'local-delivery-by-doordash' ),
+			'label'                 => __( 'Pickup Location', 'local-delivery-by-tapsi' ),
+			'description'           => __( 'Tapsi Pickup Location', 'local-delivery-by-tapsi' ),
 			'labels'                => $labels,
 			'supports'              => array( 'title' ),
 			'hierarchical'          => false,
@@ -153,7 +153,7 @@ class Woocommerce_Tapsi_Admin {
 	 * @return array Filtered array
 	 */
 	public function register_shipping_method( $methods ) {
-		$methods['woocommerce_doordash'] = 'Woocommerce_Tapsi_Shipping_Method';
+		$methods['woocommerce_tapsi'] = 'Woocommerce_Tapsi_Shipping_Method';
 		return $methods;
 	}
 
@@ -164,7 +164,7 @@ class Woocommerce_Tapsi_Admin {
 	 */
 	public function admin_sandbox_notice() {
 		if ( 'sandbox' == WCDD()->api->get_env() ) {
-			printf( '<div class="notice notice-warning is-dismissible"><p>%s</p></div>', __( 'Local Delivery by Tapsi is in <strong>Sandbox mode</strong>. Switch to Production mode to enable deliveries.', 'local-delivery-by-doordash' ) );
+			printf( '<div class="notice notice-warning is-dismissible"><p>%s</p></div>', __( 'Local Delivery by Tapsi is in <strong>Sandbox mode</strong>. Switch to Production mode to enable deliveries.', 'local-delivery-by-tapsi' ) );
 		}
 	}
 
@@ -179,20 +179,20 @@ class Woocommerce_Tapsi_Admin {
 	public function filter_order_item_displayed_meta_key( $displayed_key, $meta, $item ) {
 		if ( 'shipping' === $item->get_type() ) {
 			switch ( $meta->key ) {
-				case '_doordash_pickup_location': 
-					$displayed_key = __( 'Pickup Location', 'local-delivery-by-doordash' );
+				case '_tapsi_pickup_location': 
+					$displayed_key = __( 'Pickup Location', 'local-delivery-by-tapsi' );
 					break;
-				case 'doordash_external_delivery_id': 
-					$displayed_key = __( 'Delivery ID', 'local-delivery-by-doordash' );
+				case 'tapsi_external_delivery_id': 
+					$displayed_key = __( 'Delivery ID', 'local-delivery-by-tapsi' );
 					break;
-				case 'doordash_pickup_time': 
-					$displayed_key = __( 'Estimated Pickup', 'local-delivery-by-doordash' );
+				case 'tapsi_pickup_time': 
+					$displayed_key = __( 'Estimated Pickup', 'local-delivery-by-tapsi' );
 					break;
-				case 'doordash_dropoff_time': 
-					$displayed_key = __( 'Estimated Dropoff', 'local-delivery-by-doordash' );
+				case 'tapsi_dropoff_time': 
+					$displayed_key = __( 'Estimated Dropoff', 'local-delivery-by-tapsi' );
 					break;
-				case 'doordash_support_reference':
-					$displayed_key = __( 'Support Reference', 'local-delivery-by-doordash' );
+				case 'tapsi_support_reference':
+					$displayed_key = __( 'Support Reference', 'local-delivery-by-tapsi' );
 					break;
 			}
 		}
@@ -211,15 +211,15 @@ class Woocommerce_Tapsi_Admin {
 		if ( 'shipping' === $item->get_type() ) {
 			$gmt_offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 			switch ( $meta->key ) {
-				case '_doordash_pickup_location': 
+				case '_tapsi_pickup_location': 
 					$location = new Woocommerce_Tapsi_Pickup_Location( intval( $meta->value ) );
 					$displayed_value = $location->get_name() . '<br>' . $location->get_formatted_address();
 					break;
-				case 'doordash_pickup_time': 
+				case 'tapsi_pickup_time': 
 					$time = strtotime( $meta->value );
 					$displayed_value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $time + $gmt_offset );
 					break;
-				case 'doordash_dropoff_time': 
+				case 'tapsi_dropoff_time': 
 					$time = strtotime( $meta->value );
 					$displayed_value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $time + $gmt_offset );
 					break;
@@ -237,9 +237,9 @@ class Woocommerce_Tapsi_Admin {
 	 * @return string Filtered value in a normalized format
 	 */
 	public function update_default_hours( $value, $option, $old_value ) {
-		// if ( str_starts_with( $option, 'woocommerce_doordash_' ) && str_ends_with( $option, '_hours' ) ) {
-		// if ( strncmp( $option, 'woocommerce_doordash_', strlen( $option ) ) === 0 && substr( $option, -6 ) === '_hours' ) {
-		if ( substr( $option, 0, 21 ) == 'woocommerce_doordash_' && substr( $option, -6 ) == '_hours' ) {
+		// if ( str_starts_with( $option, 'woocommerce_tapsi_' ) && str_ends_with( $option, '_hours' ) ) {
+		// if ( strncmp( $option, 'woocommerce_tapsi_', strlen( $option ) ) === 0 && substr( $option, -6 ) === '_hours' ) {
+		if ( substr( $option, 0, 21 ) == 'woocommerce_tapsi_' && substr( $option, -6 ) == '_hours' ) {
 			$hours = new Woocommerce_Tapsi_Hours();
 			$value = $hours->normalize_hour_ranges( $value );
 		}
@@ -261,8 +261,8 @@ class Woocommerce_Tapsi_Admin {
 		$method = array_shift( $methods );
 	
 		// Get the delivery ID and object from the shipping method
-		$delivery_id = $method->get_meta("doordash_external_delivery_id");
-		$delivery = $method->get_meta( "doordash_delivery" );
+		$delivery_id = $method->get_meta("tapsi_external_delivery_id");
+		$delivery = $method->get_meta( "tapsi_delivery" );
 
 		// If the delivery ID isn't set, bail out here
 		if ( empty( $delivery_id ) ) return;
@@ -271,10 +271,10 @@ class Woocommerce_Tapsi_Admin {
 		WCDD()->api->accept_delivery_quote( $delivery );
 
 		// Update the delivery object stored in the shipping method's meta
-		$method->update_meta_data( 'doordash_delivery', $delivery );
+		$method->update_meta_data( 'tapsi_delivery', $delivery );
 
 		// Build the order note
-		$note = __( 'Tapsi Quote Accepted.', 'local-delivery-by-doordash' );
+		$note = __( 'Tapsi Quote Accepted.', 'local-delivery-by-tapsi' );
 
 		// Get the GMT offset for formatting our times
 		$gmt_offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
@@ -284,7 +284,7 @@ class Woocommerce_Tapsi_Admin {
 			$time = strtotime( $delivery->get_pickup_time() );
 			$displayed_value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $time + $gmt_offset );
 			$note .= sprintf( ' Estimated pickup at %s.', $displayed_value );
-			$order->add_meta_data( 'doordash_pickup_time', $delivery->get_pickup_time() );
+			$order->add_meta_data( 'tapsi_pickup_time', $delivery->get_pickup_time() );
 		}
 
 		// Add dropoff time to order note
@@ -292,19 +292,19 @@ class Woocommerce_Tapsi_Admin {
 			$time = strtotime( $delivery->get_dropoff_time() );
 			$displayed_value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $time + $gmt_offset );
 			$note .= sprintf( ' Estimated dropoff at %s.', $displayed_value );
-			$order->add_meta_data( 'doordash_dropoff_time', $delivery->get_dropoff_time() );
+			$order->add_meta_data( 'tapsi_dropoff_time', $delivery->get_dropoff_time() );
 		}
 
 		// Add support reference
 		if ( $delivery->get_support_reference() ) {
 			$note .= sprintf( ' Support Reference #%s.', $delivery->get_support_reference() );
-			$order->add_meta_data( 'doordash_support_reference', $delivery->get_support_reference() );
+			$order->add_meta_data( 'tapsi_support_reference', $delivery->get_support_reference() );
 		}
 
 		if ( $delivery->get_tracking_url() ) {
 			// If there is a tracking number set, add it to the order note
-			$note .= sprintf( ' <a href="%s" target="_blank">%s</a>', $delivery->get_tracking_url(), __( 'Track Delivery', 'local-delivery-by-doordash' ) );
-			$order->add_meta_data( 'doordash_tracking_url', $delivery->get_tracking_url() );
+			$note .= sprintf( ' <a href="%s" target="_blank">%s</a>', $delivery->get_tracking_url(), __( 'Track Delivery', 'local-delivery-by-tapsi' ) );
+			$order->add_meta_data( 'tapsi_tracking_url', $delivery->get_tracking_url() );
 			
 			// Compat for WooCommerce Shipment Tracking plugin
 			if ( function_exists( 'wc_st_add_tracking_number' ) ) {
@@ -317,14 +317,14 @@ class Woocommerce_Tapsi_Admin {
 		$order->add_order_note( $note );
 
 		// Clear delivery details from session. Leave the selected location.
-		WC()->session->set( 'doordash_external_delivery_id', '' );
-		WC()->session->set( 'doordash_dropoff_instructions', '' );
-		WC()->session->set( 'doordash_delivery_type',        '' );
-		WC()->session->set( 'doordash_delivery_date',        '' );
-		WC()->session->set( 'doordash_delivery_time',        '' );
-		WC()->session->set( 'doordash_tip_select',           '' );
-		WC()->session->set( 'doordash_tip_amount',           '' );
-		WC()->session->set( 'doordash_customer_information', '' );
+		WC()->session->set( 'tapsi_external_delivery_id', '' );
+		WC()->session->set( 'tapsi_dropoff_instructions', '' );
+		WC()->session->set( 'tapsi_delivery_type',        '' );
+		WC()->session->set( 'tapsi_delivery_date',        '' );
+		WC()->session->set( 'tapsi_delivery_time',        '' );
+		WC()->session->set( 'tapsi_tip_select',           '' );
+		WC()->session->set( 'tapsi_tip_amount',           '' );
+		WC()->session->set( 'tapsi_customer_information', '' );
 
 		do_action( 'wcdd_delivery_quote_accepted', $delivery, $order );
 	}
@@ -335,9 +335,9 @@ class Woocommerce_Tapsi_Admin {
 	 * @param array $providers Array of providers
 	 * @return array Filtered array of providers
 	 */
-	public function wc_shipment_tracking_add_doordash_provider( $providers ) {
+	public function wc_shipment_tracking_add_tapsi_provider( $providers ) {
 		// $tracking_string = '%1$s'; 
-		$tracking_string = 'https://www.doordash.com/drive/portal/track/%1$s'; //?intl=en-US';
+		$tracking_string = 'https://www.tapsi.com/drive/portal/track/%1$s'; //?intl=en-US';
 
 		$providers['United States']['Tapsi'] = $tracking_string;
 		$providers['Canada']['Tapsi'] = $tracking_string;
@@ -353,14 +353,14 @@ class Woocommerce_Tapsi_Admin {
 	 * 
 	 * @return void
 	 */
-	public function wc_doordash_register_rest_route() {
-		register_rest_route( 'wc/v3', '/doordash/status_updated', [
+	public function wc_tapsi_register_rest_route() {
+		register_rest_route( 'wc/v3', '/tapsi/status_updated', [
 			'methods' => 'POST',
 			'callback' => array( $this, 'status_updated' ),
-			'permission_callback' => array( $this, 'authorize_doordash_request' ),
+			'permission_callback' => array( $this, 'authorize_tapsi_request' ),
 		] );	
 
-		register_rest_route( 'wc/v3', '/doordash/save_auth_header', [
+		register_rest_route( 'wc/v3', '/tapsi/save_auth_header', [
 			'methods' => 'POST',
 			'callback' => array( $this, 'save_auth_header' ),
 			'permission_callback' => array( $this, 'authorize_save_auth_header' ),
@@ -385,8 +385,8 @@ class Woocommerce_Tapsi_Admin {
 	 * @param array $request JSON request with updated Woocommerce_Tapsi_Delivery object data
 	 * @return bool True if user is authenticated, false otherwise
 	 */
-	public function authorize_doordash_request( $request ) {
-		// get the headers and make sure this request is coming from doordash before authenticating
+	public function authorize_tapsi_request( $request ) {
+		// get the headers and make sure this request is coming from tapsi before authenticating
 		$headers = getallheaders();
 		if ( $headers && strpos( $headers['User-Agent'], 'TapsiDriveWebhooks' ) !== false ) {
 			return current_user_can( 'manage_woocommerce' );
@@ -407,7 +407,7 @@ class Woocommerce_Tapsi_Admin {
 		if ( $params && $params['consumer_key'] && $params['consumer_secret'] ) {
 			// save the data
 			$header = base64_encode( $params['consumer_key'] . ":" . $params['consumer_secret'] );
-			set_transient( 'woocommerce_doordash_auth_header', "Bearer $header", 10 * MINUTE_IN_SECONDS );
+			set_transient( 'woocommerce_tapsi_auth_header', "Bearer $header", 10 * MINUTE_IN_SECONDS );
 			return true;
 		}
 		
@@ -441,7 +441,7 @@ class Woocommerce_Tapsi_Admin {
 					LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
 					WHERE posts.post_type = 'shop_order'
 					AND order_items.order_item_type = 'shipping'
-					AND order_item_meta.meta_key = 'doordash_external_delivery_id'
+					AND order_item_meta.meta_key = 'tapsi_external_delivery_id'
 					AND order_item_meta.meta_value = %s
 					LIMIT 1", $external_delivery_id
 				)
@@ -458,46 +458,46 @@ class Woocommerce_Tapsi_Admin {
 					$method = array_shift( $methods );
 				
 					// Get the delivery ID and object from the shipping method
-					$delivery = $method->get_meta( "doordash_delivery" );
+					$delivery = $method->get_meta( "tapsi_delivery" );
 
-					// if this order has doordash delivery data, move forward with updating the delivery object, order status, and notes
+					// if this order has tapsi delivery data, move forward with updating the delivery object, order status, and notes
 					if ( $delivery ) {
 						// Read the order status from the request, and update the order status/notes as needed
 						$dd_to_woo_status_map = array(
 							'DASHER_CONFIRMED' => array(
-								'note' => __( 'A Dasher has accepted your delivery and is on the way to the pickup location.', 'local-delivery-by-doordash' ),
+								'note' => __( 'A Dasher has accepted your delivery and is on the way to the pickup location.', 'local-delivery-by-tapsi' ),
 								'wc_status' => false,
 							),
 							'DASHER_CONFIRMED_PICKUP_ARRIVAL' => array(
-								'note' => __( 'The Dasher has confirmed that they arrived at the pickup location and are attempting to pick up the delivery.', 'local-delivery-by-doordash' ),
+								'note' => __( 'The Dasher has confirmed that they arrived at the pickup location and are attempting to pick up the delivery.', 'local-delivery-by-tapsi' ),
 								'wc_status' => false,
 							),
 							'DASHER_PICKED_UP' => array(
-								'note' => __( 'The Dasher has picked up the delivery.', 'local-delivery-by-doordash' ),
+								'note' => __( 'The Dasher has picked up the delivery.', 'local-delivery-by-tapsi' ),
 								'wc_status' => 'wcdd-picked-up',
 							),
 							'DASHER_CONFIRMED_DROPOFF_ARRIVAL' => array(
-								'note' => __( 'The Dasher has confirmed that they arrived at the dropoff location.', 'local-delivery-by-doordash' ),
+								'note' => __( 'The Dasher has confirmed that they arrived at the dropoff location.', 'local-delivery-by-tapsi' ),
 								'wc_status' => false,
 							),
 							'DASHER_DROPPED_OFF' => array(
-								'note' => __( 'The Dasher has dropped off the delivery at the dropoff location and the delivery is complete.', 'local-delivery-by-doordash' ),
+								'note' => __( 'The Dasher has dropped off the delivery at the dropoff location and the delivery is complete.', 'local-delivery-by-tapsi' ),
 								'wc_status' => 'completed',
 							),
 							'DELIVERY_CANCELLED' => array(
-								'note' => __( 'The delivery has been cancelled.', 'local-delivery-by-doordash' ) . empty( $params['cancellation_reason_message'] ) ? '' : sprintf(  __( 'Reason: "%s"', 'local-delivery-by-doordash' ), $params['cancellation_reason_message'] ),
+								'note' => __( 'The delivery has been cancelled.', 'local-delivery-by-tapsi' ) . empty( $params['cancellation_reason_message'] ) ? '' : sprintf(  __( 'Reason: "%s"', 'local-delivery-by-tapsi' ), $params['cancellation_reason_message'] ),
 								'wc_status' => 'cancelled',
 							),
 							'DELIVERY_RETURN_INITIALIZED' => array(
-								'note' => __( 'The Dasher was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'local-delivery-by-doordash' ),
+								'note' => __( 'The Dasher was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'local-delivery-by-tapsi' ),
 								'wc_status' => false,
 							),
 							'DASHER_CONFIRMED_RETURN_ARRIVAL' => array(
-								'note' => __( 'The Dasher has confirmed that they arrived at the pickup location and are attempting to return the delivery.', 'local-delivery-by-doordash' ),
+								'note' => __( 'The Dasher has confirmed that they arrived at the pickup location and are attempting to return the delivery.', 'local-delivery-by-tapsi' ),
 								'wc_status' => false,
 							),
 							'DELIVERY_RETURNED' => array(
-								'note' => __( 'The delivery has been returned successfully.', 'local-delivery-by-doordash' ),
+								'note' => __( 'The delivery has been returned successfully.', 'local-delivery-by-tapsi' ),
 								'wc_status' => 'wcdd-returned',
 							),
 						);
@@ -517,43 +517,43 @@ class Woocommerce_Tapsi_Admin {
 							$order->add_order_note( $new_status_details['note'] );
 						} else {
 							// status not found in the status map, do not make any update to the status or object
-							$note = sprintf( __( 'Tapsi status update: %s.', 'local-delivery-by-doordash' ), $params['event_name'] );
+							$note = sprintf( __( 'Tapsi status update: %s.', 'local-delivery-by-tapsi' ), $params['event_name'] );
 							$order->add_order_note( $note );
 						}
 
 						// Create delivery object based on the updated delivery data
 						$updated_delivery = new Woocommerce_Tapsi_Delivery( $params );
 						if ( $updated_delivery ) {
-							$method->update_meta_data( 'doordash_delivery', $updated_delivery );
+							$method->update_meta_data( 'tapsi_delivery', $updated_delivery );
 						}
 					} else {
-						WCDD()->log->error( sprintf( __( 'Webhook: Tapsi not found order #%s.', 'local-delivery-by-doordash' ), $order->get_id() ) );
+						WCDD()->log->error( sprintf( __( 'Webhook: Tapsi not found order #%s.', 'local-delivery-by-tapsi' ), $order->get_id() ) );
 						return false;
 					}
 
-					WCDD()->log->info( sprintf( __( 'Webhook: Order #%s updated successfully.', 'local-delivery-by-doordash' ), $order->get_id() ) );
+					WCDD()->log->info( sprintf( __( 'Webhook: Order #%s updated successfully.', 'local-delivery-by-tapsi' ), $order->get_id() ) );
 					return true;
 				}
 			} else {
-				WCDD()->log->error( sprintf( __( 'Webhook: Unable to find an order with Delivery ID %s.', 'local-delivery-by-doordash' ), $external_delivery_id ) );
+				WCDD()->log->error( sprintf( __( 'Webhook: Unable to find an order with Delivery ID %s.', 'local-delivery-by-tapsi' ), $external_delivery_id ) );
 				return false;
 			}
 		} else {
-			WCDD()->log->error( __( 'Webhook: Missing required parameters.', 'local-delivery-by-doordash' ) );
+			WCDD()->log->error( __( 'Webhook: Missing required parameters.', 'local-delivery-by-tapsi' ) );
 			WCDD()->log->error( $request );
 			return false;
 		}
 	}
 
 	/**
-	 * Registers custom doordash post statuses
+	 * Registers custom tapsi post statuses
 	 * 
 	 * @return void
 	 */
-    public function register_doordash_order_statuses() {
+    public function register_tapsi_order_statuses() {
     	// register Delivery Picked Up status
         register_post_status( 'wc-wcdd-picked-up', array(
-            'label'                     => __( 'Delivery Picked Up', 'local-delivery-by-doordash' ),
+            'label'                     => __( 'Delivery Picked Up', 'local-delivery-by-tapsi' ),
             'public'                    => true,
             'show_in_admin_status_list' => true,
             'show_in_admin_all_list'    => true,
@@ -561,7 +561,7 @@ class Woocommerce_Tapsi_Admin {
         ) );
 		// register Delivery Returned status
         register_post_status( 'wc-wcdd-returned', array(
-            'label'                     => __( 'Delivery Returned', 'local-delivery-by-doordash' ),
+            'label'                     => __( 'Delivery Returned', 'local-delivery-by-tapsi' ),
             'public'                    => true,
             'show_in_admin_status_list' => true,
             'show_in_admin_all_list'    => true,
@@ -573,12 +573,12 @@ class Woocommerce_Tapsi_Admin {
 	 * Adds Tapsi custom order statuses
 	 *
 	 * @param array $order_statuses Array with all existing order statuses
-	 * @return array with doordash order statuses added
+	 * @return array with tapsi order statuses added
 	 */
-    public function add_doordash_order_statuses( $order_statuses ) {
+    public function add_tapsi_order_statuses( $order_statuses ) {
     	// add the custom order statuses to the woo drop down
-        $order_statuses['wc-wcdd-picked-up'] = __( 'Delivery Picked Up', 'local-delivery-by-doordash' );
-        $order_statuses['wc-wcdd-returned'] = __( 'Delivery Returned', 'local-delivery-by-doordash' );
+        $order_statuses['wc-wcdd-picked-up'] = __( 'Delivery Picked Up', 'local-delivery-by-tapsi' );
+        $order_statuses['wc-wcdd-returned'] = __( 'Delivery Returned', 'local-delivery-by-tapsi' );
         return $order_statuses;
     }
 
@@ -602,7 +602,7 @@ class Woocommerce_Tapsi_Admin {
 		$method = array_shift( $methods );
 	
 		// Get the location ID from the meta if it exists
-		$location_id = (int) $method->get_meta( "_doordash_pickup_location" );
+		$location_id = (int) $method->get_meta( "_tapsi_pickup_location" );
 		
 		if ( $location_id ) {
 			// Get the location object

@@ -1,7 +1,7 @@
 === Local Delivery by Tapsi ===
 Contributors: inverseparadox, eriktdesign, wildcanon, shawn_hogan
 Donate link: https://www.inverseparadox.com
-Tags: woocommerce, shipping, delivery, doordash
+Tags: woocommerce, shipping, delivery, tapsi
 Requires at least: 3.0.1
 Requires PHP: 7.4
 Tested up to: 6.3
@@ -19,9 +19,9 @@ With the Local Delivery by Tapsi plugin for WooCommerce, your store can offer co
 
 As customers enter the shopping cart or checkout page, they are quoted a local delivery rate much like other standard shipping methods. The merchant collects the customer’s payment and then pays Tapsi directly for the fulfilled delivery, meaning the customer doesn’t need a Tapsi account or app. Both customers and merchants are able to track deliveries in real time.
 
-Merchants **do not** need to be listed on Tapsi Marketplace (i.e., the Tapsi app or website) to use this plugin. However, all merchants must sign up for a free [Tapsi Developer account](https://developer.doordash.com/portal) to get API credentials and be approved to launch.
+Merchants **do not** need to be listed on Tapsi Marketplace (i.e., the Tapsi app or website) to use this plugin. However, all merchants must sign up for a free [Tapsi Developer account](https://developer.tapsi.com/portal) to get API credentials and be approved to launch.
 
-Setup is easy -- [click here for a step-by-step tutorial](https://developer.doordash.com/en-US/docs/drive/tutorials/get_started_woocommerce) and best practices for enabling delivery in your store.
+Setup is easy -- [click here for a step-by-step tutorial](https://developer.tapsi.com/en-US/docs/drive/tutorials/get_started_woocommerce) and best practices for enabling delivery in your store.
 
 = Features & Benefits =
 
@@ -35,7 +35,7 @@ Setup is easy -- [click here for a step-by-step tutorial](https://developer.door
 * Offer free or discounted delivery 
 * Offer customers the ability to tip the delivery driver
 * Enable/Disable Powered by Tapsi branding at checkout
-* Quick installation and setup - download the plugin and [click here for a simple, step-by-step guide](https://developer.doordash.com/en-US/docs/drive/tutorials/get_started_woocommerce) to getting started with local delivery.
+* Quick installation and setup - download the plugin and [click here for a simple, step-by-step guide](https://developer.tapsi.com/en-US/docs/drive/tutorials/get_started_woocommerce) to getting started with local delivery.
 
 = Get Started in seconds =
 
@@ -57,7 +57,7 @@ Installing the plugin is easy. Just use one of these methods:
 1. Click **Install Now**. After the plugin downloads, click **Activate**
 
 = Install Local Delivery by Tapsi Manually =
-1. Upload the `woocommerce-doordash` folder to your `/wp-content/plugins/` directory.
+1. Upload the `woocommerce-tapsi` folder to your `/wp-content/plugins/` directory.
 1. Activate the Local Delivery by Tapsi plugin by visiting *Plugins > Installed Plugins* and clicking **Activate**.
 
 = After Activation =
@@ -86,19 +86,19 @@ By downloading and installing this plugin, businesses can tap into the Tapsi net
 
 = Is there a quick tutorial I could check out? =
 
-Here’s our tutorial on [Getting Started with WooCommerce](https://developer.doordash.com/en-US/docs/drive/tutorials/get_started_woocommerce), which takes you from installation to a fully-configured plugin.
+Here’s our tutorial on [Getting Started with WooCommerce](https://developer.tapsi.com/en-US/docs/drive/tutorials/get_started_woocommerce), which takes you from installation to a fully-configured plugin.
 
 = Is there a more detailed guide I could check out? =
  
-Here’s our how-to guide on [Configuring Local Delivery by Tapsi](https://developer.doordash.com/en-US/docs/drive/how_to/woocommerce_settings), which contains more detailed information and best practices for shipping zones and other settings in your WooCommerce admin.
+Here’s our how-to guide on [Configuring Local Delivery by Tapsi](https://developer.tapsi.com/en-US/docs/drive/how_to/woocommerce_settings), which contains more detailed information and best practices for shipping zones and other settings in your WooCommerce admin.
 
 = Can I use Local Delivery by Tapsi if I don’t have a WooCommerce store? =
 
 If you don’t have a WooCommerce store, here are other ways to add Local Delivery by Tapsi to your business:
 
-1. **[Direct API Integration:](https://developer.doordash.com/en-US/docs/drive/tutorials/get_started)** Use our API to build local delivery with your own website, app, or point-of-sale system. 
-1. **[Node.js Integration:](https://developer.doordash.com/en-US/docs/drive/tutorials/get_started_sdk)** Use our Node.js SDK to build local delivery directly into your JavaScript or TypeScript app.
-1. **[Postman Collection:](https://developer.doordash.com/en-US/docs/drive/tutorials/get_started_postman)** Check out the Tapsi Public Workspace on the Postman API Network and get a feel for the Tapsi APIs interactively.
+1. **[Direct API Integration:](https://developer.tapsi.com/en-US/docs/drive/tutorials/get_started)** Use our API to build local delivery with your own website, app, or point-of-sale system.
+1. **[Node.js Integration:](https://developer.tapsi.com/en-US/docs/drive/tutorials/get_started_sdk)** Use our Node.js SDK to build local delivery directly into your JavaScript or TypeScript app.
+1. **[Postman Collection:](https://developer.tapsi.com/en-US/docs/drive/tutorials/get_started_postman)** Check out the Tapsi Public Workspace on the Postman API Network and get a feel for the Tapsi APIs interactively.
 
 = Which businesses can use Local Delivery by Tapsi? =
 
@@ -150,7 +150,7 @@ Anyone with a WooCommerce store can use this plugin. Simply install the plugin a
 
 = 1.0.6 =
 * Adds global setting for whether orders contain Alcohol and Tobacco. Enabling this will tell the Tapsi Drive API that all orders from the store contain alcohol/tobacco, and will trigger certain conditions for Dashers and deliveries.
-* Adds `woocommerce_doordash_enable_alcohol_tobacco` filter. This enables developers to dynamically enable or disable the setting based on contents of the cart or other conditions.
+* Adds `woocommerce_tapsi_enable_alcohol_tobacco` filter. This enables developers to dynamically enable or disable the setting based on contents of the cart or other conditions.
 * Adds setting for how many days ahead a delivery can be scheduled.
 
 = 1.0.5 =

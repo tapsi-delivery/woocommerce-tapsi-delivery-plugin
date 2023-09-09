@@ -73,7 +73,7 @@ class Woocommerce_Tapsi_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/woocommerce-doordash-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/woocommerce-tapsi-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,7 +96,7 @@ class Woocommerce_Tapsi_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/woocommerce-doordash-public.js', array( 'jquery', 'selectWoo' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/woocommerce-tapsi-public.js', array( 'jquery', 'selectWoo' ), $this->version, false );
 
 	}
 
@@ -114,11 +114,11 @@ class Woocommerce_Tapsi_Public {
 		// Get the meta data from the rate
 		$meta = $shipping_rate->get_meta_data();
 		// Set up the delivery object
-		if ( array_key_exists( 'doordash_delivery', $meta ) ) $delivery = $meta['doordash_delivery'];
+		if ( array_key_exists( 'tapsi_delivery', $meta ) ) $delivery = $meta['tapsi_delivery'];
 		else $delivery = false;
 
 		// Only output the field if the selected method is a WooCommerce Tapsi method
-		if ( false !== strpos( $chosen_shipping_rate_id, 'woocommerce_doordash' ) && $shipping_rate->id === $chosen_shipping_rate_id ) {
+		if ( false !== strpos( $chosen_shipping_rate_id, 'woocommerce_tapsi' ) && $shipping_rate->id === $chosen_shipping_rate_id ) {
 			echo '<div class="wcdd-delivery-options">';
 
 			// Get the enabled locations
@@ -128,7 +128,7 @@ class Woocommerce_Tapsi_Public {
 				//there's a single location available...so make it default here
 				$selected_location = $locations[0]->get_id();
 			} else {
-				$selected_location = WC()->checkout->get_value( 'doordash_pickup_location' ) ? WC()->checkout->get_value( 'doordash_pickup_location' ) : WC()->session->get( 'doordash_pickup_location' );
+				$selected_location = WC()->checkout->get_value( 'tapsi_pickup_location' ) ? WC()->checkout->get_value( 'tapsi_pickup_location' ) : WC()->session->get( 'tapsi_pickup_location' );
 			}
 
 			$location = new Woocommerce_Tapsi_Pickup_Location( $selected_location );
@@ -136,126 +136,126 @@ class Woocommerce_Tapsi_Public {
 			// Output pickup locations field
 			if( is_countable( $locations ) && count( $locations ) == 1 ) {
 				//hidden field + display for single location
-				woocommerce_form_field( 'doordash_pickup_location', array(
+				woocommerce_form_field( 'tapsi_pickup_location', array(
 					'type' => 'hidden',
-					'label' => __( 'Delivery From', 'local-delivery-by-doordash' ),
+					'label' => __( 'Delivery From', 'local-delivery-by-tapsi' ),
 					'class' => array( 'wcdd-pickup-location-select', 'update_totals_on_change' ), // add 'wc-enhanced-select'?
 					'default' => $selected_location,
 				), $selected_location );
 
 				echo '<p>' . $locations[0]->get_name() . ' - ' . $locations[0]->get_formatted_address() . '</p>';
 			} else {
-				woocommerce_form_field( 'doordash_pickup_location', array(
+				woocommerce_form_field( 'tapsi_pickup_location', array(
 					'type' => 'select',
-					'label' => __( 'Delivery From', 'local-delivery-by-doordash' ),
-					'placeholder' => __( 'Select...', 'local-delivery-by-doordash' ),
+					'label' => __( 'Delivery From', 'local-delivery-by-tapsi' ),
+					'placeholder' => __( 'Select...', 'local-delivery-by-tapsi' ),
 					'class' => array( 'wcdd-pickup-location-select', 'update_totals_on_change' ), // add 'wc-enhanced-select'?
 					'required' => true,
 					'default' => $selected_location,
 					'options' => $this->generate_locations_options( $locations ), // Use the enabled locations to generate an option array
-				), $selected_location ); // $checkout->get_value( 'doordash_pickup_location' ) );
+				), $selected_location ); // $checkout->get_value( 'tapsi_pickup_location' ) );
 			}
 
 			wp_nonce_field( 'wcdd_set_pickup_location', 'wcdd_set_pickup_location_nonce' );
 
 			if ( is_checkout() && $selected_location != 0 ) {
-				$woocommerce_doordash_delivery_scheduling = get_option( 'woocommerce_doordash_delivery_scheduling' );
+				$woocommerce_tapsi_delivery_scheduling = get_option( 'woocommerce_tapsi_delivery_scheduling' );
 				// Output the schedule fields
-				woocommerce_form_field( 'doordash_delivery_type', array(
-					'type' => $woocommerce_doordash_delivery_scheduling == 'both' ? 'radio' : 'hidden',
-					'label' => $woocommerce_doordash_delivery_scheduling == 'both' ? __( 'Delivery Type', 'local-delivery-by-doordash' ) : '',
+				woocommerce_form_field( 'tapsi_delivery_type', array(
+					'type' => $woocommerce_tapsi_delivery_scheduling == 'both' ? 'radio' : 'hidden',
+					'label' => $woocommerce_tapsi_delivery_scheduling == 'both' ? __( 'Delivery Type', 'local-delivery-by-tapsi' ) : '',
 					'class' => array( 'wcdd-delivery-type-select', 'update_totals_on_change' ),
 					'required' => true,
-					'default' => WC()->session->get( 'doordash_delivery_type' ) ? WC()->session->get( 'doordash_delivery_type' ) : 'immediate',
+					'default' => WC()->session->get( 'tapsi_delivery_type' ) ? WC()->session->get( 'tapsi_delivery_type' ) : 'immediate',
 					'options' => array(
-						'immediate' => __( 'ASAP', 'local-delivery-by-doordash' ),
-						'scheduled' => __( 'Scheduled', 'local-delivery-by-doordash' ),
+						'immediate' => __( 'ASAP', 'local-delivery-by-tapsi' ),
+						'scheduled' => __( 'Scheduled', 'local-delivery-by-tapsi' ),
 					),
-				// ), WC()->checkout->get_value( 'doordash_delivery_type' ) );
-				), WC()->session->get( 'doordash_delivery_type' ) ? WC()->session->get( 'doordash_delivery_type' ) : 'immediate' );
+				// ), WC()->checkout->get_value( 'tapsi_delivery_type' ) );
+				), WC()->session->get( 'tapsi_delivery_type' ) ? WC()->session->get( 'tapsi_delivery_type' ) : 'immediate' );
 
-				if ( WC()->session->get( 'doordash_delivery_type' ) == 'scheduled' || $woocommerce_doordash_delivery_scheduling == 'scheduled' ) {
+				if ( WC()->session->get( 'tapsi_delivery_type' ) == 'scheduled' || $woocommerce_tapsi_delivery_scheduling == 'scheduled' ) {
 					echo '<div class="wcdd-delivery-schedule">';
 
 						$delivery_days = $location->get_delivery_days();
-						woocommerce_form_field( 'doordash_delivery_date', array(
+						woocommerce_form_field( 'tapsi_delivery_date', array(
 							'type' => 'select',
-							'label' => __( 'Day', 'local-delivery-by-doordash' ),
+							'label' => __( 'Day', 'local-delivery-by-tapsi' ),
 							'class' => array( 'wcdd-delivery-date-select', 'update_totals_on_change' ),
 							'required' => true,
-							'default' => WC()->session->get( 'doordash_delivery_date' ),
+							'default' => WC()->session->get( 'tapsi_delivery_date' ),
 							'options' => $delivery_days,
-						), WC()->session->get( 'doordash_delivery_date' ) );
+						), WC()->session->get( 'tapsi_delivery_date' ) );
 
-						$selected_date = ! empty( WC()->session->get( 'doordash_delivery_date' ) ) ? WC()->session->get( 'doordash_delivery_date' ) : array_shift( array_keys( $delivery_days ) );
-						woocommerce_form_field( 'doordash_delivery_time', array(
+						$selected_date = ! empty( WC()->session->get( 'tapsi_delivery_date' ) ) ? WC()->session->get( 'tapsi_delivery_date' ) : array_shift( array_keys( $delivery_days ) );
+						woocommerce_form_field( 'tapsi_delivery_time', array(
 							'type' => 'select',
-							'label' => __( 'Time', 'local-delivery-by-doordash' ),
+							'label' => __( 'Time', 'local-delivery-by-tapsi' ),
 							'class' => array( 'wcdd-delivery-time-select', 'update_totals_on_change' ),
 							'required' => true,
-							'default' => WC()->session->get( 'doordash_delivery_time' ),
+							'default' => WC()->session->get( 'tapsi_delivery_time' ),
 							'options' => $location->get_delivery_times_for_date( $selected_date ),
-						), WC()->session->get( 'doordash_delivery_time' ) );
+						), WC()->session->get( 'tapsi_delivery_time' ) );
 					echo '</div>';
 					$gmt_offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 				} else {
 					// If Immediate delivery is selected, display next available delivery time
 					$delivery_time = $location->get_next_valid_time();
 					if ( $delivery_time !== false ) {
-						woocommerce_form_field( 'doordash_delivery_time', array(
+						woocommerce_form_field( 'tapsi_delivery_time', array(
 							'type' => 'hidden',
 							'default' => $delivery_time,
 						), $delivery_time );
 						$gmt_offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 						if ( $delivery && $delivery->get_dropoff_time() ) { 
-							echo '<p>' . __( 'Delivery time: ', 'local-delivery-by-doordash' ) . '<br>' . date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $delivery->get_dropoff_time( true ) + $gmt_offset ) . '</p>';
+							echo '<p>' . __( 'Delivery time: ', 'local-delivery-by-tapsi' ) . '<br>' . date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $delivery->get_dropoff_time( true ) + $gmt_offset ) . '</p>';
 						} else {
-							echo '<p>' . __( 'Delivery time: ', 'local-delivery-by-doordash' ) . '<br>' . date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $delivery_time + $gmt_offset ) . '</p>';
+							echo '<p>' . __( 'Delivery time: ', 'local-delivery-by-tapsi' ) . '<br>' . date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $delivery_time + $gmt_offset ) . '</p>';
 						}
 					}
 				}
 
 				// Output the Dropoff Instructions field
-				woocommerce_form_field( 'doordash_dropoff_instructions', array(
+				woocommerce_form_field( 'tapsi_dropoff_instructions', array(
 					'type' => 'text',
-					'label' => __( 'Dropoff Instructions', 'local-delivery-by-doordash' ),
+					'label' => __( 'Dropoff Instructions', 'local-delivery-by-tapsi' ),
 					'class' => array( 'wcdd-dropoff-instructions', 'update_totals_on_change' ),
-					'default' => WC()->session->get( 'doordash_dropoff_instructions' ),
-				), WC()->checkout->get_value( 'doordash_dropoff_instructions' ) );
+					'default' => WC()->session->get( 'tapsi_dropoff_instructions' ),
+				), WC()->checkout->get_value( 'tapsi_dropoff_instructions' ) );
 
 				// Only output the tip section if tipping is enabled
-				if ( get_option( 'woocommerce_doordash_tipping' ) == 'enabled' ) {
+				if ( get_option( 'woocommerce_tapsi_tipping' ) == 'enabled' ) {
 
 					// Output tip selector field
-					woocommerce_form_field( 'doordash_tip_select', array(
+					woocommerce_form_field( 'tapsi_tip_select', array(
 						'type' => 'radio',
-						'label' => __( 'Tip', 'local-delivery-by-doordash' ),
+						'label' => __( 'Tip', 'local-delivery-by-tapsi' ),
 						'class' => array( 'wcdd-tip-select', 'update_totals_on_change' ),
 						'options' => $this->get_tip_options(),
-						'default' => WC()->session->get( 'doordash_tip_select' ) ? WC()->session->get( 'doordash_tip_select' ) : apply_filters( 'wcdd_default_tip_option', '.20' ),
-					), WC()->checkout->get_value( 'doordash_tip_select' ) );
+						'default' => WC()->session->get( 'tapsi_tip_select' ) ? WC()->session->get( 'tapsi_tip_select' ) : apply_filters( 'wcdd_default_tip_option', '.20' ),
+					), WC()->checkout->get_value( 'tapsi_tip_select' ) );
 
 					// Output the tip amount field
-					woocommerce_form_field( 'doordash_tip_amount', array(
-						'type' => WC()->session->get( 'doordash_tip_select' ) == 'other' ? 'number' : 'hidden',
-						'label' => WC()->session->get( 'doordash_tip_select' ) == 'other' ? __( 'Custom Tip Amount', 'local-delivery-by-doordash' ) : '',
+					woocommerce_form_field( 'tapsi_tip_amount', array(
+						'type' => WC()->session->get( 'tapsi_tip_select' ) == 'other' ? 'number' : 'hidden',
+						'label' => WC()->session->get( 'tapsi_tip_select' ) == 'other' ? __( 'Custom Tip Amount', 'local-delivery-by-tapsi' ) : '',
 						'class' => array( 'wcdd-tip-amount', 'update_totals_on_change' ),
-						'default' => WC()->session->get( 'doordash_tip_amount' ),
+						'default' => WC()->session->get( 'tapsi_tip_amount' ),
 						'custom_attributes' => array(
 							'min' => '0',
 							'max' => PHP_INT_MAX,
 						),
-					), WC()->checkout->get_value( 'doordash_tip_amount' ) );
+					), WC()->checkout->get_value( 'tapsi_tip_amount' ) );
 
 				} else {
 
 					// Output hidden tip fields with zero values
-					woocommerce_form_field( 'doordash_tip_select', array(
+					woocommerce_form_field( 'tapsi_tip_select', array(
 						'type' => 'hidden',
 						'default' => 0,
 					), 0 );
 
-					woocommerce_form_field( 'doordash_tip_amount', array(
+					woocommerce_form_field( 'tapsi_tip_amount', array(
 						'type' => 'hidden',
 						'default' => 0,
 					), 0 );
@@ -265,16 +265,16 @@ class Woocommerce_Tapsi_Public {
 			}
 
 
-			woocommerce_form_field( 'doordash_external_delivery_id', array(
+			woocommerce_form_field( 'tapsi_external_delivery_id', array(
 				// 'type' => 'text',
 				'type' => 'hidden',
-				'default' => WC()->session->get( 'doordash_external_delivery_id' ),
-			), WC()->checkout->get_value( 'doordash_external_delivery_id' ) );
+				'default' => WC()->session->get( 'tapsi_external_delivery_id' ),
+			), WC()->checkout->get_value( 'tapsi_external_delivery_id' ) );
 
-			if ( apply_filters( 'wcdd_show_doordash_logo', true ) ) {
+			if ( apply_filters( 'wcdd_show_tapsi_logo', true ) ) {
 				echo '<div class="wcdd-delivery-options-powered">';
-					echo '<p>' . __( 'Powered By', 'local-delivery-by-doordash' ) . '</p>';
-					echo '<img src="' . plugin_dir_url( __FILE__ ) . '/img/doordash-logo.svg" alt="Tapsi" />';
+					echo '<p>' . __( 'Powered By', 'local-delivery-by-tapsi' ) . '</p>';
+					echo '<img src="' . plugin_dir_url( __FILE__ ) . '/img/tapsi-logo.svg" alt="Tapsi" />';
 				echo '</div>';
 			}
 
@@ -291,12 +291,12 @@ class Woocommerce_Tapsi_Public {
 		$chosen_shipping_rate_id = WC()->session->get( 'chosen_shipping_methods' )[0];
 
 		// Only run this if Tapsi is the selected shipping method
-		if ( false !== strpos( $chosen_shipping_rate_id, 'woocommerce_doordash' ) ) {
-			$external_delivery_id = WC()->session->get( 'doordash_external_delivery_id' );
+		if ( false !== strpos( $chosen_shipping_rate_id, 'woocommerce_tapsi' ) ) {
+			$external_delivery_id = WC()->session->get( 'tapsi_external_delivery_id' );
 			
 			// Fail if a location is not selected or a quote hasn't been retrieved
 			if ( empty( $external_delivery_id ) ) {
-				wc_add_notice( __( 'Tapsi: Please choose a valid location.', 'local-delivery-by-doordash' ), 'error' );
+				wc_add_notice( __( 'Tapsi: Please choose a valid location.', 'local-delivery-by-tapsi' ), 'error' );
 				return;
 			}
 
@@ -306,7 +306,7 @@ class Woocommerce_Tapsi_Public {
 			// $response = WCDD()->api->get_delivery_status( $delivery );			
 			// // Fail if the delivery status request isn't successful. This could indicate a bad delivery ID or an expired quote.
 			// if ( wp_remote_retrieve_response_code( $response ) != 200 ) {
-			// 	wc_add_notice( __( 'There was a problem creating your Tapsi Delivery. Please try again.', 'local-delivery-by-doordash' ), 'error' );
+			// 	wc_add_notice( __( 'There was a problem creating your Tapsi Delivery. Please try again.', 'local-delivery-by-tapsi' ), 'error' );
 			// 	return;
 			// }
 		}
@@ -328,7 +328,7 @@ class Woocommerce_Tapsi_Public {
 			$chosen_shipping_rate_id = $chosen_shipping_rate[0]; // [0]
 
 			// Unset the CoD method if WCDD is selected for shipping
-			if ( isset( $available_gateways['cod'] ) && false !== strpos( $chosen_shipping_rate_id, 'woocommerce_doordash' ) ) {
+			if ( isset( $available_gateways['cod'] ) && false !== strpos( $chosen_shipping_rate_id, 'woocommerce_tapsi' ) ) {
 				unset( $available_gateways['cod'] );
 			}			
 		}
@@ -379,8 +379,8 @@ class Woocommerce_Tapsi_Public {
 	 * @param $data Order data?
 	 */
 	public function save_pickup_location_to_order( $order, $data ) {
-		if ( isset( $_REQUEST['doordash_pickup_location'] ) && ! empty( $_REQUEST['doordash_pickup_location'] ) ) {
-			$order->update_meta_data( 'doordash_pickup_location', intval( $_REQUEST['doordash_pickup_location'] ) );
+		if ( isset( $_REQUEST['tapsi_pickup_location'] ) && ! empty( $_REQUEST['tapsi_pickup_location'] ) ) {
+			$order->update_meta_data( 'tapsi_pickup_location', intval( $_REQUEST['tapsi_pickup_location'] ) );
 		}
 	}
 
@@ -394,8 +394,8 @@ class Woocommerce_Tapsi_Public {
 	 * @return void
 	 */
 	public function save_pickup_location_to_order_item_shipping( $item, $package_key, $package, $order ) {
-		if ( isset( $_REQUEST['doordash_pickup_location'] ) && ! empty( $_REQUEST['doordash_pickup_location'] ) ) {
-			$item->update_meta_data( '_doordash_pickup_location', intval( $_REQUEST['doordash_pickup_location'] ) );
+		if ( isset( $_REQUEST['tapsi_pickup_location'] ) && ! empty( $_REQUEST['tapsi_pickup_location'] ) ) {
+			$item->update_meta_data( '_tapsi_pickup_location', intval( $_REQUEST['tapsi_pickup_location'] ) );
 		}
 	}
 
@@ -411,27 +411,27 @@ class Woocommerce_Tapsi_Public {
 	 */
 	public function display_pickup_location_on_order_item_totals( $total_rows, $order, $tax_display ) {
 		// Get the selected pickup location
-		$doordash_pickup_location = $order->get_meta( 'doordash_pickup_location' );
+		$tapsi_pickup_location = $order->get_meta( 'tapsi_pickup_location' );
 		$new_total_rows = array();
 
 		// Bail if location not set
-		if ( empty( $doordash_pickup_location ) ) return $total_rows;
+		if ( empty( $tapsi_pickup_location ) ) return $total_rows;
 
 		// Set up the location object
-		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $doordash_pickup_location ) );
+		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $tapsi_pickup_location ) );
 
 		// Get the shipping lines from the order
 		$items = $order->get_items( 'shipping' );
 		foreach( $items as $item ) {
-			$delivery = $item->get_meta( 'doordash_delivery' );
+			$delivery = $item->get_meta( 'tapsi_delivery' );
 			if ( $delivery ) break; // Delivery found
 		}
 
 		foreach( $total_rows as $key => $value ) {
 			if ( 'shipping' == $key ) {
 				// Add the row with information on the pickup location
-				$new_total_rows[ 'doordash_pickup_location' ] = array(
-					'label' => __( 'Tapsi from:', 'local-delivery-by-doordash' ),
+				$new_total_rows[ 'tapsi_pickup_location' ] = array(
+					'label' => __( 'Tapsi from:', 'local-delivery-by-tapsi' ),
 					'value' => $location->get_name() . '<br>' . $location->get_formatted_address(),
 				);
 				if ( $delivery && $delivery->get_dropoff_time() ) {
@@ -440,8 +440,8 @@ class Woocommerce_Tapsi_Public {
 					$time = strtotime( $delivery->get_dropoff_time() );
 					$displayed_dropoff_time = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $time + $gmt_offset );
 		
-					$new_total_rows['doordash_delivery_time'] = array(
-						'label' => __( 'Estimated Delivery Time:', 'local-delivery-by-doordash' ),
+					$new_total_rows['tapsi_delivery_time'] = array(
+						'label' => __( 'Estimated Delivery Time:', 'local-delivery-by-tapsi' ),
 						'value' => $displayed_dropoff_time,
 					);
 				}
@@ -497,7 +497,7 @@ class Woocommerce_Tapsi_Public {
 	 */
 	public function generate_locations_options( $locations ) {
 		// Add a placeholder option
-		$options = array( 0 => __( 'Select', 'local-delivery-by-doordash' ) );
+		$options = array( 0 => __( 'Select', 'local-delivery-by-tapsi' ) );
 
 		foreach( $locations as $location ) {
 			$options[ $location->get_id() ] = apply_filters( 'wcdd_location_option_name', $location->get_name() . ' - ' . $location->get_formatted_address(), $location );
@@ -510,7 +510,7 @@ class Woocommerce_Tapsi_Public {
 	 * Saves the pickup location, tip select, and tip amount to the session on update_order_review
 	 * 
 	 * @hooked woocommerce_checkout_update_order_review - 10
-	 * @hooked wp_ajax_nopriv_doordash_save_data_to_session - 10
+	 * @hooked wp_ajax_nopriv_tapsi_save_data_to_session - 10
 	 *
 	 * @param string $data String with passed data from checkout
 	 * @return void
@@ -527,7 +527,7 @@ class Woocommerce_Tapsi_Public {
 		}
 
 		//grab delivery type setting
-		$woocommerce_doordash_delivery_scheduling = get_option( 'woocommerce_doordash_delivery_scheduling' );
+		$woocommerce_tapsi_delivery_scheduling = get_option( 'woocommerce_tapsi_delivery_scheduling' );
 
 		// Has the date changed?
 		$date_changed = false;
@@ -541,91 +541,91 @@ class Woocommerce_Tapsi_Public {
 				$customer_contact_information[$base_key] = $data[$key];
 			}
 		}
-		WC()->session->set( 'doordash_customer_information', $customer_contact_information );
+		WC()->session->set( 'tapsi_customer_information', $customer_contact_information );
 
 		// Save the Pickup Location
-		if ( array_key_exists( 'doordash_pickup_location', $data ) ) { // phpcs:ignore String is parsed to array
-			$doordash_pickup_location = $data['doordash_pickup_location'];
-			WC()->session->set( 'doordash_pickup_location', $doordash_pickup_location );
+		if ( array_key_exists( 'tapsi_pickup_location', $data ) ) { // phpcs:ignore String is parsed to array
+			$tapsi_pickup_location = $data['tapsi_pickup_location'];
+			WC()->session->set( 'tapsi_pickup_location', $tapsi_pickup_location );
 		} else {
 			//make pickup location gets set if possible
 			$locations = $this->get_enabled_locations();
 
 			if( is_countable( $locations ) && count( $locations ) > 0 ) {
 				//first location as default if nothing is set
-				$doordash_pickup_location = $locations[0]->get_id();
-				WC()->session->set( 'doordash_pickup_location', $doordash_pickup_location );
+				$tapsi_pickup_location = $locations[0]->get_id();
+				WC()->session->set( 'tapsi_pickup_location', $tapsi_pickup_location );
 			} else {
 				//there are no locations
 			}
 		}
 
 		// Save the dropoff instructions
-		if ( array_key_exists( 'doordash_dropoff_instructions', $data ) ) { // phpcs:ignore
-			$doordash_dropoff_instructions = $data['doordash_dropoff_instructions'];
-			WC()->session->set( 'doordash_dropoff_instructions', $doordash_dropoff_instructions );
+		if ( array_key_exists( 'tapsi_dropoff_instructions', $data ) ) { // phpcs:ignore
+			$tapsi_dropoff_instructions = $data['tapsi_dropoff_instructions'];
+			WC()->session->set( 'tapsi_dropoff_instructions', $tapsi_dropoff_instructions );
 		}
 
 		// Save the delivery type
-		if ( array_key_exists( 'doordash_delivery_type', $data ) ) { // phpcs:ignore
-			$doordash_delivery_type = $data['doordash_delivery_type'];
+		if ( array_key_exists( 'tapsi_delivery_type', $data ) ) { // phpcs:ignore
+			$tapsi_delivery_type = $data['tapsi_delivery_type'];
 			// If the delivery type has been set to immediate, make sure to remove the delivery date value.
-			if ( $doordash_delivery_type == 'immediate' ) $data['doordash_delivery_date'] = '';
-			WC()->session->set( 'doordash_delivery_type', $doordash_delivery_type );
-		}elseif( $woocommerce_doordash_delivery_scheduling == 'scheduled' ){
-			$doordash_delivery_type = 'scheduled';
-			WC()->session->set( 'doordash_delivery_type', $doordash_delivery_type );
+			if ( $tapsi_delivery_type == 'immediate' ) $data['tapsi_delivery_date'] = '';
+			WC()->session->set( 'tapsi_delivery_type', $tapsi_delivery_type );
+		}elseif( $woocommerce_tapsi_delivery_scheduling == 'scheduled' ){
+			$tapsi_delivery_type = 'scheduled';
+			WC()->session->set( 'tapsi_delivery_type', $tapsi_delivery_type );
 		}
 
 		// Save the delivery date
-		if ( array_key_exists( 'doordash_delivery_date', $data ) ) { // phpcs:ignore
-			$doordash_delivery_date = $data['doordash_delivery_date'];
+		if ( array_key_exists( 'tapsi_delivery_date', $data ) ) { // phpcs:ignore
+			$tapsi_delivery_date = $data['tapsi_delivery_date'];
 			// Set $date_changed if the user changed the date since the last request.
-			if ( $doordash_delivery_date != WC()->session->get( 'doordash_delivery_date' ) && $doordash_delivery_type == 'scheduled' && WC()->session->get( 'doordash_delivery_date' ) != '' ) $date_changed = true;
-			WC()->session->set( 'doordash_delivery_date', $doordash_delivery_date );
+			if ( $tapsi_delivery_date != WC()->session->get( 'tapsi_delivery_date' ) && $tapsi_delivery_type == 'scheduled' && WC()->session->get( 'tapsi_delivery_date' ) != '' ) $date_changed = true;
+			WC()->session->set( 'tapsi_delivery_date', $tapsi_delivery_date );
 		}
 
 		// Save the delivery time
-		if ( array_key_exists( 'doordash_delivery_time', $data ) ) { //phpcs:ignore
+		if ( array_key_exists( 'tapsi_delivery_time', $data ) ) { //phpcs:ignore
 			if ( $date_changed ) {
 				// If the date changed, we need to manually get the first available time for that day
-				$location = new Woocommerce_Tapsi_Pickup_Location( $doordash_pickup_location );
-				$doordash_delivery_time = array_shift( array_keys( $location->get_delivery_times_for_date( $doordash_delivery_date ) ) );
+				$location = new Woocommerce_Tapsi_Pickup_Location( $tapsi_pickup_location );
+				$tapsi_delivery_time = array_shift( array_keys( $location->get_delivery_times_for_date( $tapsi_delivery_date ) ) );
 			} else {
 				// If the date didn't change, carry on
-				$doordash_delivery_time = $data['doordash_delivery_time'];
+				$tapsi_delivery_time = $data['tapsi_delivery_time'];
 			}
-			WC()->session->set( 'doordash_delivery_time', $doordash_delivery_time );
-		}elseif( $data['doordash_delivery_date'] == '' ){
+			WC()->session->set( 'tapsi_delivery_time', $tapsi_delivery_time );
+		}elseif( $data['tapsi_delivery_date'] == '' ){
 			//if this doesn't exist, set it to earliest. The form fields probably didn't exist in the html for this update
-			$location = new Woocommerce_Tapsi_Pickup_Location( $doordash_pickup_location );
-			$doordash_delivery_time = $location->get_next_valid_time();
+			$location = new Woocommerce_Tapsi_Pickup_Location( $tapsi_pickup_location );
+			$tapsi_delivery_time = $location->get_next_valid_time();
 
 			//catch tip here too
-			$data['doordash_tip_select'] = '.20';
+			$data['tapsi_tip_select'] = '.20';
 
-			WC()->session->set( 'doordash_delivery_time', $doordash_delivery_time );
+			WC()->session->set( 'tapsi_delivery_time', $tapsi_delivery_time );
 		}
 
 		// Save the selected tip value
-		if ( array_key_exists( 'doordash_tip_select', $data ) ) { // phpcs:ignore
-			$doordash_tip_select = $data['doordash_tip_select'];
-			WC()->session->set( 'doordash_tip_select', $doordash_tip_select );
+		if ( array_key_exists( 'tapsi_tip_select', $data ) ) { // phpcs:ignore
+			$tapsi_tip_select = $data['tapsi_tip_select'];
+			WC()->session->set( 'tapsi_tip_select', $tapsi_tip_select );
 		} else {
-			$doordash_tip_select = 'other';
+			$tapsi_tip_select = 'other';
 		}
 
 		// Handle the actual tip amount from the options or the number input
-		if ( 'other' != $doordash_tip_select ) {
-			if ( strpos( $doordash_tip_select, '%' ) !== false ) $doordash_tip_select = floatval( $doordash_tip_select ) / 100;
-			$doordash_tip_amount = WC()->cart->get_subtotal() * floatval( $doordash_tip_select );
-		} elseif ( array_key_exists( 'doordash_tip_amount', $data ) ) { // phpcs:ignore
+		if ( 'other' != $tapsi_tip_select ) {
+			if ( strpos( $tapsi_tip_select, '%' ) !== false ) $tapsi_tip_select = floatval( $tapsi_tip_select ) / 100;
+			$tapsi_tip_amount = WC()->cart->get_subtotal() * floatval( $tapsi_tip_select );
+		} elseif ( array_key_exists( 'tapsi_tip_amount', $data ) ) { // phpcs:ignore
 			// Save the entered tip amount
-			$doordash_tip_amount = floatval( $data['doordash_tip_amount'] );
+			$tapsi_tip_amount = floatval( $data['tapsi_tip_amount'] );
 		} else {
-			$doordash_tip_amount = 0;
+			$tapsi_tip_amount = 0;
 		}
-		WC()->session->set( 'doordash_tip_amount', number_format( $doordash_tip_amount, 2, '.', '' ) );
+		WC()->session->set( 'tapsi_tip_amount', number_format( $tapsi_tip_amount, 2, '.', '' ) );
 
 		return;
 	}
@@ -649,7 +649,7 @@ class Woocommerce_Tapsi_Public {
 		$location_id = intval( $_POST['location_id'] );
 
 		// Set the location ID in the session
-		WC()->session->set( 'doordash_pickup_location', $location_id );
+		WC()->session->set( 'tapsi_pickup_location', $location_id );
 		exit;
 	}
 
@@ -662,24 +662,24 @@ class Woocommerce_Tapsi_Public {
 	 */
 	public function maybe_add_tip() {
 		// Bail if tipping is disabled
-		if ( get_option( 'woocommerce_doordash_tipping' ) != 'enabled' ) return;
+		if ( get_option( 'woocommerce_tapsi_tipping' ) != 'enabled' ) return;
 
 		// Get the selected method
 		$chosen_shipping_rate = WC()->session->get( 'chosen_shipping_methods' );
 		if ( is_array( $chosen_shipping_rate ) ) {
 			$chosen_shipping_rate_id = $chosen_shipping_rate[0]; // [0]
-			if ( false !== strpos( $chosen_shipping_rate_id, 'woocommerce_doordash' ) && WC()->session->get( 'doordash_pickup_location' ) != 0 ) {
-				$tip_select = WC()->session->get( 'doordash_tip_select' ) ? WC()->session->get( 'doordash_tip_select' ) : apply_filters( 'wcdd_default_tip_option', '.20' );
+			if ( false !== strpos( $chosen_shipping_rate_id, 'woocommerce_tapsi' ) && WC()->session->get( 'tapsi_pickup_location' ) != 0 ) {
+				$tip_select = WC()->session->get( 'tapsi_tip_select' ) ? WC()->session->get( 'tapsi_tip_select' ) : apply_filters( 'wcdd_default_tip_option', '.20' );
 				if ( 'other' != $tip_select ) {
 					if ( strpos( $tip_select, '%' ) !== false ) $tip_select = floatval( $tip_select ) / 100;
 					$tip_amount = WC()->cart->get_subtotal() * floatval( $tip_select );
 				} else {
-					$tip_amount = WC()->session->get( 'doordash_tip_amount' );
+					$tip_amount = WC()->session->get( 'tapsi_tip_amount' );
 				}
 
 				if ( $tip_amount > 0 ) {
 					// Only add the fee if there is a tip attached
-					WC()->cart->add_fee( __( 'Dasher Tip', 'local-delivery-by-doordash' ), $tip_amount );
+					WC()->cart->add_fee( __( 'Dasher Tip', 'local-delivery-by-tapsi' ), $tip_amount );
 				}
 			}
 		}

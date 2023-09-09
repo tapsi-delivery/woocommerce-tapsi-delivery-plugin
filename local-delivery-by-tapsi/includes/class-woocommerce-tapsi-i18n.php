@@ -35,7 +35,7 @@ class Woocommerce_Tapsi_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'local-delivery-by-doordash',
+			'local-delivery-by-tapsi',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

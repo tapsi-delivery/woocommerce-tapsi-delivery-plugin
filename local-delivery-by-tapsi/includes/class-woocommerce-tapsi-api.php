@@ -32,7 +32,7 @@ class Woocommerce_Tapsi_API {
 
 	protected $jwt;
 
-	protected $api_url = "https://openapi.doordash.com";
+	protected $api_url = "https://openapi.tapsi.com";
 
 	public function __construct() {
 		// Get the keys from the options
@@ -49,7 +49,7 @@ class Woocommerce_Tapsi_API {
 		if ( ! empty( $this->jwt ) ) return true;
 
 		// Set the prefix for the plugin options
-		$prefix = "woocommerce_doordash_";
+		$prefix = "woocommerce_tapsi_";
 
 		// Get the developer ID
 		$this->developer_id = get_option( $prefix . 'developer_id' );
@@ -110,7 +110,7 @@ class Woocommerce_Tapsi_API {
 	/**
 	 * Generate a JSON Web Token (JWT) for API request auth
 	 * 
-	 * @see https://developer.doordash.com/en-US/docs/drive/how_to/JWTs/
+	 * @see https://developer.tapsi.com/en-US/docs/drive/how_to/JWTs/
 	 *
 	 * @return string Generated JWT
 	 */
@@ -126,7 +126,7 @@ class Woocommerce_Tapsi_API {
 
 		// Prepare the JWT payload
 		$payload = json_encode( array(
-			'aud' => 'doordash',
+			'aud' => 'tapsi',
 			'iss' => $this->developer_id,
 			'kid' => $this->key_id,
 			'exp' => time() + 300,
@@ -163,7 +163,7 @@ class Woocommerce_Tapsi_API {
 		if ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			$delivery->create_from_array( $body );
-			WCDD()->log->info( sprintf( __( 'Retrieved delivery quote %s', 'local-delivery-by-doordash' ), $delivery->get_id() ) );
+			WCDD()->log->info( sprintf( __( 'Retrieved delivery quote %s', 'local-delivery-by-tapsi' ), $delivery->get_id() ) );
 			return $response;
 		} else if ( wp_remote_retrieve_response_code( $response ) === 409 ) {
 			// Retry as a status update
@@ -184,7 +184,7 @@ class Woocommerce_Tapsi_API {
 		if ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			$delivery->create_from_array( $body );
-			WCDD()->log->info( sprintf( __( 'Accepted delivery quote %s', 'local-delivery-by-doordash' ), $delivery->get_id() ) );
+			WCDD()->log->info( sprintf( __( 'Accepted delivery quote %s', 'local-delivery-by-tapsi' ), $delivery->get_id() ) );
 			return $response;
 		} 
 		return $response;
@@ -203,7 +203,7 @@ class Woocommerce_Tapsi_API {
 		if ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			$delivery->create_from_array( $body );
-			WCDD()->log->info( sprintf( __( 'Created delivery %s', 'local-delivery-by-doordash' ), $delivery->get_id() ) );
+			WCDD()->log->info( sprintf( __( 'Created delivery %s', 'local-delivery-by-tapsi' ), $delivery->get_id() ) );
 			return $response;
 		}
 		return $response;
@@ -221,7 +221,7 @@ class Woocommerce_Tapsi_API {
 		if ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			$delivery->create_from_array( $body );
-			WCDD()->log->info( sprintf( __( 'Retrieved delivery status for %s', 'local-delivery-by-doordash' ), $delivery->get_id() ) );
+			WCDD()->log->info( sprintf( __( 'Retrieved delivery status for %s', 'local-delivery-by-tapsi' ), $delivery->get_id() ) );
 			return $response;
 		}
 		return $response;
@@ -239,7 +239,7 @@ class Woocommerce_Tapsi_API {
 		if ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			$delivery->create_from_array( $body );
-			WCDD()->log->info( sprintf( __( 'Updated delivery %s', 'local-delivery-by-doordash' ), $delivery->get_id() ) );
+			WCDD()->log->info( sprintf( __( 'Updated delivery %s', 'local-delivery-by-tapsi' ), $delivery->get_id() ) );
 			return $response;
 		}
 		return $response;
@@ -257,7 +257,7 @@ class Woocommerce_Tapsi_API {
 		if ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			$delivery->create_from_array( $body );
-			WCDD()->log->info( sprintf( __( 'Cancelled delivery %s', 'local-delivery-by-doordash' ), $delivery->get_id() ) );
+			WCDD()->log->info( sprintf( __( 'Cancelled delivery %s', 'local-delivery-by-tapsi' ), $delivery->get_id() ) );
 			return $response;
 		}
 		return $response;
@@ -273,7 +273,7 @@ class Woocommerce_Tapsi_API {
 	public function request( $request_path, $request_args ) {
 		// Before making a request, make sure we have keys
 		if ( ! $this->get_keys() ) {
-			WCDD()->log->error( sprintf( __( 'Error performing request to %s: Missing API configuration', 'local-delivery-by-doordash' ), $request_path ) );
+			WCDD()->log->error( sprintf( __( 'Error performing request to %s: Missing API configuration', 'local-delivery-by-tapsi' ), $request_path ) );
 			return false;
 		}
 
@@ -292,7 +292,7 @@ class Woocommerce_Tapsi_API {
 		$request_args = wp_parse_args( $request_args, $defaults );
 
 		// Log the request
-		WCDD()->log->debug( sprintf( __( 'Sending request to %s', 'local-delivery-by-doordash' ), $request_path ) );
+		WCDD()->log->debug( sprintf( __( 'Sending request to %s', 'local-delivery-by-tapsi' ), $request_path ) );
 		WCDD()->log->debug( $request_args );
 
 		// Run the remote request
@@ -303,7 +303,7 @@ class Woocommerce_Tapsi_API {
 
 		// Log WP error
 		if ( is_wp_error( $response ) ) {
-			WCDD()->log->error( sprintf( __( 'Error performing request to %s', 'local-delivery-by-doordash' ), $request_path ) );
+			WCDD()->log->error( sprintf( __( 'Error performing request to %s', 'local-delivery-by-tapsi' ), $request_path ) );
 			WCDD()->log->error( $response );
 			return false;
 		} 
@@ -318,48 +318,48 @@ class Woocommerce_Tapsi_API {
 				case 400: 
 					// The request was syntactically invalid
 					if( isset( $body->field_errors[0]->field ) && $body->field_errors[0]->field == 'dropoff_phone_number' ) {
-						wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( ' Make sure the phone number is valid and belongs to the same country as the address.', 'local-delivery-by-doordash' ), 'notice' );
+						wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-tapsi' ) . __( ' Make sure the phone number is valid and belongs to the same country as the address.', 'local-delivery-by-tapsi' ), 'notice' );
 					} elseif ( isset( $body->field_errors[0]->field ) && $body->field_errors[0]->field == 'dropoff_address' ) {
-						wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( 'Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-doordash' ), 'notice' );
+						wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-tapsi' ) . __( 'Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-tapsi' ), 'notice' );
 					} else {
-						wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( $body->message, 'local-delivery-by-doordash' ), 'notice' );
+						wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-tapsi' ) . __( $body->message, 'local-delivery-by-tapsi' ), 'notice' );
 					}
 
 					break;
 				case 401: 
 					// Authentication error
-					wc_add_notice( __( 'Tapsi: Authentication Error', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: Authentication Error', 'local-delivery-by-tapsi' ), 'notice' );
 					break;
 				case 403:
 					// Authorization error
-					wc_add_notice( __( 'Tapsi: Authorization Error', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: Authorization Error', 'local-delivery-by-tapsi' ), 'notice' );
 					break;
 				case 404:
 					// Resource doesn't exist
-					wc_add_notice( __( 'Tapsi: Resource does not exist', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: Resource does not exist', 'local-delivery-by-tapsi' ), 'notice' );
 					break;
 				case 409: 
 					// System state doesn't allow operation to proceed
-					// wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( $body->message, 'local-delivery-by-doordash' ), 'notice' );
+					// wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-tapsi' ) . __( $body->message, 'local-delivery-by-tapsi' ), 'notice' );
 					break;
 				case 422:
 					// Logical validation error
-					wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( 'Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-tapsi' ) . __( 'Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-tapsi' ), 'notice' );
 					// wc_add_notice( wc_print_r( $body->message, true ) );
 					break;
 				case 429:
 					// Too many requests
-					wc_add_notice( __( 'Tapsi: Too many requests', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: Too many requests', 'local-delivery-by-tapsi' ), 'notice' );
 					break;
 			}
 
 			// Add a notice for server connectivity issues
 			if ( 500 >= $response_code && $response_code > 600 ) {
-				wc_add_notice( __( 'There was a problem communicating with Tapsi. Please try again later.', 'local-delivery-by-doordash' ), 'notice' );
+				wc_add_notice( __( 'There was a problem communicating with Tapsi. Please try again later.', 'local-delivery-by-tapsi' ), 'notice' );
 			}
 
 			// Log the error
-			WCDD()->log->error( sprintf( __( 'Error %s performing request to %s', 'local-delivery-by-doordash' ), $response_code, $request_url ) );
+			WCDD()->log->error( sprintf( __( 'Error %s performing request to %s', 'local-delivery-by-tapsi' ), $response_code, $request_url ) );
 			WCDD()->log->error( $body );
 		}
 		

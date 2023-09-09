@@ -102,25 +102,25 @@ class Woocommerce_Tapsi_Delivery {
 	 */
 	public function create_from_session() {
 		// Get the location ID from the session and set up the location object
-		$location_id = WC()->session->get( 'doordash_pickup_location' );
+		$location_id = WC()->session->get( 'tapsi_pickup_location' );
 		$location = new Woocommerce_Tapsi_Pickup_Location( $location_id );
 
 		// Get the tip
-		if ( get_option( 'woocommerce_doordash_tipping' ) == 'enabled' ) {
-			$tip = intval( doubleval( WC()->session->get( 'doordash_tip_amount' ) ) * 100 );
+		if ( get_option( 'woocommerce_tapsi_tipping' ) == 'enabled' ) {
+			$tip = intval( doubleval( WC()->session->get( 'tapsi_tip_amount' ) ) * 100 );
 		} else {
 			$tip = 0;
 		}
 
 		// Get the time
-		if ( WC()->session->get( 'doordash_delivery_type' ) == 'immediate' ) {
+		if ( WC()->session->get( 'tapsi_delivery_type' ) == 'immediate' ) {
 			$delivery_time = $location->get_next_valid_time();
 		} else {
-			$delivery_time = intval( WC()->session->get( 'doordash_delivery_time' ) );
+			$delivery_time = intval( WC()->session->get( 'tapsi_delivery_time' ) );
 		}
 
 		// get customer data from session
-		$customer_information = wp_parse_args( WC()->session->get( 'doordash_customer_information' ), array(
+		$customer_information = wp_parse_args( WC()->session->get( 'tapsi_customer_information' ), array(
 			'company'    => '',
 			'first_name' => '',
 			'last_name'  => '',
@@ -137,12 +137,12 @@ class Woocommerce_Tapsi_Delivery {
 			'pickup_address'                     => $location->get_formatted_address(),
 			'pickup_business_name'               => $location->get_name(),
 			'pickup_phone_number'                => $location->get_phone_number(),
-			'pickup_instructions'                => $location->get_pickup_instructions() ? $location->get_pickup_instructions() : get_option( 'woocommerce_doordash_default_pickup_instructions' ),
+			'pickup_instructions'                => $location->get_pickup_instructions() ? $location->get_pickup_instructions() : get_option( 'woocommerce_tapsi_default_pickup_instructions' ),
 			'pickup_reference_tag'               => '',
 			'dropoff_address'                    => $this->format_address( $customer_information ), 
 			'dropoff_business_name'              => $customer_information['company'],
 			'dropoff_phone_number'               => $this->format_phone( $customer_information['phone'] ), 
-			'dropoff_instructions'               => WC()->session->get( 'doordash_dropoff_instructions' ),
+			'dropoff_instructions'               => WC()->session->get( 'tapsi_dropoff_instructions' ),
 			'dropoff_contact_given_name'         => $customer_information['first_name'],
 			'dropoff_contact_family_name'        => $customer_information['last_name'],
 			'dropoff_contact_send_notifications' => apply_filters( 'wcdd_contact_send_notifications', true ),
@@ -154,7 +154,7 @@ class Woocommerce_Tapsi_Delivery {
 		);
 
 		//does cart contain alcohol or tobacco
-		$alcohol_tobacco_in_cart = apply_filters( 'alcohol_tobacco_in_cart', ( get_option( 'woocommerce_doordash_enable_alcohol_tobacco' ) == 'enabled'?1:0 ), WC()->cart->get_cart() );
+		$alcohol_tobacco_in_cart = apply_filters( 'alcohol_tobacco_in_cart', ( get_option( 'woocommerce_tapsi_enable_alcohol_tobacco' ) == 'enabled'?1:0 ), WC()->cart->get_cart() );
 
 		if ( $alcohol_tobacco_in_cart ) {
 			$data['order_contains'] = array( 'alcohol' => true );
@@ -258,8 +258,8 @@ class Woocommerce_Tapsi_Delivery {
 	public function get_fee() {
 		$quoted = $this->get_quoted_rate();
 
-		$fees_mode = get_option( 'woocommerce_doordash_fees_mode' );
-		$delivery_fee = get_option( 'woocommerce_doordash_delivery_fee' );
+		$fees_mode = get_option( 'woocommerce_tapsi_fees_mode' );
+		$delivery_fee = get_option( 'woocommerce_tapsi_delivery_fee' );
 
 		if ( $fees_mode == 'no_rate' ) {
 			return 0;
@@ -297,7 +297,7 @@ class Woocommerce_Tapsi_Delivery {
 	 * Used in calculating pickup times and order windows
 	 */
 	public function get_lead_time() {
-		$prefix = "woocommerce_doordash_";
+		$prefix = "woocommerce_tapsi_";
 
 		// Get the developer ID
 		$lead_time = get_option( $prefix . 'lead_time' );

@@ -290,7 +290,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 	public function get_weekly_hours( $key ) {
 		$key = strtolower( $key );
 		if ( $this->has_hours() && array_key_exists( $key, $this->data['weekly_hours'] ) ) return $this->data['weekly_hours'][$key];
-		else return get_option( "woocommerce_doordash_{$key}_hours" );
+		else return get_option( "woocommerce_tapsi_{$key}_hours" );
 	}
 
 	/**
@@ -323,7 +323,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 		$current_day = floor( $this->get_next_valid_time() / DAY_IN_SECONDS ) * DAY_IN_SECONDS;
 
 		// Get the number of days out that we should allow orders. Defaults to 14
-		$number_of_days = apply_filters( 'wcdd_delivery_number_of_days_ahead', intval( get_option( 'woocommerce_doordash_number_of_days_ahead' ) ) ?? 14 );
+		$number_of_days = apply_filters( 'wcdd_delivery_number_of_days_ahead', intval( get_option( 'woocommerce_tapsi_number_of_days_ahead' ) ) ?? 14 );
 
 		$i = 1;
 
@@ -337,10 +337,10 @@ class Woocommerce_Tapsi_Pickup_Location {
 			if ( ! empty( $day_hours ) ) {
 				if ( $current_day == $today ) {
 					// Custom label for Today
-					$days[$current_day] = __( 'Today', 'local-delivery-by-doordash' );
+					$days[$current_day] = __( 'Today', 'local-delivery-by-tapsi' );
 				} else if ( $current_day == $tomorrow ) {
 					// Custom label for Tomorrow
-					$days[$current_day] = __( 'Tomorrow', 'local-delivery-by-doordash' );
+					$days[$current_day] = __( 'Tomorrow', 'local-delivery-by-tapsi' );
 				} else {
 					// Otherwise, use a standard format, Tue, 5/7
 					$days[$current_day] = date( $day_fmt, $current_day );
@@ -404,7 +404,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 		$day_of_week = date( 'l', $timestamp );
 		$date = strtotime( date( 'Y-m-d', $timestamp ) );
 		$day_hours = $this->get_weekly_hours( $day_of_week );
-		$lead_time = intval( get_option( 'woocommerce_doordash_lead_time' ) ) * MINUTE_IN_SECONDS;
+		$lead_time = intval( get_option( 'woocommerce_tapsi_lead_time' ) ) * MINUTE_IN_SECONDS;
 		
 		if ( empty( $day_hours ) ) return false;
 
@@ -434,12 +434,12 @@ class Woocommerce_Tapsi_Pickup_Location {
 		// We need to add the offset so the current LOCAL day is reported
 		$today = time() + $gmt_offset; 
 		// Get the Lead time in seconds
-		$lead_time = intval( get_option( 'woocommerce_doordash_lead_time' ) ) * MINUTE_IN_SECONDS;
+		$lead_time = intval( get_option( 'woocommerce_tapsi_lead_time' ) ) * MINUTE_IN_SECONDS;
 		// Get the current day to start checking hours. Gets the time at midnight on the correct day
 		$current_day = floor( ( $today + $lead_time ) / DAY_IN_SECONDS ) * DAY_IN_SECONDS;
 
 		$ddhours = new Woocommerce_Tapsi_Hours();
-		$number_of_days = apply_filters( 'wcdd_delivery_number_of_days_ahead', intval( get_option( 'woocommerce_doordash_number_of_days_ahead' ) ) ?? 14 );
+		$number_of_days = apply_filters( 'wcdd_delivery_number_of_days_ahead', intval( get_option( 'woocommerce_tapsi_number_of_days_ahead' ) ) ?? 14 );
 
 		// Set target delivery time to current time + lead time + average delivery time
 		$time = time() + $lead_time + $gmt_offset + ( $this->get_average_delivery_time() * MINUTE_IN_SECONDS );

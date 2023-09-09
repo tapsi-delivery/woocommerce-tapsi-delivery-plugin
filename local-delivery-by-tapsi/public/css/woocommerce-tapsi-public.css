@@ -7,10 +7,10 @@
  * Base Flexbox Setup
  */
 .wcdd-delivery-options-powered,
-.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper,
+.wcdd-delivery-options #tapsi_tip_select_field .woocommerce-input-wrapper,
 .wcdd-delivery-options .wcdd-delivery-type-select .woocommerce-input-wrapper,
 .wcdd-delivery-options .woocommerce-input-wrapper label.radio,
-.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper label.radio,
+.wcdd-delivery-options #tapsi_tip_select_field .woocommerce-input-wrapper label.radio,
 .wcdd-delivery-schedule {
 	display: flex;
 	flex-wrap: wrap;
@@ -18,20 +18,20 @@
 	justify-content: center;
 }
 
-.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper,
+.wcdd-delivery-options #tapsi_tip_select_field .woocommerce-input-wrapper,
 .wcdd-delivery-options .wcdd-delivery-type-select .woocommerce-input-wrapper,
 .wcdd-delivery-schedule {
 	justify-content: space-between;
 }
 
 .wcdd-delivery-options .woocommerce-input-wrapper label.radio,
-.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper label.radio {
+.wcdd-delivery-options #tapsi_tip_select_field .woocommerce-input-wrapper label.radio {
 	align-items: center;
 }
 
 .wcdd-delivery-schedule > p,
 .wcdd-delivery-options .woocommerce-input-wrapper label.radio,
-.wcdd-delivery-options #doordash_tip_select_field .woocommerce-input-wrapper label.radio {
+.wcdd-delivery-options #tapsi_tip_select_field .woocommerce-input-wrapper label.radio {
 	flex-basis: 48.75%;
 }
 
@@ -56,7 +56,7 @@
 .wcdd-delivery-options .required {
 	color: rgb(202, 60, 29); /*#ca3c1d*/
 }
-ul#shipping_method .wcdd-delivery-options input#doordash_dropoff_instructions {
+ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
 	margin: 0 !important;
 	box-shadow: none;
 	border: 1px solid rgb(170, 170, 170); /*#696b71*/
@@ -81,18 +81,18 @@ ul#shipping_method .wcdd-delivery-options input#doordash_dropoff_instructions {
 .wcdd-delivery-options select,
 .wcdd-delivery-options select + span
 .wcdd-delivery-options .woocommerce-input-wrapper,
-.wcdd-delivery-options .woocommerce-input-wrapper > select#doordash_pickup_location,
-.wcdd-delivery-options .woocommerce-input-wrapper > select#doordash_pickup_location + span {
+.wcdd-delivery-options .woocommerce-input-wrapper > select#tapsi_pickup_location,
+.wcdd-delivery-options .woocommerce-input-wrapper > select#tapsi_pickup_location + span {
  	width: 100% !important;
  	display: block;
 }
 
-.wcdd-delivery-options .woocommerce-input-wrapper > select#doordash_pickup_location + span > span > span {
+.wcdd-delivery-options .woocommerce-input-wrapper > select#tapsi_pickup_location + span > span > span {
 	padding: 0.313rem; /*5px*/
 	height: auto;
 }
 
-.wcdd-delivery-options .woocommerce-input-wrapper > select#doordash_pickup_location + span > span > span .select2-selection__arrow {
+.wcdd-delivery-options .woocommerce-input-wrapper > select#tapsi_pickup_location + span > span > span .select2-selection__arrow {
 	height: auto;
 	padding: 20px 15px;
 }
@@ -189,7 +189,7 @@ ul#shipping_method .wcdd-delivery-options input#doordash_dropoff_instructions {
 /**
  * Add styles for the Tapsi shipping method when the container it is in becomes to thin.
  */
-.wcdd-delivery-options.mobile-view #doordash_tip_select_field .woocommerce-input-wrapper,
+.wcdd-delivery-options.mobile-view #tapsi_tip_select_field .woocommerce-input-wrapper,
 .wcdd-delivery-options.mobile-view .wcdd-delivery-type-select .woocommerce-input-wrapper,
 .wcdd-delivery-options.mobile-view .wcdd-delivery-schedule {
 	flex-wrap: wrap;
@@ -197,16 +197,16 @@ ul#shipping_method .wcdd-delivery-options input#doordash_dropoff_instructions {
 
 .wcdd-delivery-options.mobile-view .wcdd-delivery-schedule > p,
 .wcdd-delivery-options.mobile-view .woocommerce-input-wrapper label.radio,
-.wcdd-delivery-options.tiny-view #doordash_tip_select_field .woocommerce-input-wrapper label.radio {
+.wcdd-delivery-options.tiny-view #tapsi_tip_select_field .woocommerce-input-wrapper label.radio {
 	flex-basis: 100%;
 }
 
-.wcdd-delivery-options.mobile-view #doordash_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+3) {
+.wcdd-delivery-options.mobile-view #tapsi_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+3) {
 	margin-top: 0;
 }
 
 .wcdd-delivery-options.mobile-view .woocommerce-input-wrapper label.radio:nth-child(n+3),
-.wcdd-delivery-options.mobile-view #doordash_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+5),
-.wcdd-delivery-options.tiny-view #doordash_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+3) {
+.wcdd-delivery-options.mobile-view #tapsi_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+5),
+.wcdd-delivery-options.tiny-view #tapsi_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+3) {
 	margin-top: 3.5%;
 }

@@ -31,10 +31,10 @@ class Woocommerce_Tapsi_Activator {
 	 */
 	public static function activate() {
 		$encrypted_options = array( 
-			'woocommerce_doordash_production_signing_secret',
-			'woocommerce_doordash_sandbox_signing_secret',
-			'woocommerce_doordash_production_key_id',
-			'woocommerce_doordash_sandbox_key_id',
+			'woocommerce_tapsi_production_signing_secret',
+			'woocommerce_tapsi_sandbox_signing_secret',
+			'woocommerce_tapsi_production_key_id',
+			'woocommerce_tapsi_sandbox_key_id',
 		);
 		foreach ( $encrypted_options as $option ) {
 			if ( ! get_option( $option ) ) update_option( $option, '', false );

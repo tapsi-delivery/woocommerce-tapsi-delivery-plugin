@@ -6,17 +6,17 @@
 /**
  * Formats table headers to match the WooCommerce admin table format.
  */
-table.wc-doordash-locations thead th {
+table.wc-tapsi-locations thead th {
 	vertical-align: middle;
 }
 
 /**
  * Formats the table td and th cells to match WooCommerce's admin styling.
  */
-table.wc-doordash-locations td,
-table.wc-doordash-locations th,
-table.wc-doordash-location-row td,
-table.wc-doordash-location-row th {
+table.wc-tapsi-locations td,
+table.wc-tapsi-locations th,
+table.wc-tapsi-location-row td,
+table.wc-tapsi-location-row th {
 	vertical-align: top;
 	line-height: 24px;
 	padding: 1em !important;
@@ -28,7 +28,7 @@ table.wc-doordash-location-row th {
 /**
  * Adds before pseudo sort handle from WooCommerce/WordPress/Dashicons.
  */
-table.wc-doordash-locations td.wc-doordash-location-sort::before {
+table.wc-tapsi-locations td.wc-tapsi-location-sort::before {
 	content: "\f333";
 	font-family: Dashicons;
 	text-align: center;
@@ -43,22 +43,22 @@ table.wc-doordash-locations td.wc-doordash-location-sort::before {
 /**
  * Adds table body td border styling and removes from the first child.
  */
-table.wc-doordash-locations tbody.wc-doordash-location-rows tr > td {
+table.wc-tapsi-locations tbody.wc-tapsi-location-rows tr > td {
 	border-top: 2px solid #f9f9f9;
 }
 
-table.wc-doordash-locations tbody.wc-doordash-location-row tr:first-child > td {
+table.wc-tapsi-locations tbody.wc-tapsi-location-row tr:first-child > td {
 	border-top: 0;
 }
 
 /**
  * Adds table body delete action styles.
  */
-table.wc-doordash-locations .wc-doordash-location-name a.wc-doordash-location-delete {
+table.wc-tapsi-locations .wc-tapsi-location-name a.wc-tapsi-location-delete {
 	color: #a00;
 }
 
-table.wc-doordash-locations .wc-doordash-location-name a.wc-doordash-location-delete:hover {
+table.wc-tapsi-locations .wc-tapsi-location-name a.wc-tapsi-location-delete:hover {
 	color: red;
 }
 
@@ -66,7 +66,7 @@ table.wc-doordash-locations .wc-doordash-location-name a.wc-doordash-location-de
 /**
  * Adds styles for Locations listings.
  */
-section.wc-doordash-location:not(.option) p {
+section.wc-tapsi-location:not(.option) p {
  	display: flex;
  	flex-wrap: nowrap;
  	flex-direction: row;
@@ -74,8 +74,8 @@ section.wc-doordash-location:not(.option) p {
 	margin: 0 auto;
  }
 
-section.wc-doordash-location:not(.option) p label,
-section.wc-doordash-location:not(.option) p label + span {
+section.wc-tapsi-location:not(.option) p label,
+section.wc-tapsi-location:not(.option) p label + span {
  	vertical-align: top;
  	text-align: left;
  	padding: 20px 10px 20px 0;
@@ -87,11 +87,11 @@ section.wc-doordash-location:not(.option) p label + span {
  	font-size: 14px;
  }
 
-section.wc-doordash-location:not(.option) p label + span {
+section.wc-tapsi-location:not(.option) p label + span {
 	width: auto;
 }
 
-section.wc-doordash-location:not(.option) p label + span input {
+section.wc-tapsi-location:not(.option) p label + span input {
  	width: 400px;
  	height: auto;
  	min-height: 30px;
@@ -103,15 +103,15 @@ section.wc-doordash-location:not(.option) p label + span input {
  	font-weight: 400;
  }
 
-section.wc-doordash-location .optional {
+section.wc-tapsi-location .optional {
 	visibility: hidden;
 }
 
-section.wc-doordash-location.hours.is-hidden {
+section.wc-tapsi-location.hours.is-hidden {
 	display: none !important;
 }
 
-section.wc-doordash-location.hours.is-visible {
+section.wc-tapsi-location.hours.is-visible {
 	display: block;
 }
 
@@ -119,7 +119,7 @@ section.wc-doordash-location.hours.is-visible {
 /**
  * Adds styles for the blank locations.
  */
-table.wc-doordash-locations td.wc-doordash-locations-blank-state {
+table.wc-tapsi-locations td.wc-tapsi-locations-blank-state {
 	background: #f7f1f6 !important;
 	overflow: hidden;
 	position: relative;
@@ -127,7 +127,7 @@ table.wc-doordash-locations td.wc-doordash-locations-blank-state {
 	border-bottom: 2px solid #eee2ec;
 }
 
-table.wc-doordash-locations td.wc-doordash-locations-blank-state::before {
+table.wc-tapsi-locations td.wc-tapsi-locations-blank-state::before {
 	/* WooCommerce Icons - https: //github.com/woocommerce/woocommerce-icons*/
 	/* WooCommerce icon of globe */
 	/* content: "\e01b"; */
@@ -153,8 +153,8 @@ table.wc-doordash-locations td.wc-doordash-locations-blank-state::before {
 	position: absolute;
 }
 
-table.wc-doordash-locations td.wc-doordash-locations-blank-state p,
-table.wc-doordash-locations td.wc-doordash-locations-blank-state li {
+table.wc-tapsi-locations td.wc-tapsi-locations-blank-state p,
+table.wc-tapsi-locations td.wc-tapsi-locations-blank-state li {
 	color: #a46497;
 	font-size: 1.5em;
 	line-height: 1.5em;
@@ -164,16 +164,16 @@ table.wc-doordash-locations td.wc-doordash-locations-blank-state li {
 	text-shadow: 1px 1px 1px #fff;
 }
 
-table.wc-doordash-locations td.wc-doordash-locations-blank-state p.main {
+table.wc-tapsi-locations td.wc-tapsi-locations-blank-state p.main {
 	font-size: 2em;
 }
 
-table.wc-doordash-locations td.wc-doordash-locations-blank-state li {
+table.wc-tapsi-locations td.wc-tapsi-locations-blank-state li {
 	margin-left: 1em;
 	list-style: circle inside;
 }
 
-table.wc-doordash-locations td.wc-doordash-locations-blank-state .button-primary {
+table.wc-tapsi-locations td.wc-tapsi-locations-blank-state .button-primary {
 	background-color: #804877;
 	border-color: #804877;
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 0 rgba(0, 0, 0, .15);

@@ -90,7 +90,7 @@ class Woocommerce_Tapsi {
 		} else {
 			$this->version = '1.0.7';
 		}
-		$this->plugin_name = 'local-delivery-by-doordash';
+		$this->plugin_name = 'local-delivery-by-tapsi';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -121,60 +121,60 @@ class Woocommerce_Tapsi {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-logger.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-tapsi-logger.php';
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-tapsi-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-tapsi-i18n.php';
 
 		/**
 		 * The class responsible for defining the Tapsi Delivery object
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-delivery.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-tapsi-delivery.php';
 
 		/**
 		 * The class responsible for defining the Tapsi Location object
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-pickup-location.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-tapsi-pickup-location.php';
 
 		/**
 		 * The class responsible for encryption functionality
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-encryption.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-tapsi-encryption.php';
 
 		/**
 		 * The class responsible for location hours functionality
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-hours.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-tapsi-hours.php';
 
 		/**
 		 * The class responsible for Tapsi API operations
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-api.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-tapsi-api.php';
 
 		/**
 		 * The class responsible for Tapsi API operations
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-shipping-method.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-tapsi-shipping-method.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-woocommerce-doordash-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-woocommerce-tapsi-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-woocommerce-doordash-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-woocommerce-tapsi-public.php';
 
 		$this->loader = new Woocommerce_Tapsi_Loader();
 		$this->log = new Woocommerce_Tapsi_Logger();
@@ -218,16 +218,16 @@ class Woocommerce_Tapsi {
 		$this->loader->add_filter( 'woocommerce_get_settings_pages', $plugin_admin, 'add_settings' );
 		
 		// Signing secret encryption
-		$this->loader->add_filter( 'pre_update_option_woocommerce_doordash_sandbox_signing_secret', $encryption, 'encrypt_meta', 10, 3 );
-		$this->loader->add_filter( 'pre_update_option_woocommerce_doordash_production_signing_secret', $encryption, 'encrypt_meta', 10, 3 );
-		$this->loader->add_filter( 'option_woocommerce_doordash_sandbox_signing_secret', $encryption, 'decrypt_meta', 10, 2 );
-		$this->loader->add_filter( 'option_woocommerce_doordash_production_signing_secret', $encryption, 'decrypt_meta', 10, 2 );
+		$this->loader->add_filter( 'pre_update_option_woocommerce_tapsi_sandbox_signing_secret', $encryption, 'encrypt_meta', 10, 3 );
+		$this->loader->add_filter( 'pre_update_option_woocommerce_tapsi_production_signing_secret', $encryption, 'encrypt_meta', 10, 3 );
+		$this->loader->add_filter( 'option_woocommerce_tapsi_sandbox_signing_secret', $encryption, 'decrypt_meta', 10, 2 );
+		$this->loader->add_filter( 'option_woocommerce_tapsi_production_signing_secret', $encryption, 'decrypt_meta', 10, 2 );
 		
 		// Key ID encryption
-		$this->loader->add_filter( 'pre_update_option_woocommerce_doordash_sandbox_key_id', $encryption, 'encrypt_meta', 10, 3 );
-		$this->loader->add_filter( 'pre_update_option_woocommerce_doordash_production_key_id', $encryption, 'encrypt_meta', 10, 3 );
-		$this->loader->add_filter( 'option_woocommerce_doordash_sandbox_key_id', $encryption, 'decrypt_meta', 10, 2 );
-		$this->loader->add_filter( 'option_woocommerce_doordash_production_key_id', $encryption, 'decrypt_meta', 10, 2 );
+		$this->loader->add_filter( 'pre_update_option_woocommerce_tapsi_sandbox_key_id', $encryption, 'encrypt_meta', 10, 3 );
+		$this->loader->add_filter( 'pre_update_option_woocommerce_tapsi_production_key_id', $encryption, 'encrypt_meta', 10, 3 );
+		$this->loader->add_filter( 'option_woocommerce_tapsi_sandbox_key_id', $encryption, 'decrypt_meta', 10, 2 );
+		$this->loader->add_filter( 'option_woocommerce_tapsi_production_key_id', $encryption, 'decrypt_meta', 10, 2 );
 		
 		// Decrypt our options on the alloptions autoloader
 		// $this->loader->add_filter( 'alloptions', $encryption, 'get_all_options', 9999, 1 );
@@ -244,12 +244,12 @@ class Woocommerce_Tapsi {
 		// Register a shipping method
 		$this->loader->add_filter( 'woocommerce_shipping_methods', $plugin_admin, 'register_shipping_method' );
 
-		// setup doordash order statuses
-		$this->loader->add_action( 'init', $plugin_admin, 'register_doordash_order_statuses' );
-		$this->loader->add_filter( 'wc_order_statuses', $plugin_admin, 'add_doordash_order_statuses' );		
+		// setup tapsi order statuses
+		$this->loader->add_action( 'init', $plugin_admin, 'register_tapsi_order_statuses' );
+		$this->loader->add_filter( 'wc_order_statuses', $plugin_admin, 'add_tapsi_order_statuses' );		
 
 		// register custom endpoint / route to update order statuses
-		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'wc_doordash_register_rest_route' );
+		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'wc_tapsi_register_rest_route' );
 
 		// Filter meta key and value display
 		$this->loader->add_filter( 'woocommerce_order_item_display_meta_key', $plugin_admin, 'filter_order_item_displayed_meta_key', 20, 3 );
@@ -262,7 +262,7 @@ class Woocommerce_Tapsi {
 		$this->loader->add_action( 'woocommerce_email_recipient_new_order', $plugin_admin, 'new_order_email_recipient', 10, 3 );
 
 		// Adds custom tracking provider for Tapsi to the WooCommerce Shipment Tracking plugin
-		$this->loader->add_action( 'wc_shipment_tracking_get_providers', $plugin_admin, 'wc_shipment_tracking_add_doordash_provider', 10, 1 );
+		$this->loader->add_action( 'wc_shipment_tracking_get_providers', $plugin_admin, 'wc_shipment_tracking_add_tapsi_provider', 10, 1 );
 
 	}
 
@@ -301,7 +301,7 @@ class Woocommerce_Tapsi {
 
 		// Save the data to the session when updating the order review step
 		$this->loader->add_action( 'woocommerce_checkout_update_order_review', $plugin_public, 'save_data_to_session', 10, 1 );
-		$this->loader->add_action( 'wp_ajax_nopriv_doordash_save_data_to_session', $plugin_public, 'save_data_to_session', 10, 1 );
+		$this->loader->add_action( 'wp_ajax_nopriv_tapsi_save_data_to_session', $plugin_public, 'save_data_to_session', 10, 1 );
 
 		// Trigger shipping calculation on update_totals
 		$this->loader->add_action( 'woocommerce_checkout_update_order_review', $plugin_public, 'trigger_shipping_calculation', 10, 1 );

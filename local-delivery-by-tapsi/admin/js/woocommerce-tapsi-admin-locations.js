@@ -1,11 +1,11 @@
 /* global pickupLocationsLocalizeScript, ajaxurl */
 ( function( $, data, wp, ajaxurl ) {
 	$( function() {
-		var $table          = $( '.wc-doordash-locations' ),
-			$tbody          = $( '.wc-doordash-location-rows' ),
-			$save_button    = $( '.wc-doordash-location-save' ),
-			$row_template   = wp.template( 'wc-doordash-location-row' ),
-			$blank_template = wp.template( 'wc-doordash-location-row-blank' ),
+		var $table          = $( '.wc-tapsi-locations' ),
+			$tbody          = $( '.wc-tapsi-location-rows' ),
+			$save_button    = $( '.wc-tapsi-location-save' ),
+			$row_template   = wp.template( 'wc-tapsi-location-row' ),
+			$blank_template = wp.template( 'wc-tapsi-location-row-blank' ),
 
 			// Backbone model
 			PickupLocation       = Backbone.Model.extend({
@@ -47,9 +47,9 @@
 				},
 				save: function() {
 					if ( _.size( this.changes ) ) {
-						$.post( ajaxurl, { // + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=woocommerce_doordash_pickup_locations_save_changes', {
-							action: 'woocommerce_doordash_pickup_locations_save_changes',
-							wc_doordash_pickup_locations_nonce : data.wc_doordash_pickup_locations_nonce,
+						$.post( ajaxurl, { // + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=woocommerce_tapsi_pickup_locations_save_changes', {
+							action: 'woocommerce_tapsi_pickup_locations_save_changes',
+							wc_tapsi_pickup_locations_nonce : data.wc_tapsi_pickup_locations_nonce,
 							changes                 : this.changes
 						}, this.onSaveResponse, 'json' );
 					} else {
@@ -80,7 +80,7 @@
 					$tbody.on( 'change', { view: this }, this.updateModelOnChange );
 					$tbody.on( 'sortupdate', { view: this }, this.updateModelOnSort );
 					$( window ).on( 'beforeunload', { view: this }, this.unloadConfirmation );
-					$( document.body ).on( 'click', '.wc-doordash-location-add', { view: this }, this.onAddNewRow );
+					$( document.body ).on( 'click', '.wc-tapsi-location-add', { view: this }, this.onAddNewRow );
 				},
 				onAddNewRow: function() {
 					var $link = $( this );
@@ -133,14 +133,14 @@
 					var $tr = view.$el.find( 'tr[data-id="' + rowData.location_id + '"]');
 
 					// List shipping methods
-					$tr.find( '.wc-doordash-location-delete' ).on( 'click', { view: this }, this.onDeleteRow );
+					$tr.find( '.wc-tapsi-location-delete' ).on( 'click', { view: this }, this.onDeleteRow );
 				},
 				initRows: function() {
 					// Stripe
-					if ( 0 === ( $( 'tbody.wc-doordash-location-rows tr' ).length % 2 ) ) {
-						$table.find( 'tbody.wc-doordash-location-rows' ).next( 'tbody' ).find( 'tr' ).addClass( 'odd' );
+					if ( 0 === ( $( 'tbody.wc-tapsi-location-rows tr' ).length % 2 ) ) {
+						$table.find( 'tbody.wc-tapsi-location-rows' ).next( 'tbody' ).find( 'tr' ).addClass( 'odd' );
 					} else {
-						$table.find( 'tbody.wc-doordash-location-rows' ).next( 'tbody' ).find( 'tr' ).removeClass( 'odd' );
+						$table.find( 'tbody.wc-tapsi-location-rows' ).next( 'tbody' ).find( 'tr' ).removeClass( 'odd' );
 					}
 					// Tooltips
 					$( '#tiptip_holder' ).removeAttr( 'style' );
@@ -204,7 +204,7 @@
 					var view    = event.data.view,
 						model   = view.model,
 						locations   = _.indexBy( model.get( 'locations' ), 'location_id' ),
-						rows    = $( 'tbody.wc-doordash-location-rows tr' ),
+						rows    = $( 'tbody.wc-tapsi-location-rows tr' ),
 						changes = {};
 
 					// Update sorted row position
@@ -243,7 +243,7 @@
 			items: 'tr',
 			cursor: 'move',
 			axis: 'y',
-			handle: 'td.wc-doordash-location-sort',
+			handle: 'td.wc-tapsi-location-sort',
 			scrollSensitivity: 40
 		});
 	});

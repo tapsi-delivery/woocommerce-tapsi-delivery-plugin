@@ -7,14 +7,14 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Local Delivery by Tapsi
- * Plugin URI:        https://developer.doordash.com/wordpress-plugin
+ * Plugin URI:        https://developer.tapsi.com/wordpress-plugin
  * Description:       Let Tapsi power your delivery. Use Tapsi as a shipping provider to offer local, on-demand delivery for your WooCommerce store. Configure multiple pickup locations, delivery hours, tip amounts, and more.
  * Version:           1.0.8
  * Author:            Tapsi
- * Author URI:        https://developer.doordash.com/en-US/wordpress-plugin
+ * Author URI:        https://developer.tapsi.com/en-US/wordpress-plugin
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       local-delivery-by-doordash
+ * Text Domain:       local-delivery-by-tapsi
  * Domain Path:       /languages
  */
 
@@ -30,30 +30,30 @@ define( 'WOOCOMMERCE_DOORDASH_VERSION', '1.0.8' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-woocommerce-doordash-activator.php
+ * This action is documented in includes/class-woocommerce-tapsi-activator.php
  */
-function activate_woocommerce_doordash() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-doordash-activator.php';
+function activate_woocommerce_tapsi() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-tapsi-activator.php';
 	Woocommerce_Tapsi_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-woocommerce-doordash-deactivator.php
+ * This action is documented in includes/class-woocommerce-tapsi-deactivator.php
  */
-function deactivate_woocommerce_doordash() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-doordash-deactivator.php';
+function deactivate_woocommerce_tapsi() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-tapsi-deactivator.php';
 	Woocommerce_Tapsi_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_woocommerce_doordash' );
-register_deactivation_hook( __FILE__, 'deactivate_woocommerce_doordash' );
+register_activation_hook( __FILE__, 'activate_woocommerce_tapsi' );
+register_deactivation_hook( __FILE__, 'deactivate_woocommerce_tapsi' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-doordash.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-tapsi.php';
 
 /**
  * Begins execution of the plugin.
@@ -70,7 +70,7 @@ function WCDD() {
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		// If WooCommerce is not active, display a notice.
 		add_action( 'admin_notices', function() {
-			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Local Delivery by Tapsi requires WooCommerce to be installed and active.', 'local-delivery-by-doordash' ) ); 
+			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Local Delivery by Tapsi requires WooCommerce to be installed and active.', 'local-delivery-by-tapsi' ) ); 
 		} );
 		return false;
 	}
@@ -98,7 +98,7 @@ add_action( 'plugins_loaded', 'WCDD' );
  * @return array Filtered links
  */
 function wcdd_add_action_links ( $links ) {
-	array_unshift( $links, sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=woocommerce-doordash' ), __( 'Settings', 'local-delivery-by-doordash' ) ) );
+	array_unshift( $links, sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi' ), __( 'Settings', 'local-delivery-by-tapsi' ) ) );
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wcdd_add_action_links' );

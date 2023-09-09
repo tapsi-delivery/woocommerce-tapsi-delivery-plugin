@@ -94,7 +94,7 @@ class Woocommerce_Tapsi_Hours {
 	 */
 	public function fill_range( $start, $end, $datestamp = 0, $average_delivery_time_mins = 0 ) {
 		// Get the lead time
-		$lead_time = intval( get_option( 'woocommerce_doordash_lead_time' ) );
+		$lead_time = intval( get_option( 'woocommerce_tapsi_lead_time' ) );
 
 		// Get the current time and add the lead time
 		$now = time() + $lead_time;

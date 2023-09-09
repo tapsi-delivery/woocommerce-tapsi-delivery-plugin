@@ -34,8 +34,8 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		$this->id = 'woocommerce-doordash';
-		$this->label = __( 'Local Delivery by Tapsi', 'local-delivery-by-doordash' );
+		$this->id = 'woocommerce-tapsi';
+		$this->label = __( 'Local Delivery by Tapsi', 'local-delivery-by-tapsi' );
 
 		// Define all hooks instead of inheriting from parent
 		add_filter( 'woocommerce_settings_tabs_array',        array( $this, 'add_settings_page' ), 20 );
@@ -52,9 +52,9 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 	 */
 	public function get_sections() {
 		$sections = array(
-			'' => __( 'Settings', 'local-delivery-by-doordash' ),
-			'webhooks' => __( 'Webhooks', 'local-delivery-by-doordash' ),
-			'locations' => __( 'Locations', 'local-delivery-by-doordash' ),
+			'' => __( 'Settings', 'local-delivery-by-tapsi' ),
+			'webhooks' => __( 'Webhooks', 'local-delivery-by-tapsi' ),
+			'locations' => __( 'Locations', 'local-delivery-by-tapsi' ),
 		);
 
 		return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
@@ -69,7 +69,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 
 		global $current_section;
 
-		$prefix = 'woocommerce_doordash_'; // used in the partials
+		$prefix = 'woocommerce_tapsi_'; // used in the partials
 
 		switch( $current_section ) {
 			case 'locations':
@@ -79,7 +79,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 				);
 				break;
 			default:
-				$settings = include 'partials/woocommerce-doordash-admin-settings-main.php';
+				$settings = include 'partials/woocommerce-tapsi-admin-settings-main.php';
 				break;
 		}
 
@@ -120,7 +120,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 		WC_Admin_Settings::save_fields( $settings );
 
 		// If we're updating a location, set the data for that post
-		if ( isset( $_REQUEST['_update-location-nonce'] ) && wp_verify_nonce( $_REQUEST['_update-location-nonce'], 'woocommerce-doordash-update-location' ) ) {
+		if ( isset( $_REQUEST['_update-location-nonce'] ) && wp_verify_nonce( $_REQUEST['_update-location-nonce'], 'woocommerce-tapsi-update-location' ) ) {
 			$hours = new Woocommerce_Tapsi_Hours();
 			
 			$location_id = $_REQUEST['location_id'] == 'new' ? 'new' : intval( $_REQUEST['location_id'] );
@@ -159,7 +159,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 
 			if ( $_REQUEST['location_id'] != $location_id ) {
 				// If this was a new location, redirect to the newly created location
-				wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-doordash&section=locations&location_id=' . $location_id ) );
+				wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations&location_id=' . $location_id ) );
 			}
 		}
 	}
@@ -175,7 +175,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 			$deleted = wp_delete_post( intval( $_GET['delete_location'] ) );
 			if ( $deleted ) {
 				// If the post deletion was successful, show the message. (Otherwise this is probably a refresh)
-				$message = sprintf( __( 'Location "%s" deleted.', 'local-delivery-by-doordash' ), $deleted->post_title );
+				$message = sprintf( __( 'Location "%s" deleted.', 'local-delivery-by-tapsi' ), $deleted->post_title );
 				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message );
 				return true;
 			}
@@ -198,7 +198,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 			$updated = update_post_meta( $toggle_hours_location->ID, 'has_hours', !$enabled );
 			// Display a message to the user
 			if ( $updated ) {
-				$message = sprintf( __('%s hours %s.', 'local-delivery-by-doordash' ), $toggle_hours_location->post_title, !$enabled ? __( 'enabled', 'local-delivery-by-doordash' ) : __( 'disabled', 'local-delivery-by-doordash' ) );
+				$message = sprintf( __('%s hours %s.', 'local-delivery-by-tapsi' ), $toggle_hours_location->post_title, !$enabled ? __( 'enabled', 'local-delivery-by-tapsi' ) : __( 'disabled', 'local-delivery-by-tapsi' ) );
 				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message );
 				return true;
 			}
@@ -221,7 +221,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 			$updated = wp_update_post( array( 'ID' => $toggle_enabled_location->ID, 'post_status' => !$enabled ? 'publish' : 'draft' ) );
 			// Display a message to the user
 			if ( $updated ) {
-				$message = sprintf( '%s %s.', $toggle_enabled_location->post_title, !$enabled ? __( 'enabled', 'local-delivery-by-doordash' ) : __( 'disabled', 'local-delivery-by-doordash' ) );
+				$message = sprintf( '%s %s.', $toggle_enabled_location->post_title, !$enabled ? __( 'enabled', 'local-delivery-by-tapsi' ) : __( 'disabled', 'local-delivery-by-tapsi' ) );
 				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message );
 				return true;
 			}
@@ -268,26 +268,26 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 
 		// Send our data over to the JavaScript
 		wp_localize_script(
-			'woocommerce-doordash-admin-locations',
+			'woocommerce-tapsi-admin-locations',
 			'wcDDLocalizeScript',
 			array(
 				'locations'                          => $location_localized,
-				'wc_doordash_pickup_locations_nonce' => wp_create_nonce( 'wc_doordash_pickup_locations_nonce' ),
+				'wc_tapsi_pickup_locations_nonce' => wp_create_nonce( 'wc_tapsi_pickup_locations_nonce' ),
 				'strings'                            => array(
-					'unload_confirmation_msg'        => __( 'Your changed data will be lost if you leave this page without saving.', 'local-delivery-by-doordash' ),
-					'save_changes_prompt'            => __( 'Do you wish to save your changes first? Your changed data will be discarded if you choose to cancel.', 'local-delivery-by-doordash' ),
-					'save_failed'                    => __( 'Your changes were not saved. Please retry.', 'local-delivery-by-doordash' ),
-					'delete_confirmation_msg'        => __( 'Are you sure you want to delete this pickup location?', 'local-delivery-by-doordash' ),
-					'add_method_failed'              => __( 'Pickup location could not be added. Please retry.', 'local-delivery-by-doordash' ),
-					'yes'                            => __( 'Yes', 'local-delivery-by-doordash' ),
-					'no'                             => __( 'No', 'local-delivery-by-doordash' ),
-					'default_location_name'          => __( 'Location', 'local-delivery-by-doordash' ),
+					'unload_confirmation_msg'        => __( 'Your changed data will be lost if you leave this page without saving.', 'local-delivery-by-tapsi' ),
+					'save_changes_prompt'            => __( 'Do you wish to save your changes first? Your changed data will be discarded if you choose to cancel.', 'local-delivery-by-tapsi' ),
+					'save_failed'                    => __( 'Your changes were not saved. Please retry.', 'local-delivery-by-tapsi' ),
+					'delete_confirmation_msg'        => __( 'Are you sure you want to delete this pickup location?', 'local-delivery-by-tapsi' ),
+					'add_method_failed'              => __( 'Pickup location could not be added. Please retry.', 'local-delivery-by-tapsi' ),
+					'yes'                            => __( 'Yes', 'local-delivery-by-tapsi' ),
+					'no'                             => __( 'No', 'local-delivery-by-tapsi' ),
+					'default_location_name'          => __( 'Location', 'local-delivery-by-tapsi' ),
 				),
 			)
 		);
-		wp_enqueue_script( 'woocommerce-doordash-admin-locations' );
+		wp_enqueue_script( 'woocommerce-tapsi-admin-locations' );
 		// Include the partial containing the table and templates
-		include 'partials/woocommerce-doordash-admin-settings-locations.php';
+		include 'partials/woocommerce-tapsi-admin-settings-locations.php';
 	}
 
 	/**
@@ -297,7 +297,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 	 */
 	public function output_location_edit_screen() {
 		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $_GET['location_id'] ) );
-		include 'partials/woocommerce-doordash-admin-settings-edit-location.php';
+		include 'partials/woocommerce-tapsi-admin-settings-edit-location.php';
 	}
 
 	/**
@@ -327,37 +327,37 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 	 * @return void
 	 */
 	public function output_webhooks_screen() {
-		printf( '<h1>%s</h1>', __( 'Webhooks Configuration', 'local-delivery-by-doordash' ) );
-		$header = get_transient( 'woocommerce_doordash_auth_header' );
+		printf( '<h1>%s</h1>', __( 'Webhooks Configuration', 'local-delivery-by-tapsi' ) );
+		$header = get_transient( 'woocommerce_tapsi_auth_header' );
 
 		if ( ! empty( $header ) ) {
-			printf( '<p>%s</p>', __( 'Your authorization header has been generated.', 'local-delivery-by-doordash' ) );
-			printf( '<h2>%s</h2>', __( 'This information will only be displayed once.', 'local-delivery-by-doordash' ) );
+			printf( '<p>%s</p>', __( 'Your authorization header has been generated.', 'local-delivery-by-tapsi' ) );
+			printf( '<h2>%s</h2>', __( 'This information will only be displayed once.', 'local-delivery-by-tapsi' ) );
 			echo '<ol>';
-			printf( '<li>%s</li>', __( 'Visit the <a target="_blank" href="https://developer.doordash.com/portal/integration/drive/webhooks">Webhooks configuration in the Tapsi Developer Portal</a>.', 'local-delivery-by-doordash' ) );
-			printf( '<li>%s</li>', __( 'Click the button to configure a Sandbox or Production endpoint.', 'local-delivery-by-doordash' ) );
-			printf( '<li>%s</li>', __( 'Copy the values below into the form and click <strong>Configure Endpoint</strong>.', 'local-delivery-by-doordash' ) );
+			printf( '<li>%s</li>', __( 'Visit the <a target="_blank" href="https://developer.tapsi.com/portal/integration/drive/webhooks">Webhooks configuration in the Tapsi Developer Portal</a>.', 'local-delivery-by-tapsi' ) );
+			printf( '<li>%s</li>', __( 'Click the button to configure a Sandbox or Production endpoint.', 'local-delivery-by-tapsi' ) );
+			printf( '<li>%s</li>', __( 'Copy the values below into the form and click <strong>Configure Endpoint</strong>.', 'local-delivery-by-tapsi' ) );
 			echo '</ol>';
 
-			printf( '<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __( 'Webhook Delivery URL', 'local-delivery-by-doordash' ), rest_url( 'wc/v3/doordash/status_updated' ), __( 'Copy', 'local-delivery-by-doordash' ) );
-			printf( '<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __( 'Authentication Type', 'local-delivery-by-doordash' ), 'Basic', __( 'Copy', 'local-delivery-by-doordash' ) );
-			printf( '<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __( 'Authorization Header', 'local-delivery-by-doordash' ), $header, __( 'Copy', 'local-delivery-by-doordash' ) );
-			delete_transient( 'woocommerce_doordash_auth_header' );
+			printf( '<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __( 'Webhook Delivery URL', 'local-delivery-by-tapsi' ), rest_url( 'wc/v3/tapsi/status_updated' ), __( 'Copy', 'local-delivery-by-tapsi' ) );
+			printf( '<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __( 'Authentication Type', 'local-delivery-by-tapsi' ), 'Basic', __( 'Copy', 'local-delivery-by-tapsi' ) );
+			printf( '<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __( 'Authorization Header', 'local-delivery-by-tapsi' ), $header, __( 'Copy', 'local-delivery-by-tapsi' ) );
+			delete_transient( 'woocommerce_tapsi_auth_header' );
 		} else {
 			
-			printf( '<p>%s</p>', __( 'Tapsi webhooks are used to update your WooCommerce orders with delivery status from Tapsi in real-time as the order is being delivered.', 'local-delivery-by-doordash' ) );
-			printf( '<p>%s</p>', __( 'Use this page to generate WooCommerce credentials that you can paste into the Tapsi developer portal to connect your application.', 'local-delivery-by-doordash' ) );
-			printf( '<p>%s <a href="%s"><em>%s</em></a></p>', __( 'Previously generated credentials can be managed under', 'local-delivery-by-doordash' ), admin_url( 'admin.php?page=wc-settings&tab=advanced&section=keys' ), __( 'WooCommerce Settings > Advanced > REST API', 'local-delivery-by-doordash' ) );
+			printf( '<p>%s</p>', __( 'Tapsi webhooks are used to update your WooCommerce orders with delivery status from Tapsi in real-time as the order is being delivered.', 'local-delivery-by-tapsi' ) );
+			printf( '<p>%s</p>', __( 'Use this page to generate WooCommerce credentials that you can paste into the Tapsi developer portal to connect your application.', 'local-delivery-by-tapsi' ) );
+			printf( '<p>%s <a href="%s"><em>%s</em></a></p>', __( 'Previously generated credentials can be managed under', 'local-delivery-by-tapsi' ), admin_url( 'admin.php?page=wc-settings&tab=advanced&section=keys' ), __( 'WooCommerce Settings > Advanced > REST API', 'local-delivery-by-tapsi' ) );
 			$auth_url = get_site_url() . '/wc-auth/v1/authorize';
 			$auth_url = add_query_arg( array(
 				'app_name' => 'Tapsi', 
 				'scope' => 'write', 
 				'user_id' => get_current_user_id(), 
-				'return_url' => urlencode( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-doordash&section=webhooks' ) ),
-				'callback_url' => urlencode( rest_url( 'wc/v3/doordash/save_auth_header' ) ),
+				'return_url' => urlencode( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=webhooks' ) ),
+				'callback_url' => urlencode( rest_url( 'wc/v3/tapsi/save_auth_header' ) ),
 			), $auth_url );
 			
-			printf( '<a href="%s" class="button">%s</a>', esc_url( $auth_url ), __( 'Generate Credentials', 'local-delivery-by-doordash' ) );	
+			printf( '<a href="%s" class="button">%s</a>', esc_url( $auth_url ), __( 'Generate Credentials', 'local-delivery-by-tapsi' ) );	
 		}
 	}
 

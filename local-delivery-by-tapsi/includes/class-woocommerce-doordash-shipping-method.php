@@ -6,8 +6,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash_Shipping_Method extends WC_Shipping_Method {
+class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method {
 
 	/**
 	 * Shipping class constructor.
@@ -76,7 +76,7 @@ class Woocommerce_Doordash_Shipping_Method extends WC_Shipping_Method {
 		}
 
 		// $doordash_pickup_location = WC()->session->get( 'doordash_pickup_location' );
-		$delivery = new Woocommerce_Doordash_Delivery(); // create from session data
+		$delivery = new Woocommerce_Tapsi_Delivery(); // create from session data
 
 		// Only fire an API request if certain params have been set for the delivery
 		if ( $delivery->is_valid() ) {

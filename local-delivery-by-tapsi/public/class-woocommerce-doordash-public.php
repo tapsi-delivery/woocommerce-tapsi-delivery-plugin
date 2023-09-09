@@ -6,8 +6,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/public
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/public
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/public
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash_Public {
+class Woocommerce_Tapsi_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -65,10 +65,10 @@ class Woocommerce_Doordash_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Woocommerce_Doordash_Loader as all of the hooks are defined
+		 * defined in Woocommerce_Tapsi_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Woocommerce_Doordash_Loader will then create the relationship
+		 * The Woocommerce_Tapsi_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -88,10 +88,10 @@ class Woocommerce_Doordash_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Woocommerce_Doordash_Loader as all of the hooks are defined
+		 * defined in Woocommerce_Tapsi_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Woocommerce_Doordash_Loader will then create the relationship
+		 * The Woocommerce_Tapsi_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -131,7 +131,7 @@ class Woocommerce_Doordash_Public {
 				$selected_location = WC()->checkout->get_value( 'doordash_pickup_location' ) ? WC()->checkout->get_value( 'doordash_pickup_location' ) : WC()->session->get( 'doordash_pickup_location' );
 			}
 
-			$location = new Woocommerce_Doordash_Pickup_Location( $selected_location );
+			$location = new Woocommerce_Tapsi_Pickup_Location( $selected_location );
 
 			// Output pickup locations field
 			if( is_countable( $locations ) && count( $locations ) == 1 ) {
@@ -301,7 +301,7 @@ class Woocommerce_Doordash_Public {
 			}
 
 			// // Get the delivery object
-			// $delivery = new Woocommerce_Doordash_Delivery( [ 'external_delivery_id' => $external_delivery_id ] );
+			// $delivery = new Woocommerce_Tapsi_Delivery( [ 'external_delivery_id' => $external_delivery_id ] );
 			// // Check the delivery status
 			// $response = WCDD()->api->get_delivery_status( $delivery );			
 			// // Fail if the delivery status request isn't successful. This could indicate a bad delivery ID or an expired quote.
@@ -418,7 +418,7 @@ class Woocommerce_Doordash_Public {
 		if ( empty( $doordash_pickup_location ) ) return $total_rows;
 
 		// Set up the location object
-		$location = new Woocommerce_Doordash_Pickup_Location( intval( $doordash_pickup_location ) );
+		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $doordash_pickup_location ) );
 
 		// Get the shipping lines from the order
 		$items = $order->get_items( 'shipping' );
@@ -457,7 +457,7 @@ class Woocommerce_Doordash_Public {
 	/**
 	 * Retrieve an array of Pickup Location objects that are currently enabled
 	 *
-	 * @return array Array of Woocommerce_Doordash_Pickup_Location objects
+	 * @return array Array of Woocommerce_Tapsi_Pickup_Location objects
 	 */
 	public function get_enabled_locations() {
 		// Set up the query, allow filtering the query arguments
@@ -469,7 +469,7 @@ class Woocommerce_Doordash_Public {
 		$locations = get_posts( $args );
 
 		foreach ( $locations as &$location ) {
-			$location = new Woocommerce_Doordash_Pickup_Location( $location ); // Set the array with the location object instead of the post
+			$location = new Woocommerce_Tapsi_Pickup_Location( $location ); // Set the array with the location object instead of the post
 		}
 
 		return apply_filters( 'wcdd_enabled_locations', $locations );
@@ -492,7 +492,7 @@ class Woocommerce_Doordash_Public {
 	/**
 	 * Create ID => Name array of available locations
 	 *
-	 * @param array $locations Array of Woocommerce_Doordash_Pickup_Location objects
+	 * @param array $locations Array of Woocommerce_Tapsi_Pickup_Location objects
 	 * @return array New array with ID => Name
 	 */
 	public function generate_locations_options( $locations ) {
@@ -589,7 +589,7 @@ class Woocommerce_Doordash_Public {
 		if ( array_key_exists( 'doordash_delivery_time', $data ) ) { //phpcs:ignore
 			if ( $date_changed ) {
 				// If the date changed, we need to manually get the first available time for that day
-				$location = new Woocommerce_Doordash_Pickup_Location( $doordash_pickup_location );
+				$location = new Woocommerce_Tapsi_Pickup_Location( $doordash_pickup_location );
 				$doordash_delivery_time = array_shift( array_keys( $location->get_delivery_times_for_date( $doordash_delivery_date ) ) );
 			} else {
 				// If the date didn't change, carry on
@@ -598,7 +598,7 @@ class Woocommerce_Doordash_Public {
 			WC()->session->set( 'doordash_delivery_time', $doordash_delivery_time );
 		}elseif( $data['doordash_delivery_date'] == '' ){
 			//if this doesn't exist, set it to earliest. The form fields probably didn't exist in the html for this update
-			$location = new Woocommerce_Doordash_Pickup_Location( $doordash_pickup_location );
+			$location = new Woocommerce_Tapsi_Pickup_Location( $doordash_pickup_location );
 			$doordash_delivery_time = $location->get_next_valid_time();
 
 			//catch tip here too

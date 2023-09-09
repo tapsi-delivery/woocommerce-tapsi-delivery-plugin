@@ -3,7 +3,7 @@
 /**
  * @link              https://www.inverseparadox.com
  * @since             1.0.0
- * @package           Woocommerce_Doordash
+ * @package           Woocommerce_Tapsi
  *
  * @wordpress-plugin
  * Plugin Name:       Local Delivery by Tapsi
@@ -34,7 +34,7 @@ define( 'WOOCOMMERCE_DOORDASH_VERSION', '1.0.8' );
  */
 function activate_woocommerce_doordash() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-doordash-activator.php';
-	Woocommerce_Doordash_Activator::activate();
+	Woocommerce_Tapsi_Activator::activate();
 }
 
 /**
@@ -43,7 +43,7 @@ function activate_woocommerce_doordash() {
  */
 function deactivate_woocommerce_doordash() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-doordash-deactivator.php';
-	Woocommerce_Doordash_Deactivator::deactivate();
+	Woocommerce_Tapsi_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_woocommerce_doordash' );
@@ -63,7 +63,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-doordash.php';
  * not affect the page life cycle.
  *
  * @since    1.0.0
- * @return Woocommerce_Doordash Static instance of the plugin
+ * @return Woocommerce_Tapsi Static instance of the plugin
  */
 function WCDD() {
 	// Only run the plugin if WooCommerce is active
@@ -80,7 +80,7 @@ function WCDD() {
 
 	// If static instance isn't set, run the plugin
 	if ( ! isset( $plugin ) ) {
-		$plugin = new Woocommerce_Doordash();
+		$plugin = new Woocommerce_Tapsi();
 		$plugin->run();
 	}
 

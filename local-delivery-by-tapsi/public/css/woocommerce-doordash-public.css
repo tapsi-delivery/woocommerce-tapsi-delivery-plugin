@@ -98,7 +98,7 @@ ul#shipping_method .wcdd-delivery-options input#doordash_dropoff_instructions {
 }
 
 /**
- * Add styles for the Doordash shipping method & the inner wrapper.
+ * Add styles for the Tapsi shipping method & the inner wrapper.
  */
 .wcdd-delivery-options {
  	border: 1px solid rgb(170, 170, 170); /*#aaa*/
@@ -114,7 +114,7 @@ ul#shipping_method .wcdd-delivery-options input#doordash_dropoff_instructions {
 }
 
 /**
- * Add styles for the Doordash shipping method radio buttons & labels.
+ * Add styles for the Tapsi shipping method radio buttons & labels.
  */
 
 .wcdd-delivery-options .form-row > label > .optional {
@@ -171,7 +171,7 @@ ul#shipping_method .wcdd-delivery-options input#doordash_dropoff_instructions {
 }
 
 /**
- * Add styles for the Doordash shipping method powered by section.
+ * Add styles for the Tapsi shipping method powered by section.
  */
 .wcdd-delivery-options-powered > p {
  	flex-basis: 100%;
@@ -187,7 +187,7 @@ ul#shipping_method .wcdd-delivery-options input#doordash_dropoff_instructions {
 
 
 /**
- * Add styles for the Doordash shipping method when the container it is in becomes to thin.
+ * Add styles for the Tapsi shipping method when the container it is in becomes to thin.
  */
 .wcdd-delivery-options.mobile-view #doordash_tip_select_field .woocommerce-input-wrapper,
 .wcdd-delivery-options.mobile-view .wcdd-delivery-type-select .woocommerce-input-wrapper,

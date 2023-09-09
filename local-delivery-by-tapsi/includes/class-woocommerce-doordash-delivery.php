@@ -6,8 +6,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * Represents a Tapsi delivery, and contains all the datapoints
  * needed to create a delivery in the Drive API
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash_Delivery {
+class Woocommerce_Tapsi_Delivery {
 
 	/**
 	 * Data store for the delivery
@@ -103,7 +103,7 @@ class Woocommerce_Doordash_Delivery {
 	public function create_from_session() {
 		// Get the location ID from the session and set up the location object
 		$location_id = WC()->session->get( 'doordash_pickup_location' );
-		$location = new Woocommerce_Doordash_Pickup_Location( $location_id );
+		$location = new Woocommerce_Tapsi_Pickup_Location( $location_id );
 
 		// Get the tip
 		if ( get_option( 'woocommerce_doordash_tipping' ) == 'enabled' ) {

@@ -6,8 +6,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * Contains functionality to create and accept delivery quotes,
  * and create, read, update, and delete deliveries in the Drive API.
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash_API {
+class Woocommerce_Tapsi_API {
 
 	protected $developer_id;
 
@@ -62,7 +62,7 @@ class Woocommerce_Doordash_API {
 		$this->signing_secret = get_option( $prefix . $this->env . '_signing_secret' );
 
 		// Check to see if keys need decryption
-		$encryption = new Woocommerce_Doordash_Encryption();
+		$encryption = new Woocommerce_Tapsi_Encryption();
 		if ( $encryption->is_encrypted( $this->key_id ) ) {
 			$this->key_id = $encryption->decrypt( $this->key_id );
 		}
@@ -355,7 +355,7 @@ class Woocommerce_Doordash_API {
 
 			// Add a notice for server connectivity issues
 			if ( 500 >= $response_code && $response_code > 600 ) {
-				wc_add_notice( __( 'There was a problem communicating with Doordash. Please try again later.', 'local-delivery-by-doordash' ), 'notice' );
+				wc_add_notice( __( 'There was a problem communicating with Tapsi. Please try again later.', 'local-delivery-by-doordash' ), 'notice' );
 			}
 
 			// Log the error

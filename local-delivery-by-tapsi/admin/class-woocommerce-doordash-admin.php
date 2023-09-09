@@ -6,8 +6,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/admin
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/admin
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/admin
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash_Admin {
+class Woocommerce_Tapsi_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -65,10 +65,10 @@ class Woocommerce_Doordash_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Woocommerce_Doordash_Loader as all of the hooks are defined
+		 * defined in Woocommerce_Tapsi_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Woocommerce_Doordash_Loader will then create the relationship
+		 * The Woocommerce_Tapsi_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -88,10 +88,10 @@ class Woocommerce_Doordash_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Woocommerce_Doordash_Loader as all of the hooks are defined
+		 * defined in Woocommerce_Tapsi_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Woocommerce_Doordash_Loader will then create the relationship
+		 * The Woocommerce_Tapsi_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -153,7 +153,7 @@ class Woocommerce_Doordash_Admin {
 	 * @return array Filtered array
 	 */
 	public function register_shipping_method( $methods ) {
-		$methods['woocommerce_doordash'] = 'Woocommerce_Doordash_Shipping_Method';
+		$methods['woocommerce_doordash'] = 'Woocommerce_Tapsi_Shipping_Method';
 		return $methods;
 	}
 
@@ -212,7 +212,7 @@ class Woocommerce_Doordash_Admin {
 			$gmt_offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 			switch ( $meta->key ) {
 				case '_doordash_pickup_location': 
-					$location = new Woocommerce_Doordash_Pickup_Location( intval( $meta->value ) );
+					$location = new Woocommerce_Tapsi_Pickup_Location( intval( $meta->value ) );
 					$displayed_value = $location->get_name() . '<br>' . $location->get_formatted_address();
 					break;
 				case 'doordash_pickup_time': 
@@ -240,7 +240,7 @@ class Woocommerce_Doordash_Admin {
 		// if ( str_starts_with( $option, 'woocommerce_doordash_' ) && str_ends_with( $option, '_hours' ) ) {
 		// if ( strncmp( $option, 'woocommerce_doordash_', strlen( $option ) ) === 0 && substr( $option, -6 ) === '_hours' ) {
 		if ( substr( $option, 0, 21 ) == 'woocommerce_doordash_' && substr( $option, -6 ) == '_hours' ) {
-			$hours = new Woocommerce_Doordash_Hours();
+			$hours = new Woocommerce_Tapsi_Hours();
 			$value = $hours->normalize_hour_ranges( $value );
 		}
 		return $value;
@@ -382,7 +382,7 @@ class Woocommerce_Doordash_Admin {
 	/**
 	 * Authenticate the user accessing the custom endpoint
 	 *
-	 * @param array $request JSON request with updated Woocommerce_Doordash_Delivery object data
+	 * @param array $request JSON request with updated Woocommerce_Tapsi_Delivery object data
 	 * @return bool True if user is authenticated, false otherwise
 	 */
 	public function authorize_doordash_request( $request ) {
@@ -417,7 +417,7 @@ class Woocommerce_Doordash_Admin {
 	/**
 	 * Updates Order Statuses when Tapsi webhook is fired
 	 *
-	 * @param WP_REST_Request $request JSON request with updated Woocommerce_Doordash_Delivery object data
+	 * @param WP_REST_Request $request JSON request with updated Woocommerce_Tapsi_Delivery object data
 	 * @return string with success or error messages
 	 */
 	public function status_updated( $request ) {
@@ -522,7 +522,7 @@ class Woocommerce_Doordash_Admin {
 						}
 
 						// Create delivery object based on the updated delivery data
-						$updated_delivery = new Woocommerce_Doordash_Delivery( $params );
+						$updated_delivery = new Woocommerce_Tapsi_Delivery( $params );
 						if ( $updated_delivery ) {
 							$method->update_meta_data( 'doordash_delivery', $updated_delivery );
 						}
@@ -606,7 +606,7 @@ class Woocommerce_Doordash_Admin {
 		
 		if ( $location_id ) {
 			// Get the location object
-			$location = new Woocommerce_Doordash_Pickup_Location( $location_id );
+			$location = new Woocommerce_Tapsi_Pickup_Location( $location_id );
 			// Get the email from the location and add it to the recipient list
 			$recipient .= ',' . $location->get_email();
 		}

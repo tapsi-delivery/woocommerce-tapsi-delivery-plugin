@@ -6,8 +6,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  */
 
 /**
@@ -19,11 +19,11 @@
  * Access using the same methods as WC_Logger
  * Example: WCDD()->log->debug( "Hello World" );
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash_Logger {
+class Woocommerce_Tapsi_Logger {
 
 	/**
 	 * WooCommerce logging object

@@ -6,8 +6,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  */
 
 /**
@@ -15,11 +15,11 @@
  *
  * Functions to deal with delivery hours
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash_Hours {
+class Woocommerce_Tapsi_Hours {
 
 	/**
 	 * Time format to save hours in. Defaults to WordPress time_format option

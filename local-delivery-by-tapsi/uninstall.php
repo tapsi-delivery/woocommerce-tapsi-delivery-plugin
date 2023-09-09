@@ -22,7 +22,7 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
+ * @package    Woocommerce_Tapsi
  */
 
 // If uninstall not called from WordPress, then exit.

@@ -9,8 +9,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash {
+class Woocommerce_Tapsi {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Woocommerce_Doordash {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Woocommerce_Doordash_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Woocommerce_Tapsi_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -44,7 +44,7 @@ class Woocommerce_Doordash {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      Woocommerce_Doordash_API    $api    Handles Tapsi API operations
+	 * @var      Woocommerce_Tapsi_API    $api    Handles Tapsi API operations
 	 */
 	public $api;
 
@@ -53,7 +53,7 @@ class Woocommerce_Doordash {
 	 * 
 	 * @since 1.0.0
 	 * @access public
-	 * @var Woocommerce_Doordash_Logger
+	 * @var Woocommerce_Tapsi_Logger
 	 */
 	public $log;
 
@@ -104,10 +104,10 @@ class Woocommerce_Doordash {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Woocommerce_Doordash_Loader. Orchestrates the hooks of the plugin.
-	 * - Woocommerce_Doordash_i18n. Defines internationalization functionality.
-	 * - Woocommerce_Doordash_Admin. Defines all hooks for the admin area.
-	 * - Woocommerce_Doordash_Public. Defines all hooks for the public side of the site.
+	 * - Woocommerce_Tapsi_Loader. Orchestrates the hooks of the plugin.
+	 * - Woocommerce_Tapsi_i18n. Defines internationalization functionality.
+	 * - Woocommerce_Tapsi_Admin. Defines all hooks for the admin area.
+	 * - Woocommerce_Tapsi_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -176,16 +176,16 @@ class Woocommerce_Doordash {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-woocommerce-doordash-public.php';
 
-		$this->loader = new Woocommerce_Doordash_Loader();
-		$this->log = new Woocommerce_Doordash_Logger();
-		$this->api = new Woocommerce_Doordash_API();
+		$this->loader = new Woocommerce_Tapsi_Loader();
+		$this->log = new Woocommerce_Tapsi_Logger();
+		$this->api = new Woocommerce_Tapsi_API();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Woocommerce_Doordash_i18n class in order to set the domain and to register the hook
+	 * Uses the Woocommerce_Tapsi_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -193,7 +193,7 @@ class Woocommerce_Doordash {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Woocommerce_Doordash_i18n();
+		$plugin_i18n = new Woocommerce_Tapsi_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -208,8 +208,8 @@ class Woocommerce_Doordash {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Woocommerce_Doordash_Admin( $this->get_plugin_name(), $this->get_version() );
-		$encryption = new Woocommerce_Doordash_Encryption();
+		$plugin_admin = new Woocommerce_Tapsi_Admin( $this->get_plugin_name(), $this->get_version() );
+		$encryption = new Woocommerce_Tapsi_Encryption();
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -275,7 +275,7 @@ class Woocommerce_Doordash {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Woocommerce_Doordash_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Woocommerce_Tapsi_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -344,7 +344,7 @@ class Woocommerce_Doordash {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Woocommerce_Doordash_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Woocommerce_Tapsi_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

@@ -6,8 +6,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * Represents a Tapsi delivery, and contains all the datapoints
  * needed to create a delivery in the Drive API
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash_Pickup_Location {
+class Woocommerce_Tapsi_Pickup_Location {
 
 	protected $data = array(
 		'ID' => 0,
@@ -376,7 +376,7 @@ class Woocommerce_Doordash_Pickup_Location {
 		if ( empty( $day_hours ) ) return $options;
 
 		// Set up access to hours functions
-		$ddhours = new Woocommerce_Doordash_Hours();
+		$ddhours = new Woocommerce_Tapsi_Hours();
 
 		// Get the hour ranges for the selected day
 		$ranges = $ddhours->get_hour_ranges( $day_hours );
@@ -408,7 +408,7 @@ class Woocommerce_Doordash_Pickup_Location {
 		
 		if ( empty( $day_hours ) ) return false;
 
-		$ddhours = new Woocommerce_Doordash_Hours();
+		$ddhours = new Woocommerce_Tapsi_Hours();
 
 		$ranges = $ddhours->get_hour_ranges( $day_hours );
 
@@ -438,7 +438,7 @@ class Woocommerce_Doordash_Pickup_Location {
 		// Get the current day to start checking hours. Gets the time at midnight on the correct day
 		$current_day = floor( ( $today + $lead_time ) / DAY_IN_SECONDS ) * DAY_IN_SECONDS;
 
-		$ddhours = new Woocommerce_Doordash_Hours();
+		$ddhours = new Woocommerce_Tapsi_Hours();
 		$number_of_days = apply_filters( 'wcdd_delivery_number_of_days_ahead', intval( get_option( 'woocommerce_doordash_number_of_days_ahead' ) ) ?? 14 );
 
 		// Set target delivery time to current time + lead time + average delivery time

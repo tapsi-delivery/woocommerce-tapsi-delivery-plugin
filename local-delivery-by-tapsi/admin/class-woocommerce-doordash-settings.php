@@ -8,8 +8,8 @@
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
  *
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  */
 
 /**
@@ -18,11 +18,11 @@
  * Adds WooCommerce settings and settings pages for the plugin
  *
  * @since      1.0.0
- * @package    Woocommerce_Doordash
- * @subpackage Woocommerce_Doordash/includes
+ * @package    Woocommerce_Tapsi
+ * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Doordash_Settings extends WC_Settings_Page {
+class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 
 	public $id;
 
@@ -121,10 +121,10 @@ class Woocommerce_Doordash_Settings extends WC_Settings_Page {
 
 		// If we're updating a location, set the data for that post
 		if ( isset( $_REQUEST['_update-location-nonce'] ) && wp_verify_nonce( $_REQUEST['_update-location-nonce'], 'woocommerce-doordash-update-location' ) ) {
-			$hours = new Woocommerce_Doordash_Hours();
+			$hours = new Woocommerce_Tapsi_Hours();
 			
 			$location_id = $_REQUEST['location_id'] == 'new' ? 'new' : intval( $_REQUEST['location_id'] );
-			$location = new Woocommerce_Doordash_Pickup_Location( $_REQUEST['location_id'] );
+			$location = new Woocommerce_Tapsi_Pickup_Location( $_REQUEST['location_id'] );
 
 			$phone = str_replace( [ '-', '(', ')', ' ', '+' ], '', sanitize_text_field( $_REQUEST['location_phone'] ) );
 			if ( strlen( $phone ) == 10 ) $phone = '1' . $phone;
@@ -296,14 +296,14 @@ class Woocommerce_Doordash_Settings extends WC_Settings_Page {
 	 * @return void
 	 */
 	public function output_location_edit_screen() {
-		$location = new Woocommerce_Doordash_Pickup_Location( intval( $_GET['location_id'] ) );
+		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $_GET['location_id'] ) );
 		include 'partials/woocommerce-doordash-admin-settings-edit-location.php';
 	}
 
 	/**
 	 * Get all the locations and create them as objects in an array
 	 *
-	 * @return array Array of Woocommerce_Doordash_Pickup_Location objects
+	 * @return array Array of Woocommerce_Tapsi_Pickup_Location objects
 	 */
 	public function get_all_locations() {
 		$locations = get_posts( array(
@@ -315,7 +315,7 @@ class Woocommerce_Doordash_Settings extends WC_Settings_Page {
 		) );
 
 		foreach ( $locations as &$location ) {
-			$location = new Woocommerce_Doordash_Pickup_Location( $location );
+			$location = new Woocommerce_Tapsi_Pickup_Location( $location );
 		}
 
 		return $locations;
@@ -363,4 +363,4 @@ class Woocommerce_Doordash_Settings extends WC_Settings_Page {
 
 }
 
-return new Woocommerce_Doordash_Settings();
+return new Woocommerce_Tapsi_Settings();

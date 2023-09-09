@@ -85,7 +85,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 	 * @return void
 	 */
 	public function create_from_post( $post ) {
-		$data = array( 
+		$data = array(
 			'ID'            => $post->ID,
 			'name'          => $post->post_title,
 			'address_1'     => $post->address_1,
@@ -97,7 +97,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 			'email'         => $post->email,
 			'phone'         => $post->phone,
 			'pickup_instructions' => $post->pickup_instructions,
-			'has_hours'     => $post->has_hours, 
+			'has_hours'     => $post->has_hours,
 			'weekly_hours'  => $post->weekly_hours,
 			'special_hours' => $post->special_hours,
 			'enabled'       => ( 'publish' == get_post_status( $post ) ),
@@ -327,7 +327,8 @@ class Woocommerce_Tapsi_Pickup_Location {
         if ($data) {
             if (isset($data->availableDatesTimestamp) && is_array($data->availableDatesTimestamp)) {
                 foreach ($data->availableDatesTimestamp as $timestamp) {
-                    $timeslot_display = date('m-d', $timestamp / 1000);
+                    $timestamp /= 1000;
+                    $timeslot_display = date('m-d', $timestamp);
                     $days[$timestamp] = $timeslot_display;
                 }
             }
@@ -371,7 +372,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 			$day_of_week = date( 'l', $current_day );
 			// Get the hours for the current day
 			$day_hours = $this->get_weekly_hours( $day_of_week );
-			
+
 			// Only add the day if it has hours assigned
 			if ( ! empty( $day_hours ) ) {
 				if ( $current_day == $today ) {
@@ -393,6 +394,68 @@ class Woocommerce_Tapsi_Pickup_Location {
 		return $days;
 	}
 
+    /**
+     * Given a datestamp, retrieve the user-selectable pickup time options for that date
+     *
+     * @param int $datestamp Date to get preview for
+     * @return array Array containing timestamp keys and formatted time values
+     */
+    public function get_preview( $datestamp ) {
+        $days = array();
+
+        $api_url = 'https://api.tapsi.ir/api/v1/delivery/order/preview';
+        $originLat = 35.63064956665039;
+        $originLong = 51.36489486694336;
+        $destinationLat = 35.632899231302616;
+        $destinationLong = 51.36615198055347;
+        $dateTimestamp = $datestamp * 1000;
+
+        $request_url = $api_url . '?originLat=' . $originLat . '&originLong=' . $originLong . '&destinationLat=' . $destinationLat . '&destinationLong=' . $destinationLong . '&dateTimestamp=' . $dateTimestamp;
+
+        $token = 'accessToken=';  // TODO
+        $headers = ['cookie' => $token];
+        $request_args = ['headers' => $headers];
+        $response = wp_remote_get($request_url,  $request_args);
+
+        if (is_wp_error($response)) {
+            echo 'Failed to fetch delivery times. Please try again later.';
+        } else {
+            $body = wp_remote_retrieve_body($response);
+            $data = json_decode($body);
+
+            if ($data) {
+                $timeslots = $data->invoicePerTimeslots;
+
+                if (!empty($timeslots)) {
+                    foreach ($timeslots as $timeslot) {
+                        $timeslotId = $timeslot->timeslotId;
+                        $startTimestamp = $timeslot->startTimestamp / 1000;
+                        $endTimestamp = $timeslot->endTimestamp / 1000;
+                        $timeslot_display = date('H:i', $startTimestamp) . ' - ' . date('H:i', $endTimestamp);
+
+                        if ($timeslot->isAvailable) {
+                            $price = $timeslot->invoice->amount;
+                            $displayText = $timeslot_display . ' (Price: ' . $price . ' toman)';
+                            $option_attributes = 'value="' . $timeslotId . '"';
+
+                        } else {
+                            $displayText = $timeslot_display . ' is not available';
+                            $option_attributes = 'disabled="disabled"';
+                        }
+
+                        $days[$timeslotId] = $displayText;
+                    }
+                } else {
+                    echo 'No available delivery times found.';
+                }
+            } else {
+                echo 'Failed to parse API response. Body: ' . $body;
+            }
+        }
+
+        return $days;
+    }
+
 	/**
 	 * Given a datestamp, retrieve the user-selectable pickup time options for that date
 	 *
@@ -400,6 +463,8 @@ class Woocommerce_Tapsi_Pickup_Location {
 	 * @return array Array containing timestamp keys and formatted time values
 	 */
 	public function get_delivery_times_for_date( $datestamp ) {
+        return $this->get_preview($datestamp);
+
 		if ( is_null( $datestamp ) ) $datestamp = time();
 
 		// Get the day of the week for the datestamp
@@ -407,7 +472,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 
 		// Get the hours saved in the location for that day
 		$day_hours = $this->get_weekly_hours( $day_of_week );
-		
+
 		// Set up an empty array to store our times
 		$options = array();
 
@@ -444,7 +509,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 		$date = strtotime( date( 'Y-m-d', $timestamp ) );
 		$day_hours = $this->get_weekly_hours( $day_of_week );
 		$lead_time = intval( get_option( 'woocommerce_tapsi_lead_time' ) ) * MINUTE_IN_SECONDS;
-		
+
 		if ( empty( $day_hours ) ) return false;
 
 		$ddhours = new Woocommerce_Tapsi_Hours();
@@ -471,7 +536,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 		// Get the GMT offset from the options
 		$gmt_offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 		// We need to add the offset so the current LOCAL day is reported
-		$today = time() + $gmt_offset; 
+		$today = time() + $gmt_offset;
 		// Get the Lead time in seconds
 		$lead_time = intval( get_option( 'woocommerce_tapsi_lead_time' ) ) * MINUTE_IN_SECONDS;
 		// Get the current day to start checking hours. Gets the time at midnight on the correct day
@@ -523,7 +588,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 		}
 
 		return false;
-		
+
 	}
 
 }

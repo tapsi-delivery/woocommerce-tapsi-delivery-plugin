@@ -305,12 +305,51 @@ class Woocommerce_Tapsi_Pickup_Location {
 		else return '';
 	}
 
+    /**
+     * Gets values and labels for the available delivery days
+     *
+     * @return array Array with timestamp => labels
+     */
+    private function get_available_dates() {
+        $days = array();
+        $day_fmt = apply_filters( 'wcdd_delivery_day_format', 'D, n/j' );
+
+        $api_url = 'https://api.tapsi.ir/api/v1/delivery/available-dates';
+        $request_url = $api_url;
+
+        $token = 'accessToken='; // TODO
+        $headers = ['cookie' => $token];
+        $request_args = ['headers' => $headers];
+        $response = wp_remote_get($request_url,  $request_args);
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body);
+
+        if ($data) {
+            if (isset($data->availableDatesTimestamp) && is_array($data->availableDatesTimestamp)) {
+                foreach ($data->availableDatesTimestamp as $timestamp) {
+                    $timeslot_display = date('m-d', $timestamp / 1000);
+                    $days[$timestamp] = $timeslot_display;
+                }
+            }
+            else {
+                $days[0] =  "Invalid response structure.";
+            }
+            return $days;
+        } else {
+            echo 'Failed to parse API response. Body: ' . $body;
+        }
+
+        return $days;
+    }
+
 	/**
 	 * Gets values and labels for the available delivery days for the location
 	 *
 	 * @return array Array with timestamp => labels
 	 */
 	public function get_delivery_days() {
+        return $this->get_available_dates();
+
 		// Set up return array
 		$days = array();
 		$day_fmt = apply_filters( 'wcdd_delivery_day_format', 'D, n/j' );

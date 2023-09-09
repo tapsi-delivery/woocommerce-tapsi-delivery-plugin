@@ -30,8 +30,8 @@ class Woocommerce_Doordash_Shipping_Method extends WC_Shipping_Method {
 	public function __construct( $instance_id = 0 ) {
 		$this->id = 'woocommerce_doordash';
 		$this->instance_id = absint( $instance_id );
-		$this->method_title = __( 'DoorDash', 'local-delivery-by-doordash' );
-		$this->method_description = __( 'Allow customers to have their orders delivered via DoorDash', 'local-delivery-by-doordash' );
+		$this->method_title = __( 'Tapsi', 'local-delivery-by-doordash' );
+		$this->method_description = __( 'Allow customers to have their orders delivered via Tapsi', 'local-delivery-by-doordash' );
 		$this->supports = array( 
 			'shipping-zones',
 			'instance-settings',
@@ -108,7 +108,7 @@ class Woocommerce_Doordash_Shipping_Method extends WC_Shipping_Method {
 				'title'       => __( 'Title', 'woocommerce' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-				'default'     => __( 'DoorDash', 'woocommerce' ),
+				'default'     => __( 'Tapsi', 'woocommerce' ),
 				'desc_tip'    => true,
 			),
 			'tax_status' => array(
@@ -125,7 +125,7 @@ class Woocommerce_Doordash_Shipping_Method extends WC_Shipping_Method {
 			// 	'title'       => __( 'Cost', 'woocommerce' ),
 			// 	'type'        => 'text',
 			// 	'placeholder' => '0',
-			// 	'description' => __( 'Optional cost for DoorDash.', 'woocommerce' ),
+			// 	'description' => __( 'Optional cost for Tapsi.', 'woocommerce' ),
 			// 	'default'     => '',
 			// 	'desc_tip'    => true,
 			// ),

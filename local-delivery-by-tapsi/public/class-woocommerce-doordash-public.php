@@ -117,7 +117,7 @@ class Woocommerce_Doordash_Public {
 		if ( array_key_exists( 'doordash_delivery', $meta ) ) $delivery = $meta['doordash_delivery'];
 		else $delivery = false;
 
-		// Only output the field if the selected method is a WooCommerce DoorDash method
+		// Only output the field if the selected method is a WooCommerce Tapsi method
 		if ( false !== strpos( $chosen_shipping_rate_id, 'woocommerce_doordash' ) && $shipping_rate->id === $chosen_shipping_rate_id ) {
 			echo '<div class="wcdd-delivery-options">';
 
@@ -274,7 +274,7 @@ class Woocommerce_Doordash_Public {
 			if ( apply_filters( 'wcdd_show_doordash_logo', true ) ) {
 				echo '<div class="wcdd-delivery-options-powered">';
 					echo '<p>' . __( 'Powered By', 'local-delivery-by-doordash' ) . '</p>';
-					echo '<img src="' . plugin_dir_url( __FILE__ ) . '/img/doordash-logo.svg" alt="DoorDash" />';
+					echo '<img src="' . plugin_dir_url( __FILE__ ) . '/img/doordash-logo.svg" alt="Tapsi" />';
 				echo '</div>';
 			}
 
@@ -290,13 +290,13 @@ class Woocommerce_Doordash_Public {
 	public function validate_pickup_location() {
 		$chosen_shipping_rate_id = WC()->session->get( 'chosen_shipping_methods' )[0];
 
-		// Only run this if DoorDash is the selected shipping method
+		// Only run this if Tapsi is the selected shipping method
 		if ( false !== strpos( $chosen_shipping_rate_id, 'woocommerce_doordash' ) ) {
 			$external_delivery_id = WC()->session->get( 'doordash_external_delivery_id' );
 			
 			// Fail if a location is not selected or a quote hasn't been retrieved
 			if ( empty( $external_delivery_id ) ) {
-				wc_add_notice( __( 'DoorDash: Please choose a valid location.', 'local-delivery-by-doordash' ), 'error' );
+				wc_add_notice( __( 'Tapsi: Please choose a valid location.', 'local-delivery-by-doordash' ), 'error' );
 				return;
 			}
 
@@ -306,7 +306,7 @@ class Woocommerce_Doordash_Public {
 			// $response = WCDD()->api->get_delivery_status( $delivery );			
 			// // Fail if the delivery status request isn't successful. This could indicate a bad delivery ID or an expired quote.
 			// if ( wp_remote_retrieve_response_code( $response ) != 200 ) {
-			// 	wc_add_notice( __( 'There was a problem creating your DoorDash Delivery. Please try again.', 'local-delivery-by-doordash' ), 'error' );
+			// 	wc_add_notice( __( 'There was a problem creating your Tapsi Delivery. Please try again.', 'local-delivery-by-doordash' ), 'error' );
 			// 	return;
 			// }
 		}
@@ -407,7 +407,7 @@ class Woocommerce_Doordash_Public {
 	 * @param array $total_rows
 	 * @param WC_Order $order
 	 * @param bool $tax_display
-	 * @return array Rows with DoorDash Pickup Location added
+	 * @return array Rows with Tapsi Pickup Location added
 	 */
 	public function display_pickup_location_on_order_item_totals( $total_rows, $order, $tax_display ) {
 		// Get the selected pickup location
@@ -431,7 +431,7 @@ class Woocommerce_Doordash_Public {
 			if ( 'shipping' == $key ) {
 				// Add the row with information on the pickup location
 				$new_total_rows[ 'doordash_pickup_location' ] = array(
-					'label' => __( 'DoorDash from:', 'local-delivery-by-doordash' ),
+					'label' => __( 'Tapsi from:', 'local-delivery-by-doordash' ),
 					'value' => $location->get_name() . '<br>' . $location->get_formatted_address(),
 				);
 				if ( $delivery && $delivery->get_dropoff_time() ) {

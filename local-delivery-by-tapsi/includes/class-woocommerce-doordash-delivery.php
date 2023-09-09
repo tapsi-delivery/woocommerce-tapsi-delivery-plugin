@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DoorDash Delivery Object
+ * Tapsi Delivery Object
  *
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
@@ -11,9 +11,9 @@
  */
 
 /**
- * DoorDash Delivery Object
+ * Tapsi Delivery Object
  *
- * Represents a DoorDash delivery, and contains all the datapoints
+ * Represents a Tapsi delivery, and contains all the datapoints
  * needed to create a delivery in the Drive API
  *
  * @package    Woocommerce_Doordash
@@ -221,7 +221,7 @@ class Woocommerce_Doordash_Delivery {
 	}
 
 	/**
-	 * Get the external delivery ID DoorDash uses to identify this delivery
+	 * Get the external delivery ID Tapsi uses to identify this delivery
 	 *
 	 * @return string External delivery ID
 	 */
@@ -241,7 +241,7 @@ class Woocommerce_Doordash_Delivery {
 	}
 
 	/**
-	 * Get the rate quoted by DoorDash for the delivery
+	 * Get the rate quoted by Tapsi for the delivery
 	 *
 	 * @return int Quoted rate in cents
 	 */

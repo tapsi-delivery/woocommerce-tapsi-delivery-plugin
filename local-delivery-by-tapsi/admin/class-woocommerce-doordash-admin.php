@@ -125,7 +125,7 @@ class Woocommerce_Doordash_Admin {
 		);
 		$args = array(
 			'label'                 => __( 'Pickup Location', 'local-delivery-by-doordash' ),
-			'description'           => __( 'DoorDash Pickup Location', 'local-delivery-by-doordash' ),
+			'description'           => __( 'Tapsi Pickup Location', 'local-delivery-by-doordash' ),
 			'labels'                => $labels,
 			'supports'              => array( 'title' ),
 			'hierarchical'          => false,
@@ -147,7 +147,7 @@ class Woocommerce_Doordash_Admin {
 	}
 
 	/**
-	 * Add the WooCommerce DoorDash Shipping Method to the registered methods array
+	 * Add the WooCommerce Tapsi Shipping Method to the registered methods array
 	 *
 	 * @param array $methods Array of registered methods
 	 * @return array Filtered array
@@ -158,13 +158,13 @@ class Woocommerce_Doordash_Admin {
 	}
 
 	/**
-	 * Display a notice to administrators when DoorDash API is set to Sandbox mode
+	 * Display a notice to administrators when Tapsi API is set to Sandbox mode
 	 *
 	 * @return void
 	 */
 	public function admin_sandbox_notice() {
 		if ( 'sandbox' == WCDD()->api->get_env() ) {
-			printf( '<div class="notice notice-warning is-dismissible"><p>%s</p></div>', __( 'Local Delivery by DoorDash is in <strong>Sandbox mode</strong>. Switch to Production mode to enable deliveries.', 'local-delivery-by-doordash' ) );
+			printf( '<div class="notice notice-warning is-dismissible"><p>%s</p></div>', __( 'Local Delivery by Tapsi is in <strong>Sandbox mode</strong>. Switch to Production mode to enable deliveries.', 'local-delivery-by-doordash' ) );
 		}
 	}
 
@@ -274,7 +274,7 @@ class Woocommerce_Doordash_Admin {
 		$method->update_meta_data( 'doordash_delivery', $delivery );
 
 		// Build the order note
-		$note = __( 'DoorDash Quote Accepted.', 'local-delivery-by-doordash' );
+		$note = __( 'Tapsi Quote Accepted.', 'local-delivery-by-doordash' );
 
 		// Get the GMT offset for formatting our times
 		$gmt_offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
@@ -309,7 +309,7 @@ class Woocommerce_Doordash_Admin {
 			// Compat for WooCommerce Shipment Tracking plugin
 			if ( function_exists( 'wc_st_add_tracking_number' ) ) {
 				$tracking_code = basename( parse_url( $delivery->get_tracking_url(), PHP_URL_PATH ) );
-				wc_st_add_tracking_number( $order->get_id(), $tracking_code, 'DoorDash', strtotime( $delivery->get_pickup_time() ) ); // phpcs:ignore
+				wc_st_add_tracking_number( $order->get_id(), $tracking_code, 'Tapsi', strtotime( $delivery->get_pickup_time() ) ); // phpcs:ignore
 			}
 
 		}
@@ -330,7 +330,7 @@ class Woocommerce_Doordash_Admin {
 	}
 
 	/**
-	 * Adds a DoorDash tracking provider to the WooCommerce Shipment Tracking plugin
+	 * Adds a Tapsi tracking provider to the WooCommerce Shipment Tracking plugin
 	 *
 	 * @param array $providers Array of providers
 	 * @return array Filtered array of providers
@@ -339,10 +339,10 @@ class Woocommerce_Doordash_Admin {
 		// $tracking_string = '%1$s'; 
 		$tracking_string = 'https://www.doordash.com/drive/portal/track/%1$s'; //?intl=en-US';
 
-		$providers['United States']['DoorDash'] = $tracking_string;
-		$providers['Canada']['DoorDash'] = $tracking_string;
-		$providers['Japan']['DoorDash'] = $tracking_string;
-		$providers['Australia']['DoorDash'] = $tracking_string;
+		$providers['United States']['Tapsi'] = $tracking_string;
+		$providers['Canada']['Tapsi'] = $tracking_string;
+		$providers['Japan']['Tapsi'] = $tracking_string;
+		$providers['Australia']['Tapsi'] = $tracking_string;
 
 		return $providers;
 
@@ -388,7 +388,7 @@ class Woocommerce_Doordash_Admin {
 	public function authorize_doordash_request( $request ) {
 		// get the headers and make sure this request is coming from doordash before authenticating
 		$headers = getallheaders();
-		if ( $headers && strpos( $headers['User-Agent'], 'DoorDashDriveWebhooks' ) !== false ) {
+		if ( $headers && strpos( $headers['User-Agent'], 'TapsiDriveWebhooks' ) !== false ) {
 			return current_user_can( 'manage_woocommerce' );
 		} else {
 			return false;
@@ -415,7 +415,7 @@ class Woocommerce_Doordash_Admin {
 	}
 
 	/**
-	 * Updates Order Statuses when DoorDash webhook is fired
+	 * Updates Order Statuses when Tapsi webhook is fired
 	 *
 	 * @param WP_REST_Request $request JSON request with updated Woocommerce_Doordash_Delivery object data
 	 * @return string with success or error messages
@@ -509,15 +509,15 @@ class Woocommerce_Doordash_Admin {
 							$new_status_details = false;
 						}
 						if ( $new_status_details && $new_status_details['wc_status'] ) {
-							// status change event received from DoorDash, update the order status
+							// status change event received from Tapsi, update the order status
 							$original_status = $order->get_status();
 							$order->update_status( $new_status_details['wc_status'], $new_status_details['note'] );
 						} else if ( $new_status_details ) {
-							// non status change event received from DoorDash, add a note to the order
+							// non status change event received from Tapsi, add a note to the order
 							$order->add_order_note( $new_status_details['note'] );
 						} else {
 							// status not found in the status map, do not make any update to the status or object
-							$note = sprintf( __( 'DoorDash status update: %s.', 'local-delivery-by-doordash' ), $params['event_name'] );
+							$note = sprintf( __( 'Tapsi status update: %s.', 'local-delivery-by-doordash' ), $params['event_name'] );
 							$order->add_order_note( $note );
 						}
 
@@ -527,7 +527,7 @@ class Woocommerce_Doordash_Admin {
 							$method->update_meta_data( 'doordash_delivery', $updated_delivery );
 						}
 					} else {
-						WCDD()->log->error( sprintf( __( 'Webhook: DoorDash not found order #%s.', 'local-delivery-by-doordash' ), $order->get_id() ) );
+						WCDD()->log->error( sprintf( __( 'Webhook: Tapsi not found order #%s.', 'local-delivery-by-doordash' ), $order->get_id() ) );
 						return false;
 					}
 
@@ -570,7 +570,7 @@ class Woocommerce_Doordash_Admin {
     }
 
 	/**
-	 * Adds DoorDash custom order statuses
+	 * Adds Tapsi custom order statuses
 	 *
 	 * @param array $order_statuses Array with all existing order statuses
 	 * @return array with doordash order statuses added

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DoorDash Pickup_Location Object
+ * Tapsi Pickup_Location Object
  *
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
@@ -11,9 +11,9 @@
  */
 
 /**
- * DoorDash Pickup Location Object
+ * Tapsi Pickup Location Object
  *
- * Represents a DoorDash delivery, and contains all the datapoints
+ * Represents a Tapsi delivery, and contains all the datapoints
  * needed to create a delivery in the Drive API
  *
  * @package    Woocommerce_Doordash
@@ -231,7 +231,7 @@ class Woocommerce_Doordash_Pickup_Location {
 	}
 
 	/**
-	 * Get a DoorDash-formatted address for the location
+	 * Get a Tapsi-formatted address for the location
 	 *
 	 * @return string Comma separated address parts
 	 */

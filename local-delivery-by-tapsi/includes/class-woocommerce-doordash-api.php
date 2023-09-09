@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DoorDash API
+ * Tapsi API
  *
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
@@ -11,7 +11,7 @@
  */
 
 /**
- * DoorDash API
+ * Tapsi API
  *
  * Contains functionality to create and accept delivery quotes,
  * and create, read, update, and delete deliveries in the Drive API.
@@ -318,38 +318,38 @@ class Woocommerce_Doordash_API {
 				case 400: 
 					// The request was syntactically invalid
 					if( isset( $body->field_errors[0]->field ) && $body->field_errors[0]->field == 'dropoff_phone_number' ) {
-						wc_add_notice( __( 'DoorDash: ', 'local-delivery-by-doordash' ) . __( ' Make sure the phone number is valid and belongs to the same country as the address.', 'local-delivery-by-doordash' ), 'notice' );
+						wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( ' Make sure the phone number is valid and belongs to the same country as the address.', 'local-delivery-by-doordash' ), 'notice' );
 					} elseif ( isset( $body->field_errors[0]->field ) && $body->field_errors[0]->field == 'dropoff_address' ) {
-						wc_add_notice( __( 'DoorDash: ', 'local-delivery-by-doordash' ) . __( 'Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-doordash' ), 'notice' );
+						wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( 'Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-doordash' ), 'notice' );
 					} else {
-						wc_add_notice( __( 'DoorDash: ', 'local-delivery-by-doordash' ) . __( $body->message, 'local-delivery-by-doordash' ), 'notice' );
+						wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( $body->message, 'local-delivery-by-doordash' ), 'notice' );
 					}
 
 					break;
 				case 401: 
 					// Authentication error
-					wc_add_notice( __( 'DoorDash: Authentication Error', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: Authentication Error', 'local-delivery-by-doordash' ), 'notice' );
 					break;
 				case 403:
 					// Authorization error
-					wc_add_notice( __( 'DoorDash: Authorization Error', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: Authorization Error', 'local-delivery-by-doordash' ), 'notice' );
 					break;
 				case 404:
 					// Resource doesn't exist
-					wc_add_notice( __( 'DoorDash: Resource does not exist', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: Resource does not exist', 'local-delivery-by-doordash' ), 'notice' );
 					break;
 				case 409: 
 					// System state doesn't allow operation to proceed
-					// wc_add_notice( __( 'DoorDash: ', 'local-delivery-by-doordash' ) . __( $body->message, 'local-delivery-by-doordash' ), 'notice' );
+					// wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( $body->message, 'local-delivery-by-doordash' ), 'notice' );
 					break;
 				case 422:
 					// Logical validation error
-					wc_add_notice( __( 'DoorDash: ', 'local-delivery-by-doordash' ) . __( 'Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-doordash' ) . __( 'Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-doordash' ), 'notice' );
 					// wc_add_notice( wc_print_r( $body->message, true ) );
 					break;
 				case 429:
 					// Too many requests
-					wc_add_notice( __( 'DoorDash: Too many requests', 'local-delivery-by-doordash' ), 'notice' );
+					wc_add_notice( __( 'Tapsi: Too many requests', 'local-delivery-by-doordash' ), 'notice' );
 					break;
 			}
 

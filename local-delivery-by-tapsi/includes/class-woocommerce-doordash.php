@@ -40,11 +40,11 @@ class Woocommerce_Doordash {
 	protected $loader;
 
 	/**
-	 * Allows access to the DoorDash API class
+	 * Allows access to the Tapsi API class
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      Woocommerce_Doordash_API    $api    Handles DoorDash API operations
+	 * @var      Woocommerce_Doordash_API    $api    Handles Tapsi API operations
 	 */
 	public $api;
 
@@ -136,12 +136,12 @@ class Woocommerce_Doordash {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-i18n.php';
 
 		/**
-		 * The class responsible for defining the DoorDash Delivery object
+		 * The class responsible for defining the Tapsi Delivery object
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-delivery.php';
 
 		/**
-		 * The class responsible for defining the DoorDash Location object
+		 * The class responsible for defining the Tapsi Location object
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-pickup-location.php';
 
@@ -156,12 +156,12 @@ class Woocommerce_Doordash {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-hours.php';
 
 		/**
-		 * The class responsible for DoorDash API operations
+		 * The class responsible for Tapsi API operations
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-api.php';
 
 		/**
-		 * The class responsible for DoorDash API operations
+		 * The class responsible for Tapsi API operations
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woocommerce-doordash-shipping-method.php';
 
@@ -261,7 +261,7 @@ class Woocommerce_Doordash {
 		// Send email to selected location when order is placed
 		$this->loader->add_action( 'woocommerce_email_recipient_new_order', $plugin_admin, 'new_order_email_recipient', 10, 3 );
 
-		// Adds custom tracking provider for DoorDash to the WooCommerce Shipment Tracking plugin
+		// Adds custom tracking provider for Tapsi to the WooCommerce Shipment Tracking plugin
 		$this->loader->add_action( 'wc_shipment_tracking_get_providers', $plugin_admin, 'wc_shipment_tracking_add_doordash_provider', 10, 1 );
 
 	}

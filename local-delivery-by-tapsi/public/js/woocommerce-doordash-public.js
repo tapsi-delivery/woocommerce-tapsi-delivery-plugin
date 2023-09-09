@@ -106,7 +106,7 @@
 		// Automatically update the quote every four minutes to avoid expirations
 		updateTimeout = setTimeout( function() {
 			$( document.body ).trigger( 'update_checkout' );
-			console.log('Updated DoorDash delivery quote', $('#doordash_external_delivery_id').val());
+			console.log('Updated Tapsi delivery quote', $('#doordash_external_delivery_id').val());
 		}, 1000 * 60 * 4 );
 
 		// Add tabindex to tip radio labels for accessibility

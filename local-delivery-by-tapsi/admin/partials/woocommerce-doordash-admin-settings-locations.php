@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<ul>
 					<li><?php _e( '<em>Location Name</em>', 'local-delivery-by-doordash' ); ?>
 					<li><?php _e( '<em>Location Address</em> where orders will be picked up by Dashers', 'local-delivery-by-doordash' ); ?>
-					<li><?php _e( '<em>Open Hours</em> for the location, which determine when users will be able to select this location for DoorDash', 'local-delivery-by-doordash' ); ?>
+					<li><?php _e( '<em>Open Hours</em> for the location, which determine when users will be able to select this location for Tapsi', 'local-delivery-by-doordash' ); ?>
 					<li><?php _e( '<em>Lead Time</em> that is required for orders to be filled at this location.', 'local-delivery-by-doordash' ); ?>
 				</ul>
 				<p><?php _e( 'Users will be able to select the location their order will be fulfilled from during checkout.', 'local-delivery-by-doordash' ); ?></p>

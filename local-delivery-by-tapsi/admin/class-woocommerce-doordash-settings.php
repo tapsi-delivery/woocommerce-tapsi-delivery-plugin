@@ -35,7 +35,7 @@ class Woocommerce_Doordash_Settings extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id = 'woocommerce-doordash';
-		$this->label = __( 'Local Delivery by DoorDash', 'local-delivery-by-doordash' );
+		$this->label = __( 'Local Delivery by Tapsi', 'local-delivery-by-doordash' );
 
 		// Define all hooks instead of inheriting from parent
 		add_filter( 'woocommerce_settings_tabs_array',        array( $this, 'add_settings_page' ), 20 );
@@ -322,7 +322,7 @@ class Woocommerce_Doordash_Settings extends WC_Settings_Page {
 	}
 
 	/**
-	 * Display the screen to generate API credentials for DoorDash webhooks
+	 * Display the screen to generate API credentials for Tapsi webhooks
 	 *
 	 * @return void
 	 */
@@ -334,7 +334,7 @@ class Woocommerce_Doordash_Settings extends WC_Settings_Page {
 			printf( '<p>%s</p>', __( 'Your authorization header has been generated.', 'local-delivery-by-doordash' ) );
 			printf( '<h2>%s</h2>', __( 'This information will only be displayed once.', 'local-delivery-by-doordash' ) );
 			echo '<ol>';
-			printf( '<li>%s</li>', __( 'Visit the <a target="_blank" href="https://developer.doordash.com/portal/integration/drive/webhooks">Webhooks configuration in the DoorDash Developer Portal</a>.', 'local-delivery-by-doordash' ) );
+			printf( '<li>%s</li>', __( 'Visit the <a target="_blank" href="https://developer.doordash.com/portal/integration/drive/webhooks">Webhooks configuration in the Tapsi Developer Portal</a>.', 'local-delivery-by-doordash' ) );
 			printf( '<li>%s</li>', __( 'Click the button to configure a Sandbox or Production endpoint.', 'local-delivery-by-doordash' ) );
 			printf( '<li>%s</li>', __( 'Copy the values below into the form and click <strong>Configure Endpoint</strong>.', 'local-delivery-by-doordash' ) );
 			echo '</ol>';
@@ -345,12 +345,12 @@ class Woocommerce_Doordash_Settings extends WC_Settings_Page {
 			delete_transient( 'woocommerce_doordash_auth_header' );
 		} else {
 			
-			printf( '<p>%s</p>', __( 'DoorDash webhooks are used to update your WooCommerce orders with delivery status from DoorDash in real-time as the order is being delivered.', 'local-delivery-by-doordash' ) );
-			printf( '<p>%s</p>', __( 'Use this page to generate WooCommerce credentials that you can paste into the DoorDash developer portal to connect your application.', 'local-delivery-by-doordash' ) );
+			printf( '<p>%s</p>', __( 'Tapsi webhooks are used to update your WooCommerce orders with delivery status from Tapsi in real-time as the order is being delivered.', 'local-delivery-by-doordash' ) );
+			printf( '<p>%s</p>', __( 'Use this page to generate WooCommerce credentials that you can paste into the Tapsi developer portal to connect your application.', 'local-delivery-by-doordash' ) );
 			printf( '<p>%s <a href="%s"><em>%s</em></a></p>', __( 'Previously generated credentials can be managed under', 'local-delivery-by-doordash' ), admin_url( 'admin.php?page=wc-settings&tab=advanced&section=keys' ), __( 'WooCommerce Settings > Advanced > REST API', 'local-delivery-by-doordash' ) );
 			$auth_url = get_site_url() . '/wc-auth/v1/authorize';
 			$auth_url = add_query_arg( array(
-				'app_name' => 'DoorDash', 
+				'app_name' => 'Tapsi', 
 				'scope' => 'write', 
 				'user_id' => get_current_user_id(), 
 				'return_url' => urlencode( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-doordash&section=webhooks' ) ),

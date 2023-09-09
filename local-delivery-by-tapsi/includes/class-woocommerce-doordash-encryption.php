@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DoorDash Encryption
+ * Tapsi Encryption
  *
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
@@ -11,7 +11,7 @@
  */
 
 /**
- * DoorDash Encryption
+ * Tapsi Encryption
  *
  * Contains functionality encrypt and decrypt secret keys
  *

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DoorDash Hours
+ * Tapsi Hours
  *
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
@@ -11,7 +11,7 @@
  */
 
 /**
- * DoorDash Hours
+ * Tapsi Hours
  *
  * Functions to deal with delivery hours
  *

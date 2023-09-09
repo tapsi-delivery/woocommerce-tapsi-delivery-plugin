@@ -40,7 +40,7 @@ echo '<h2>' . __( 'Location Information', 'local-delivery-by-doordash' ) . '</h2
 		woocommerce_form_field( 'location_enabled', array(
 			'type' => 'checkbox',
 			'label' => __( 'Enabled', 'local-delivery-by-doordash' ),
-			'description' => __( 'Only enabled locations are able to be selected for DoorDash deliveries.', 'local-delivery-by-doordash' ),
+			'description' => __( 'Only enabled locations are able to be selected for Tapsi deliveries.', 'local-delivery-by-doordash' ),
 		), $location->is_enabled() );
 	echo '</section>';
 

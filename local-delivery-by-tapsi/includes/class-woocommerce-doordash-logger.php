@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DoorDash Logger
+ * Tapsi Logger
  *
  * @link       https://www.inverseparadox.com
  * @since      1.0.0
@@ -11,7 +11,7 @@
  */
 
 /**
- * DoorDash Logger
+ * Tapsi Logger
  *
  * Enables streamlined access to the WC_Logger class. 
  * Automatically sets the context for the plugin. 

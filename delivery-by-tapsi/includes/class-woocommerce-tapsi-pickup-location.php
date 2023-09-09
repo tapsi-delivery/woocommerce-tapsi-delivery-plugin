@@ -435,6 +435,7 @@ class Woocommerce_Tapsi_Pickup_Location {
 
                         if ($timeslot->isAvailable) {
                             $price = $timeslot->invoice->amount;
+                            update_option('woocommerce_tapsi_quoted_fees', $price / 1000);
                             $displayText = $timeslot_display . ' (Price: ' . $price . ' toman)';
                             $option_attributes = 'value="' . $timeslotId . '"';
 

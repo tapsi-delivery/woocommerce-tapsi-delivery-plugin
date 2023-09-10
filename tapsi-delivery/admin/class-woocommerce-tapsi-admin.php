@@ -420,7 +420,7 @@ class Woocommerce_Tapsi_Admin {
 	 * @param WP_REST_Request $request JSON request with updated Woocommerce_Tapsi_Delivery object data
 	 * @return string with success or error messages
 	 */
-	public function status_updated( $request ) {
+	public function status_updated(WP_REST_Request $request ) {
 		// parse out the request into an array
 		$params = wp_parse_args( $request->get_params() );
 

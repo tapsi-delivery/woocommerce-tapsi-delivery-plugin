@@ -10,6 +10,8 @@
  * @subpackage Woocommerce_Tapsi/public
  */
 
+use Automattic\WooCommerce\Admin\Overrides\Order;
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -30,7 +32,7 @@ class Woocommerce_Tapsi_Public
      * @access   private
      * @var      string $plugin_name The ID of this plugin.
      */
-    private $plugin_name;
+    private string $plugin_name;
 
     /**
      * The version of this plugin.
@@ -111,7 +113,7 @@ class Woocommerce_Tapsi_Public
      * @param $index
      * @return void
      */
-    public function show_available_locations_dropdown($shipping_rate, $index)
+    public function show_available_locations_dropdown(WC_Shipping_rate $shipping_rate, $index)
     {
         // Get the selected method
         $chosen_shipping_rate_id = WC()->session->get('chosen_shipping_methods')[0]; // [0]
@@ -302,7 +304,7 @@ class Woocommerce_Tapsi_Public
 
             // Fail if a location is not selected or a quote hasn't been retrieved
             if (empty($external_delivery_id)) {
-                wc_add_notice(__('Tapsi: Please choose a valid location.', 'tapsi-delivery'), 'error');
+                wc_add_notice(__('Tapsi Delivery: Please choose a valid location.', 'tapsi-delivery'), 'error');
                 return;
             }
 
@@ -530,11 +532,11 @@ class Woocommerce_Tapsi_Public
      * @param string $data String with passed data from checkout
      * @return void
      */
-    public function save_data_to_session($data)
+    public function save_data_to_session(string $data_string)
     {
 
         // Parse the data from a string to an array
-        parse_str($data, $data);
+        parse_str($data_string, $data);
 
         // check to see if we should pull from billing or shipping fields, and set the field prefix
         $prefix = 'billing_';

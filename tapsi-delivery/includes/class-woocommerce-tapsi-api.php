@@ -33,7 +33,7 @@ class Woocommerce_Tapsi_API
 
     protected $jwt;
 
-    protected $api_url = "https://openapi.tapsi.com";
+    protected $base_url = "https://api.tapsi.ir/api/v1/";
 
     public function __construct()
     {
@@ -79,6 +79,55 @@ class Woocommerce_Tapsi_API
 
         return true;
     }
+
+
+    /**
+     * Gets values and labels for the available delivery days
+     *
+     * @return array Array with timestamp => labels
+     */
+    public function get_available_dates()
+    {
+        $request_path = 'delivery/available-dates';
+        $request_args = array('method' => 'GET');
+        return $this->request($request_path, $request_args);
+    }
+
+
+    /**
+     * Given a datestamp, retrieve the user-selectable pickup time options for that date
+     *
+     * @param int $date_timestamp Date to get preview for
+     * @return array Array containing timestamp keys and formatted time values
+     */
+    public function get_preview(float $origin_lat, float $origin_long, float $destination_lat, float $destination_long, int $date_timestamp): array
+    {
+
+        $api_url = 'delivery/order/preview';
+        $request_path = $api_url . '?originLat=' . $origin_lat . '&originLong=' . $origin_long . '&destinationLat=' . $destination_lat . '&destinationLong=' . $destination_long . '&dateTimestamp=' . $date_timestamp;
+        $request_args = array('method' => 'GET');
+        return $this->request($request_path, $request_args);
+    }
+
+
+    public function submit_delivery_order(array $receiver, array $sender, array $pack, string $time_slot_id, string $token): array
+    {
+        $request_path = 'delivery/order/submit';
+        $request_body = array(
+            'receiver' => $receiver,
+            'sender' => $sender,
+            'pack' => $pack,
+            'timeslotId' => $time_slot_id,
+            'token' => $token
+        );
+        $request_args = array(
+            'method' => 'POST',
+            'body' => json_encode($request_body),
+        );
+
+        return $this->request($request_path, $request_args);
+    }
+
 
     /**
      * Returns the current API mode, sandbox or production
@@ -283,7 +332,7 @@ class Woocommerce_Tapsi_API
      * @param array $request_args An array of arguments for wp_remote_request
      * @return array|WP_Error The response array or a WP_Error on failure
      */
-    public function request($request_path, $request_args)
+    public function request(string $request_path, array $request_args)
     {
         // Before making a request, make sure we have keys
         if (!$this->get_keys()) {
@@ -292,13 +341,15 @@ class Woocommerce_Tapsi_API
         }
 
         // Set the URL for the request based on the request path and the API url
-        $request_url = $this->api_url . $request_path;
+        $request_url = $this->base_url . $request_path;
 
         // Set up default arguments for WP Remote Request
         $defaults = array(
             'headers' => array(
-                'Authorization' => 'Bearer ' . $this->get_jwt(), // Get the auth header
-                'Content-Type' => 'application/json',
+//                'Authorization' => 'Bearer ' . $this->get_jwt(), // Get the auth header
+//                'Content-Type' => 'application/json',
+                'cookie' => $this->jwt
+
             )
         );
 

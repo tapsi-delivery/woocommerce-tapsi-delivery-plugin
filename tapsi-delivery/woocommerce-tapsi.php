@@ -6,9 +6,9 @@
  * @package           Woocommerce_Tapsi
  *
  * @wordpress-plugin
- * Plugin Name:       Delivery by Tapsi
+ * Plugin Name:       Tapsi Delivery
  * Plugin URI:        https://developer.tapsi.com/wordpress-plugin
- * Description:       Let Tapsi power your delivery. Use Tapsi as a shipping provider to offer local, on-demand delivery for your WooCommerce store. Configure multiple pickup locations, delivery hours, tip amounts, and more.
+ * Description:       Let Tapsi power your delivery. Use Tapsi as a shipping provider to offer local, scheduled delivery for your WooCommerce store. Configure multiple pickup locations, delivery hours, tip amounts, and more.
  * Version:           1.0.8
  * Author:            Tapsi
  * Author URI:        https://developer.tapsi.com/en-US/wordpress-plugin
@@ -70,7 +70,7 @@ function WCDD() {
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		// If WooCommerce is not active, display a notice.
 		add_action( 'admin_notices', function() {
-			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Delivery by Tapsi requires WooCommerce to be installed and active.', 'tapsi-delivery' ) ); 
+			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Tapsi Delivery requires WooCommerce to be installed and active.', 'tapsi-delivery' ) ); 
 		} );
 		return false;
 	}

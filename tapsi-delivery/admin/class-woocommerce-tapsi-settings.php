@@ -35,7 +35,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id = 'woocommerce-tapsi';
-		$this->label = __( 'Delivery by Tapsi', 'tapsi-delivery' );
+		$this->label = __( 'Tapsi Delivery', 'tapsi-delivery' );
 
 		// Define all hooks instead of inheriting from parent
 		add_filter( 'woocommerce_settings_tabs_array',        array( $this, 'add_settings_page' ), 20 );

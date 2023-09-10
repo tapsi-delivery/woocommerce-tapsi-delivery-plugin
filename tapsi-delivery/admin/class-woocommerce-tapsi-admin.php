@@ -164,7 +164,7 @@ class Woocommerce_Tapsi_Admin {
 	 */
 	public function admin_sandbox_notice() {
 		if ( 'sandbox' == WCDD()->api->get_env() ) {
-			printf( '<div class="notice notice-warning is-dismissible"><p>%s</p></div>', __( 'Delivery by Tapsi is in <strong>Sandbox mode</strong>. Switch to Production mode to enable deliveries.', 'tapsi-delivery' ) );
+			printf( '<div class="notice notice-warning is-dismissible"><p>%s</p></div>', __( 'Tapsi Delivery is in <strong>Sandbox mode</strong>. Switch to Production mode to enable deliveries.', 'tapsi-delivery' ) );
 		}
 	}
 

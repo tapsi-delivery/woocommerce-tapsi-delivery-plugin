@@ -20,17 +20,19 @@
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Tapsi_Deactivator {
+class Woocommerce_Tapsi_Deactivator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function deactivate() {
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function deactivate()
+    {
 
-	}
+    }
 
 }

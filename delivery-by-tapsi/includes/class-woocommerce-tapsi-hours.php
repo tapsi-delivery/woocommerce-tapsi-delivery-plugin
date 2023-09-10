@@ -19,128 +19,134 @@
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-class Woocommerce_Tapsi_Hours {
+class Woocommerce_Tapsi_Hours
+{
 
-	/**
-	 * Time format to save hours in. Defaults to WordPress time_format option
-	 * 
-	 * @var string
-	 */
-	public $time_fmt;
+    /**
+     * Time format to save hours in. Defaults to WordPress time_format option
+     *
+     * @var string
+     */
+    public $time_fmt;
 
-	/**
-	 * Initialize
-	 */
-	public function __construct() {
-		// Get the site's setting for the time format, allow filtering
-		$this->time_fmt = apply_filters( 'wcdd_time_format', get_option( 'time_format' ) );		
-	}
+    /**
+     * Initialize
+     */
+    public function __construct()
+    {
+        // Get the site's setting for the time format, allow filtering
+        $this->time_fmt = apply_filters('wcdd_time_format', get_option('time_format'));
+    }
 
-	/**
-	 * Normalize the value for a set of delivery hour ranges to a common format
-	 *
-	 * @param string $hours Ranges separated by commas, start and end times separated by dashes
-	 * @return string Normalized string
-	 */
-	public function normalize_hour_ranges( $hours ) {
-		if ( empty( $hours ) ) return $hours;
+    /**
+     * Normalize the value for a set of delivery hour ranges to a common format
+     *
+     * @param string $hours Ranges separated by commas, start and end times separated by dashes
+     * @return string Normalized string
+     */
+    public function normalize_hour_ranges($hours)
+    {
+        if (empty($hours)) return $hours;
 
-		// Break the hour ranges into an array
-		$ranges = $this->get_hour_ranges( $hours );
-		
-		foreach ( $ranges as &$range ) {
-			// Normalize the times in each range according to the time format, ignore more than two times
-			$range = date( $this->time_fmt, $range[0] ) . ' - ' . date( $this->time_fmt, $range[1] );
-		}
+        // Break the hour ranges into an array
+        $ranges = $this->get_hour_ranges($hours);
 
-		// Recombine the ranges into a comma separated string
-		return implode( ', ', $ranges );
-	}
+        foreach ($ranges as &$range) {
+            // Normalize the times in each range according to the time format, ignore more than two times
+            $range = date($this->time_fmt, $range[0]) . ' - ' . date($this->time_fmt, $range[1]);
+        }
 
-	/**
-	 * Converts string with ranges into multidimensional array
-	 *
-	 * @param string $hours Ranges separated by commas, start and end times separated by dashes
-	 * @return array Array of arrays containing start and end times.
-	 */
-	public function get_hour_ranges( $hours ) {
-		// Split the string into ranges based on comma separation
-		$ranges = explode( ',', $hours );
+        // Recombine the ranges into a comma separated string
+        return implode(', ', $ranges);
+    }
 
-		foreach ( $ranges as &$range ) {
-			// Separate each range into start and end times
-			$range = explode( '-', $range );
+    /**
+     * Converts string with ranges into multidimensional array
+     *
+     * @param string $hours Ranges separated by commas, start and end times separated by dashes
+     * @return array Array of arrays containing start and end times.
+     */
+    public function get_hour_ranges($hours)
+    {
+        // Split the string into ranges based on comma separation
+        $ranges = explode(',', $hours);
 
-			// Operate on the start and end times
-			foreach ( $range as &$time ) {
-				// Trim off the whitespace
-				$time = trim( $time );
-				// Convert to timestamp
-				$time = strtotime( "1970-01-01 $time" ); // Use the epoch so we just get the seconds value of the TIME, not the date
-				if ( $time === 0 ) $time = DAY_IN_SECONDS; // Edge case if user entered "midnight"
-			}
-		}
+        foreach ($ranges as &$range) {
+            // Separate each range into start and end times
+            $range = explode('-', $range);
 
-		// Return the ranges
-		return $ranges;
-	}
+            // Operate on the start and end times
+            foreach ($range as &$time) {
+                // Trim off the whitespace
+                $time = trim($time);
+                // Convert to timestamp
+                $time = strtotime("1970-01-01 $time"); // Use the epoch so we just get the seconds value of the TIME, not the date
+                if ($time === 0) $time = DAY_IN_SECONDS; // Edge case if user entered "midnight"
+            }
+        }
 
-	/**
-	 * Fill an array with 15-minute increments between a start and end time
-	 *
-	 * @param int $start Start timestamp
-	 * @param int $end Ending timestamp
-	 * @return array Associative array with timestamp => label
-	 */
-	public function fill_range( $start, $end, $datestamp = 0, $average_delivery_time_mins = 0 ) {
-		// Get the lead time
-		$lead_time = intval( get_option( 'woocommerce_tapsi_lead_time' ) );
+        // Return the ranges
+        return $ranges;
+    }
 
-		// Get the current time and add the lead time
-		$now = time() + $lead_time;
+    /**
+     * Fill an array with 15-minute increments between a start and end time
+     *
+     * @param int $start Start timestamp
+     * @param int $end Ending timestamp
+     * @return array Associative array with timestamp => label
+     */
+    public function fill_range($start, $end, $datestamp = 0, $average_delivery_time_mins = 0)
+    {
+        // Get the lead time
+        $lead_time = intval(get_option('woocommerce_tapsi_lead_time'));
 
-		// Account for timezones in datestamp
-		$offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
-		$datestamp = intval( $datestamp - $offset );
+        // Get the current time and add the lead time
+        $now = time() + $lead_time;
 
-		// Allow devs to filter the interval for times on the selector
-		$increment = apply_filters( 'wcdd_pickup_time_increment', 15 * MINUTE_IN_SECONDS );
-		
-		// Set up values for the loop
-		$options = array();
-		$value = $start;
+        // Account for timezones in datestamp
+        $offset = get_option('gmt_offset') * HOUR_IN_SECONDS;
+        $datestamp = intval($datestamp - $offset);
 
-		// Create values in the array for every fifteen minutes
-		while ( $value <= $end ) {
-			if ( ( $datestamp + $value ) >= $now ) { // Only output future times
-			//round off dropoff times
-			$est_dropoff_time = $this->round_minutes( $value / MINUTE_IN_SECONDS  + ( $lead_time + intval( $average_delivery_time_mins ) ), intval( apply_filters( 'wcdd_delivery_round_minutes', 10 ) ) );
+        // Allow devs to filter the interval for times on the selector
+        $increment = apply_filters('wcdd_pickup_time_increment', 15 * MINUTE_IN_SECONDS);
 
-			if ( ( $est_dropoff_time * MINUTE_IN_SECONDS ) < $end ) $options[ $datestamp + ( $est_dropoff_time * MINUTE_IN_SECONDS ) ] = date( $this->time_fmt, $est_dropoff_time * MINUTE_IN_SECONDS ); // Key is timestamp, value is the label
-			}
+        // Set up values for the loop
+        $options = array();
+        $value = $start;
 
-			$value += $increment; // Increment the value by 15 min
-		}
+        // Create values in the array for every fifteen minutes
+        while ($value <= $end) {
+            if (($datestamp + $value) >= $now) { // Only output future times
+                //round off dropoff times
+                $est_dropoff_time = $this->round_minutes($value / MINUTE_IN_SECONDS + ($lead_time + intval($average_delivery_time_mins)), intval(apply_filters('wcdd_delivery_round_minutes', 10)));
 
-		// Return the array
-		return $options;
-	}
+                if (($est_dropoff_time * MINUTE_IN_SECONDS) < $end) $options[$datestamp + ($est_dropoff_time * MINUTE_IN_SECONDS)] = date($this->time_fmt, $est_dropoff_time * MINUTE_IN_SECONDS); // Key is timestamp, value is the label
+            }
 
-	/**
-	 * Round minutes to increment
-	 *
-	 * @param int $minutes
-	 * @param int $increment
-	 * @return int $minutes
-	 */
-	public function round_minutes( $minutes, $increment = 10 ) {
-		$left = $minutes > 60?$minutes % 60:$minutes;
+            $value += $increment; // Increment the value by 15 min
+        }
 
-		if( $left % $increment > 0 ) {
-			$minutes += ( $increment - $left % $increment );
-		}
+        // Return the array
+        return $options;
+    }
 
-		return $minutes;
-	}
-	
+    /**
+     * Round minutes to increment
+     *
+     * @param int $minutes
+     * @param int $increment
+     * @return int $minutes
+     */
+    public function round_minutes($minutes, $increment = 10)
+    {
+        $left = $minutes > 60 ? $minutes % 60 : $minutes;
+
+        if ($left % $increment > 0) {
+            $minutes += ($increment - $left % $increment);
+        }
+
+        return $minutes;
+    }
+
 }

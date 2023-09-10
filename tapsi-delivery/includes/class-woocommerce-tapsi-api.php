@@ -171,7 +171,7 @@ class Woocommerce_Tapsi_API
         if (wp_remote_retrieve_response_code($response) === 200) {
             $body = json_decode(wp_remote_retrieve_body($response));
             $delivery->create_from_array($body);
-            WCDD()->log->info(sprintf(__('Retrieved delivery quote %s', 'local-delivery-by-tapsi'), $delivery->get_id()));
+            WCDD()->log->info(sprintf(__('Retrieved delivery quote %s', 'tapsi-delivery'), $delivery->get_id()));
             return $response;
         } else if (wp_remote_retrieve_response_code($response) === 409) {
             // Retry as a status update
@@ -193,7 +193,7 @@ class Woocommerce_Tapsi_API
         if (wp_remote_retrieve_response_code($response) === 200) {
             $body = json_decode(wp_remote_retrieve_body($response));
             $delivery->create_from_array($body);
-            WCDD()->log->info(sprintf(__('Accepted delivery quote %s', 'local-delivery-by-tapsi'), $delivery->get_id()));
+            WCDD()->log->info(sprintf(__('Accepted delivery quote %s', 'tapsi-delivery'), $delivery->get_id()));
             return $response;
         }
         return $response;
@@ -213,7 +213,7 @@ class Woocommerce_Tapsi_API
         if (wp_remote_retrieve_response_code($response) === 200) {
             $body = json_decode(wp_remote_retrieve_body($response));
             $delivery->create_from_array($body);
-            WCDD()->log->info(sprintf(__('Created delivery %s', 'local-delivery-by-tapsi'), $delivery->get_id()));
+            WCDD()->log->info(sprintf(__('Created delivery %s', 'tapsi-delivery'), $delivery->get_id()));
             return $response;
         }
         return $response;
@@ -232,7 +232,7 @@ class Woocommerce_Tapsi_API
         if (wp_remote_retrieve_response_code($response) === 200) {
             $body = json_decode(wp_remote_retrieve_body($response));
             $delivery->create_from_array($body);
-            WCDD()->log->info(sprintf(__('Retrieved delivery status for %s', 'local-delivery-by-tapsi'), $delivery->get_id()));
+            WCDD()->log->info(sprintf(__('Retrieved delivery status for %s', 'tapsi-delivery'), $delivery->get_id()));
             return $response;
         }
         return $response;
@@ -251,7 +251,7 @@ class Woocommerce_Tapsi_API
         if (wp_remote_retrieve_response_code($response) === 200) {
             $body = json_decode(wp_remote_retrieve_body($response));
             $delivery->create_from_array($body);
-            WCDD()->log->info(sprintf(__('Updated delivery %s', 'local-delivery-by-tapsi'), $delivery->get_id()));
+            WCDD()->log->info(sprintf(__('Updated delivery %s', 'tapsi-delivery'), $delivery->get_id()));
             return $response;
         }
         return $response;
@@ -270,7 +270,7 @@ class Woocommerce_Tapsi_API
         if (wp_remote_retrieve_response_code($response) === 200) {
             $body = json_decode(wp_remote_retrieve_body($response));
             $delivery->create_from_array($body);
-            WCDD()->log->info(sprintf(__('Cancelled delivery %s', 'local-delivery-by-tapsi'), $delivery->get_id()));
+            WCDD()->log->info(sprintf(__('Cancelled delivery %s', 'tapsi-delivery'), $delivery->get_id()));
             return $response;
         }
         return $response;
@@ -287,7 +287,7 @@ class Woocommerce_Tapsi_API
     {
         // Before making a request, make sure we have keys
         if (!$this->get_keys()) {
-            WCDD()->log->error(sprintf(__('Error performing request to %s: Missing API configuration', 'local-delivery-by-tapsi'), $request_path));
+            WCDD()->log->error(sprintf(__('Error performing request to %s: Missing API configuration', 'tapsi-delivery'), $request_path));
             return false;
         }
 
@@ -306,7 +306,7 @@ class Woocommerce_Tapsi_API
         $request_args = wp_parse_args($request_args, $defaults);
 
         // Log the request
-        WCDD()->log->debug(sprintf(__('Sending request to %s', 'local-delivery-by-tapsi'), $request_path));
+        WCDD()->log->debug(sprintf(__('Sending request to %s', 'tapsi-delivery'), $request_path));
         WCDD()->log->debug($request_args);
 
         // Run the remote request
@@ -317,7 +317,7 @@ class Woocommerce_Tapsi_API
 
         // Log WP error
         if (is_wp_error($response)) {
-            WCDD()->log->error(sprintf(__('Error performing request to %s', 'local-delivery-by-tapsi'), $request_path));
+            WCDD()->log->error(sprintf(__('Error performing request to %s', 'tapsi-delivery'), $request_path));
             WCDD()->log->error($response);
             return false;
         }
@@ -332,48 +332,48 @@ class Woocommerce_Tapsi_API
                 case 400:
                     // The request was syntactically invalid
                     if (isset($body->field_errors[0]->field) && $body->field_errors[0]->field == 'dropoff_phone_number') {
-                        wc_add_notice(__('Tapsi: ', 'local-delivery-by-tapsi') . __(' Make sure the phone number is valid and belongs to the same country as the address.', 'local-delivery-by-tapsi'), 'notice');
+                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __(' Make sure the phone number is valid and belongs to the same country as the address.', 'tapsi-delivery'), 'notice');
                     } elseif (isset($body->field_errors[0]->field) && $body->field_errors[0]->field == 'dropoff_address') {
-                        wc_add_notice(__('Tapsi: ', 'local-delivery-by-tapsi') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-tapsi'), 'notice');
+                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'tapsi-delivery'), 'notice');
                     } else {
-                        wc_add_notice(__('Tapsi: ', 'local-delivery-by-tapsi') . __($body->message, 'local-delivery-by-tapsi'), 'notice');
+                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __($body->message, 'tapsi-delivery'), 'notice');
                     }
 
                     break;
                 case 401:
                     // Authentication error
-                    wc_add_notice(__('Tapsi: Authentication Error', 'local-delivery-by-tapsi'), 'notice');
+                    wc_add_notice(__('Tapsi: Authentication Error', 'tapsi-delivery'), 'notice');
                     break;
                 case 403:
                     // Authorization error
-                    wc_add_notice(__('Tapsi: Authorization Error', 'local-delivery-by-tapsi'), 'notice');
+                    wc_add_notice(__('Tapsi: Authorization Error', 'tapsi-delivery'), 'notice');
                     break;
                 case 404:
                     // Resource doesn't exist
-                    wc_add_notice(__('Tapsi: Resource does not exist', 'local-delivery-by-tapsi'), 'notice');
+                    wc_add_notice(__('Tapsi: Resource does not exist', 'tapsi-delivery'), 'notice');
                     break;
                 case 409:
                     // System state doesn't allow operation to proceed
-                    // wc_add_notice( __( 'Tapsi: ', 'local-delivery-by-tapsi' ) . __( $body->message, 'local-delivery-by-tapsi' ), 'notice' );
+                    // wc_add_notice( __( 'Tapsi: ', 'tapsi-delivery' ) . __( $body->message, 'tapsi-delivery' ), 'notice' );
                     break;
                 case 422:
                     // Logical validation error
-                    wc_add_notice(__('Tapsi: ', 'local-delivery-by-tapsi') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'local-delivery-by-tapsi'), 'notice');
+                    wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'tapsi-delivery'), 'notice');
                     // wc_add_notice( wc_print_r( $body->message, true ) );
                     break;
                 case 429:
                     // Too many requests
-                    wc_add_notice(__('Tapsi: Too many requests', 'local-delivery-by-tapsi'), 'notice');
+                    wc_add_notice(__('Tapsi: Too many requests', 'tapsi-delivery'), 'notice');
                     break;
             }
 
             // Add a notice for server connectivity issues
             if (500 >= $response_code && $response_code > 600) {
-                wc_add_notice(__('There was a problem communicating with Tapsi. Please try again later.', 'local-delivery-by-tapsi'), 'notice');
+                wc_add_notice(__('There was a problem communicating with Tapsi. Please try again later.', 'tapsi-delivery'), 'notice');
             }
 
             // Log the error
-            WCDD()->log->error(sprintf(__('Error %s performing request to %s', 'local-delivery-by-tapsi'), $response_code, $request_url));
+            WCDD()->log->error(sprintf(__('Error %s performing request to %s', 'tapsi-delivery'), $response_code, $request_url));
             WCDD()->log->error($body);
         }
 

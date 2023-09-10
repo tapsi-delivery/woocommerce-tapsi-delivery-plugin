@@ -92,7 +92,7 @@ class Woocommerce_Tapsi
         } else {
             $this->version = '1.0.7';
         }
-        $this->plugin_name = 'local-delivery-by-tapsi';
+        $this->plugin_name = 'tapsi-delivery';
 
         $this->load_dependencies();
         $this->set_locale();

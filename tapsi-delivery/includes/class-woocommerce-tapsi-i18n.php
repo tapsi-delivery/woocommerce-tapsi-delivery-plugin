@@ -37,7 +37,7 @@ class Woocommerce_Tapsi_i18n
     {
 
         load_plugin_textdomain(
-            'local-delivery-by-tapsi',
+            'tapsi-delivery',
             false,
             dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
         );

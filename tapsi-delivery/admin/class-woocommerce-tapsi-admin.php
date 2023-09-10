@@ -120,12 +120,12 @@ class Woocommerce_Tapsi_Admin {
 	public function register_pickup_location_cpt() {
 
 		$labels = array(
-			'name'                  => _x( 'Pickup Locations', 'Post Type General Name', 'local-delivery-by-tapsi' ),
-			'singular_name'         => _x( 'Pickup Location', 'Post Type Singular Name', 'local-delivery-by-tapsi' ),
+			'name'                  => _x( 'Pickup Locations', 'Post Type General Name', 'tapsi-delivery' ),
+			'singular_name'         => _x( 'Pickup Location', 'Post Type Singular Name', 'tapsi-delivery' ),
 		);
 		$args = array(
-			'label'                 => __( 'Pickup Location', 'local-delivery-by-tapsi' ),
-			'description'           => __( 'Tapsi Pickup Location', 'local-delivery-by-tapsi' ),
+			'label'                 => __( 'Pickup Location', 'tapsi-delivery' ),
+			'description'           => __( 'Tapsi Pickup Location', 'tapsi-delivery' ),
 			'labels'                => $labels,
 			'supports'              => array( 'title' ),
 			'hierarchical'          => false,
@@ -164,7 +164,7 @@ class Woocommerce_Tapsi_Admin {
 	 */
 	public function admin_sandbox_notice() {
 		if ( 'sandbox' == WCDD()->api->get_env() ) {
-			printf( '<div class="notice notice-warning is-dismissible"><p>%s</p></div>', __( 'Delivery by Tapsi is in <strong>Sandbox mode</strong>. Switch to Production mode to enable deliveries.', 'local-delivery-by-tapsi' ) );
+			printf( '<div class="notice notice-warning is-dismissible"><p>%s</p></div>', __( 'Delivery by Tapsi is in <strong>Sandbox mode</strong>. Switch to Production mode to enable deliveries.', 'tapsi-delivery' ) );
 		}
 	}
 
@@ -180,19 +180,19 @@ class Woocommerce_Tapsi_Admin {
 		if ( 'shipping' === $item->get_type() ) {
 			switch ( $meta->key ) {
 				case '_tapsi_pickup_location': 
-					$displayed_key = __( 'Pickup Location', 'local-delivery-by-tapsi' );
+					$displayed_key = __( 'Pickup Location', 'tapsi-delivery' );
 					break;
 				case 'tapsi_external_delivery_id': 
-					$displayed_key = __( 'Delivery ID', 'local-delivery-by-tapsi' );
+					$displayed_key = __( 'Delivery ID', 'tapsi-delivery' );
 					break;
 				case 'tapsi_pickup_time': 
-					$displayed_key = __( 'Estimated Pickup', 'local-delivery-by-tapsi' );
+					$displayed_key = __( 'Estimated Pickup', 'tapsi-delivery' );
 					break;
 				case 'tapsi_dropoff_time': 
-					$displayed_key = __( 'Estimated Dropoff', 'local-delivery-by-tapsi' );
+					$displayed_key = __( 'Estimated Dropoff', 'tapsi-delivery' );
 					break;
 				case 'tapsi_support_reference':
-					$displayed_key = __( 'Support Reference', 'local-delivery-by-tapsi' );
+					$displayed_key = __( 'Support Reference', 'tapsi-delivery' );
 					break;
 			}
 		}
@@ -274,7 +274,7 @@ class Woocommerce_Tapsi_Admin {
 		$method->update_meta_data( 'tapsi_delivery', $delivery );
 
 		// Build the order note
-		$note = __( 'Tapsi Quote Accepted.', 'local-delivery-by-tapsi' );
+		$note = __( 'Tapsi Quote Accepted.', 'tapsi-delivery' );
 
 		// Get the GMT offset for formatting our times
 		$gmt_offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
@@ -303,7 +303,7 @@ class Woocommerce_Tapsi_Admin {
 
 		if ( $delivery->get_tracking_url() ) {
 			// If there is a tracking number set, add it to the order note
-			$note .= sprintf( ' <a href="%s" target="_blank">%s</a>', $delivery->get_tracking_url(), __( 'Track Delivery', 'local-delivery-by-tapsi' ) );
+			$note .= sprintf( ' <a href="%s" target="_blank">%s</a>', $delivery->get_tracking_url(), __( 'Track Delivery', 'tapsi-delivery' ) );
 			$order->add_meta_data( 'tapsi_tracking_url', $delivery->get_tracking_url() );
 			
 			// Compat for WooCommerce Shipment Tracking plugin
@@ -465,39 +465,39 @@ class Woocommerce_Tapsi_Admin {
 						// Read the order status from the request, and update the order status/notes as needed
 						$dd_to_woo_status_map = array(
 							'DASHER_CONFIRMED' => array(
-								'note' => __( 'A Dasher has accepted your delivery and is on the way to the pickup location.', 'local-delivery-by-tapsi' ),
+								'note' => __( 'A Dasher has accepted your delivery and is on the way to the pickup location.', 'tapsi-delivery' ),
 								'wc_status' => false,
 							),
 							'DASHER_CONFIRMED_PICKUP_ARRIVAL' => array(
-								'note' => __( 'The Dasher has confirmed that they arrived at the pickup location and are attempting to pick up the delivery.', 'local-delivery-by-tapsi' ),
+								'note' => __( 'The Dasher has confirmed that they arrived at the pickup location and are attempting to pick up the delivery.', 'tapsi-delivery' ),
 								'wc_status' => false,
 							),
 							'DASHER_PICKED_UP' => array(
-								'note' => __( 'The Dasher has picked up the delivery.', 'local-delivery-by-tapsi' ),
+								'note' => __( 'The Dasher has picked up the delivery.', 'tapsi-delivery' ),
 								'wc_status' => 'wcdd-picked-up',
 							),
 							'DASHER_CONFIRMED_DROPOFF_ARRIVAL' => array(
-								'note' => __( 'The Dasher has confirmed that they arrived at the dropoff location.', 'local-delivery-by-tapsi' ),
+								'note' => __( 'The Dasher has confirmed that they arrived at the dropoff location.', 'tapsi-delivery' ),
 								'wc_status' => false,
 							),
 							'DASHER_DROPPED_OFF' => array(
-								'note' => __( 'The Dasher has dropped off the delivery at the dropoff location and the delivery is complete.', 'local-delivery-by-tapsi' ),
+								'note' => __( 'The Dasher has dropped off the delivery at the dropoff location and the delivery is complete.', 'tapsi-delivery' ),
 								'wc_status' => 'completed',
 							),
 							'DELIVERY_CANCELLED' => array(
-								'note' => __( 'The delivery has been cancelled.', 'local-delivery-by-tapsi' ) . empty( $params['cancellation_reason_message'] ) ? '' : sprintf(  __( 'Reason: "%s"', 'local-delivery-by-tapsi' ), $params['cancellation_reason_message'] ),
+								'note' => __( 'The delivery has been cancelled.', 'tapsi-delivery' ) . empty( $params['cancellation_reason_message'] ) ? '' : sprintf(  __( 'Reason: "%s"', 'tapsi-delivery' ), $params['cancellation_reason_message'] ),
 								'wc_status' => 'cancelled',
 							),
 							'DELIVERY_RETURN_INITIALIZED' => array(
-								'note' => __( 'The Dasher was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'local-delivery-by-tapsi' ),
+								'note' => __( 'The Dasher was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'tapsi-delivery' ),
 								'wc_status' => false,
 							),
 							'DASHER_CONFIRMED_RETURN_ARRIVAL' => array(
-								'note' => __( 'The Dasher has confirmed that they arrived at the pickup location and are attempting to return the delivery.', 'local-delivery-by-tapsi' ),
+								'note' => __( 'The Dasher has confirmed that they arrived at the pickup location and are attempting to return the delivery.', 'tapsi-delivery' ),
 								'wc_status' => false,
 							),
 							'DELIVERY_RETURNED' => array(
-								'note' => __( 'The delivery has been returned successfully.', 'local-delivery-by-tapsi' ),
+								'note' => __( 'The delivery has been returned successfully.', 'tapsi-delivery' ),
 								'wc_status' => 'wcdd-returned',
 							),
 						);
@@ -517,7 +517,7 @@ class Woocommerce_Tapsi_Admin {
 							$order->add_order_note( $new_status_details['note'] );
 						} else {
 							// status not found in the status map, do not make any update to the status or object
-							$note = sprintf( __( 'Tapsi status update: %s.', 'local-delivery-by-tapsi' ), $params['event_name'] );
+							$note = sprintf( __( 'Tapsi status update: %s.', 'tapsi-delivery' ), $params['event_name'] );
 							$order->add_order_note( $note );
 						}
 
@@ -527,19 +527,19 @@ class Woocommerce_Tapsi_Admin {
 							$method->update_meta_data( 'tapsi_delivery', $updated_delivery );
 						}
 					} else {
-						WCDD()->log->error( sprintf( __( 'Webhook: Tapsi not found order #%s.', 'local-delivery-by-tapsi' ), $order->get_id() ) );
+						WCDD()->log->error( sprintf( __( 'Webhook: Tapsi not found order #%s.', 'tapsi-delivery' ), $order->get_id() ) );
 						return false;
 					}
 
-					WCDD()->log->info( sprintf( __( 'Webhook: Order #%s updated successfully.', 'local-delivery-by-tapsi' ), $order->get_id() ) );
+					WCDD()->log->info( sprintf( __( 'Webhook: Order #%s updated successfully.', 'tapsi-delivery' ), $order->get_id() ) );
 					return true;
 				}
 			} else {
-				WCDD()->log->error( sprintf( __( 'Webhook: Unable to find an order with Delivery ID %s.', 'local-delivery-by-tapsi' ), $external_delivery_id ) );
+				WCDD()->log->error( sprintf( __( 'Webhook: Unable to find an order with Delivery ID %s.', 'tapsi-delivery' ), $external_delivery_id ) );
 				return false;
 			}
 		} else {
-			WCDD()->log->error( __( 'Webhook: Missing required parameters.', 'local-delivery-by-tapsi' ) );
+			WCDD()->log->error( __( 'Webhook: Missing required parameters.', 'tapsi-delivery' ) );
 			WCDD()->log->error( $request );
 			return false;
 		}
@@ -553,7 +553,7 @@ class Woocommerce_Tapsi_Admin {
     public function register_tapsi_order_statuses() {
     	// register Delivery Picked Up status
         register_post_status( 'wc-wcdd-picked-up', array(
-            'label'                     => __( 'Delivery Picked Up', 'local-delivery-by-tapsi' ),
+            'label'                     => __( 'Delivery Picked Up', 'tapsi-delivery' ),
             'public'                    => true,
             'show_in_admin_status_list' => true,
             'show_in_admin_all_list'    => true,
@@ -561,7 +561,7 @@ class Woocommerce_Tapsi_Admin {
         ) );
 		// register Delivery Returned status
         register_post_status( 'wc-wcdd-returned', array(
-            'label'                     => __( 'Delivery Returned', 'local-delivery-by-tapsi' ),
+            'label'                     => __( 'Delivery Returned', 'tapsi-delivery' ),
             'public'                    => true,
             'show_in_admin_status_list' => true,
             'show_in_admin_all_list'    => true,
@@ -577,8 +577,8 @@ class Woocommerce_Tapsi_Admin {
 	 */
     public function add_tapsi_order_statuses( $order_statuses ) {
     	// add the custom order statuses to the woo drop down
-        $order_statuses['wc-wcdd-picked-up'] = __( 'Delivery Picked Up', 'local-delivery-by-tapsi' );
-        $order_statuses['wc-wcdd-returned'] = __( 'Delivery Returned', 'local-delivery-by-tapsi' );
+        $order_statuses['wc-wcdd-picked-up'] = __( 'Delivery Picked Up', 'tapsi-delivery' );
+        $order_statuses['wc-wcdd-returned'] = __( 'Delivery Returned', 'tapsi-delivery' );
         return $order_statuses;
     }
 

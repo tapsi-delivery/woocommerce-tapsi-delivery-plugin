@@ -341,7 +341,7 @@ class Woocommerce_Tapsi_Pickup_Location
         $api_url = 'https://api.tapsi.ir/api/v1/delivery/available-dates';
         $request_url = $api_url;
 
-        $token = 'accessToken='; // TODO
+        $token = 'accessToken=';  // TODO
         $headers = ['cookie' => $token];
         $request_args = ['headers' => $headers];
         $response = wp_remote_get($request_url, $request_args);
@@ -401,10 +401,10 @@ class Woocommerce_Tapsi_Pickup_Location
             if (!empty($day_hours)) {
                 if ($current_day == $today) {
                     // Custom label for Today
-                    $days[$current_day] = __('Today', 'local-delivery-by-tapsi');
+                    $days[$current_day] = __('Today', 'tapsi-delivery');
                 } else if ($current_day == $tomorrow) {
                     // Custom label for Tomorrow
-                    $days[$current_day] = __('Tomorrow', 'local-delivery-by-tapsi');
+                    $days[$current_day] = __('Tomorrow', 'tapsi-delivery');
                 } else {
                     // Otherwise, use a standard format, Tue, 5/7
                     $days[$current_day] = date($day_fmt, $current_day);

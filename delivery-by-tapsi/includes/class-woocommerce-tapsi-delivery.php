@@ -256,10 +256,9 @@ class Woocommerce_Tapsi_Delivery
      *
      * @return int Quoted rate in cents
      */
-    public function get_quoted_rate()
+    public function get_quoted_rate(): int
     {
-        return get_option('woocommerce_tapsi_quoted_fees');
-        return (array_key_exists('fee', $this->data) && !empty($this->data['fee'])) ? $this->data['fee'] / 100 : 0;
+        return WC()->session->get('tapsi_delivery_fee');
     }
 
     /**

@@ -86,99 +86,27 @@ class Woocommerce_Tapsi_API
      *
      * @return array Array with timestamp => labels
      */
-    public function get_available_dates(): array
+    public function get_available_dates()
     {
-        $days = array();
-
-        $api_url = 'delivery/available-dates';
-        $request_url = $this->base_url . $api_url;
-
-        $headers = ['cookie' => $this->jwt];
-        $request_args = ['headers' => $headers];
-        $response = wp_remote_get($request_url, $request_args);
-        $body = wp_remote_retrieve_body($response);
-        $data = json_decode($body);
-
-        if ($data) {
-            if (isset($data->availableDatesTimestamp) && is_array($data->availableDatesTimestamp)) {
-                foreach ($data->availableDatesTimestamp as $timestamp) {
-                    $timestamp /= 1000;
-                    $timeslot_display = date('m-d', $timestamp);
-                    $days[$timestamp] = $timeslot_display;
-                }
-            } else {
-                $days[0] = "Invalid response structure.";
-            }
-            return $days;
-        } else {
-            echo 'Failed to parse API response. Body: ' . $body;
-        }
-
-        return $days;
+        $request_path = 'delivery/available-dates';
+        $request_args = array('method' => 'GET');
+        return $this->request($request_path, $request_args);
     }
 
 
     /**
      * Given a datestamp, retrieve the user-selectable pickup time options for that date
      *
-     * @param int $datestamp Date to get preview for
+     * @param int $date_timestamp Date to get preview for
      * @return array Array containing timestamp keys and formatted time values
      */
-    public function get_preview(int $datestamp): array
+    public function get_preview(float $origin_lat, float $origin_long, float $destination_lat, float $destination_long, int $date_timestamp): array
     {
-        $days = array();
-
-        $originLat = 35.63064956665039;
-        $originLong = 51.36489486694336;
-        $destinationLat = 35.632899231302616;
-        $destinationLong = 51.36615198055347;
-        $dateTimestamp = $datestamp * 1000;
 
         $api_url = 'delivery/order/preview';
-        $request_url = $this->base_url . $api_url . '?originLat=' . $originLat . '&originLong=' . $originLong . '&destinationLat=' . $destinationLat . '&destinationLong=' . $destinationLong . '&dateTimestamp=' . $dateTimestamp;
-
-        $headers = ['cookie' => $this->jwt];
-        $request_args = ['headers' => $headers];
-        $response = wp_remote_get($request_url, $request_args);
-
-        if (is_wp_error($response)) {
-            echo 'Failed to fetch delivery times. Please try again later.';
-        } else {
-            $body = wp_remote_retrieve_body($response);
-            $data = json_decode($body);
-
-            if ($data) {
-                $timeslots = $data->invoicePerTimeslots;
-
-                if (!empty($timeslots)) {
-                    foreach ($timeslots as $timeslot) {
-                        $timeslotId = $timeslot->timeslotId;
-                        $startTimestamp = $timeslot->startTimestamp / 1000;
-                        $endTimestamp = $timeslot->endTimestamp / 1000;
-                        $timeslot_display = date('H:i', $startTimestamp) . ' - ' . date('H:i', $endTimestamp);
-
-                        if ($timeslot->isAvailable) {
-                            $price = $timeslot->invoice->amount;
-                            $displayText = $timeslot_display . ' (Price: ' . $price . ' Toman)';
-                            $option_attributes = 'value="' . $timeslotId . '"';
-                            $timeslot_key = $timeslotId . '_' . $price;
-                            $days[$timeslot_key] = $displayText;
-                        } else {
-                            $displayText = $timeslot_display . ' is not available';
-                            $option_attributes = 'disabled="disabled"';
-                            // TODO: Show as disabled option
-                        }
-
-                    }
-                } else {
-                    echo 'No available delivery times found.';
-                }
-            } else {
-                echo 'Failed to parse API response. Body: ' . $body;
-            }
-        }
-
-        return $days;
+        $request_path = $api_url . '?originLat=' . $origin_lat . '&originLong=' . $origin_long . '&destinationLat=' . $destination_lat . '&destinationLong=' . $destination_long . '&dateTimestamp=' . $date_timestamp;
+        $request_args = array('method' => 'GET');
+        return $this->request($request_path, $request_args);
     }
 
 
@@ -385,7 +313,7 @@ class Woocommerce_Tapsi_API
      * @param array $request_args An array of arguments for wp_remote_request
      * @return array|WP_Error The response array or a WP_Error on failure
      */
-    public function request($request_path, $request_args)
+    public function request(string $request_path, array $request_args)
     {
         // Before making a request, make sure we have keys
         if (!$this->get_keys()) {
@@ -399,8 +327,10 @@ class Woocommerce_Tapsi_API
         // Set up default arguments for WP Remote Request
         $defaults = array(
             'headers' => array(
-                'Authorization' => 'Bearer ' . $this->get_jwt(), // Get the auth header
-                'Content-Type' => 'application/json',
+//                'Authorization' => 'Bearer ' . $this->get_jwt(), // Get the auth header
+//                'Content-Type' => 'application/json',
+                'cookie' => $this->jwt
+
             )
         );
 

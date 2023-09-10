@@ -336,48 +336,26 @@ class Woocommerce_Tapsi_Pickup_Location
      */
     public function get_delivery_days(): array
     {
-        return WCDD()->api->get_available_dates();
+        $raw_response = WCDD()->api->get_available_dates();
+        $data = json_decode(wp_remote_retrieve_body($raw_response));
 
-        // Set up return array
         $days = array();
-        $day_fmt = apply_filters('wcdd_delivery_day_format', 'D, n/j');
 
-        // Set today and tomorrow so we can custom-label them
-        $today = strtotime('today');
-        $tomorrow = strtotime('tomorrow');
-
-        // Set the first valid day based on lead time and hours
-        $current_day = floor($this->get_next_valid_time() / DAY_IN_SECONDS) * DAY_IN_SECONDS;
-
-        // Get the number of days out that we should allow orders. Defaults to 14
-        $number_of_days = apply_filters('wcdd_delivery_number_of_days_ahead', intval(get_option('woocommerce_tapsi_number_of_days_ahead')) ?? 14);
-
-        $i = 1;
-
-        while ($i <= $number_of_days) {
-            // Get a day string for the current weekday
-            $day_of_week = date('l', $current_day);
-            // Get the hours for the current day
-            $day_hours = $this->get_weekly_hours($day_of_week);
-
-            // Only add the day if it has hours assigned
-            if (!empty($day_hours)) {
-                if ($current_day == $today) {
-                    // Custom label for Today
-                    $days[$current_day] = __('Today', 'tapsi-delivery');
-                } else if ($current_day == $tomorrow) {
-                    // Custom label for Tomorrow
-                    $days[$current_day] = __('Tomorrow', 'tapsi-delivery');
-                } else {
-                    // Otherwise, use a standard format, Tue, 5/7
-                    $days[$current_day] = date($day_fmt, $current_day);
+        if ($data) {
+            if (isset($data->availableDatesTimestamp) && is_array($data->availableDatesTimestamp)) {
+                foreach ($data->availableDatesTimestamp as $timestamp) {
+                    $timestamp /= 1000;
+                    $timeslot_display = date('m-d', $timestamp);
+                    $days[$timestamp] = $timeslot_display;
                 }
+            } else {
+                $days[0] = "Invalid response structure.";
             }
-            $i++; // Iterate the counter
-            $current_day += DAY_IN_SECONDS; // Iterate the day
+            return $days;
+        } else {
+            echo 'Failed to parse API response. Body: ' . $data;
         }
 
-        // Return the array
         return $days;
     }
 
@@ -388,41 +366,57 @@ class Woocommerce_Tapsi_Pickup_Location
      * @param int $datestamp Date to get options for
      * @return array Array containing timestamp keys and formatted time values
      */
-    public function get_delivery_times_for_date($datestamp): array
+    public function get_delivery_times_for_date(int $datestamp): array
     {
-        return WCDD()->api->get_preview($datestamp);
 
-        if (is_null($datestamp)) $datestamp = time();
+        $origin_lat = 35.63064956665039;
+        $origin_long = 51.36489486694336;
+        $destination_lat = 35.632899231302616;
+        $destination_long = 51.36615198055347;
+        $date_timestamp = $datestamp * 1000;
 
-        // Get the day of the week for the datestamp
-        $day_of_week = date('l', $datestamp);
+        $raw_response = WCDD()->api->get_preview($origin_lat, $origin_long, $destination_lat, $destination_long, $date_timestamp);
 
-        // Get the hours saved in the location for that day
-        $day_hours = $this->get_weekly_hours($day_of_week);
 
-        // Set up an empty array to store our times
-        $options = array();
+        $days = array();
 
-        // If there are no hours for this day, return false
-        if (empty($day_hours)) return $options;
+        if (is_wp_error($raw_response)) {
+            echo 'Failed to fetch delivery times. Please try again later.';
+        } else {
+            $data = json_decode(wp_remote_retrieve_body($raw_response));
 
-        // Set up access to hours functions
-        $ddhours = new Woocommerce_Tapsi_Hours();
+            if ($data) {
+                $timeslots = $data->invoicePerTimeslots;
 
-        // Get the hour ranges for the selected day
-        $ranges = $ddhours->get_hour_ranges($day_hours);
+                if (!empty($timeslots)) {
+                    foreach ($timeslots as $timeslot) {
+                        $timeslotId = $timeslot->timeslotId;
+                        $startTimestamp = $timeslot->startTimestamp / 1000;
+                        $endTimestamp = $timeslot->endTimestamp / 1000;
+                        $timeslot_display = date('H:i', $startTimestamp) . ' - ' . date('H:i', $endTimestamp);
 
-        // Loop each range
-        foreach ($ranges as $range) {
-            // Fill an array with times between the start and end values of the range
-            $range_values = $ddhours->fill_range($range[0], $range[1], $datestamp, $this->get_average_delivery_time());
+                        if ($timeslot->isAvailable) {
+                            $price = $timeslot->invoice->amount;
+                            $displayText = $timeslot_display . ' (Price: ' . $price . ' Toman)';
+                            $option_attributes = 'value="' . $timeslotId . '"';
+                            $timeslot_key = $timeslotId . '_' . $price;
+                            $days[$timeslot_key] = $displayText;
+                        } else {
+                            $displayText = $timeslot_display . ' is not available';
+                            $option_attributes = 'disabled="disabled"';
+                            // TODO: Show as disabled option
+                        }
 
-            // Add the values to the return value
-            $options = $options + $range_values;
+                    }
+                } else {
+                    echo 'No available delivery times found.';
+                }
+            } else {
+                echo 'Failed to parse API response. Body: ' . serialize($raw_response);
+            }
         }
 
-        // Return the pickup time options
-        return $options;
+        return $days;
     }
 
     /**

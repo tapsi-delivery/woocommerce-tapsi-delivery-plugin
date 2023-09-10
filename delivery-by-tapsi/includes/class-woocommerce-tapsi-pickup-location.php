@@ -20,10 +20,6 @@
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
  */
-		'postcode'   => '',
-		'country'    => '',
-			'tuesday' => '',
-			'wednesday' => '',
 class Woocommerce_Tapsi_Pickup_Location
 {
 

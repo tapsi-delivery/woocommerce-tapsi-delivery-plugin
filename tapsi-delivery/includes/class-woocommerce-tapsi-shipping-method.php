@@ -83,9 +83,9 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
         $delivery = new Woocommerce_Tapsi_Delivery(); // create from session data
 
         // Only fire an API request if certain params have been set for the delivery
-        if ($delivery->is_valid()) {
-            $quote_result = WCDD()->api->get_delivery_quote($delivery);
-        }
+//        if ($delivery->is_valid()) {
+//            $quote_result = WCDD()->api->get_delivery_quote($delivery);
+//        }
 
         // Save the delivery id
         WC()->session->set('tapsi_external_delivery_id', $delivery->get_id());
@@ -103,7 +103,7 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
             )
         ));
 
-        if (wp_remote_retrieve_response_code($quote_result) !== 200) WC()->session->set('tapsi_external_delivery_id', '');
+//        if (wp_remote_retrieve_response_code($quote_result) !== 200) WC()->session->set('tapsi_external_delivery_id', '');
     }
 
     public function init_form_fields()

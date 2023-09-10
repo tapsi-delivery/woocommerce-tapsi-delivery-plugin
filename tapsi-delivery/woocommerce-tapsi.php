@@ -6,15 +6,15 @@
  * @package           Woocommerce_Tapsi
  *
  * @wordpress-plugin
- * Plugin Name:       Delivery by Tapsi
+ * Plugin Name:       Tapsi Delivery
  * Plugin URI:        https://developer.tapsi.com/wordpress-plugin
- * Description:       Let Tapsi power your delivery. Use Tapsi as a shipping provider to offer local, on-demand delivery for your WooCommerce store. Configure multiple pickup locations, delivery hours, tip amounts, and more.
+ * Description:       Let Tapsi power your delivery. Use Tapsi as a shipping provider to offer local, scheduled delivery for your WooCommerce store. Configure multiple pickup locations, delivery hours, tip amounts, and more.
  * Version:           1.0.8
  * Author:            Tapsi
  * Author URI:        https://developer.tapsi.com/en-US/wordpress-plugin
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       local-delivery-by-tapsi
+ * Text Domain:       tapsi-delivery
  * Domain Path:       /languages
  */
 
@@ -70,7 +70,7 @@ function WCDD() {
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		// If WooCommerce is not active, display a notice.
 		add_action( 'admin_notices', function() {
-			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Delivery by Tapsi requires WooCommerce to be installed and active.', 'local-delivery-by-tapsi' ) ); 
+			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Tapsi Delivery requires WooCommerce to be installed and active.', 'tapsi-delivery' ) ); 
 		} );
 		return false;
 	}
@@ -98,7 +98,7 @@ add_action( 'plugins_loaded', 'WCDD' );
  * @return array Filtered links
  */
 function wcdd_add_action_links ( $links ) {
-	array_unshift( $links, sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi' ), __( 'Settings', 'local-delivery-by-tapsi' ) ) );
+	array_unshift( $links, sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi' ), __( 'Settings', 'tapsi-delivery' ) ) );
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wcdd_add_action_links' );

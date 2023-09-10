@@ -1,6 +1,6 @@
-=== Delivery by Tapsi ===
-Contributors: inverseparadox, eriktdesign, wildcanon, shawn_hogan
-Donate link: https://www.inverseparadox.com
+=== Tapsi Delivery ===
+Contributors: Cham Run Moeini, Maryam Alikarami, Mahdi Bohloul
+Powered by: https://www.inverseparadox.com
 Tags: woocommerce, shipping, delivery, tapsi
 Requires at least: 3.0.1
 Requires PHP: 7.4
@@ -9,11 +9,11 @@ Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Offer immediate and pre-scheduled delivery to your WooCommerce shop customers with Tapsi’s integrated delivery solution.
+Offer scheduled delivery to your WooCommerce shop customers with Tapsi’s integrated delivery solution.
 
 == Description ==
 
-With the Delivery by Tapsi plugin for WooCommerce, your store can offer convenient delivery to customers right from within the shopping cart -- no app needed. Businesses of all sizes and across industries can use this plugin to tap into the same network of 1+ million monthly active Dashers that powers top retailers, grocery stores, restaurants, and thousands of other businesses around the US.
+With the Tapsi Delivery plugin for WooCommerce, your store can offer convenient delivery to customers right from within the shopping cart -- no app needed. Businesses of all sizes and across industries can use this plugin to tap into the same network of 1+ million monthly active Dashers that powers top retailers, grocery stores, restaurants, and thousands of other businesses around the US.
 
 = How It Works =
 
@@ -41,9 +41,9 @@ Setup is easy -- [click here for a step-by-step tutorial](https://developer.taps
 
 Download and install the Delivery plugin by Tapsi in minutes. No coding required –which means you have more time to grow your business.
 
-1. **Download the Tapsi extension:** Install the Delivery by Tapsi plugin from the WordPress directory.
+1. **Download the Tapsi extension:** Install the Tapsi Delivery plugin from the WordPress directory.
 1. **Create a Developer portal account:** Log into the Tapsi Developer portal and easily generate secure sandbox API credentials for testing.
-1. **Configure Tapsi in your store:** Select Delivery by Tapsi within your WooCommerce admin to enter your Tapsi API credentials and configure your delivery settings.
+1. **Configure Tapsi in your store:** Select Tapsi Delivery within your WooCommerce admin to enter your Tapsi API credentials and configure your delivery settings.
 1. **Test your integration:** Create test delivery orders through your WooCommerce store and manage them in Tapsi’s delivery simulator (located in the Tapsi Developer portal).
 1. **Let us know you’re ready to launch:** Request to launch in the Tapsi Developer portal, swap out your test credentials in your store admin, and start taking live delivery orders!
 
@@ -51,36 +51,36 @@ Download and install the Delivery plugin by Tapsi in minutes. No coding required
 
 Installing the plugin is easy. Just use one of these methods:
 
-= From Delivery by Tapsi from within WordPress =
+= From Tapsi Delivery from within WordPress =
 1. From your dashboard, navigate to *Plugins > Add New*
-1. Search for "Delivery by Tapsi"
+1. Search for "Tapsi Delivery"
 1. Click **Install Now**. After the plugin downloads, click **Activate**
 
-= Install Delivery by Tapsi Manually =
+= Install Tapsi Delivery Manually =
 1. Upload the `woocommerce-tapsi` folder to your `/wp-content/plugins/` directory.
-1. Activate the Delivery by Tapsi plugin by visiting *Plugins > Installed Plugins* and clicking **Activate**.
+1. Activate the Tapsi Delivery plugin by visiting *Plugins > Installed Plugins* and clicking **Activate**.
 
 = After Activation =
-1. Visit *WooCommerce > Settings > Delivery by Tapsi* to configure your settings.
+1. Visit *WooCommerce > Settings > Tapsi Delivery* to configure your settings.
 1. Follow the instructions to create an account on the Tapsi Developer Portal and generate API keys.
-1. Enter your generated keys in the Delivery by Tapsi settings.
+1. Enter your generated keys in the Tapsi Delivery settings.
 1. Click the *Webhooks* tab to generate a WooCommerce REST API user and create a new webhook in the Tapsi Developer Portal.
 1. Click the *Locations* tab to configure your pickup locations.
 1. Add the *Tapsi* shipping method to your applicable Shipping Zones.
 
 == Frequently Asked Questions ==
 
-= What is Delivery by Tapsi? =
+= What is Tapsi Delivery? =
 
-Delivery by Tapsi is a WordPress plugin that allows businesses of all sizes and across any industry to offer on-demand delivery to customers ordering from their WooCommerce store
+Tapsi Delivery is a WordPress plugin that allows businesses of all sizes and across any industry to offer scheduled delivery to customers ordering from their WooCommerce store
 
 By downloading and installing this plugin, businesses can tap into the Tapsi network of 1 million+ monthly active Dashers and start fulfilling delivery orders for their customers.
 
-= How does Delivery by Tapsi work? =
+= How does Tapsi Delivery work? =
 
 1. **Integrate Easily:** With the no-code Tapsi extension, you can add delivery to your website in just a few steps.
 1. **Pay-per-Use:** Pay only for requested deliveries–no upfront cost, recurring fees, or surge pricing.
-1. **Request a Driver on Demand:** Customers can request an immediate or pre-scheduled delivery in just a few clicks.
+1. **Request a Scheduled Driver:** Customers can request a pre-scheduled delivery in just a few clicks.
 1. **Stay Updated:** Get status updates, live tracking URLs for every delivery, and optional SMS notifications for your customers.
 1. **Own the Experience:** Accept and fulfill orders through your own website.
 
@@ -90,19 +90,19 @@ Here’s our tutorial on [Getting Started with WooCommerce](https://developer.ta
 
 = Is there a more detailed guide I could check out? =
  
-Here’s our how-to guide on [Configuring Delivery by Tapsi](https://developer.tapsi.com/en-US/docs/drive/how_to/woocommerce_settings), which contains more detailed information and best practices for shipping zones and other settings in your WooCommerce admin.
+Here’s our how-to guide on [Configuring Tapsi Delivery](https://developer.tapsi.com/en-US/docs/drive/how_to/woocommerce_settings), which contains more detailed information and best practices for shipping zones and other settings in your WooCommerce admin.
 
-= Can I use Delivery by Tapsi if I don’t have a WooCommerce store? =
+= Can I use Tapsi Delivery if I don’t have a WooCommerce store? =
 
-If you don’t have a WooCommerce store, here are other ways to add Delivery by Tapsi to your business:
+If you don’t have a WooCommerce store, here are other ways to add Tapsi Delivery to your business:
 
 1. **[Direct API Integration:](https://developer.tapsi.com/en-US/docs/drive/tutorials/get_started)** Use our API to build delivery with your own website, app, or point-of-sale system.
 1. **[Node.js Integration:](https://developer.tapsi.com/en-US/docs/drive/tutorials/get_started_sdk)** Use our Node.js SDK to build delivery directly into your JavaScript or TypeScript app.
 1. **[Postman Collection:](https://developer.tapsi.com/en-US/docs/drive/tutorials/get_started_postman)** Check out the Tapsi Public Workspace on the Postman API Network and get a feel for the Tapsi APIs interactively.
 
-= Which businesses can use Delivery by Tapsi? =
+= Which businesses can use Tapsi Delivery? =
 
-Businesses of all sizes and across industries can use the Delivery by Tapsi plugin to fulfill their delivery needs. Here are a few types of businesses that leverage Tapsi on-demand delivery:
+Businesses of all sizes and across industries can use the Tapsi Delivery plugin to fulfill their delivery needs. Here are a few types of businesses that leverage Tapsi scheduled delivery:
 
 1. Gifts & flower shops
 1. Clothing stores
@@ -130,8 +130,8 @@ Anyone with a WooCommerce store can use this plugin. Simply install the plugin a
 == Screenshots ==
 
 1. Customer delivery interface on the WooCommerce checkout page (using the Storefront theme)
-2. Delivery by Tapsi settings page in the WooCommerce settings area
-3. Configuration screen for pickup locations in the Delivery by Tapsi settings
+2. Tapsi Delivery settings page in the WooCommerce settings area
+3. Configuration screen for pickup locations in the Tapsi Delivery settings
 
 == Changelog ==
 

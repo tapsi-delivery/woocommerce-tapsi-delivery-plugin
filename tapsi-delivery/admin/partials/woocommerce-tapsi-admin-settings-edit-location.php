@@ -15,11 +15,11 @@
 /**
  * Output the Location Information section
  */
-echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations' ) . '">' . __( 'Locations' ) . '</a> > ' . __( 'Edit Location', 'local-delivery-by-tapsi' ) . '</h2>';
+echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations' ) . '">' . __( 'Locations' ) . '</a> > ' . __( 'Edit Location', 'tapsi-delivery' ) . '</h2>';
 
-echo '<h2>' . __( 'Location Information', 'local-delivery-by-tapsi' ) . '</h2>';
+echo '<h2>' . __( 'Location Information', 'tapsi-delivery' ) . '</h2>';
 
-	echo '<p>' . __( 'Enter the information for the location you.', 'local-delivery-by-tapsi' ) . '</p>';
+	echo '<p>' . __( 'Enter the information for the location you.', 'tapsi-delivery' ) . '</p>';
 
 	echo '<section class="wc-tapsi-location hidden">';
 		woocommerce_form_field( 'location_id', array(
@@ -31,46 +31,46 @@ echo '<h2>' . __( 'Location Information', 'local-delivery-by-tapsi' ) . '</h2>';
 		woocommerce_form_field( 'location_name', array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __( 'Location Name', 'local-delivery-by-tapsi' ),
-			'placeholder' => __( 'Location Name', 'local-delivery-by-tapsi' ),
+			'label' => __( 'Location Name', 'tapsi-delivery' ),
+			'placeholder' => __( 'Location Name', 'tapsi-delivery' ),
 		), $location->get_name() );
 	echo '</section>';
 
 	echo '<section class="wc-tapsi-location option">';
 		woocommerce_form_field( 'location_enabled', array(
 			'type' => 'checkbox',
-			'label' => __( 'Enabled', 'local-delivery-by-tapsi' ),
-			'description' => __( 'Only enabled locations are able to be selected for Tapsi deliveries.', 'local-delivery-by-tapsi' ),
+			'label' => __( 'Enabled', 'tapsi-delivery' ),
+			'description' => __( 'Only enabled locations are able to be selected for Tapsi deliveries.', 'tapsi-delivery' ),
 		), $location->is_enabled() );
 	echo '</section>';
 
 	echo '<section class="wc-tapsi-location info">';
 		woocommerce_form_field( 'location_email', array(
 			'type' => 'email',
-			'label' => __( 'Email Address', 'local-delivery-by-tapsi' ),
+			'label' => __( 'Email Address', 'tapsi-delivery' ),
 			'required' => true,
-			'description' => __( 'New order notifications for this location will be sent to this email address.', 'local-delivery-by-tapsi' )
+			'description' => __( 'New order notifications for this location will be sent to this email address.', 'tapsi-delivery' )
 		), $location->get_email() );
 
 		woocommerce_form_field( 'location_phone', array(
 			'type' => 'tel',
-			'label' => __( 'Phone Number', 'local-delivery-by-tapsi' ),
+			'label' => __( 'Phone Number', 'tapsi-delivery' ),
 			'required' => true,
 		), $location->get_phone_number() );
 
 		woocommerce_form_field( 'location_pickup_instructions', array(
 			'type' => 'text',
-			'label' => __( 'Pickup Instructions', 'local-delivery-by-tapsi' ),
-			'description' => __( 'Pickup instructions for this location. Leave blank to use the default pickup instructions.', 'local-delivery-by-tapsi' )
+			'label' => __( 'Pickup Instructions', 'tapsi-delivery' ),
+			'description' => __( 'Pickup instructions for this location. Leave blank to use the default pickup instructions.', 'tapsi-delivery' )
 		), $location->get_pickup_instructions() );
 	echo '</section>';
 
 /**
  * Output the Location Address section
  */
-echo '<h2>' . __( 'Address', 'local-delivery-by-tapsi' ) . '</h2>';
+echo '<h2>' . __( 'Address', 'tapsi-delivery' ) . '</h2>';
 
-	echo '<p>' . __( 'Enter the address for the location.', 'local-delivery-by-tapsi' ) . '</p>';
+	echo '<p>' . __( 'Enter the address for the location.', 'tapsi-delivery' ) . '</p>';
 
 	$address = $location->get_address();
 
@@ -78,61 +78,61 @@ echo '<h2>' . __( 'Address', 'local-delivery-by-tapsi' ) . '</h2>';
 		woocommerce_form_field( 'location_address_1', array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __( 'Address 1', 'local-delivery-by-tapsi' ),
+			'label' => __( 'Address 1', 'tapsi-delivery' ),
 		), $address['address_1'] );
 
 		woocommerce_form_field( 'location_address_2', array(
 			'type' => 'text',
-			'label' => __( 'Address 2', 'local-delivery-by-tapsi' ),
+			'label' => __( 'Address 2', 'tapsi-delivery' ),
 		), $address['address_2'] );
 
 		woocommerce_form_field( 'location_city', array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __( 'City', 'local-delivery-by-tapsi' ),
+			'label' => __( 'City', 'tapsi-delivery' ),
 		), $address['city'] );
 
 		woocommerce_form_field( 'location_state', array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __( 'State', 'local-delivery-by-tapsi' ),
+			'label' => __( 'State', 'tapsi-delivery' ),
 		), $address['state'] );
 
 		woocommerce_form_field( 'location_postcode', array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __( 'Postcode', 'local-delivery-by-tapsi' ),
+			'label' => __( 'Postcode', 'tapsi-delivery' ),
 		), $address['postcode'] );
 
 		woocommerce_form_field( 'location_country', array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __( 'Country', 'local-delivery-by-tapsi' ),
+			'label' => __( 'Country', 'tapsi-delivery' ),
 		), $address['country'] );
 	echo '</section>';
 
 /**
  * Output the Location Hours section
  */
-echo '<h2>' . __( 'Hours', 'local-delivery-by-tapsi' ) . '</h2>';
+echo '<h2>' . __( 'Hours', 'tapsi-delivery' ) . '</h2>';
 
-	echo '<p>' . __( 'Enter the hours for the location.', 'local-delivery-by-tapsi' ) . '</p>';
+	echo '<p>' . __( 'Enter the hours for the location.', 'tapsi-delivery' ) . '</p>';
 
 	echo '<section class="wc-tapsi-location option hours-wrapper">';
 		woocommerce_form_field( 'location_hours_enabled', array(
 			'type' => 'checkbox',
-			'label' => __( 'Customize hours for this location', 'local-delivery-by-tapsi' ),
+			'label' => __( 'Customize hours for this location', 'tapsi-delivery' ),
 		), $location->has_hours() );
 
 		// TODO: This should follow the start_of_week option
 		$weekdays = array(
-			'sunday'    => __( 'Sunday', 'local-delivery-by-tapsi' ),
-			'monday'    => __( 'Monday', 'local-delivery-by-tapsi' ),
-			'tuesday'   => __( 'Tuesday', 'local-delivery-by-tapsi' ),
-			'wednesday' => __( 'Wednesday', 'local-delivery-by-tapsi' ),
-			'thursday'  => __( 'Thursday', 'local-delivery-by-tapsi' ),
-			'friday'    => __( 'Friday', 'local-delivery-by-tapsi' ),
-			'saturday'  => __( 'Saturday', 'local-delivery-by-tapsi' ),
+			'sunday'    => __( 'Sunday', 'tapsi-delivery' ),
+			'monday'    => __( 'Monday', 'tapsi-delivery' ),
+			'tuesday'   => __( 'Tuesday', 'tapsi-delivery' ),
+			'wednesday' => __( 'Wednesday', 'tapsi-delivery' ),
+			'thursday'  => __( 'Thursday', 'tapsi-delivery' ),
+			'friday'    => __( 'Friday', 'tapsi-delivery' ),
+			'saturday'  => __( 'Saturday', 'tapsi-delivery' ),
 		);
 
 		echo '<section class="wc-tapsi-location hours">';

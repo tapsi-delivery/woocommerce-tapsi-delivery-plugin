@@ -337,7 +337,6 @@ class Woocommerce_Tapsi_Pickup_Location
     private function get_available_dates(): array
     {
         $days = array();
-        $day_fmt = apply_filters('wcdd_delivery_day_format', 'D, n/j');
 
         $api_url = 'https://api.tapsi.ir/api/v1/delivery/available-dates';
         $request_url = $api_url;
@@ -372,7 +371,7 @@ class Woocommerce_Tapsi_Pickup_Location
      *
      * @return array Array with timestamp => labels
      */
-    public function get_delivery_days()
+    public function get_delivery_days(): array
     {
         return $this->get_available_dates();
 
@@ -461,16 +460,16 @@ class Woocommerce_Tapsi_Pickup_Location
 
                         if ($timeslot->isAvailable) {
                             $price = $timeslot->invoice->amount;
-                            update_option('woocommerce_tapsi_quoted_fees', $price / 1000);
-                            $displayText = $timeslot_display . ' (Price: ' . $price . ' toman)';
+                            $displayText = $timeslot_display . ' (Price: ' . $price . ' Toman)';
                             $option_attributes = 'value="' . $timeslotId . '"';
-
+                            $timeslot_key = $timeslotId . '_' . $price;
+                            $days[$timeslot_key] = $displayText;
                         } else {
                             $displayText = $timeslot_display . ' is not available';
                             $option_attributes = 'disabled="disabled"';
+                            // TODO: Show as disabled option
                         }
 
-                        $days[$timeslotId] = $displayText;
                     }
                 } else {
                     echo 'No available delivery times found.';
@@ -489,7 +488,7 @@ class Woocommerce_Tapsi_Pickup_Location
      * @param int $datestamp Date to get options for
      * @return array Array containing timestamp keys and formatted time values
      */
-    public function get_delivery_times_for_date($datestamp)
+    public function get_delivery_times_for_date($datestamp): array
     {
         return $this->get_preview($datestamp);
 

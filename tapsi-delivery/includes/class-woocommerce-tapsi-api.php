@@ -110,6 +110,25 @@ class Woocommerce_Tapsi_API
     }
 
 
+    public function submit_delivery_order(array $receiver, array $sender, array $pack, string $time_slot_id, string $token): array
+    {
+        $request_path = 'delivery/order/submit';
+        $request_body = array(
+            'receiver' => $receiver,
+            'sender' => $sender,
+            'pack' => $pack,
+            'timeslotId' => $time_slot_id,
+            'token' => $token
+        );
+        $request_args = array(
+            'method' => 'POST',
+            'body' => json_encode($request_body),
+        );
+
+        return $this->request($request_path, $request_args);
+    }
+
+
     /**
      * Returns the current API mode, sandbox or production
      *

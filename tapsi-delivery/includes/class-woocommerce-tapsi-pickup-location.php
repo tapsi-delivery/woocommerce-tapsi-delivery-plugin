@@ -330,50 +330,13 @@ class Woocommerce_Tapsi_Pickup_Location
     }
 
     /**
-     * Gets values and labels for the available delivery days
-     *
-     * @return array Array with timestamp => labels
-     */
-    private function get_available_dates(): array
-    {
-        $days = array();
-
-        $api_url = 'https://api.tapsi.ir/api/v1/delivery/available-dates';
-        $request_url = $api_url;
-
-        $token = 'accessToken=';  // TODO
-        $headers = ['cookie' => $token];
-        $request_args = ['headers' => $headers];
-        $response = wp_remote_get($request_url, $request_args);
-        $body = wp_remote_retrieve_body($response);
-        $data = json_decode($body);
-
-        if ($data) {
-            if (isset($data->availableDatesTimestamp) && is_array($data->availableDatesTimestamp)) {
-                foreach ($data->availableDatesTimestamp as $timestamp) {
-                    $timestamp /= 1000;
-                    $timeslot_display = date('m-d', $timestamp);
-                    $days[$timestamp] = $timeslot_display;
-                }
-            } else {
-                $days[0] = "Invalid response structure.";
-            }
-            return $days;
-        } else {
-            echo 'Failed to parse API response. Body: ' . $body;
-        }
-
-        return $days;
-    }
-
-    /**
      * Gets values and labels for the available delivery days for the location
      *
      * @return array Array with timestamp => labels
      */
     public function get_delivery_days(): array
     {
-        return $this->get_available_dates();
+        return WCDD()->api->get_available_dates();
 
         // Set up return array
         $days = array();
@@ -418,69 +381,6 @@ class Woocommerce_Tapsi_Pickup_Location
         return $days;
     }
 
-    /**
-     * Given a datestamp, retrieve the user-selectable pickup time options for that date
-     *
-     * @param int $datestamp Date to get preview for
-     * @return array Array containing timestamp keys and formatted time values
-     */
-    public function get_preview(int $datestamp): array
-    {
-        $days = array();
-
-        $api_url = 'https://api.tapsi.ir/api/v1/delivery/order/preview';
-        $originLat = 35.63064956665039;
-        $originLong = 51.36489486694336;
-        $destinationLat = 35.632899231302616;
-        $destinationLong = 51.36615198055347;
-        $dateTimestamp = $datestamp * 1000;
-
-        $request_url = $api_url . '?originLat=' . $originLat . '&originLong=' . $originLong . '&destinationLat=' . $destinationLat . '&destinationLong=' . $destinationLong . '&dateTimestamp=' . $dateTimestamp;
-
-        $token = 'accessToken=';  // TODO
-        $headers = ['cookie' => $token];
-        $request_args = ['headers' => $headers];
-        $response = wp_remote_get($request_url, $request_args);
-
-        if (is_wp_error($response)) {
-            echo 'Failed to fetch delivery times. Please try again later.';
-        } else {
-            $body = wp_remote_retrieve_body($response);
-            $data = json_decode($body);
-
-            if ($data) {
-                $timeslots = $data->invoicePerTimeslots;
-
-                if (!empty($timeslots)) {
-                    foreach ($timeslots as $timeslot) {
-                        $timeslotId = $timeslot->timeslotId;
-                        $startTimestamp = $timeslot->startTimestamp / 1000;
-                        $endTimestamp = $timeslot->endTimestamp / 1000;
-                        $timeslot_display = date('H:i', $startTimestamp) . ' - ' . date('H:i', $endTimestamp);
-
-                        if ($timeslot->isAvailable) {
-                            $price = $timeslot->invoice->amount;
-                            $displayText = $timeslot_display . ' (Price: ' . $price . ' Toman)';
-                            $option_attributes = 'value="' . $timeslotId . '"';
-                            $timeslot_key = $timeslotId . '_' . $price;
-                            $days[$timeslot_key] = $displayText;
-                        } else {
-                            $displayText = $timeslot_display . ' is not available';
-                            $option_attributes = 'disabled="disabled"';
-                            // TODO: Show as disabled option
-                        }
-
-                    }
-                } else {
-                    echo 'No available delivery times found.';
-                }
-            } else {
-                echo 'Failed to parse API response. Body: ' . $body;
-            }
-        }
-
-        return $days;
-    }
 
     /**
      * Given a datestamp, retrieve the user-selectable pickup time options for that date
@@ -490,7 +390,7 @@ class Woocommerce_Tapsi_Pickup_Location
      */
     public function get_delivery_times_for_date($datestamp): array
     {
-        return $this->get_preview($datestamp);
+        return WCDD()->api->get_preview($datestamp);
 
         if (is_null($datestamp)) $datestamp = time();
 

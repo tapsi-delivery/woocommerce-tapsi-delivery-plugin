@@ -156,6 +156,7 @@ class Woocommerce_Tapsi_Delivery
             'contactless_dropoff' => apply_filters('wcdd_contactless_dropoff', false),
             'tip' => $tip,
             'dropoff_time' => gmdate("Y-m-d\TH:i:s\Z", $delivery_time),
+            'chosen_time_slot_data' => WC()->session->get('tapsi_delivery_time')
         );
 
         //does cart contain alcohol or tobacco
@@ -361,6 +362,19 @@ class Woocommerce_Tapsi_Delivery
     }
 
 
+    /**
+     * Retrieve the id of selected time slot for the order
+     *
+     * @return string|false String with id of selected time slot or false if no time is available
+     */
+    public function get_time_slot_id()
+    {
+        if (array_key_exists('chosen_time_slot_data', $this->data) && !empty($this->data['chosen_time_slot_data'])) {
+            return explode("--", $this->data['chosen_time_slot_data'])[0];
+        } else {
+            return false;
+        }
+    }
     /**
      * Retrieve the estimated dropoff time for the order
      *

@@ -363,11 +363,16 @@ class Woocommerce_Tapsi_Pickup_Location
     /**
      * Given a datestamp, retrieve the user-selectable pickup time options for that date
      *
-     * @param int $datestamp Date to get options for
+     * @param ?int $datestamp Date to get options for
      * @return array Array containing timestamp keys and formatted time values
      */
-    public function get_delivery_times_for_date(int $datestamp): array
+    public function get_delivery_times_for_date(?int $datestamp): array
     {
+        $days = array();
+
+        if ($datestamp == null) {
+            return $days;
+        }
 
         $origin_lat = 35.63064956665039;
         $origin_long = 51.36489486694336;
@@ -377,8 +382,6 @@ class Woocommerce_Tapsi_Pickup_Location
 
         $raw_response = WCDD()->api->get_preview($origin_lat, $origin_long, $destination_lat, $destination_long, $date_timestamp);
 
-
-        $days = array();
 
         if (is_wp_error($raw_response)) {
             echo 'Failed to fetch delivery times. Please try again later.';

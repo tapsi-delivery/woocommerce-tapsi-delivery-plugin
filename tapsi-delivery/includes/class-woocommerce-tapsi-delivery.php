@@ -360,6 +360,22 @@ class Woocommerce_Tapsi_Delivery
         }
     }
 
+
+    /**
+     * Retrieve the estimated dropoff time for the order
+     *
+     * @param bool $timestamp True to return a UNIX timestamp, false to return raw value from API
+     * @return string|false String with dropoff time or false if no time is available
+     */
+    public function get_dropoff_instructions(): string
+    {
+        if (array_key_exists('dropoff_instructions', $this->data) && !empty($this->data['dropoff_instructions'])) {
+            return $this->data['dropoff_instructions'];
+        } else {
+            return '';
+        }
+    }
+
     /**
      * Get the locale for the delivery
      *

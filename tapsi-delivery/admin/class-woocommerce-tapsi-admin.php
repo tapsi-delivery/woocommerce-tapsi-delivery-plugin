@@ -332,6 +332,13 @@ class Woocommerce_Tapsi_Admin
         // Add the note to the order
         $order->add_order_note($note);
 
+        $location_id = (int)$method->get_meta("_tapsi_pickup_location");
+
+        if ($location_id) {
+            $location = new Woocommerce_Tapsi_Pickup_Location($location_id);
+            $this->submit_delivery_order($delivery, $order, $location);
+        }
+
 
         // Clear delivery details from session. Leave the selected location.
         WC()->session->set('tapsi_external_delivery_id', '');
@@ -639,5 +646,69 @@ class Woocommerce_Tapsi_Admin
 
         // Send the list of recipients back to the email class
         return $recipient;
+    }
+
+    /**
+     * @param Woocommerce_Tapsi_Delivery $delivery
+     * @param $order
+     * @return void
+     */
+    public function submit_delivery_order(
+        Woocommerce_Tapsi_Delivery        $delivery,
+        WC_Order                          $order,
+        Woocommerce_Tapsi_Pickup_Location $sender_location
+    ): void
+    {
+
+        error_log('$delivery: ' . print_r($delivery, true));
+
+        $receiver_location_description = $order->get_shipping_city() . '، ' .
+            $order->get_shipping_address_1() . '، ' .
+            $order->get_shipping_address_2() . '، ' .
+            $order->get_shipping_company() . '.';
+
+        $origin_lat = 35.63064956665039;
+        $origin_long = 51.36489486694336;
+        $destination_lat = 35.632899231302616;
+        $destination_long = 51.36615198055347;
+
+        $sender_address = $sender_location->get_address();
+        $sender_location_description = $sender_address['city'] . '، ' .
+            $sender_address['address_1'] . '، ' .
+            $sender_address['address_2'] . '.';
+
+        $sender = array(
+            'location' => array(
+                'coordinate' => array(
+                    'latitude' => $origin_lat,
+                    'longitude' => $origin_long
+                ),
+                'description' => $sender_location_description,
+                'buildingNumber' => $sender_address['postcode'],
+                'apartmentNumber' => ''
+            )
+        );
+
+        $receiver = array(
+            'fullName' => $order->get_formatted_shipping_full_name(),
+            'phoneNumber' => $order->get_shipping_phone(),
+            'location' => array(
+                'coordinate' => array(
+                    'latitude' => $destination_lat,
+                    'longitude' => $destination_long
+                ),
+                'description' => $receiver_location_description,
+                'buildingNumber' => $order->get_shipping_postcode(),
+                'apartmentNumber' => '',
+            )
+        );
+
+
+        $pack = array('description' => $delivery->get_dropoff_instructions());  // TODO: add pickup instructions
+        $time_slot_id = $delivery->get_time_slot_id();
+        $preview_token = $delivery->get_preview_token();
+        error_log('$preview_token: ' . $preview_token);
+
+        WCDD()->api->submit_delivery_order($receiver, $sender, $pack, $time_slot_id, $preview_token);
     }
 }

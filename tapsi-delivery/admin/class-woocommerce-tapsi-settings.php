@@ -55,6 +55,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 			'' => __( 'Settings', 'tapsi-delivery' ),
 			'webhooks' => __( 'Webhooks', 'tapsi-delivery' ),
 			'locations' => __( 'Locations', 'tapsi-delivery' ),
+            'login' => __( 'Login', 'tapsi-delivery' ),
 		);
 
 		return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
@@ -106,7 +107,15 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 		} elseif ( 'webhooks' == $current_section ) {
 			$hide_save_button = true;
 			$this->output_webhooks_screen();
-		}
+		} elseif ( 'login' == $current_section ) {
+//            $hide_save_button = true;
+
+            if ( array_key_exists( 'tapsi_phone', $_GET ) ) {
+                $this->output_enter_otp_screen();
+            } else {
+                $this->output_enter_phone_screen();
+            }
+        }
 	}
 
 	/**
@@ -161,7 +170,11 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 				// If this was a new location, redirect to the newly created location
 				wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations&location_id=' . $location_id ) );
 			}
-		}
+		} elseif ( isset( $_REQUEST['_update-phone-nonce'] ) && wp_verify_nonce( $_REQUEST['_update-phone-nonce'], 'woocommerce-tapsi-update-phone' ) ) {
+            error_log('$_REQUEST: ' . print_r($_REQUEST, true));
+            $tapsi_phone = sanitize_text_field($_REQUEST['tapsi_phone']);
+            $location->set_phone( $tapsi_phone );
+        }
 	}
 
 	/**
@@ -300,6 +313,16 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 		include 'partials/woocommerce-tapsi-admin-settings-edit-location.php';
 	}
 
+
+    /**
+     * Show the individual phone field
+     *
+     * @return void
+     */
+    public function output_enter_phone_screen() {
+        include 'partials/woocommerce-tapsi-admin-settings-enter-phone.php';
+    }
+
 	/**
 	 * Get all the locations and create them as objects in an array
 	 *
@@ -360,7 +383,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 			printf( '<a href="%s" class="button">%s</a>', esc_url( $auth_url ), __( 'Generate Credentials', 'tapsi-delivery' ) );	
 		}
 	}
-
 }
 
 return new Woocommerce_Tapsi_Settings();

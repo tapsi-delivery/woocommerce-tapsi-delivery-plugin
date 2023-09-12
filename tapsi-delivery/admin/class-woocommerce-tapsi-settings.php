@@ -110,7 +110,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 		} elseif ( 'login' == $current_section ) {
 //            $hide_save_button = true;
 
-            if ( array_key_exists( 'tapsi_phone', $_GET ) ) {
+            if ( array_key_exists( 'phone', $_GET ) ) {
                 $this->output_enter_otp_screen();
             } else {
                 $this->output_enter_phone_screen();
@@ -171,9 +171,32 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 				wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations&location_id=' . $location_id ) );
 			}
 		} elseif ( isset( $_REQUEST['_update-phone-nonce'] ) && wp_verify_nonce( $_REQUEST['_update-phone-nonce'], 'woocommerce-tapsi-update-phone' ) ) {
-            error_log('$_REQUEST: ' . print_r($_REQUEST, true));
+//            error_log('$_REQUEST: ' . print_r($_REQUEST, true));
             $tapsi_phone = sanitize_text_field($_REQUEST['tapsi_phone']);
-            $location->set_phone( $tapsi_phone );
+            $tapsi_phone = str_replace( [ '-', '(', ')', ' ', '+' ], '', sanitize_text_field( $tapsi_phone ) );
+
+//            $pack_user = new Woocommerce_Tapsi_Pack_User( $tapsi_phone );
+//            $pack_user->set_phone( $tapsi_phone );
+
+            WCDD()->api->send_otp($tapsi_phone);
+            wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login&phone=' . $tapsi_phone ) );
+        } elseif ( isset( $_REQUEST['_update-otp-nonce'] ) && wp_verify_nonce( $_REQUEST['_update-otp-nonce'], 'woocommerce-tapsi-set-otp' ) ) {
+            error_log('$_REQUEST: ' . print_r($_REQUEST, true));
+
+            $otp = sanitize_text_field($_REQUEST['tapsi_otp']);
+            $tapsi_phone = sanitize_text_field($_REQUEST['phone']);
+
+            $tapsi_phone = str_replace( [ '-', '(', ')', ' ', '+' ], '', sanitize_text_field( $tapsi_phone ) );
+            $pack_user = new Woocommerce_Tapsi_Pack_User( $tapsi_phone );
+
+            $data = array(
+                'ID'            => $tapsi_phone,
+                'name'          => $tapsi_phone,
+                'enabled'       => 'enable',
+                'phone'         => $tapsi_phone,
+            );
+
+            $pack_user->update( $tapsi_phone );
         }
 	}
 
@@ -322,6 +345,17 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
     public function output_enter_phone_screen() {
         include 'partials/woocommerce-tapsi-admin-settings-enter-phone.php';
     }
+
+
+    /**
+     * Show the individual OTP field
+     *
+     * @return void
+     */
+    public function output_enter_otp_screen() {
+        include 'partials/woocommerce-tapsi-admin-settings-enter-otp.php';
+    }
+
 
 	/**
 	 * Get all the locations and create them as objects in an array

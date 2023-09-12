@@ -359,66 +359,6 @@ class Woocommerce_Tapsi_Pickup_Location
         return $days;
     }
 
-
-    /**
-     * Given a datestamp, retrieve the user-selectable pickup time options for that date
-     *
-     * @param int $datestamp Date to get options for
-     * @return array Array containing timestamp keys and formatted time values
-     */
-    public function get_delivery_times_for_date(int $datestamp): array
-    {
-
-        $origin_lat = 35.63064956665039;
-        $origin_long = 51.36489486694336;
-        $destination_lat = 35.632899231302616;
-        $destination_long = 51.36615198055347;
-        $date_timestamp = $datestamp * 1000;
-
-        $raw_response = WCDD()->api->get_preview($origin_lat, $origin_long, $destination_lat, $destination_long, $date_timestamp);
-
-
-        $days = array();
-
-        if (is_wp_error($raw_response)) {
-            echo 'Failed to fetch delivery times. Please try again later.';
-        } else {
-            $data = json_decode(wp_remote_retrieve_body($raw_response));
-
-            if ($data) {
-                $timeslots = $data->invoicePerTimeslots;
-
-                if (!empty($timeslots)) {
-                    foreach ($timeslots as $timeslot) {
-                        $timeslotId = $timeslot->timeslotId;
-                        $startTimestamp = $timeslot->startTimestamp / 1000;
-                        $endTimestamp = $timeslot->endTimestamp / 1000;
-                        $timeslot_display = date('H:i', $startTimestamp) . ' - ' . date('H:i', $endTimestamp);
-
-                        if ($timeslot->isAvailable) {
-                            $price = $timeslot->invoice->amount;
-                            $displayText = $timeslot_display . ' (Price: ' . $price . ' Toman)';
-                            $option_attributes = 'value="' . $timeslotId . '"';
-                            $timeslot_key = $timeslotId . '_' . $price;
-                            $days[$timeslot_key] = $displayText;
-                        } else {
-                            $displayText = $timeslot_display . ' is not available';
-                            $option_attributes = 'disabled="disabled"';
-                            // TODO: Show as disabled option
-                        }
-
-                    }
-                } else {
-                    echo 'No available delivery times found.';
-                }
-            } else {
-                echo 'Failed to parse API response. Body: ' . serialize($raw_response);
-            }
-        }
-
-        return $days;
-    }
-
     /**
      * Check if the provided timestamp is a valid delivery time for this location
      *

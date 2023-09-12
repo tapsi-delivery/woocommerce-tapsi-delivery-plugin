@@ -393,7 +393,7 @@ class Woocommerce_Tapsi_API
                     break;
                 case 401:
                     // Authentication error
-                    wc_add_notice(__('Tapsi: Authentication Error', 'tapsi-delivery'), 'notice');
+                    wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
                     break;
                 case 403:
                     // Authorization error

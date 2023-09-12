@@ -11,3 +11,7 @@ cider-shipping-method/
 local-delivery-by-doordash/
 tapsi-delivery/.idea/
 fake-pay-for-woocommerce/
+dummy-gateway-for-woocommerce/
+woo-cardcom-payment-gateway/
+woocommerce-gateway-dummy/
+woocommerce-gateway-stripe/

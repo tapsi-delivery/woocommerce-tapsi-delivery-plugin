@@ -371,6 +371,10 @@ class Woocommerce_Tapsi_Delivery
     public function get_time_slot_id()
     {
         if (array_key_exists('chosen_time_slot_data', $this->data) && !empty($this->data['chosen_time_slot_data'])) {
+
+            // The `chosen_time_slot_data` comprises two parts:
+            // the first part represents the time slot's ID,
+            // while the second part indicates the price associated with that particular time slot.
             return explode("--", $this->data['chosen_time_slot_data'])[0];
         } else {
             return false;

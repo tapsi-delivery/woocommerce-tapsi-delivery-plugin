@@ -263,7 +263,7 @@ class Woocommerce_Tapsi_Admin
      * @param int $order_id Order ID being processed
      * @return void
      */
-    public function accept_delivery_quote($order_id)
+    public function accept_delivery_quote(int $order_id)
     {
         // Get the WC_Order object
         $order = wc_get_order($order_id);
@@ -290,7 +290,7 @@ class Woocommerce_Tapsi_Admin
         $method->update_meta_data('tapsi_delivery', $delivery);
 
         // Build the order note
-        $note = __('Tapsi Quote Accepted.', 'tapsi-delivery');
+        $note = __('Tapsi Delivery Submitted.', 'tapsi-delivery');
 
         // Get the GMT offset for formatting our times
         $gmt_offset = get_option('gmt_offset') * HOUR_IN_SECONDS;
@@ -329,8 +329,6 @@ class Woocommerce_Tapsi_Admin
             }
         }
 
-        // Add the note to the order
-        $order->add_order_note($note);
 
         $location_id = (int)$method->get_meta("_tapsi_pickup_location");
 
@@ -339,6 +337,8 @@ class Woocommerce_Tapsi_Admin
             $this->submit_delivery_order($delivery, $order, $location);
         }
 
+        // Add the note to the order
+        $order->add_order_note($note);
 
         // Clear delivery details from session. Leave the selected location.
         WC()->session->set('tapsi_external_delivery_id', '');
@@ -650,7 +650,8 @@ class Woocommerce_Tapsi_Admin
 
     /**
      * @param Woocommerce_Tapsi_Delivery $delivery
-     * @param $order
+     * @param WC_Order $order
+     * @param Woocommerce_Tapsi_Pickup_Location $sender_location
      * @return void
      */
     public function submit_delivery_order(
@@ -659,9 +660,6 @@ class Woocommerce_Tapsi_Admin
         Woocommerce_Tapsi_Pickup_Location $sender_location
     ): void
     {
-
-        error_log('$delivery: ' . print_r($delivery, true));
-
         $receiver_location_description = $order->get_shipping_city() . '، ' .
             $order->get_shipping_address_1() . '، ' .
             $order->get_shipping_address_2() . '، ' .
@@ -703,12 +701,12 @@ class Woocommerce_Tapsi_Admin
             )
         );
 
-
         $pack = array('description' => $delivery->get_dropoff_instructions());  // TODO: add pickup instructions
         $time_slot_id = $delivery->get_time_slot_id();
         $preview_token = $delivery->get_preview_token();
-        error_log('$preview_token: ' . $preview_token);
 
-        WCDD()->api->submit_delivery_order($receiver, $sender, $pack, $time_slot_id, $preview_token);
+        $submit_response = WCDD()->api->submit_delivery_order($receiver, $sender, $pack, $time_slot_id, $preview_token);
+
+        error_log('$submit_response: ' . print_r($submit_response, true));
     }
 }

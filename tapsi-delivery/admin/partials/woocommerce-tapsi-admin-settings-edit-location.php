@@ -74,17 +74,14 @@ echo '<h2>' . __( 'Address', 'tapsi-delivery' ) . '</h2>';
 
 	$address = $location->get_address();
 
+	include 'wctd-taps-pack-maplibre-map.php';
+
 	echo '<section class="wc-tapsi-location address">';
 		woocommerce_form_field( 'location_address_1', array(
 			'type' => 'text',
 			'required' => true,
 			'label' => __( 'Address 1', 'tapsi-delivery' ),
 		), $address['address_1'] );
-
-		woocommerce_form_field( 'location_address_2', array(
-			'type' => 'text',
-			'label' => __( 'Address 2', 'tapsi-delivery' ),
-		), $address['address_2'] );
 
 		woocommerce_form_field( 'location_city', array(
 			'type' => 'text',

@@ -42,7 +42,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 		add_action( 'woocommerce_sections_' . $this->id,      array( $this, 'output_sections' ) );
 		add_action( 'woocommerce_settings_' . $this->id,      array( $this, 'output' ) );
 		add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
-
 	}
 
 	/**
@@ -297,6 +296,11 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 	 */
 	public function output_location_edit_screen() {
 		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $_GET['location_id'] ) );
+		wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
+		wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'http://localhost:9700/map.css');
+		// TODO: MARYAM: Replace all localhosts
+		// TODO: MARYAM: Send q-params with request for future customization
+		wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
 		include 'partials/woocommerce-tapsi-admin-settings-edit-location.php';
 	}
 

@@ -110,7 +110,6 @@ class Woocommerce_Tapsi_API
     }
 
 
-
     /**
      * Send a message to phone number of user, containing OTP
      *
@@ -130,9 +129,12 @@ class Woocommerce_Tapsi_API
         $request_args = array(
             'method' => 'POST',
             'body' => json_encode($request_body),
+            'headers' => array(
+                'Content-Type' => 'application/json',
+            )
         );
 
-        return $this->request($request_path, $request_args);
+        return $this->admin_request($request_path, $request_args);
     }
 
 
@@ -351,6 +353,43 @@ class Woocommerce_Tapsi_API
         return $response;
     }
 
+
+    /**
+     * Sends a request for Admin, like requesting an OTP or verifying it
+     *
+     * @param string $request_path The path to direct the request to
+     * @param array $request_args An array of arguments for wp_remote_request
+     * @return array|WP_Error The response array or a WP_Error on failure
+     */
+    public function admin_request(string $request_path, array $request_args)
+    {
+        // Before making a request, make sure we have keys
+        if (!$this->get_keys()) {
+            return false;
+        }
+
+        $request_url = $this->base_url . $request_path;
+
+        error_log('calling url: ' . $request_url);
+        error_log('request args: ' . print_r($request_args, true));
+
+        // Run the remote request
+        $response = wp_remote_request($request_url, $request_args);
+
+        // Log WP error
+        if (is_wp_error($response)) {
+            error_log('error response: ' . print_r($response, true));
+            return $response;
+        } else {
+            $response = json_decode(wp_remote_retrieve_body($response));
+            error_log('response: ' . print_r($response, true));
+        }
+
+        // Return the response object
+        return $response;
+    }
+
+
     /**
      * Sends a request to the Drive API
      *
@@ -373,9 +412,11 @@ class Woocommerce_Tapsi_API
         $defaults = array(
             'headers' => array(
 //                'Authorization' => 'Bearer ' . $this->get_jwt(), // Get the auth header
-                'cookie' => $this->jwt
-
+                'cookie' => $this->jwt,
                 'Content-Type' => 'application/json',
+                'x-agw-user-id' => $this->x_agw_user_id,
+                'x-agw-user-role' => $this->x_agw_user_role,
+                'X-Agent' => $this->x_agent
             )
         );
 

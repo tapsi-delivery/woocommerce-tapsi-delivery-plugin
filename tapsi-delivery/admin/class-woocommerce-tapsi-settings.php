@@ -131,7 +131,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 		// If we're updating a location, set the data for that post
 		if ( isset( $_REQUEST['_update-location-nonce'] ) && wp_verify_nonce( $_REQUEST['_update-location-nonce'], 'woocommerce-tapsi-update-location' ) ) {
 			$hours = new Woocommerce_Tapsi_Hours();
-			
+
 			$location_id = $_REQUEST['location_id'] == 'new' ? 'new' : intval( $_REQUEST['location_id'] );
 			$location = new Woocommerce_Tapsi_Pickup_Location( $_REQUEST['location_id'] );
 
@@ -178,8 +178,16 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
 //            $pack_user = new Woocommerce_Tapsi_Pack_User( $tapsi_phone );
 //            $pack_user->set_phone( $tapsi_phone );
 
-            WCDD()->api->send_otp($tapsi_phone);
-            wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login&phone=' . $tapsi_phone ) );
+            $response = WCDD()->api->send_otp($tapsi_phone);
+
+            if (isset($response['result'])) {
+                if ($response['result'] == 'ERR') {
+                    return;  // TODO: show an error
+                } elseif ($response['result'] == 'OK') {
+                    wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login&phone=' . $tapsi_phone ) );
+                }
+            }
+
         } elseif ( isset( $_REQUEST['_update-otp-nonce'] ) && wp_verify_nonce( $_REQUEST['_update-otp-nonce'], 'woocommerce-tapsi-set-otp' ) ) {
             error_log('$_REQUEST: ' . print_r($_REQUEST, true));
 
@@ -187,6 +195,15 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
             $tapsi_phone = sanitize_text_field($_REQUEST['phone']);
 
             $tapsi_phone = str_replace( [ '-', '(', ')', ' ', '+' ], '', sanitize_text_field( $tapsi_phone ) );
+
+            $authenticated_user = WCDD()->api->confirm_otp($tapsi_phone, $otp);
+
+            error_log('$authenticated_user: ' . print_r($authenticated_user, true));
+
+            if (isset($authenticated_user['result']) && $authenticated_user['result'] == 'ERR') {
+                return;
+            }
+
             $pack_user = new Woocommerce_Tapsi_Pack_User( $tapsi_phone );
 
             $data = array(
@@ -196,7 +213,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page {
                 'phone'         => $tapsi_phone,
             );
 
-            $pack_user->update( $tapsi_phone );
+            $pack_user->update( $data );
         }
 	}
 

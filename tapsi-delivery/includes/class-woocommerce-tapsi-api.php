@@ -114,9 +114,9 @@ class Woocommerce_Tapsi_API
      * Send a message to phone number of user, containing OTP
      *
      * @param int $phone phone number of user
-     * @return array containing `result` key, and value of `result` would be `OK` on success.
+     * @return object containing `result` key, and value of `result` would be `OK` on success.
      */
-    public function send_otp(string $phone): array
+    public function send_otp(string $phone): object
     {
 
         $request_path = 'v2/user';
@@ -143,9 +143,9 @@ class Woocommerce_Tapsi_API
      *
      * @param string $phone
      * @param string $otp
-     * @return array containing `result` key, and value of `result` would be `OK` on success.
+     * @return object containing `result` key, and value of `result` would be `OK` on success.
      */
-    public function confirm_otp(string $phone, string $otp): array
+    public function confirm_otp(string $phone, string $otp): object
     {
 
         $request_path = 'v2.2/user/confirm/web';
@@ -172,7 +172,7 @@ class Woocommerce_Tapsi_API
             )
         );
 
-        return $this->admin_request($request_path, $request_args);
+        return $this->request_token($request_path, $request_args);
     }
 
 
@@ -397,7 +397,7 @@ class Woocommerce_Tapsi_API
      *
      * @param string $request_path The path to direct the request to
      * @param array $request_args An array of arguments for wp_remote_request
-     * @return array|WP_Error The response array or a WP_Error on failure
+     * @return object|WP_Error The response array or a WP_Error on failure
      */
     public function admin_request(string $request_path, array $request_args)
     {
@@ -426,6 +426,59 @@ class Woocommerce_Tapsi_API
         // Return the response object
         return $response;
     }
+
+    /**
+     * Sends a request for Admin, like requesting an OTP or verifying it
+     *
+     * @param string $request_path The path to direct the request to
+     * @param array $request_args An array of arguments for wp_remote_request
+     * @return object|WP_Error The response array or a WP_Error on failure
+     */
+    public function request_token(string $request_path, array $request_args)
+    {
+        // Before making a request, make sure we have keys
+        if (!$this->get_keys()) {
+            return false;
+        }
+
+        $request_url = $this->base_url . $request_path;
+
+        error_log('calling url: ' . $request_url);
+        error_log('request args: ' . print_r($request_args, true));
+
+        // Run the remote request
+        $response = wp_remote_request($request_url, $request_args);
+
+        // Log WP error
+        if (is_wp_error($response)) {
+            error_log('error response: ' . print_r($response, true));
+            return $response;
+        } else {
+//            error_log('response: ' . print_r($response, true));
+//            error_log('$response[headers]: ' . print_r($response['headers'], true));
+            $headers = wp_remote_retrieve_headers($response);
+            error_log('MARYAM headers: ' . print_r($headers, true), true);
+//            error_log('$response[headers][data]: ' . print_r($response['headers']['data'], true));
+//            error_log('$response[headers][data][protected]: ' . print_r($response['headers']['data']['protected'], true));
+            $raw_cookie = $headers['set-cookie'];
+
+            $cookie = explode(';', $raw_cookie[0]) . ';' . explode(';', $raw_cookie[1]);
+//
+            error_log('MARYAM $cookie: ' . print_r($cookie, true));
+
+            update_option( 'woocommerce_tapsi_cookie', $cookie, 'yes');
+            $response = json_decode(wp_remote_retrieve_body($response));
+            error_log('response: ' . print_r($response, true));
+        }
+
+        // Return the response object
+        return $response;
+    }
+
+    function mock_response() {
+
+    }
+
 
 
     /**

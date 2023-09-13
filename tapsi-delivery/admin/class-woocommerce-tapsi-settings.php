@@ -182,10 +182,10 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
             $response = WCDD()->api->send_otp($tapsi_phone);
 
-            if (isset($response['result'])) {
-                if ($response['result'] == 'ERR') {
+            if (property_exists($response, 'result')) {
+                if ($response->result == 'ERR') {
                     return;  // TODO: show an error
-                } elseif ($response['result'] == 'OK') {
+                } elseif ($response->result == 'OK') {
                     wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login&phone=' . $tapsi_phone));
                 }
             }
@@ -198,20 +198,23 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
             $authenticated_user = WCDD()->api->confirm_otp($tapsi_phone, $otp);
 
-            if (isset($authenticated_user['result']) && $authenticated_user['result'] == 'ERR') {
-                return;
+            if (property_exists($authenticated_user, 'result')) {
+                if ($authenticated_user->result == 'ERR') {
+                    return;
+                } elseif ($authenticated_user->result == 'OK') {
+                    $pack_user = new Woocommerce_Tapsi_Pack_User($tapsi_phone);
+
+                    $data = array(
+                        'ID' => $tapsi_phone,
+                        'name' => $tapsi_phone,
+                        'enabled' => 'enable',
+                        'phone' => $tapsi_phone,
+                    );
+
+                    $pack_user->update($data);
+                }
             }
 
-            $pack_user = new Woocommerce_Tapsi_Pack_User($tapsi_phone);
-
-            $data = array(
-                'ID' => $tapsi_phone,
-                'name' => $tapsi_phone,
-                'enabled' => 'enable',
-                'phone' => $tapsi_phone,
-            );
-
-            $pack_user->update($data);
         }
     }
 

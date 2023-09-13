@@ -138,6 +138,44 @@ class Woocommerce_Tapsi_API
     }
 
 
+    /**
+     * confirms if OTP is correct or not
+     *
+     * @param string $phone
+     * @param string $otp
+     * @return array containing `result` key, and value of `result` would be `OK` on success.
+     */
+    public function confirm_otp(string $phone, string $otp): array
+    {
+
+        $request_path = 'v2.2/user/confirm/web';
+        $request_body = array(
+            'credential' => array(
+                'phoneNumber' => $phone,
+                'role' => 'SCHEDULED_DELIVERY_SENDER'
+            ),
+            'confirmation' => array(
+                'code' => $otp
+            ),
+            'deviceInfo' => array(
+                'product' => 'SCHEDULED_DELIVERY_SENDER'
+            )
+        );
+
+        $request_args = array(
+            'method' => 'POST',
+            'body' => json_encode($request_body),
+            'headers' => array(
+                'Content-Type' => 'application/json',
+                'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB'
+//                'credentials' => 'include'
+            )
+        );
+
+        return $this->admin_request($request_path, $request_args);
+    }
+
+
     public function submit_delivery_order(array $receiver, array $sender, array $pack, string $time_slot_id, string $token): array
     {
         $request_path = 'delivery/order/submit';

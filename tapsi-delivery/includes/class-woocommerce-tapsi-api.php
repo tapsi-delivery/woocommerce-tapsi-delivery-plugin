@@ -33,7 +33,7 @@ class Woocommerce_Tapsi_API
 
     protected $jwt;
 
-    protected $base_url = "https://api.tapsi.ir/api/v1/";
+    protected string $base_url = "https://api.tapsi.ir/api/";
 
     public function __construct()
     {
@@ -88,7 +88,7 @@ class Woocommerce_Tapsi_API
      */
     public function get_available_dates()
     {
-        $request_path = 'delivery/available-dates';
+        $request_path = 'v1/delivery/available-dates';
         $request_args = array('method' => 'GET');
         return $this->request($request_path, $request_args);
     }
@@ -103,7 +103,7 @@ class Woocommerce_Tapsi_API
     public function get_preview(float $origin_lat, float $origin_long, float $destination_lat, float $destination_long, int $date_timestamp): array
     {
 
-        $api_url = 'delivery/order/preview';
+        $api_url = 'v1/delivery/order/preview';
         $request_path = $api_url . '?originLat=' . $origin_lat . '&originLong=' . $origin_long . '&destinationLat=' . $destination_lat . '&destinationLong=' . $destination_long . '&dateTimestamp=' . $date_timestamp;
         $request_args = array('method' => 'GET');
         return $this->request($request_path, $request_args);

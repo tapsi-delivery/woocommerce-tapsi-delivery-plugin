@@ -110,6 +110,32 @@ class Woocommerce_Tapsi_API
     }
 
 
+
+    /**
+     * Send a message to phone number of user, containing OTP
+     *
+     * @param int $phone phone number of user
+     * @return array containing `result` key, and value of `result` would be `OK` on success.
+     */
+    public function send_otp(string $phone): array
+    {
+
+        $request_path = 'v2/user';
+        $request_body = array(
+            'credential' => array(
+                'phoneNumber' => $phone,
+                'role' => 'SCHEDULED_DELIVERY_SENDER'
+            )
+        );
+        $request_args = array(
+            'method' => 'POST',
+            'body' => json_encode($request_body),
+        );
+
+        return $this->request($request_path, $request_args);
+    }
+
+
     public function submit_delivery_order(array $receiver, array $sender, array $pack, string $time_slot_id, string $token): array
     {
         $request_path = 'delivery/order/submit';
@@ -347,9 +373,9 @@ class Woocommerce_Tapsi_API
         $defaults = array(
             'headers' => array(
 //                'Authorization' => 'Bearer ' . $this->get_jwt(), // Get the auth header
-//                'Content-Type' => 'application/json',
                 'cookie' => $this->jwt
 
+                'Content-Type' => 'application/json',
             )
         );
 

@@ -260,7 +260,7 @@ class Woocommerce_Tapsi_Delivery
      */
     public function get_quoted_rate(): int
     {
-        return WC()->session->get('tapsi_delivery_fee');
+        return WC()->session->get('tapsi_delivery_fee') ?? 0;
     }
 
     /**

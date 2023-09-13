@@ -280,9 +280,11 @@ class Woocommerce_Tapsi_Public
 
             if (apply_filters('wcdd_show_tapsi_logo', true)) {
                 echo '<div class="wcdd-delivery-options-powered">';
-                echo '<p>' . __('Powered By', 'tapsi-delivery') . '</p>';
-                echo '<img src="' . plugin_dir_url(__FILE__) . '/img/tapsi-logo.svg" alt="Tapsi" />';
-                echo '</div>';
+				echo '<a class="wcdd-delivery-options-powered-tapsi-pack-link" href="' . "https://pack.tapsi.ir/landing" .'" >'; // TODO: MARYAM think about this link
+	            echo '<img src="' . plugin_dir_url(__FILE__) . '/img/tapsi-pack.png" alt="Tapsi" width="10px" height="10px"/>';
+	            echo '<p>' . __('Powered By', 'tapsi-delivery') . " " . __('Tapsi Pack', 'tapsi-delivery') . '</p>';
+				echo '</a>';
+	            echo '</div>';
             }
 
             echo '</div>';

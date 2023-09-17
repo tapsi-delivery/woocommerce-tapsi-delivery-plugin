@@ -18,10 +18,9 @@
 echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations' ) . '">' . __( 'Locations' ) . '</a> > ' . __( 'Edit Location', 'tapsi-delivery' ) . '</h2>';
 
 $address = $location->get_address();
-if (!$address['latitude'] || $address['latitude'] === 'undefined' || !$address['longitude'] || $address['longitude'] === 'undefined') {
+if (  $_GET['location_id'] !== 'new' && (!$address['latitude'] || $address['latitude'] === 'undefined' || !$address['longitude'] || $address['longitude'] === 'undefined')) {
 	echo '<p class="wctd-tapsi-pack-coordinate-error">'. __('There is something wrong with your coordinate or this address may be new to Tapsi Pack! Please find the exact coordinate of your address on the map and submit the changes', 'tapsi-delivery') .'</p>';
 }
-
 echo '<h2>' . __( 'Location Information', 'tapsi-delivery' ) . '</h2>';
 
 	echo '<p>' . __( 'Enter the information for the location you.', 'tapsi-delivery' ) . '</p>';

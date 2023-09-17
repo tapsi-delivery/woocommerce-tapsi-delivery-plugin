@@ -81,13 +81,13 @@ echo '<h2>' . __( 'Address', 'tapsi-delivery' ) . '</h2>';
 			'type' => 'hidden',
 			'required' => true,
 			'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lat-field-id',
-		), !$address['latitude'] || $address['latitude'] === 'undefined' ?  $azadi_coordinate[0] : $address['latitude']);
+		), !$address['latitude'] || $address['latitude'] === 'undefined' ?  $azadi_coordinate[1] : $address['latitude']);
 
 		woocommerce_form_field( 'location_lng', array(
 			'type' => 'hidden',
 			'required' => true,
 			'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lng-field-id',
-		), !$address['longitude'] || $address['longitude'] === 'undefined' ?  $azadi_coordinate[1] : $address['longitude']);
+		), !$address['longitude'] || $address['longitude'] === 'undefined' ?  $azadi_coordinate[0] : $address['longitude']);
 
 		woocommerce_form_field( 'location_address_1', array(
 			'type' => 'text',

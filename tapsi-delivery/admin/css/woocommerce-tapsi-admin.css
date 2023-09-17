@@ -10,6 +10,12 @@ table.wc-tapsi-locations thead th {
 	vertical-align: middle;
 }
 
+p.wctd-tapsi-pack-coordinate-error {
+	font-weight: 600;
+	font-size: 24px;
+	color: red;
+}
+
 p.wctd-tapsi-pack-delivery-map-notification {
 	font-weight: bold;
 	color: #b32d2e;

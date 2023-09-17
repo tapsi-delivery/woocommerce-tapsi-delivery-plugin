@@ -27,9 +27,9 @@ class Woocommerce_Tapsi_Pickup_Location
         'ID' => 0,
         'name' => '',
         'address_1' => '',
-        'address_2' => '',
+		'latitude' => '',
+		'longitude' => '',
         'city' => '',
-        'state' => '',
         'postcode' => '',
         'country' => '',
         'email' => '',
@@ -94,7 +94,8 @@ class Woocommerce_Tapsi_Pickup_Location
             'ID' => $post->ID,
             'name' => $post->post_title,
             'address_1' => $post->address_1,
-            'address_2' => $post->address_2,
+            'latitude' => $post->latitude,
+            'longitude' => $post->longitude,
             'city' => $post->city,
             'state' => $post->state,
             'postcode' => $post->postcode,
@@ -239,7 +240,8 @@ class Woocommerce_Tapsi_Pickup_Location
     {
         return array(
             'address_1' => $this->data['address_1'],
-            'address_2' => $this->data['address_2'],
+            'latitude' => $this->data['latitude'],
+            'longitude' => $this->data['longitude'],
             'city' => $this->data['city'],
             'state' => $this->data['state'],
             'postcode' => $this->data['postcode'],
@@ -257,7 +259,6 @@ class Woocommerce_Tapsi_Pickup_Location
         if (empty($this->data['address_1']) && empty($this->data['address_2'])) return '';
         $formatted = '';
         $formatted .= $this->data['address_1'];
-        if ($this->data['address_2']) $formatted .= ', ' . $this->data['address_2'];
         $formatted .= ', ' . $this->data['city'] . ', ' . $this->data['state'] . ' ' . $this->data['postcode'];
 
         return $formatted;

@@ -73,14 +73,26 @@ echo '<h2>' . __( 'Address', 'tapsi-delivery' ) . '</h2>';
 	echo '<p>' . __( 'Enter the address for the location.', 'tapsi-delivery' ) . '</p>';
 
 	$address = $location->get_address();
-
-	include 'wctd-taps-pack-maplibre-map.php';
+	$azadi_coordinate = array(51.337762, 35.699927);
 
 	echo '<section class="wc-tapsi-location address">';
+
+		woocommerce_form_field( 'location_lat', array(
+			'type' => 'hidden',
+			'required' => true,
+			'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lat-field-id',
+		), !$address['latitude'] || $address['latitude'] === 'undefined' ?  $azadi_coordinate[0] : $address['latitude']);
+
+		woocommerce_form_field( 'location_lng', array(
+			'type' => 'hidden',
+			'required' => true,
+			'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lng-field-id',
+		), !$address['longitude'] || $address['longitude'] === 'undefined' ?  $azadi_coordinate[1] : $address['longitude']);
+
 		woocommerce_form_field( 'location_address_1', array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __( 'Address 1', 'tapsi-delivery' ),
+			'label' => __( 'Address', 'tapsi-delivery' ),
 		), $address['address_1'] );
 
 		woocommerce_form_field( 'location_city', array(
@@ -97,7 +109,6 @@ echo '<h2>' . __( 'Address', 'tapsi-delivery' ) . '</h2>';
 
 		woocommerce_form_field( 'location_postcode', array(
 			'type' => 'text',
-			'required' => true,
 			'label' => __( 'Postcode', 'tapsi-delivery' ),
 		), $address['postcode'] );
 
@@ -107,6 +118,9 @@ echo '<h2>' . __( 'Address', 'tapsi-delivery' ) . '</h2>';
 			'label' => __( 'Country', 'tapsi-delivery' ),
 		), $address['country'] );
 	echo '</section>';
+
+	include 'wctd-taps-pack-maplibre-map.php';
+
 
 /**
  * Output the Location Hours section

@@ -431,7 +431,7 @@ class Woocommerce_Tapsi_API
         } else {
             $cookie = $this->extract_cookie($response);
 
-            update_option( 'woocommerce_tapsi_cookie', $cookie, 'yes');
+            update_option('woocommerce_tapsi_cookie', $cookie, 'yes');
             $response = json_decode(wp_remote_retrieve_body($response));
             error_log('response: ' . print_r($response, true));
         }
@@ -440,10 +440,10 @@ class Woocommerce_Tapsi_API
         return $response;
     }
 
-    function mock_response() {
+    function mock_response()
+    {
 
     }
-
 
 
     /**
@@ -573,13 +573,13 @@ class Woocommerce_Tapsi_API
         $access_token = '';
         $refresh_token = '';
 
-        foreach ( $access_token_details as $access_token_detail ) {
+        foreach ($access_token_details as $access_token_detail) {
             if (str_starts_with($access_token_detail, 'accessToken')) {
                 $access_token = $access_token_detail;
             }
         }
 
-        foreach ( $refresh_token_details as $refresh_token_detail ) {
+        foreach ($refresh_token_details as $refresh_token_detail) {
             if (str_starts_with($refresh_token_detail, 'refreshToken')) {
                 $refresh_token = $refresh_token_detail;
             }

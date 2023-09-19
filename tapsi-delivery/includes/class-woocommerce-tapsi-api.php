@@ -31,7 +31,9 @@ class Woocommerce_Tapsi_API
 
     protected $signing_secret;
 
-    protected $jwt;
+    protected string $jwt;
+    protected string $x_agw_user_role = 'SCHEDULED_DELIVERY_SENDER';
+    protected string $x_agent = 'v2.2|SCHEDULED_DELIVERY_SENDER|WEB|0.1.0||||||||||||||||';
 
     protected string $base_url = "https://api.tapsi.ir/api/";
 
@@ -465,7 +467,6 @@ class Woocommerce_Tapsi_API
             'headers' => array(
                 'cookie' => $this->get_jwt(),
                 'Content-Type' => 'application/json',
-                'x-agw-user-id' => $this->x_agw_user_id,
                 'x-agw-user-role' => $this->x_agw_user_role,
                 'X-Agent' => $this->x_agent
             )

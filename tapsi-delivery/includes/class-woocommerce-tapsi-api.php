@@ -382,20 +382,14 @@ class Woocommerce_Tapsi_API
 
         $request_url = $this->base_url . $request_path;
 
-        error_log('calling url: ' . $request_url);
-        error_log('request args: ' . print_r($request_args, true));
-
         // Run the remote request
         $response = wp_remote_request($request_url, $request_args);
 
         // Log WP error
         if (is_wp_error($response)) {
-            error_log('error response: ' . print_r($response, true));
             return $response;
         } else {
-            error_log('response: ' . print_r($response, true));
             $response = json_decode(wp_remote_retrieve_body($response));
-            error_log('response: ' . print_r($response, true));
         }
 
         // Return the response object
@@ -418,22 +412,17 @@ class Woocommerce_Tapsi_API
 
         $request_url = $this->base_url . $request_path;
 
-        error_log('calling url: ' . $request_url);
-        error_log('request args: ' . print_r($request_args, true));
-
         // Run the remote request
         $response = wp_remote_request($request_url, $request_args);
 
         // Log WP error
         if (is_wp_error($response)) {
-            error_log('error response: ' . print_r($response, true));
             return $response;
         } else {
             $cookie = $this->extract_cookie($response);
 
             update_option('woocommerce_tapsi_cookie', $cookie, 'yes');
             $response = json_decode(wp_remote_retrieve_body($response));
-            error_log('response: ' . print_r($response, true));
         }
 
         // Return the response object
@@ -480,13 +469,8 @@ class Woocommerce_Tapsi_API
         WCDD()->log->debug(sprintf(__('Sending request to %s', 'tapsi-delivery'), $request_path));
         WCDD()->log->debug($request_args);
 
-        error_log('calling url: ' . $request_url);
-        error_log('request args: ' . print_r($request_args, true));
-
         // Run the remote request
         $response = wp_remote_request($request_url, $request_args);
-
-        error_log('$response: ' . print_r($response, true));
 
         // Log the response
         WCDD()->log->debug($response);
@@ -585,9 +569,7 @@ class Woocommerce_Tapsi_API
         }
 
         if ($access_token != '' && $refresh_token != '') {
-            $cookie = $access_token . ';' . $refresh_token . ';';
-            error_log('cookie: ' . $cookie);
-            return $cookie;
+            return $access_token . ';' . $refresh_token . ';';
         } else {
             // TODO: raise error here
             return '';

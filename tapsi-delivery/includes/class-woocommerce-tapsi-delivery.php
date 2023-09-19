@@ -261,6 +261,7 @@ class Woocommerce_Tapsi_Delivery
     public function get_quoted_rate(): int
     {
         $tapsi_delivery_fee = WC()->session->get('tapsi_delivery_fee');
+
         if ($tapsi_delivery_fee != null) {
             return $tapsi_delivery_fee;
         } else {

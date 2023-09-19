@@ -457,8 +457,7 @@ class Woocommerce_Tapsi_API
     {
         // Before making a request, make sure we have keys
         if (!$this->get_keys()) {
-            WCDD()->log->error(sprintf(__('Error performing request to %s: Missing API configuration', 'tapsi-delivery'), $request_path));
-            return false;
+            $this->__construct();
         }
 
         // Set the URL for the request based on the request path and the API url

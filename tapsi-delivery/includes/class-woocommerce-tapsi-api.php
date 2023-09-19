@@ -419,6 +419,7 @@ class Woocommerce_Tapsi_API
             error_log('error response: ' . print_r($response, true));
             return $response;
         } else {
+            error_log('response: ' . print_r($response, true));
             $response = json_decode(wp_remote_retrieve_body($response));
             error_log('response: ' . print_r($response, true));
         }
@@ -454,17 +455,7 @@ class Woocommerce_Tapsi_API
             error_log('error response: ' . print_r($response, true));
             return $response;
         } else {
-//            error_log('response: ' . print_r($response, true));
-//            error_log('$response[headers]: ' . print_r($response['headers'], true));
-            $headers = wp_remote_retrieve_headers($response);
-            error_log('MARYAM headers: ' . print_r($headers, true), true);
-//            error_log('$response[headers][data]: ' . print_r($response['headers']['data'], true));
-//            error_log('$response[headers][data][protected]: ' . print_r($response['headers']['data']['protected'], true));
-            $raw_cookie = $headers['set-cookie'];
-
-            $cookie = explode(';', $raw_cookie[0]) . ';' . explode(';', $raw_cookie[1]);
-//
-            error_log('MARYAM $cookie: ' . print_r($cookie, true));
+            $cookie = $this->extract_cookie($response);
 
             update_option( 'woocommerce_tapsi_cookie', $cookie, 'yes');
             $response = json_decode(wp_remote_retrieve_body($response));
@@ -528,7 +519,7 @@ class Woocommerce_Tapsi_API
         if (is_wp_error($response)) {
             WCDD()->log->error(sprintf(__('Error performing request to %s', 'tapsi-delivery'), $request_path));
             WCDD()->log->error($response);
-            return false;
+            return $response;
         }
 
         // Log HTTP error
@@ -588,6 +579,43 @@ class Woocommerce_Tapsi_API
 
         // Return the response object
         return $response;
+    }
+
+    /**
+     * @param $response
+     * @return string
+     */
+    public function extract_cookie($response): string
+    {
+        $headers = wp_remote_retrieve_headers($response);
+        $set_cookie = $headers['set-cookie'];
+
+        $access_token_details = explode(';', $set_cookie[0]);
+        $refresh_token_details = explode(';', $set_cookie[1]);
+
+        $access_token = '';
+        $refresh_token = '';
+
+        foreach ( $access_token_details as $access_token_detail ) {
+            if (str_starts_with($access_token_detail, 'accessToken')) {
+                $access_token = $access_token_detail;
+            }
+        }
+
+        foreach ( $refresh_token_details as $refresh_token_detail ) {
+            if (str_starts_with($refresh_token_detail, 'refreshToken')) {
+                $refresh_token = $refresh_token_detail;
+            }
+        }
+
+        if ($access_token != '' && $refresh_token != '') {
+            $cookie = $access_token . ';' . $refresh_token . ';';
+            error_log('cookie: ' . $cookie);
+            return $cookie;
+        } else {
+            // TODO: raise error here
+            return '';
+        }
     }
 
 }

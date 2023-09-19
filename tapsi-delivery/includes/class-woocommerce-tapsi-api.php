@@ -182,7 +182,7 @@ class Woocommerce_Tapsi_API
 
     public function submit_delivery_order(array $receiver, array $sender, array $pack, string $time_slot_id, string $token): array
     {
-        $request_path = 'delivery/order/submit';
+        $request_path = 'v1/delivery/order/submit';
         $request_body = array(
             'receiver' => $receiver,
             'sender' => $sender,

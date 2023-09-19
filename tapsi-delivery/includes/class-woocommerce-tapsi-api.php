@@ -210,6 +210,25 @@ class Woocommerce_Tapsi_API
     }
 
     /**
+     * @param string $request_url
+     * @param array $request_args
+     * @return array|WP_Error
+     */
+    public function remote_request(string $request_url, array $request_args)
+    {
+        // Log the request
+        WCDD()->log->debug(sprintf(__('Sending request to %s', 'tapsi-delivery'), $request_url));
+        WCDD()->log->debug($request_args);
+
+        // Run the remote request
+        $response = wp_remote_request($request_url, $request_args);
+
+        // Log the response
+        WCDD()->log->debug($response);
+        return $response;
+    }
+
+    /**
      * Encodes data for generating token
      *
      * @param string $data Data to encode
@@ -370,7 +389,7 @@ class Woocommerce_Tapsi_API
      * Sends a request for Admin, like requesting an OTP or verifying it
      *
      * @param string $request_path The path to direct the request to
-     * @param array $request_args An array of arguments for wp_remote_request
+     * @param array $request_args An array of arguments
      * @return object|WP_Error The response array or a WP_Error on failure
      */
     public function admin_request(string $request_path, array $request_args)
@@ -382,8 +401,7 @@ class Woocommerce_Tapsi_API
 
         $request_url = $this->base_url . $request_path;
 
-        // Run the remote request
-        $response = wp_remote_request($request_url, $request_args);
+        $response = $this->remote_request($request_url, $request_args);
 
         // Log WP error
         if (is_wp_error($response)) {
@@ -400,7 +418,7 @@ class Woocommerce_Tapsi_API
      * Sends a request for Admin, like requesting an OTP or verifying it
      *
      * @param string $request_path The path to direct the request to
-     * @param array $request_args An array of arguments for wp_remote_request
+     * @param array $request_args An array of arguments
      * @return object|WP_Error The response array or a WP_Error on failure
      */
     public function request_token(string $request_path, array $request_args)
@@ -412,8 +430,7 @@ class Woocommerce_Tapsi_API
 
         $request_url = $this->base_url . $request_path;
 
-        // Run the remote request
-        $response = wp_remote_request($request_url, $request_args);
+        $response = $this->remote_request($request_url, $request_args);
 
         // Log WP error
         if (is_wp_error($response)) {
@@ -439,7 +456,7 @@ class Woocommerce_Tapsi_API
      * Sends a request to the Drive API
      *
      * @param string $request_path The path to direct the request to
-     * @param array $request_args An array of arguments for wp_remote_request
+     * @param array $request_args An array of arguments
      * @return array|WP_Error The response array or a WP_Error on failure
      */
     public function request(string $request_path, array $request_args)
@@ -464,16 +481,7 @@ class Woocommerce_Tapsi_API
 
         // Combine the defaults with the passed arguments
         $request_args = wp_parse_args($request_args, $defaults);
-
-        // Log the request
-        WCDD()->log->debug(sprintf(__('Sending request to %s', 'tapsi-delivery'), $request_path));
-        WCDD()->log->debug($request_args);
-
-        // Run the remote request
-        $response = wp_remote_request($request_url, $request_args);
-
-        // Log the response
-        WCDD()->log->debug($response);
+        $response = $this->remote_request($request_url, $request_args);
 
         // Log WP error
         if (is_wp_error($response)) {
@@ -503,6 +511,8 @@ class Woocommerce_Tapsi_API
                 case 401:
                     // Authentication error
                     wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
+                    $this->refresh_token();
+                    $this->request($request_path, $request_args);
                     break;
                 case 403:
                     // Authorization error
@@ -585,6 +595,10 @@ class Woocommerce_Tapsi_API
         } elseif ($env == 'local') {
             $this->base_url = "http://localhost:51051/api/";
         }
+    }
+
+    private function refresh_token()
+    {
     }
 
 }

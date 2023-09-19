@@ -98,7 +98,7 @@ class Woocommerce_Tapsi_API
      * Given a datestamp, retrieve the user-selectable pickup time options for that date
      *
      * @param int $date_timestamp Date to get preview for
-     * @return array Array containing timestamp keys and formatted time values
+     * @return array|false|WP_Error Array containing timestamp keys and formatted time values
      */
     public function get_preview(float $origin_lat, float $origin_long, float $destination_lat, float $destination_long, int $date_timestamp): array
     {
@@ -238,37 +238,7 @@ class Woocommerce_Tapsi_API
     public function get_jwt()
     {
         if (!empty($this->jwt)) return $this->jwt;
-
-        // Prepare the JWT header
-        $header = json_encode(array(
-            'alg' => 'HS256',
-            'typ' => 'JWT',
-            'dd-ver' => 'DD-JWT-V1',
-        ));
-
-        // Prepare the JWT payload
-        $payload = json_encode(array(
-            'aud' => 'tapsi',
-            'iss' => $this->developer_id,
-            'kid' => $this->key_id,
-            'exp' => time() + 300,
-            'iat' => time(),
-        ));
-
-        // Encode the header and payload in Base64
-        $base64_url_header = $this->base64_url_encode($header);
-        $base64_url_payload = $this->base64_url_encode($payload);
-
-        // Hash the signature with the header and payload
-        $signature = hash_hmac('sha256', $base64_url_header . "." . $base64_url_payload, $this->base64_url_decode($this->signing_secret), true);
-
-        // Base64 encode the signature hash
-        $base64_url_signature = $this->base64_url_encode($signature);
-
-        // Set the JWT using the encoded header, payload, and signature
-        $this->jwt = $base64_url_header . "." . $base64_url_payload . "." . $base64_url_signature;
-
-        // Also Return the JWT
+        $this->jwt = get_option('woocommerce_tapsi_cookie');
         return $this->jwt;
     }
 
@@ -493,8 +463,7 @@ class Woocommerce_Tapsi_API
         // Set up default arguments for WP Remote Request
         $defaults = array(
             'headers' => array(
-//                'Authorization' => 'Bearer ' . $this->get_jwt(), // Get the auth header
-                'cookie' => $this->jwt,
+                'cookie' => $this->get_jwt(),
                 'Content-Type' => 'application/json',
                 'x-agw-user-id' => $this->x_agw_user_id,
                 'x-agw-user-role' => $this->x_agw_user_role,

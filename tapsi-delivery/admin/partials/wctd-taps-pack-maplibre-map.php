@@ -18,7 +18,7 @@
 	echo '<div id="wctd-tapsi-pack-maplibre-map-container-id"></div>';
 	echo '<img id="wctd-tapsi-pack-maplibre-map-center-marker-id" src="http://localhost/tapsipack/wp-content/plugins/serve/map-center-marker.svg"/>';
 	echo '</div>';
-	echo '<script src="http://localhost/tapsipack/wp-content/plugins/serve/map-handler.js"></script>';
+	echo '<script src="http://localhost/tapsipack/wp-content/plugins/serve/map-admin.js"></script>';
 	echo '</section>';
 
 ?>

@@ -40,14 +40,7 @@ class Woocommerce_Tapsi_API
     public function __construct()
     {
         $this->set_base_url('dev');
-
-        // Get the keys from the options
-        if (!$this->get_keys()) {
-            // No keys were found for this environment.
-            return false;
-        }
-
-        $this->get_jwt();
+        $this->get_keys();
     }
 
     protected function get_keys()
@@ -55,29 +48,14 @@ class Woocommerce_Tapsi_API
         // If the JWT already exists we're set
         if (!empty($this->jwt)) return true;
 
-        // Set the prefix for the plugin options
-        $prefix = "woocommerce_tapsi_";
+        $this->get_jwt();
 
-        // Get the developer ID
-        $this->developer_id = get_option($prefix . 'developer_id');
-
-        // Check the environment
-        $this->env = get_option($prefix . 'api_environment');
-
-        // Get the Key ID and Signing Secret for the appropriate environment
-        $this->key_id = get_option($prefix . $this->env . '_key_id');
-        $this->signing_secret = get_option($prefix . $this->env . '_signing_secret');
-
-        // Check to see if keys need decryption
         $encryption = new Woocommerce_Tapsi_Encryption();
-        if ($encryption->is_encrypted($this->key_id)) {
-            $this->key_id = $encryption->decrypt($this->key_id);
-        }
-        if ($encryption->is_encrypted($this->signing_secret)) {
-            $this->signing_secret = $encryption->decrypt($this->signing_secret);
+        if ($encryption->is_encrypted($this->jwt)) {
+            $this->jwt = $encryption->decrypt($this->jwt);
         }
 
-        if (empty($this->developer_id) || empty($this->key_id) || empty($this->signing_secret)) {
+        if (empty($this->jwt)) {
             return false;
         }
 
@@ -396,7 +374,7 @@ class Woocommerce_Tapsi_API
     {
         // Before making a request, make sure we have keys
         if (!$this->get_keys()) {
-            return false;
+            $this->__construct();
         }
 
         $request_url = $this->base_url . $request_path;
@@ -425,7 +403,7 @@ class Woocommerce_Tapsi_API
     {
         // Before making a request, make sure we have keys
         if (!$this->get_keys()) {
-            return false;
+            $this->__construct();
         }
 
         $request_url = $this->base_url . $request_path;

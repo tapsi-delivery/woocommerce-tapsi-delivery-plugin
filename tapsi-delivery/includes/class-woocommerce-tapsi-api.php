@@ -39,6 +39,8 @@ class Woocommerce_Tapsi_API
 
     public function __construct()
     {
+        $this->set_base_url('dev');
+
         // Get the keys from the options
         if (!$this->get_keys()) {
             // No keys were found for this environment.
@@ -479,8 +481,13 @@ class Woocommerce_Tapsi_API
         WCDD()->log->debug(sprintf(__('Sending request to %s', 'tapsi-delivery'), $request_path));
         WCDD()->log->debug($request_args);
 
+        error_log('calling url: ' . $request_url);
+        error_log('request args: ' . print_r($request_args, true));
+
         // Run the remote request
         $response = wp_remote_request($request_url, $request_args);
+
+        error_log('$response: ' . print_r($response, true));
 
         // Log the response
         WCDD()->log->debug($response);
@@ -585,6 +592,17 @@ class Woocommerce_Tapsi_API
         } else {
             // TODO: raise error here
             return '';
+        }
+    }
+
+    private function set_base_url($env)
+    {
+        if ($env == 'prod') {
+            $this->base_url = "https://api.tapsi.ir/api/";
+        } elseif ($env == 'dev') {
+            $this->base_url = "https://frodo.backyard.tapsi.tech/api/";
+        } elseif ($env == 'local') {
+            $this->base_url = "http://localhost:51051/api/";
         }
     }
 

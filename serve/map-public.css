@@ -1,0 +1,199 @@
+#wctd-tapsi-pack-maplibre-map-modal-container {
+    visibility: hidden;
+    position: fixed;
+    width: 100vw;
+    top: 0 !important; 
+    left: 0 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    z-index: 99999;
+    background-color: rgb(0,0,0,0.5);
+}
+
+#wctd-tapsi-pack-maplibre-map-modal {
+    position: relative;
+    height: 50%;
+    width: 50%;
+    min-width: 400px;
+    top: 0 !important; 
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: 0 auto;
+    background-color: #e8e8e8;
+    transform: translate(0, 50%);
+    /* @media only screen and (max-width: 400px) {
+        margin: 0;
+        width: 100%;
+        min-width: unset;
+    } */
+}
+
+#wctd-tapsi-pack-maplibre-map-container-id {
+    direction: rtl !important;
+    height: 100%;
+    width: 100%;
+    /* position: relative !important;
+    top: 0 !important;
+    left: 0 !important; 
+    bottom: 0 !important;
+    right: 0 !important; */
+    /* z-index: 2 !important; */
+    overflow: visible;
+    border: 1px black solid;
+}
+
+#wctd-tapsi-pack-maplibre-map-center-marker-id {
+    visibility: hidden;
+    /* display: none; */
+    position: absolute !important;
+    top: 50% !important; 
+    left: 50% !important;
+    transform: translate(-50%, calc(-100% + 3px)) !important;
+    /* z-index: 100 !important; */
+}
+
+/* 3D tower loader made by: csozi | Website: www.csozi.hu*/
+
+#wctd-tapsi-pack-map-loading-container {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  /* z-index: 0; */
+}
+
+#wctd-tapsi-pack-map-loading-container .wctd-tapsi-pack-map-loading-loader{
+    scale: 3 !important;
+    height: 50px !important;
+    width: 40px !important;
+  }
+  
+#wctd-tapsi-pack-map-loading-container .wctd-tapsi-pack-map-loading-box {
+    position: relative !important;
+    opacity: 0 !important;
+    left: 10px !important;
+  }
+  
+#wctd-tapsi-pack-map-loading-container .wctd-tapsi-pack-map-loading-side-left {
+    position: absolute !important;
+    background-color: #FF551B !important;
+    width: 19px !important;
+    height: 5px !important;
+    transform: skew(0deg, -25deg) !important;
+    top: 14px !important;
+    left: 10px !important;
+  }
+  
+#wctd-tapsi-pack-map-loading-container .wctd-tapsi-pack-map-loading-side-right {
+    position: absolute !important;
+    background-color: #DE0029 !important;
+    width: 19px !important;
+    height: 5px !important;
+    transform: skew(0deg, 25deg) !important;
+    top: 14px !important;
+    left: -9px !important;
+  }
+  
+#wctd-tapsi-pack-map-loading-container .wctd-tapsi-pack-map-loading-side-top {
+    position: absolute !important;
+    background-color: #fff !important;
+    width: 20px !important;
+    height: 20px !important;
+    rotate: 45deg !important;
+    transform: skew(-20deg, -20deg) !important;
+    border: 1px solid #FF551B
+  }
+  
+#wctd-tapsi-pack-map-loading-container .wctd-tapsi-pack-map-loading-box-1 {
+    animation: wctd-tapsi-pack-map-loading-container-from-left 4s infinite !important;
+  }
+  
+#wctd-tapsi-pack-map-loading-container .wctd-tapsi-pack-map-loading-box-2 {
+    animation: wctd-tapsi-pack-map-loading-container-from-right 4s infinite !important;
+    animation-delay: 1s !important;
+  }
+  
+#wctd-tapsi-pack-map-loading-container .wctd-tapsi-pack-map-loading-box-3 {
+    animation: wctd-tapsi-pack-map-loading-container-from-left 4s infinite !important;
+    animation-delay: 2s !important;
+  }
+  
+#wctd-tapsi-pack-map-loading-container .wctd-tapsi-pack-map-loading-box-4 {
+    animation: wctd-tapsi-pack-map-loading-container-from-right 4s infinite !important;
+    animation-delay: 3s !important;
+  }
+  
+  @keyframes wctd-tapsi-pack-map-loading-container-from-left {
+    0% {
+      z-index: 20 !important;
+      opacity: 0 !important;
+      translate: -20px -6px !important;
+    }
+  
+    20% {
+      z-index: 10 !important;
+      opacity: 1 !important;
+      translate: 0px 0px !important;
+    }
+  
+    40% {
+      z-index: 9 !important;
+      translate: 0px 4px !important;
+    }
+  
+    60% {
+      z-index: 8 !important;
+      translate: 0px 8px !important;
+    }
+  
+    80% {
+      z-index: 7 !important;
+      opacity: 1 !important;
+      translate: 0px 12px !important;
+    }
+  
+    100% {
+      z-index: 5 !important;
+      translate: 0px 30px !important;
+      opacity: 0 !important;
+    }
+  }
+  
+  @keyframes wctd-tapsi-pack-map-loading-container-from-right {
+    0% {
+      z-index: 20 !important;
+      opacity: 0 !important;
+      translate: 20px -6px !important;
+    }
+  
+    20% {
+      z-index: 10 !important;
+      opacity: 1 !important;
+      translate: 0px 0px !important;
+    }
+  
+    40% {
+      z-index: 9 !important;
+      translate: 0px 4px !important;
+    }
+  
+    60% {
+      z-index: 8 !important;
+      translate: 0px 8px !important;
+    }
+  
+    80% {
+      z-index: 7 !important;
+      opacity: 1 !important;
+      translate: 0px 12px !important;
+    }
+  
+    100% {
+      z-index: 5 !important;
+      translate: 0px 30px !important;
+      opacity: 0 !important;
+    }
+  }

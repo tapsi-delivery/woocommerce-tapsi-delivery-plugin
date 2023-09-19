@@ -16,9 +16,10 @@
 	echo '<p class="wctd-tapsi-pack-delivery-map-notification privacy_requests">' . __( "Make sure to check the compatibility between the address and the pin. In case of incompatibility, The pin location is Tapsi Pack's reference for your delivery!!!", 'tapsi-delivery' ) . '</p>';
 	echo '<div id="wctd-tapsi-pack-maplibre-map-root-id">';
 	echo '<div id="wctd-tapsi-pack-maplibre-map-container-id"></div>';
-	echo '<img id="wctd-tapsi-pack-maplibre-map-center-marker-id" src="http://localhost/tapsipack/wp-content/plugins/serve/map-center-marker.svg"/>';
+//	echo '<button id="wctd-tapsi-pack-maplibre-map-submit-location-button-id">submit location</button>';
+	echo '<img id="wctd-tapsi-pack-maplibre-map-center-marker-id" src="http://localhost:9700/map-center-marker.svg"/>';
 	echo '</div>';
-	echo '<script src="http://localhost/tapsipack/wp-content/plugins/serve/map-handler.js"></script>';
+	echo '<script src="http://localhost:9700/map-handler.js"></script>';
 	echo '</section>';
 
 ?>

@@ -354,7 +354,7 @@ class Woocommerce_Tapsi_Pickup_Location
             }
             return $days;
         } else {
-            echo 'Failed to parse API response. Body: ' . $data;
+            echo 'Failed to parse API response';
         }
 
         return $days;

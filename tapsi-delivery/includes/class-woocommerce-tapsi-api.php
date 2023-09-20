@@ -31,49 +31,31 @@ class Woocommerce_Tapsi_API
 
     protected $signing_secret;
 
-    protected $jwt;
+    protected string $cookie;
+    protected string $x_agw_user_role = 'SCHEDULED_DELIVERY_SENDER';
+    protected string $x_agent = 'v2.2|SCHEDULED_DELIVERY_SENDER|WEB|0.1.0||||||||||||||||';
 
-    protected $base_url = "https://api.tapsi.ir/api/v1/";
+    protected string $base_url = "https://api.tapsi.ir/api/";
 
     public function __construct()
     {
-        // Get the keys from the options
-        if (!$this->get_keys()) {
-            // No keys were found for this environment.
-            return false;
-        }
-
-        $this->get_jwt();
+        $this->set_base_url('prod');
+        $this->get_keys();
     }
 
     protected function get_keys()
     {
         // If the JWT already exists we're set
-        if (!empty($this->jwt)) return true;
+        if (!empty($this->cookie)) return true;
 
-        // Set the prefix for the plugin options
-        $prefix = "woocommerce_tapsi_";
+        $this->get_cookie();
 
-        // Get the developer ID
-        $this->developer_id = get_option($prefix . 'developer_id');
-
-        // Check the environment
-        $this->env = get_option($prefix . 'api_environment');
-
-        // Get the Key ID and Signing Secret for the appropriate environment
-        $this->key_id = get_option($prefix . $this->env . '_key_id');
-        $this->signing_secret = get_option($prefix . $this->env . '_signing_secret');
-
-        // Check to see if keys need decryption
         $encryption = new Woocommerce_Tapsi_Encryption();
-        if ($encryption->is_encrypted($this->key_id)) {
-            $this->key_id = $encryption->decrypt($this->key_id);
-        }
-        if ($encryption->is_encrypted($this->signing_secret)) {
-            $this->signing_secret = $encryption->decrypt($this->signing_secret);
+        if ($encryption->is_encrypted($this->cookie)) {
+            $this->cookie = $encryption->decrypt($this->cookie);
         }
 
-        if (empty($this->developer_id) || empty($this->key_id) || empty($this->signing_secret)) {
+        if (empty($this->cookie)) {
             return false;
         }
 
@@ -88,7 +70,7 @@ class Woocommerce_Tapsi_API
      */
     public function get_available_dates()
     {
-        $request_path = 'delivery/available-dates';
+        $request_path = 'v1/delivery/available-dates';
         $request_args = array('method' => 'GET');
         return $this->request($request_path, $request_args);
     }
@@ -98,21 +80,86 @@ class Woocommerce_Tapsi_API
      * Given a datestamp, retrieve the user-selectable pickup time options for that date
      *
      * @param int $date_timestamp Date to get preview for
-     * @return array Array containing timestamp keys and formatted time values
+     * @return array|false|WP_Error Array containing timestamp keys and formatted time values
      */
     public function get_preview(float $origin_lat, float $origin_long, float $destination_lat, float $destination_long, int $date_timestamp): array
     {
 
-        $api_url = 'delivery/order/preview';
+        $api_url = 'v1/delivery/order/preview';
         $request_path = $api_url . '?originLat=' . $origin_lat . '&originLong=' . $origin_long . '&destinationLat=' . $destination_lat . '&destinationLong=' . $destination_long . '&dateTimestamp=' . $date_timestamp;
         $request_args = array('method' => 'GET');
         return $this->request($request_path, $request_args);
     }
 
 
+    /**
+     * Send a message to phone number of user, containing OTP
+     *
+     * @param int $phone phone number of user
+     * @return object containing `result` key, and value of `result` would be `OK` on success.
+     */
+    public function send_otp(string $phone): object
+    {
+
+        $request_path = 'v2/user';
+        $request_body = array(
+            'credential' => array(
+                'phoneNumber' => $phone,
+                'role' => 'SCHEDULED_DELIVERY_SENDER'
+            )
+        );
+        $request_args = array(
+            'method' => 'POST',
+            'body' => json_encode($request_body),
+            'headers' => array(
+                'Content-Type' => 'application/json',
+            )
+        );
+
+        return $this->admin_request($request_path, $request_args);
+    }
+
+
+    /**
+     * confirms if OTP is correct or not
+     *
+     * @param string $phone
+     * @param string $otp
+     * @return array|object|WP_Error containing `result` key, and value of `result` would be `OK` on success.
+     */
+    public function confirm_otp(string $phone, string $otp): object
+    {
+        $request_path = 'v2.2/user/confirm/web';
+        $request_body = array(
+            'credential' => array(
+                'phoneNumber' => $phone,
+                'role' => 'SCHEDULED_DELIVERY_SENDER'
+            ),
+            'confirmation' => array(
+                'code' => $otp
+            ),
+            'deviceInfo' => array(
+                'product' => 'SCHEDULED_DELIVERY_SENDER'
+            )
+        );
+
+        $request_args = array(
+            'method' => 'POST',
+            'body' => json_encode($request_body),
+            'headers' => array(
+                'Content-Type' => 'application/json',
+                'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB'
+//                'credentials' => 'include'
+            )
+        );
+
+        return $this->request_token($request_path, $request_args);
+    }
+
+
     public function submit_delivery_order(array $receiver, array $sender, array $pack, string $time_slot_id, string $token): array
     {
-        $request_path = 'delivery/order/submit';
+        $request_path = 'v1/delivery/order/submit';
         $request_body = array(
             'receiver' => $receiver,
             'sender' => $sender,
@@ -140,6 +187,25 @@ class Woocommerce_Tapsi_API
     }
 
     /**
+     * @param string $request_url
+     * @param array $request_args
+     * @return array|WP_Error
+     */
+    public function remote_request(string $request_url, array $request_args)
+    {
+        // Log the request
+        WCDD()->log->debug(sprintf(__('Sending request to %s', 'tapsi-delivery'), $request_url));
+        WCDD()->log->debug($request_args);
+
+        // Run the remote request
+        $response = wp_remote_request($request_url, $request_args);
+
+        // Log the response
+        WCDD()->log->debug($response);
+        return $response;
+    }
+
+    /**
      * Encodes data for generating token
      *
      * @param string $data Data to encode
@@ -163,47 +229,13 @@ class Woocommerce_Tapsi_API
     }
 
     /**
-     * Generate a JSON Web Token (JWT) for API request auth
-     *
-     * @see https://developer.tapsi.com/en-US/docs/drive/how_to/JWTs/
-     *
-     * @return string Generated JWT
+     * @return string saved cookie
      */
-    public function get_jwt()
+    public function get_cookie()
     {
-        if (!empty($this->jwt)) return $this->jwt;
-
-        // Prepare the JWT header
-        $header = json_encode(array(
-            'alg' => 'HS256',
-            'typ' => 'JWT',
-            'dd-ver' => 'DD-JWT-V1',
-        ));
-
-        // Prepare the JWT payload
-        $payload = json_encode(array(
-            'aud' => 'tapsi',
-            'iss' => $this->developer_id,
-            'kid' => $this->key_id,
-            'exp' => time() + 300,
-            'iat' => time(),
-        ));
-
-        // Encode the header and payload in Base64
-        $base64_url_header = $this->base64_url_encode($header);
-        $base64_url_payload = $this->base64_url_encode($payload);
-
-        // Hash the signature with the header and payload
-        $signature = hash_hmac('sha256', $base64_url_header . "." . $base64_url_payload, $this->base64_url_decode($this->signing_secret), true);
-
-        // Base64 encode the signature hash
-        $base64_url_signature = $this->base64_url_encode($signature);
-
-        // Set the JWT using the encoded header, payload, and signature
-        $this->jwt = $base64_url_header . "." . $base64_url_payload . "." . $base64_url_signature;
-
-        // Also Return the JWT
-        return $this->jwt;
+        if (!empty($this->cookie)) return $this->cookie;
+        $this->cookie = get_option('woocommerce_tapsi_cookie');
+        return $this->cookie;
     }
 
     /**
@@ -325,19 +357,72 @@ class Woocommerce_Tapsi_API
         return $response;
     }
 
+
+    /**
+     * Sends a request for Admin, like requesting an OTP or verifying it
+     *
+     * @param string $request_path The path to direct the request to
+     * @param array $request_args An array of arguments
+     * @return object|WP_Error The response array or a WP_Error on failure
+     */
+    public function admin_request(string $request_path, array $request_args)
+    {
+        $request_url = $this->base_url . $request_path;
+
+        $response = $this->remote_request($request_url, $request_args);
+
+        // Log WP error
+        if (is_wp_error($response)) {
+            return $response;
+        } else {
+            $response = json_decode(wp_remote_retrieve_body($response));
+        }
+
+        // Return the response object
+        return $response;
+    }
+
+    /**
+     * Sends a request for Admin, like requesting an OTP or verifying it
+     *
+     * @param string $request_path The path to direct the request to
+     * @param array $request_args An array of arguments
+     * @return object|WP_Error The response array or a WP_Error on failure
+     */
+    public function request_token(string $request_path, array $request_args)
+    {
+
+        $request_url = $this->base_url . $request_path;
+
+        $response = $this->remote_request($request_url, $request_args);
+
+        if (is_wp_error($response)) {
+            return $response;
+        }
+
+        $response_code = wp_remote_retrieve_response_code($response);
+
+        if ($response_code != 200) {
+            return $response;
+        }
+
+        $this->cookie = $this->extract_cookie($response);
+        update_option('woocommerce_tapsi_cookie', $this->cookie, 'yes');
+        return json_decode(wp_remote_retrieve_body($response));
+    }
+
     /**
      * Sends a request to the Drive API
      *
      * @param string $request_path The path to direct the request to
-     * @param array $request_args An array of arguments for wp_remote_request
+     * @param array $request_args An array of arguments
      * @return array|WP_Error The response array or a WP_Error on failure
      */
-    public function request(string $request_path, array $request_args)
+    public function request(string $request_path, array $request_args, bool $refresh_token_on_failure = true)
     {
         // Before making a request, make sure we have keys
         if (!$this->get_keys()) {
-            WCDD()->log->error(sprintf(__('Error performing request to %s: Missing API configuration', 'tapsi-delivery'), $request_path));
-            return false;
+            $this->__construct();
         }
 
         // Set the URL for the request based on the request path and the API url
@@ -346,35 +431,27 @@ class Woocommerce_Tapsi_API
         // Set up default arguments for WP Remote Request
         $defaults = array(
             'headers' => array(
-//                'Authorization' => 'Bearer ' . $this->get_jwt(), // Get the auth header
-//                'Content-Type' => 'application/json',
-                'cookie' => $this->jwt
-
+                'cookie' => $this->get_cookie(),
+                'Content-Type' => 'application/json',
+                'x-agw-user-role' => $this->x_agw_user_role,
+                'X-Agent' => $this->x_agent
             )
         );
 
         // Combine the defaults with the passed arguments
         $request_args = wp_parse_args($request_args, $defaults);
-
-        // Log the request
-        WCDD()->log->debug(sprintf(__('Sending request to %s', 'tapsi-delivery'), $request_path));
-        WCDD()->log->debug($request_args);
-
-        // Run the remote request
-        $response = wp_remote_request($request_url, $request_args);
-
-        // Log the response
-        WCDD()->log->debug($response);
+        $response = $this->remote_request($request_url, $request_args);
 
         // Log WP error
         if (is_wp_error($response)) {
             WCDD()->log->error(sprintf(__('Error performing request to %s', 'tapsi-delivery'), $request_path));
             WCDD()->log->error($response);
-            return false;
+            return $response;
         }
 
         // Log HTTP error
         $response_code = wp_remote_retrieve_response_code($response);
+
         if ($response_code !== 200) {
 
             $body = json_decode(wp_remote_retrieve_body($response));
@@ -392,12 +469,13 @@ class Woocommerce_Tapsi_API
 
                     break;
                 case 401:
-                    // Authentication error
-                    wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
-                    break;
                 case 403:
-                    // Authorization error
-                    wc_add_notice(__('Tapsi: Authorization Error', 'tapsi-delivery'), 'notice');
+                    if ($refresh_token_on_failure) {
+                        $this->refresh_tokens();
+                        return $this->request($request_path, $request_args, false);
+                    } else {
+                        wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
+                    }
                     break;
                 case 404:
                     // Resource doesn't exist
@@ -432,4 +510,70 @@ class Woocommerce_Tapsi_API
         return $response;
     }
 
+    /**
+     * @param $response
+     * @return string
+     */
+    public function extract_cookie($response): string
+    {
+        $headers = wp_remote_retrieve_headers($response);
+        $set_cookie = $headers['set-cookie'];
+
+        $access_token_details = explode(';', $set_cookie[0]);
+        $refresh_token_details = explode(';', $set_cookie[1]);
+
+        $access_token = '';
+        $refresh_token = '';
+
+        foreach ($access_token_details as $access_token_detail) {
+            if (str_starts_with($access_token_detail, 'accessToken')) {
+                $access_token = $access_token_detail;
+            }
+        }
+
+        foreach ($refresh_token_details as $refresh_token_detail) {
+            if (str_starts_with($refresh_token_detail, 'refreshToken')) {
+                $refresh_token = $refresh_token_detail;
+            }
+        }
+
+        if ($access_token != '' && $refresh_token != '') {
+            return $access_token . ';' . $refresh_token . ';';
+        } else {
+            // TODO: raise error here
+            return '';
+        }
+    }
+
+    private function set_base_url(string $env)
+    {
+        if ($env == 'prod') {
+            $this->base_url = "https://api.tapsi.ir/api/";
+        } elseif ($env == 'dev') {
+            $this->base_url = "https://frodo.backyard.tapsi.tech/api/";
+        } elseif ($env == 'local') {
+            $this->base_url = "http://localhost:51051/api/";
+        }
+    }
+
+    /**
+     * Sends a request for Admin, like requesting an OTP or verifying it
+     *
+     * @return object|WP_Error The response array or a WP_Error on failure
+     */
+    private function refresh_tokens()
+    {
+        $request_path = 'v2/user/accessToken/web';
+
+        $request_args = array(
+            'method' => 'GET',
+            'headers' => array(
+                'Content-Type' => 'application/json',
+                'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB',
+                'cookie' => $this->get_cookie(),
+            )
+        );
+
+        return $this->request_token($request_path, $request_args);
+    }
 }

@@ -149,6 +149,12 @@ class Woocommerce_Tapsi
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-pickup-location.php';
 
         /**
+         * The class responsible for defining data of a user
+         * side of the site.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-user.php';
+
+        /**
          * The class responsible for encryption functionality
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-encryption.php';

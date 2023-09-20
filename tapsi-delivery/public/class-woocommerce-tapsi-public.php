@@ -833,7 +833,7 @@ class Woocommerce_Tapsi_Public
                     echo 'No available delivery times found.';
                 }
             } else {
-                echo 'Failed to parse API response. Body: ' . serialize($raw_response);
+                echo 'Failed to parse API response.';
             }
         }
 

@@ -332,6 +332,7 @@ class Woocommerce_Tapsi_Admin
 
         $location_id = (int)$method->get_meta("_tapsi_pickup_location");
 
+
         if ($location_id) {
             $location = new Woocommerce_Tapsi_Pickup_Location($location_id);
             $this->submit_delivery_order($delivery, $order, $location);
@@ -706,7 +707,5 @@ class Woocommerce_Tapsi_Admin
         $preview_token = $delivery->get_preview_token();
 
         $submit_response = WCDD()->api->submit_delivery_order($receiver, $sender, $pack, $time_slot_id, $preview_token);
-
-        error_log('$submit_response: ' . print_r($submit_response, true));
     }
 }

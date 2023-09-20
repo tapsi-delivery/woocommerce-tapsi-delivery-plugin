@@ -575,8 +575,24 @@ class Woocommerce_Tapsi_API
         }
     }
 
-    private function refresh_token()
+    /**
+     * Sends a request for Admin, like requesting an OTP or verifying it
+     *
+     * @return object|WP_Error The response array or a WP_Error on failure
+     */
+    private function refresh_tokens()
     {
-    }
+        $request_path = 'v2/user/accessToken/web';
 
+        $request_args = array(
+            'method' => 'GET',
+            'headers' => array(
+                'Content-Type' => 'application/json',
+                'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB',
+                'cookie' => $this->get_jwt(),
+            )
+        );
+
+        return $this->request_token($request_path, $request_args);
+    }
 }

@@ -31,7 +31,7 @@ class Woocommerce_Tapsi_API
 
     protected $signing_secret;
 
-    protected string $jwt;
+    protected string $cookie;
     protected string $x_agw_user_role = 'SCHEDULED_DELIVERY_SENDER';
     protected string $x_agent = 'v2.2|SCHEDULED_DELIVERY_SENDER|WEB|0.1.0||||||||||||||||';
 
@@ -46,16 +46,16 @@ class Woocommerce_Tapsi_API
     protected function get_keys()
     {
         // If the JWT already exists we're set
-        if (!empty($this->jwt)) return true;
+        if (!empty($this->cookie)) return true;
 
-        $this->get_jwt();
+        $this->get_cookie();
 
         $encryption = new Woocommerce_Tapsi_Encryption();
-        if ($encryption->is_encrypted($this->jwt)) {
-            $this->jwt = $encryption->decrypt($this->jwt);
+        if ($encryption->is_encrypted($this->cookie)) {
+            $this->cookie = $encryption->decrypt($this->cookie);
         }
 
-        if (empty($this->jwt)) {
+        if (empty($this->cookie)) {
             return false;
         }
 
@@ -229,17 +229,13 @@ class Woocommerce_Tapsi_API
     }
 
     /**
-     * Generate a JSON Web Token (JWT) for API request auth
-     *
-     * @see https://developer.tapsi.com/en-US/docs/drive/how_to/JWTs/
-     *
-     * @return string Generated JWT
+     * @return string saved cookie
      */
-    public function get_jwt()
+    public function get_cookie()
     {
-        if (!empty($this->jwt)) return $this->jwt;
-        $this->jwt = get_option('woocommerce_tapsi_cookie');
-        return $this->jwt;
+        if (!empty($this->cookie)) return $this->cookie;
+        $this->cookie = get_option('woocommerce_tapsi_cookie');
+        return $this->cookie;
     }
 
     /**
@@ -410,8 +406,8 @@ class Woocommerce_Tapsi_API
             return $response;
         }
 
-        $cookie = $this->extract_cookie($response);
-        update_option('woocommerce_tapsi_cookie', $cookie, 'yes');
+        $this->cookie = $this->extract_cookie($response);
+        update_option('woocommerce_tapsi_cookie', $this->cookie, 'yes');
         return json_decode(wp_remote_retrieve_body($response));
     }
 
@@ -435,7 +431,7 @@ class Woocommerce_Tapsi_API
         // Set up default arguments for WP Remote Request
         $defaults = array(
             'headers' => array(
-                'cookie' => $this->get_jwt(),
+                'cookie' => $this->get_cookie(),
                 'Content-Type' => 'application/json',
                 'x-agw-user-role' => $this->x_agw_user_role,
                 'X-Agent' => $this->x_agent
@@ -574,7 +570,7 @@ class Woocommerce_Tapsi_API
             'headers' => array(
                 'Content-Type' => 'application/json',
                 'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB',
-                'cookie' => $this->get_jwt(),
+                'cookie' => $this->get_cookie(),
             )
         );
 

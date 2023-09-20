@@ -72,7 +72,7 @@ class Woocommerce_Tapsi_API
     {
         $request_path = 'v1/delivery/available-dates';
         $request_args = array('method' => 'GET');
-        return $this->request($request_path, $request_args);
+        return $this->client_request($request_path, $request_args);
     }
 
 
@@ -88,7 +88,7 @@ class Woocommerce_Tapsi_API
         $api_url = 'v1/delivery/order/preview';
         $request_path = $api_url . '?originLat=' . $origin_lat . '&originLong=' . $origin_long . '&destinationLat=' . $destination_lat . '&destinationLong=' . $destination_long . '&dateTimestamp=' . $date_timestamp;
         $request_args = array('method' => 'GET');
-        return $this->request($request_path, $request_args);
+        return $this->client_request($request_path, $request_args);
     }
 
 
@@ -172,7 +172,7 @@ class Woocommerce_Tapsi_API
             'body' => json_encode($request_body),
         );
 
-        return $this->request($request_path, $request_args);
+        return $this->client_request($request_path, $request_args);
     }
 
 
@@ -292,6 +292,7 @@ class Woocommerce_Tapsi_API
         return json_decode(wp_remote_retrieve_body($response));
     }
 
+
     /**
      * Sends a request to the Drive API
      *
@@ -299,29 +300,9 @@ class Woocommerce_Tapsi_API
      * @param array $request_args An array of arguments
      * @return array|WP_Error The response array or a WP_Error on failure
      */
-    public function request(string $request_path, array $request_args, bool $refresh_token_on_failure = true)
+    public function client_request(string $request_path, array $request_args, bool $refresh_token_on_failure = true)
     {
-        // Before making a request, make sure we have keys
-        if (!$this->get_keys()) {
-            $this->__construct();
-        }
-
-        // Set the URL for the request based on the request path and the API url
-        $request_url = $this->base_url . $request_path;
-
-        // Set up default arguments for WP Remote Request
-        $defaults = array(
-            'headers' => array(
-                'cookie' => $this->get_cookie(),
-                'Content-Type' => 'application/json',
-                'x-agw-user-role' => $this->x_agw_user_role,
-                'X-Agent' => $this->x_agent
-            )
-        );
-
-        // Combine the defaults with the passed arguments
-        $request_args = wp_parse_args($request_args, $defaults);
-        $response = $this->remote_request($request_url, $request_args);
+        $response = $this->request_with_credentials($request_path, $request_args);
 
         // Log WP error
         if (is_wp_error($response)) {
@@ -353,7 +334,7 @@ class Woocommerce_Tapsi_API
                 case 403:
                     if ($refresh_token_on_failure) {
                         $this->refresh_tokens();
-                        return $this->request($request_path, $request_args, false);
+                        return $this->client_request($request_path, $request_args, false);
                     } else {
                         wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
                     }
@@ -389,6 +370,39 @@ class Woocommerce_Tapsi_API
 
         // Return the response object
         return $response;
+    }
+
+
+    /**
+     * Sends a request to the Drive API
+     *
+     * @param string $request_path The path to direct the request to
+     * @param array $request_args An array of arguments
+     * @return array|WP_Error The response array or a WP_Error on failure
+     */
+    public function request_with_credentials(string $request_path, array $request_args, bool $refresh_token_on_failure = true)
+    {
+        // Before making a request, make sure we have keys
+        if (!$this->get_keys()) {
+            $this->__construct();
+        }
+
+        // Set the URL for the request based on the request path and the API url
+        $request_url = $this->base_url . $request_path;
+
+        // Set up default arguments for WP Remote Request
+        $defaults = array(
+            'headers' => array(
+                'cookie' => $this->get_cookie(),
+                'Content-Type' => 'application/json',
+                'x-agw-user-role' => $this->x_agw_user_role,
+                'X-Agent' => $this->x_agent
+            )
+        );
+
+        // Combine the defaults with the passed arguments
+        $request_args = wp_parse_args($request_args, $defaults);
+        return $this->remote_request($request_url, $request_args);
     }
 
     /**

@@ -128,7 +128,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     {
         $settings = $this->get_settings();
 
-        WC_Admin_Settings::save_fields($settings);
+        $should_save = true;
 
         // If we're updating a location, set the data for that post
         if (isset($_REQUEST['_update-location-nonce']) && wp_verify_nonce($_REQUEST['_update-location-nonce'], 'woocommerce-tapsi-update-location')) {
@@ -180,7 +180,9 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
             if (property_exists($response, 'result')) {
                 if ($response->result == 'ERR') {
-                    return;  // TODO: show an error
+                    $should_save = false;
+                    $error_message = __($response->data->message, 'tapsi-delivery');
+                    WC_Admin_Settings::add_error($error_message);
                 } elseif ($response->result == 'OK') {
                     update_option('woocommerce_tapsi_user_phone', $tapsi_phone, true);
                     wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login&phone=' . $tapsi_phone));
@@ -197,12 +199,19 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
             if (property_exists($authenticated_user, 'result')) {
                 if ($authenticated_user->result == 'ERR') {
-                    return;  // TODO: show error and wait for a new OTP input
+                    $should_save = false;
+                    $error_message = __($authenticated_user->data->message, 'tapsi-delivery');
+                    WC_Admin_Settings::add_error($error_message);
                 } elseif ($authenticated_user->result == 'OK') {
                     wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login'));
+                    $message = __('Phone number' . $tapsi_phone . ' was verified successfully!', 'tapsi-delivery');
+                    WC_Admin_Settings::add_message($message);
                 }
             }
+        }
 
+        if ($should_save) {
+            WC_Admin_Settings::save_fields($settings);
         }
     }
 

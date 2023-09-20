@@ -199,7 +199,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 if ($authenticated_user->result == 'ERR') {
                     return;  // TODO: show error and wait for a new OTP input
                 } elseif ($authenticated_user->result == 'OK') {
-                    return; // TODO: show success notice
+                    wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login'));
                 }
             }
 

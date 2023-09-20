@@ -77,6 +77,19 @@ class Woocommerce_Tapsi_API
 
 
     /**
+     * @return bool
+     */
+    public function is_token_valid(): bool
+    {
+        $request_path = 'v1/delivery/available-dates';
+        $request_args = array('method' => 'GET');
+        $response = $this->request_with_credentials($request_path, $request_args);
+        $response_code = wp_remote_retrieve_response_code($response);
+        return $response_code == 200;
+    }
+
+
+    /**
      * Given a datestamp, retrieve the user-selectable pickup time options for that date
      *
      * @param int $date_timestamp Date to get preview for

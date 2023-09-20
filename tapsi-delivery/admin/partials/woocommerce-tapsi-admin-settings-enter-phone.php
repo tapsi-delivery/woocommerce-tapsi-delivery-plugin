@@ -12,6 +12,9 @@
  * @subpackage Woocommerce_Tapsi/admin/partials
  */
 
+$tapsi_phone = get_option('woocommerce_tapsi_user_phone');
+$is_token_valid = WCDD()->api->is_token_valid();
+
 /**
  * Output the Location Information section
  */
@@ -19,7 +22,11 @@ echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woocommerce-ta
 
 echo '<h2>' . __( 'Login Information', 'tapsi-delivery' ) . '</h2>';
 
-	echo '<p>' . __( 'Enter your tapsi phone number.', 'tapsi-delivery' ) . '</p>';
+    if ($is_token_valid) {
+        echo '<p>' . __( 'Your phone number has been verified, and you can update it at any time.', 'tapsi-delivery' ) . '</p>';
+    } else {
+        echo '<p>' . __( 'Your phone number has not been verified. Please enter the phone number associated with your Tapsi account.', 'tapsi-delivery' ) . '</p>';
+    }
 
 	echo '<section class="wc-tapsi-location name">';
 		woocommerce_form_field( 'tapsi_phone', array(
@@ -27,7 +34,7 @@ echo '<h2>' . __( 'Login Information', 'tapsi-delivery' ) . '</h2>';
 			'required' => true,
 			'label' => __( 'Phone Number: ', 'tapsi-delivery' ),
 			'placeholder' => __( '09', 'tapsi-delivery' ),
-		), '09' );
+		), $tapsi_phone );
 	echo '</section>';
 
 ///**

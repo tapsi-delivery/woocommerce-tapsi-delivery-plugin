@@ -23,7 +23,7 @@ echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woocommerce-ta
 echo '<h2>' . __( 'Login Information', 'tapsi-delivery' ) . '</h2>';
 
     if ($is_token_valid) {
-        echo '<p>' . __( 'Your phone number has been verified, and you can update it at any time.', 'tapsi-delivery' ) . '</p>';
+        echo '<p>' . __( 'Your phone number ' . $tapsi_phone .  ' has been verified, and you can update it at any time.', 'tapsi-delivery' ) . '</p>';
     } else {
         echo '<p>' . __( 'Your phone number has not been verified. Please enter the phone number associated with your Tapsi account.', 'tapsi-delivery' ) . '</p>';
     }

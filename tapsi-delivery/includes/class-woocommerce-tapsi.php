@@ -286,7 +286,9 @@ class Woocommerce_Tapsi
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
-        // Show the Location Selector
+//	    $this->loader->add_action('woocommerce_before_checkout_shipping_form', $plugin_public, 'display_checkout_fullpage_modal', 10);
+
+	    // Show the Location Selector
         $this->loader->add_action('woocommerce_after_shipping_rate', $plugin_public, 'show_available_locations_dropdown', 10, 2);
 
         // Update location in session on cart page
@@ -323,7 +325,6 @@ class Woocommerce_Tapsi
 
         // Display pickup location on orders and email notifications
         $this->loader->add_filter('woocommerce_get_order_item_totals', $plugin_public, 'display_pickup_location_on_order_item_totals', 10, 3);
-
     }
 
     /**

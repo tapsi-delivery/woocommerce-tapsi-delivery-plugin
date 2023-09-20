@@ -78,7 +78,11 @@ class Woocommerce_Tapsi_Public
          * class.
          */
 
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/woocommerce-tapsi-public.css', array(), $this->version, 'all');
+//	    wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'http://localhost/tapsipack/wp-content/plugins/serve/map-public.css');
+	    wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
+	    wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'http://localhost/tapsipack/wp-content/plugins/serve/map-public.css');
+
+	    wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/woocommerce-tapsi-public.css', array(), $this->version, 'all');
 
     }
 
@@ -102,8 +106,11 @@ class Woocommerce_Tapsi_Public
          * class.
          */
 
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/woocommerce-tapsi-public.js', array('jquery', 'selectWoo'), $this->version, false);
+//	    wp_enqueue_script('wctd-tapsi-pack-maplibre-lib-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
+	    wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/woocommerce-tapsi-public.js', array('jquery', 'selectWoo'), $this->version, false);
+	    wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
 
+	    // custom map css
     }
 
     /**
@@ -162,6 +169,23 @@ class Woocommerce_Tapsi_Public
                     'options' => $this->generate_locations_options($locations), // Use the enabled locations to generate an option array
                 ), $selected_location); // $checkout->get_value( 'tapsi_pickup_location' ) );
             }
+
+			if (true) {
+				require_once 'partials/wctd-taps-pack-maplibre-map-public.php';
+				$azadi_coordinate = array(51.337762, 35.699927);
+
+				woocommerce_form_field( 'location_lat', array(
+					'type' => 'hidden',
+					'required' => true,
+					'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lat-field-id',
+				), $dropoff_location['lat'] ?? $azadi_coordinate[1]);
+
+				woocommerce_form_field( 'location_lng', array(
+					'type' => 'hidden',
+					'required' => true,
+					'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lng-field-id',
+				),  $dropoff_location['long'] ?? $azadi_coordinate[0]);
+			}
 
             wp_nonce_field('wcdd_set_pickup_location', 'wcdd_set_pickup_location_nonce');
 

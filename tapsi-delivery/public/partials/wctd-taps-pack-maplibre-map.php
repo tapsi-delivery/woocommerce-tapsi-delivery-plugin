@@ -10,16 +10,44 @@
 	 * @subpackage maplibre-js
 	 */
 
-	echo '<section class="wctd-tapsi-pack-map-form">';
-    echo '<p class="form-row"><label for="wctd-tapsi-pack-maplibre-map-container-id">'. __('Coordinates', 'tapsi-delivery') .'</label>&nbsp;<abbr class="required" title="' . esc_attr__( 'required', 'woocommerce' ) . '">*</abbr></p>';
-	echo '<p>' . __( 'Please choose the precise coordinate that matches your address on the map.', 'tapsi-delivery' ) . '</p>';
-	echo '<p class="wctd-tapsi-pack-delivery-map-notification privacy_requests">' . __( "Make sure to check the compatibility between the address and the pin. In case of incompatibility, The pin location is Tapsi Pack's reference for your delivery!!!", 'tapsi-delivery' ) . '</p>';
-	echo '<div id="wctd-tapsi-pack-maplibre-map-root-id">';
-	echo '<div id="wctd-tapsi-pack-maplibre-map-container-id"></div>';
-//	echo '<button id="wctd-tapsi-pack-maplibre-map-submit-location-button-id">submit location</button>';
-	echo '<img id="wctd-tapsi-pack-maplibre-map-center-marker-id" src="http://localhost:9700/map-center-marker.svg"/>';
-	echo '</div>';
-	echo '<script src="http://localhost:9700/map-handler.js"></script>';
-	echo '</section>';
+	function WCTD_tapsipack_get_map_loading_component() {
+		return '<div id="wctd-tapsi-pack-map-loading-container">
+				<!-- 	<div class="wctd-tapsi-pack-map-loading-loader">
+				  <div class="wctd-tapsi-pack-map-loading-box wctd-tapsi-pack-box-1">
+				    <div class="wctd-tapsi-pack-map-loading-side-left"></div>
+				    <div class="wctd-tapsi-pack-map-loading-side-right"></div>
+				    <div class="wctd-tapsi-pack-map-loading-side-top"></div>
+				  </div>
+				  <div class="wctd-tapsi-pack-map-loading-box wctd-tapsi-pack-box-2">
+				    <div class="wctd-tapsi-pack-map-loading-side-left"></div>
+				    <div class="wctd-tapsi-pack-map-loading-side-right"></div>
+				    <div class="wctd-tapsi-pack-map-loading-side-top"></div>
+				  </div>
+				  <div class="wctd-tapsi-pack-map-loading-box wctd-tapsi-pack-box-3">
+				    <div class="wctd-tapsi-pack-map-loading-side-left"></div>
+				    <div class="wctd-tapsi-pack-map-loading-side-right"></div>
+				    <div class="wctd-tapsi-pack-map-loading-side-top"></div>
+				  </div>
+				  <div class="wctd-tapsi-pack-map-loading-box wctd-tapsi-pack-box-4">
+				    <div class="wctd-tapsi-pack-map-loading-side-left"></div>
+				    <div class="wctd-tapsi-pack-map-loading-side-right"></div>
+				    <div class="wctd-tapsi-pack-map-loading-side-top"></div>
+				  </div>
+				</div> -->
+				map is loading...
+			</div> ';
+	}
 
+
+	echo '
+		<!-- HTML Start Marker -->
+		<div id="html-start-marker"></div>
+		
+		<button id="wctd-tapsi-pack-show-map-button" type="button">انتخاب آدرس</button>
+		<div id="wctd-tapsi-pack-maplibre-map-modal-container"></div>
+		<img id="wctd-tapsi-pack-maplibre-map-center-marker-id" src="http://localhost/tapsipack/wp-content/plugins/serve/map-center-marker.svg"/>
+		
+		<!-- HTML End Marker -->
+		<div id="html-end-marker"></div>
+		';
 ?>

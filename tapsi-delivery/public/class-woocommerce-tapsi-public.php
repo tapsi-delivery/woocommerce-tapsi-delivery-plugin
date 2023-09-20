@@ -790,17 +790,19 @@ class Woocommerce_Tapsi_Public
             return $days;
         }
 
-        $origin_lat = 35.63064956665039;
-        $origin_long = 51.36489486694336;
-        $destination_lat = 35.632899231302616;
-        $destination_long = 51.36615198055347;
+	    $selected_location = WC()->checkout->get_value('tapsi_pickup_location') ? WC()->checkout->get_value('tapsi_pickup_location') : WC()->session->get('tapsi_pickup_location');
+		$location = new Woocommerce_Tapsi_Pickup_Location($selected_location);
+	    $origin_lat = $location->get_address()['latitude'];
+	    $origin_long = $location->get_address()['longitude'];
+	    $destination_lat = WC()->session->get( 'wctd_tapsi_destination_lat');
+	    $destination_long = WC()->session->get( 'wctd_tapsi_destination_long');
         $date_timestamp = $datestamp * 1000;
 
         $raw_response = WCDD()->api->get_preview($origin_lat, $origin_long, $destination_lat, $destination_long, $date_timestamp);
 
-
         if (is_wp_error($raw_response)) {
-            echo 'Failed to fetch delivery times. Please try again later.';
+	        wc_add_notice(__('Failed to fetch delivery times. Please try again later.', 'tapsi-delivery'), 'error');
+            echo __('Failed to fetch delivery times. Please try again later.', 'tapsi-delivery');
         } else {
             $data = json_decode(wp_remote_retrieve_body($raw_response));
 

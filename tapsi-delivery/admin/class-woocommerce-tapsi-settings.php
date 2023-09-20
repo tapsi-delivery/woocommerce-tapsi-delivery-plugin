@@ -55,10 +55,11 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     public function get_sections()
     {
         $sections = array(
-            '' => __('Settings', 'tapsi-delivery'),
-            'webhooks' => __('Webhooks', 'tapsi-delivery'),
-            'locations' => __('Locations', 'tapsi-delivery'),
+//            '' => __('Login', 'tapsi-delivery'),
             'login' => __('Login', 'tapsi-delivery'),
+//            '' => __('Settings', 'tapsi-delivery'),
+//            'webhooks' => __('Webhooks', 'tapsi-delivery'),
+            'locations' => __('Locations', 'tapsi-delivery'),
         );
 
         return apply_filters('woocommerce_get_sections_' . $this->id, $sections);
@@ -99,9 +100,12 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     public function output()
     {
         global $current_section, $hide_save_button;
-        if ('' == $current_section) {
-            $settings = $this->get_settings();
-            WC_Admin_Settings::output_fields($settings);
+        if ('' == $current_section || 'login' == $current_section) {
+            if (array_key_exists('phone', $_GET)) {
+                $this->output_enter_otp_screen();
+            } else {
+                $this->output_enter_phone_screen();
+            }
         } elseif ('locations' == $current_section) {
             if (array_key_exists('location_id', $_GET)) {
                 $this->output_location_edit_screen();
@@ -112,14 +116,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         } elseif ('webhooks' == $current_section) {
             $hide_save_button = true;
             $this->output_webhooks_screen();
-        } elseif ('login' == $current_section) {
-//            $hide_save_button = true;
-
-            if (array_key_exists('phone', $_GET)) {
-                $this->output_enter_otp_screen();
-            } else {
-                $this->output_enter_phone_screen();
-            }
         }
     }
 
@@ -132,7 +128,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     {
         $settings = $this->get_settings();
 
-        WC_Admin_Settings::save_fields($settings);
+        $should_save = true;
 
         // If we're updating a location, set the data for that post
         if (isset($_REQUEST['_update-location-nonce']) && wp_verify_nonce($_REQUEST['_update-location-nonce'], 'woocommerce-tapsi-update-location')) {
@@ -185,8 +181,11 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
             if (property_exists($response, 'result')) {
                 if ($response->result == 'ERR') {
-                    return;  // TODO: show an error
+                    $should_save = false;
+                    $error_message = __($response->data->message, 'tapsi-delivery');
+                    WC_Admin_Settings::add_error($error_message);
                 } elseif ($response->result == 'OK') {
+                    update_option('woocommerce_tapsi_user_phone', $tapsi_phone, true);
                     wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login&phone=' . $tapsi_phone));
                 }
             }
@@ -201,21 +200,19 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
             if (property_exists($authenticated_user, 'result')) {
                 if ($authenticated_user->result == 'ERR') {
-                    return;
+                    $should_save = false;
+                    $error_message = __($authenticated_user->data->message, 'tapsi-delivery');
+                    WC_Admin_Settings::add_error($error_message);
                 } elseif ($authenticated_user->result == 'OK') {
-                    $pack_user = new Woocommerce_Tapsi_Pack_User($tapsi_phone);
-
-                    $data = array(
-                        'ID' => $tapsi_phone,
-                        'name' => $tapsi_phone,
-                        'enabled' => 'enable',
-                        'phone' => $tapsi_phone,
-                    );
-
-                    $pack_user->update($data);
+                    wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login'));
+                    $message = __('Phone number' . $tapsi_phone . ' was verified successfully!', 'tapsi-delivery');
+                    WC_Admin_Settings::add_message($message);
                 }
             }
+        }
 
+        if ($should_save) {
+            WC_Admin_Settings::save_fields($settings);
         }
     }
 

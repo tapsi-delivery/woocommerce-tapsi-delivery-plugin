@@ -343,17 +343,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         include 'partials/woocommerce-tapsi-admin-settings-locations.php';
     }
 
-    /**
-     * Show the individual location editor
-     *
-     * @return void
-     */
-    public function output_location_edit_screen()
-    {
-        $location = new Woocommerce_Tapsi_Pickup_Location(intval($_GET['location_id']));
-        include 'partials/woocommerce-tapsi-admin-settings-edit-location.php';
-    }
-
 
     /**
      * Show the individual phone field

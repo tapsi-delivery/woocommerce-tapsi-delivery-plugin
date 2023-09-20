@@ -39,7 +39,7 @@ class Woocommerce_Tapsi_API
 
     public function __construct()
     {
-        $this->set_base_url('dev');
+        $this->set_base_url('prod');
         $this->get_keys();
     }
 
@@ -564,7 +564,7 @@ class Woocommerce_Tapsi_API
         }
     }
 
-    private function set_base_url($env)
+    private function set_base_url(string $env)
     {
         if ($env == 'prod') {
             $this->base_url = "https://api.tapsi.ir/api/";

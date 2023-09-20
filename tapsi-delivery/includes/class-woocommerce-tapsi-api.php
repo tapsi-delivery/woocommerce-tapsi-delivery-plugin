@@ -140,7 +140,7 @@ class Woocommerce_Tapsi_API
      * @param string $otp
      * @return array|object|WP_Error containing `result` key, and value of `result` would be `OK` on success.
      */
-    public function confirm_otp(string $phone, string $otp): object
+    public function confirm_otp(string $phone, string $otp)
     {
         $request_path = 'v2.2/user/confirm/web';
         $request_body = array(
@@ -296,13 +296,18 @@ class Woocommerce_Tapsi_API
 
         $response_code = wp_remote_retrieve_response_code($response);
 
-        if ($response_code != 200) {
-            return $response;
+        if ($response_code == 200) {
+            $this->cookie = $this->extract_cookie($response);
+            update_option('woocommerce_tapsi_cookie', $this->cookie, 'yes');
         }
 
-        $this->cookie = $this->extract_cookie($response);
-        update_option('woocommerce_tapsi_cookie', $this->cookie, 'yes');
-        return json_decode(wp_remote_retrieve_body($response));
+        try {
+            $response = json_decode(wp_remote_retrieve_body($response));
+        } catch (Exception $e) {
+        }
+
+
+        return $response;
     }
 
 

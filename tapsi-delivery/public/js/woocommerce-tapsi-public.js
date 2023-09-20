@@ -125,6 +125,7 @@
 					alert('با عرض پوزش مشکلی پیش آمده است. لطفا آدرس مقصد را مجددا وارد کنید.')
 				}
 				map.setCenter(centerLocation);
+				map.zoomTo(15, {duration: 1000});
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "visible"});
 			});
 

@@ -88,6 +88,8 @@ class Woocommerce_Tapsi_Logger
      */
     public function __call($level, $args)
     {
+        error_log('level: ' . $level . ' - args: ' . print_r($args, true));
+
         if (in_array($level, $this->levels)) {
             $message = wc_print_r(array_shift($args), true);
             $this->logger->log($level, $message, $this->context);

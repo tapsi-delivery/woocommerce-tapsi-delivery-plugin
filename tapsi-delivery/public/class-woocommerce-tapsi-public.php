@@ -116,8 +116,11 @@ class Woocommerce_Tapsi_Public
     {
         // Get the selected method
         $chosen_shipping_rate_id = WC()->session->get('chosen_shipping_methods')[0]; // [0]
+	    $wctd_tapsi_destination_long = WC()->session->get('wctd_tapsi_destination_long');
+	    $wctd_tapsi_destination_lat = WC()->session->get('wctd_tapsi_destination_lat');
+	    $azadi_coordinate = array(51.337762, 35.699927);
 
-        // Get the meta data from the rate
+	    // Get the meta data from the rate
         $meta = $shipping_rate->get_meta_data();
         // Set up the delivery object
         if (array_key_exists('tapsi_delivery', $meta)) $delivery = $meta['tapsi_delivery'];
@@ -144,7 +147,7 @@ class Woocommerce_Tapsi_Public
                 //hidden field + display for single location
                 woocommerce_form_field('tapsi_pickup_location', array(
                     'type' => 'hidden',
-                    'label' => __('Delivery From', 'tapsi-delivery'),
+                    'label' => __('Origin', 'tapsi-delivery'),
                     'class' => array('wcdd-pickup-location-select', 'update_totals_on_change'), // add 'wc-enhanced-select'?
                     'default' => $selected_location,
                 ), $selected_location);
@@ -153,7 +156,7 @@ class Woocommerce_Tapsi_Public
             } else {
                 woocommerce_form_field('tapsi_pickup_location', array(
                     'type' => 'select',
-                    'label' => __('Delivery From', 'tapsi-delivery'),
+                    'label' => __('Origin', 'tapsi-delivery'),
                     'placeholder' => __('Select...', 'tapsi-delivery'),
                     'class' => array('wcdd-pickup-location-select', 'update_totals_on_change'), // add 'wc-enhanced-select'?
                     'required' => true,
@@ -162,24 +165,22 @@ class Woocommerce_Tapsi_Public
                 ), $selected_location); // $checkout->get_value( 'tapsi_pickup_location' ) );
             }
 
-			if (true) {
-				$azadi_coordinate = array(51.337762, 35.699927);
+			echo '<p>'.__('Destination', 'tapsi-delivery').'</p>';
+			echo '<span>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates.', 'tapsi-delivery').'</span>';
+			// open map modal with this button
+			echo '<button id="wctd-tapsi-pack-show-map-button-checkout-page" type="button">'.__('Choose Destination on Map', 'tapsi-delivery').'</button>';
 
-				// open map modal
-				echo '<button id="wctd-tapsi-pack-show-map-button-checkout-page" type="button">انتخاب آدرس</button>';
+			woocommerce_form_field( 'wctd_tapsi_destination_lat', array(
+				'type' => 'hidden',
+				'required' => true,
+				'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id',
+			), $wctd_tapsi_destination_lat ?? $azadi_coordinate[1]);
 
-				woocommerce_form_field( 'location_lat', array(
-					'type' => 'hidden',
-					'required' => true,
-					'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lat-field-id',
-				), $dropoff_location['lat'] ?? $azadi_coordinate[1]);
-
-				woocommerce_form_field( 'location_lng', array(
-					'type' => 'hidden',
-					'required' => true,
-					'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lng-field-id',
-				),  $dropoff_location['long'] ?? $azadi_coordinate[0]);
-			}
+			woocommerce_form_field( 'wctd_tapsi_destination_long', array(
+				'type' => 'hidden',
+				'required' => true,
+				'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id',
+			),  $wctd_tapsi_destination_long ?? $azadi_coordinate[0]);
 
             wp_nonce_field('wcdd_set_pickup_location', 'wcdd_set_pickup_location_nonce');
 
@@ -554,11 +555,12 @@ class Woocommerce_Tapsi_Public
      */
     public function save_data_to_session(string $data_string)
     {
+	    error_log('Maryam data string' . $data_string);
+	    // Parse the data from a string to an array
+	    parse_str($data_string, $data);
+	    error_log('Maryam data string' . print_r($data, true));
 
-        // Parse the data from a string to an array
-        parse_str($data_string, $data);
-
-        // check to see if we should pull from billing or shipping fields, and set the field prefix
+	    // check to see if we should pull from billing or shipping fields, and set the field prefix
         $prefix = 'billing_';
         if (array_key_exists('ship_to_different_address', $data)) {
             $prefix = 'shipping_';
@@ -598,11 +600,23 @@ class Woocommerce_Tapsi_Public
             }
         }
 
-        // Save the dropoff instructions
+
+	    // Save the dropoff instructions
         if (array_key_exists('tapsi_dropoff_instructions', $data)) { // phpcs:ignore
             $tapsi_dropoff_instructions = $data['tapsi_dropoff_instructions'];
             WC()->session->set('tapsi_dropoff_instructions', $tapsi_dropoff_instructions);
         }
+
+	    // Save destination coordinate latitude
+	    if (array_key_exists('wctd_tapsi_destination_lat', $data)) { // phpcs:ignore
+		    $wctd_tapsi_destination_lat = $data['wctd_tapsi_destination_lat'];
+		    WC()->session->set('wctd_tapsi_destination_lat', $wctd_tapsi_destination_lat);
+	    }
+		// Save destination coordinate longitude
+	    if (array_key_exists('wctd_tapsi_destination_long', $data)) { // phpcs:ignore
+		    $wctd_tapsi_destination_long = $data['wctd_tapsi_destination_long'];
+		    WC()->session->set('wctd_tapsi_destination_long', $wctd_tapsi_destination_long);
+	    }
 
         // Save the delivery type
         if (array_key_exists('tapsi_delivery_type', $data)) { // phpcs:ignore

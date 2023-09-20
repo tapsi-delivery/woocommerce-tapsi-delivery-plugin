@@ -58,24 +58,7 @@
 
 
 		// Updates session when changing pickup location on cart
-		$('body.woocommerce-cart').on( 'change', '#tapsi_pickup_location', function() {
-			block( $('.cart_totals') );
-			$.ajax({
-				type: 'POST',
-				url: woocommerce_params.ajax_url,
-				data: {
-					"action": "wcdd_update_pickup_location", 
-					"location_id":this.value,
-					"nonce":$('#wcdd_set_pickup_location_nonce').val()
-				},
-				success: function( data ) {
-					$(document).trigger('wc_update_cart');
-				},
-				fail: function( data ) {
-					unblock( $('.cart_totals') );
-				}
-			});
-		} );
+		$('body.woocommerce-cart').on( 'change', '#tapsi_pickup_location', onLocationChange );
 	});
 
 	/**
@@ -193,10 +176,11 @@
 			console.log('map center', map.getCenter());
 			const center = map.getCenter();
 			if (lat && lng && center) {
-				lng.value = center[0] || center.lng;
-				lat.value = center[1] || center.lat;
+				lng.val(center[0] || center.lng);
+				lat.val(center[1] || center.lat);
 			}
 			$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
+			onLocationChange();
 		})
 	}
 
@@ -205,9 +189,11 @@
 		// Add other map-related code here
 		const MAP_CONTAINER_ID = 'wctd-tapsi-pack-maplibre-map-public-container-id';
 		const MAP_STYLE = 'http://localhost/tapsipack/wp-content/plugins/serve/mapsi-style.json';
-		const getLat = $('#wctd-tapsi-pack-maplibre-map-location-form-lat-field-id');
-		const getLong = $('#wctd-tapsi-pack-maplibre-map-location-form-lng-field-id');
+		const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
+		const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 		let centerLocation = [51.337762, 35.699927]; // Azadi Square
+		if(Number(lat.val()) && Number(lng.val())) centerLocation = [lng.val(), lat.val()];
+		console.log(lat, lng, centerLocation);
 		map = new maplibregl.Map({
 			container: MAP_CONTAINER_ID, // container id
 			style: MAP_STYLE,
@@ -221,9 +207,26 @@
 		);
 		map.addControl(new maplibregl.NavigationControl());
 
-		console.log('map initilazed',map);
-		console.log('map is loaded',map.loaded());
-		$('#wctd-tapsi-pack-show-map-button-checkout-page').html('آدرس مبدا را انتخاب کنید.');
+		$('#wctd-tapsi-pack-show-map-button-checkout-page').html('آدرس مقصد را انتخاب کنید.');
+	}
+
+	function onLocationChange() {
+		block( $('.cart_totals') );
+		$.ajax({
+			type: 'POST',
+			url: woocommerce_params.ajax_url,
+			data: {
+				"action": "wcdd_update_pickup_location",
+				"location_id":this.value,
+				"nonce":$('#wcdd_set_pickup_location_nonce').val()
+			},
+			success: function( data ) {
+				$(document).trigger('wc_update_cart');
+			},
+			fail: function( data ) {
+				unblock( $('.cart_totals') );
+			}
+		});
 	}
 
 })( jQuery );

@@ -116,8 +116,6 @@ class Woocommerce_Tapsi_Public
     {
         // Get the selected method
         $chosen_shipping_rate_id = WC()->session->get('chosen_shipping_methods')[0]; // [0]
-	    $wctd_tapsi_destination_long = WC()->session->get('wctd_tapsi_destination_long');
-	    $wctd_tapsi_destination_lat = WC()->session->get('wctd_tapsi_destination_lat');
 	    $azadi_coordinate = array(51.337762, 35.699927);
 
 	    // Get the meta data from the rate
@@ -174,13 +172,13 @@ class Woocommerce_Tapsi_Public
 				'type' => 'hidden',
 				'required' => true,
 				'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id',
-			), $wctd_tapsi_destination_lat ?? $azadi_coordinate[1]);
+			), WC()->session->get('wctd_tapsi_destination_lat') ?? $azadi_coordinate[1]);
 
 			woocommerce_form_field( 'wctd_tapsi_destination_long', array(
 				'type' => 'hidden',
 				'required' => true,
 				'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id',
-			),  $wctd_tapsi_destination_long ?? $azadi_coordinate[0]);
+			),  WC()->session->get('wctd_tapsi_destination_long') ?? $azadi_coordinate[0]);
 
             wp_nonce_field('wcdd_set_pickup_location', 'wcdd_set_pickup_location_nonce');
 
@@ -699,17 +697,31 @@ class Woocommerce_Tapsi_Public
      */
     public function save_pickup_location_to_session()
     {
-        // Bail if the post data isn't set
-        if (!array_key_exists('location_id', $_POST) || empty($_POST['location_id'])) exit;
 
-        // Verify nonce
-        if (!array_key_exists('nonce', $_POST) || !wp_verify_nonce($_POST['nonce'], 'wcdd_set_pickup_location')) exit;
+		if (array_key_exists('location_id', $_POST) && !empty($_POST['location_id'])) {
+			// Sanitize
+			$location_id = intval( $_POST['location_id'] );
 
-        // Sanitize
-        $location_id = intval($_POST['location_id']);
+			// Set the location ID in the session
+			WC()->session->set( 'tapsi_pickup_location', $location_id );
+		}
 
-        // Set the location ID in the session
-        WC()->session->set('tapsi_pickup_location', $location_id);
+		if(array_key_exists('wctd_tapsi_destination_long', $_POST) && !empty($_POST['wctd_tapsi_destination_long'])){
+			// Sanitize
+			$wctd_tapsi_destination_long =  $_POST['wctd_tapsi_destination_long'];
+
+			// Set the location ID in the session
+			WC()->session->set( 'wctd_tapsi_destination_long', $wctd_tapsi_destination_long );
+		}
+
+		if(array_key_exists('wctd_tapsi_destination_lat', $_POST) && !empty($_POST['wctd_tapsi_destination_lat'])){
+			// Sanitize
+			$wctd_tapsi_destination_lat =  $_POST['wctd_tapsi_destination_lat'] ;
+
+			// Set the location ID in the session
+			WC()->session->set( 'wctd_tapsi_destination_lat', $wctd_tapsi_destination_lat );
+		}
+
         exit;
     }
 

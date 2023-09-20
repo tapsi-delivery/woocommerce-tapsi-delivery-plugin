@@ -78,10 +78,6 @@ class Woocommerce_Tapsi_Public
          * class.
          */
 
-//	    wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'http://localhost/tapsipack/wp-content/plugins/serve/map-public.css');
-	    wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
-	    wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'http://localhost/tapsipack/wp-content/plugins/serve/map-admin.css');
-
 	    wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/woocommerce-tapsi-public.css', array(), $this->version, 'all');
 
     }
@@ -106,11 +102,7 @@ class Woocommerce_Tapsi_Public
          * class.
          */
 
-//	    wp_enqueue_script('wctd-tapsi-pack-maplibre-lib-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
 	    wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/woocommerce-tapsi-public.js', array('jquery', 'selectWoo'), $this->version, false);
-	    wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
-
-	    // custom map css
     }
 
     /**
@@ -171,8 +163,10 @@ class Woocommerce_Tapsi_Public
             }
 
 			if (true) {
-				require_once 'partials/wctd-taps-pack-maplibre-map-public.php';
 				$azadi_coordinate = array(51.337762, 35.699927);
+
+				// open map modal
+				echo '<button id="wctd-tapsi-pack-show-map-button-checkout-page" type="button">انتخاب آدرس</button>';
 
 				woocommerce_form_field( 'location_lat', array(
 					'type' => 'hidden',
@@ -819,5 +813,15 @@ class Woocommerce_Tapsi_Public
 
         return $days;
     }
+
+	public function render_checkout_map_modal(){
+		$current_url = $_SERVER['REQUEST_URI'];
+
+		if (strpos($current_url, 'checkout') !== false) {
+			// Map Libre Js and Map Libre CSS where previously added by enqueue script function
+			require_once 'partials/wctd-taps-pack-maplibre-map-modal.php';
+			// Map Js is handled inside the woocommerce-tapsi-public file
+		}
+	}
 
 }

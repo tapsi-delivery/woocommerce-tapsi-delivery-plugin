@@ -286,7 +286,7 @@ class Woocommerce_Tapsi
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
-//	    $this->loader->add_action('woocommerce_before_checkout_shipping_form', $plugin_public, 'display_checkout_fullpage_modal', 10);
+	    $this->loader->add_action('template_redirect', $plugin_public, 'render_checkout_map_modal', 10);
 
 	    // Show the Location Selector
         $this->loader->add_action('woocommerce_after_shipping_rate', $plugin_public, 'show_available_locations_dropdown', 10, 2);

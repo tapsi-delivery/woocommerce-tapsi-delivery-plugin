@@ -18,6 +18,18 @@
 	justify-content: center;
 }
 
+.wcdd-delivery-options-powered > a.wcdd-delivery-options-powered-tapsi-pack-link:first-child {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #ff5722;
+	font-size: 10px;
+}
+
+.wcdd-delivery-options-powered > .wcdd-delivery-options-powered-tapsi-pack-link img {
+	margin: 4px;
+}
+
 .wcdd-delivery-options #tapsi_tip_select_field .woocommerce-input-wrapper,
 .wcdd-delivery-options .wcdd-delivery-type-select .woocommerce-input-wrapper,
 .wcdd-delivery-schedule {

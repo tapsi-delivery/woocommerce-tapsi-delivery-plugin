@@ -218,25 +218,20 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         }
     }
 
-    /**
-     * Handle location deletion from the locations listing screen
-     *
-     * @return bool True on deletion, false otherwise
-     */
-    protected function maybe_delete_location()
-    {
-        if (array_key_exists('delete_location', $_GET) && wp_verify_nonce($_GET['_wpnonce'], 'delete_location')) {
-            // Delete the post, save the posts's data so we can display the title
-            $deleted = wp_delete_post(intval($_GET['delete_location']));
-            if ($deleted) {
-                // If the post deletion was successful, show the message. (Otherwise this is probably a refresh)
-                $message = sprintf(__('Location "%s" deleted.', 'tapsi-delivery'), $deleted->post_title);
-                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message);
-                return true;
-            }
-        }
-        return false;
-    }
+	/**
+	 * Show the individual location editor
+	 *
+	 * @return void
+	 */
+	public function output_location_edit_screen() {
+		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $_GET['location_id'] ) );
+		wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
+		wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'http://localhost:9700/map.css');
+		// TODO: MARYAM: Replace all localhosts
+		// TODO: MARYAM: Send q-params with request for future customization
+		wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
+		include 'partials/woocommerce-tapsi-admin-settings-edit-location.php';
+	}
 
     /**
      * Handle location hours toggle

@@ -80,7 +80,7 @@ class Woocommerce_Tapsi_Public
 
 //	    wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'http://localhost/tapsipack/wp-content/plugins/serve/map-public.css');
 	    wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
-	    wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'http://localhost/tapsipack/wp-content/plugins/serve/map-public.css');
+	    wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'http://localhost/tapsipack/wp-content/plugins/serve/map-admin.css');
 
 	    wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/woocommerce-tapsi-public.css', array(), $this->version, 'all');
 

@@ -1,48 +1,88 @@
-const MAP_CONTAINER_ID_PUBLIC = 'wctd-tapsi-pack-maplibre-map-container-id-PUBLIC';
-const MAP_STYLE_PUBLIC = 'http://localhost/tapsipack/wp-content/plugins/serve/mapsi-style.json';
-const getMap = () => document.getElementById(MAP_CONTAINER_ID);
-const getLat = () => document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id');
-const getLong = () => document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id');
-const getButton = () => document.getElementById('wctd-tapsi-pack-maplibre-map-submit-location-button-id');
-let centerLocation = [51.337762, 35.699927]; // Azadi Square
-let map = null;
-
-const scriptStart = () => {
-  console.log('script start');
-  console.log(!!Number(getLat()?.value) && Number(getLong()?.value));
-  if(Number(getLat()?.value) && Number(getLong()?.value)) centerLocation = [Number(getLong().value), Number(getLat().value)];
-  console.log(centerLocation);
-  map = new maplibregl.Map({
-    container: MAP_CONTAINER_ID_PUBLIC, // container id
-    style: MAP_STYLE_PUBLIC,
-    center: centerLocation, // starting position
-    zoom: 15, // starting zoom
-  });
-  maplibregl.setRTLTextPlugin(
-      'https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js',
-      null,
-      true, // Lazy load the plugin
-  );
-  map.addControl(new maplibregl.NavigationControl());
-  map.on('move', () => {
-    const center = map.getCenter();
-    if (getLat() && getLong() && center) {
-      getLong().value = center[0] || center.lng;
-      getLat().value = center[1] || center.lat;
-    }
-  })
-}
-
-
 document.addEventListener('DOMContentLoaded', () => {
   console.log('document loaded');
-  console.log(getLat() && getMap() , getLat(), getMap());
-  if (getLat() && getMap()) {
-    scriptStart();
-  } else {getLat()?.addEventListener('load', () => {
-    if(getMap()) scriptStart();
+  console.log(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id') && document.getElementById('wctd-tapsi-pack-maplibre-map-container-id') , document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id'), document.getElementById('wctd-tapsi-pack-maplibre-map-container-id'));
+  if (document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id') && document.getElementById('wctd-tapsi-pack-maplibre-map-container-id')) {
+      let wctdmappubliccenterLocation = [51.337762, 35.699927]; // Azadi Square
+      let wctdtapsipackmappublic = null;
+      console.log('script start');
+      console.log(!!Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id')?.value) && Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id')?.value));
+      if(Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id')?.value) && Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id')?.value)) wctdmappubliccenterLocation = [Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id').value), Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id').value)];
+      console.log(wctdmappubliccenterLocation);
+      wctdtapsipackmappublic = new maplibregl.Map({
+        container: 'wctd-tapsi-pack-maplibre-map-container-id', // container id
+        style: 'http://localhost/tapsipack/wp-content/plugins/serve/mapsi-style.json',
+        center: wctdmappubliccenterLocation, // starting position
+        zoom: 15, // starting zoom
+      });
+      maplibregl.setRTLTextPlugin(
+          'https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js',
+          null,
+          true, // Lazy load the plugin
+      );
+      wctdtapsipackmappublic.addControl(new maplibregl.NavigationControl());
+      wctdtapsipackmappublic.on('move', () => {
+        const center = wctdtapsipackmappublic.getCenter();
+        if (document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id') && document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id') && center) {
+          document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id').value = center[0] || center.lng;
+          document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id').value = center[1] || center.lat;
+        }
+      })
+  } else {document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id')?.addEventListener('load', () => {
+    if(document.getElementById('wctd-tapsi-pack-maplibre-map-container-id')) {
+        let wctdmappubliccenterLocation = [51.337762, 35.699927]; // Azadi Square
+        let wctdtapsipackmappublic = null;
+        console.log('script start');
+        console.log(!!Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id')?.value) && Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id')?.value));
+        if(Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id')?.value) && Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id')?.value)) wctdmappubliccenterLocation = [Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id').value), Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id').value)];
+        console.log(wctdmappubliccenterLocation);
+        wctdtapsipackmappublic = new maplibregl.Map({
+          container: 'wctd-tapsi-pack-maplibre-map-container-id', // container id
+          style: 'http://localhost/tapsipack/wp-content/plugins/serve/mapsi-style.json',
+          center: wctdmappubliccenterLocation, // starting position
+          zoom: 15, // starting zoom
+        });
+        maplibregl.setRTLTextPlugin(
+            'https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js',
+            null,
+            true, // Lazy load the plugin
+        );
+        wctdtapsipackmappublic.addControl(new maplibregl.NavigationControl());
+        wctdtapsipackmappublic.on('move', () => {
+          const center = wctdtapsipackmappublic.getCenter();
+          if (document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id') && document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id') && center) {
+            document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id').value = center[0] || center.lng;
+            document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id').value = center[1] || center.lat;
+          }
+        })
+    }
     else {
-      getMap()?.addEventListener('load', scriptStart)
+      document.getElementById('wctd-tapsi-pack-maplibre-map-container-id')?.addEventListener('load', () => {
+        let wctdmappubliccenterLocation = [51.337762, 35.699927]; // Azadi Square
+        let wctdtapsipackmappublic = null;
+        console.log('script start');
+        console.log(!!Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id')?.value) && Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id')?.value));
+        if(Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id')?.value) && Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id')?.value)) wctdmappubliccenterLocation = [Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id').value), Number(document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id').value)];
+        console.log(wctdmappubliccenterLocation);
+        wctdtapsipackmappublic = new maplibregl.Map({
+          container: 'wctd-tapsi-pack-maplibre-map-container-id', // container id
+          style: 'http://localhost/tapsipack/wp-content/plugins/serve/mapsi-style.json',
+          center: wctdmappubliccenterLocation, // starting position
+          zoom: 15, // starting zoom
+        });
+        maplibregl.setRTLTextPlugin(
+            'https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js',
+            null,
+            true, // Lazy load the plugin
+        );
+        wctdtapsipackmappublic.addControl(new maplibregl.NavigationControl());
+        wctdtapsipackmappublic.on('move', () => {
+          const center = wctdtapsipackmappublic.getCenter();
+          if (document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id') && document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id') && center) {
+            document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id').value = center[0] || center.lng;
+            document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id').value = center[1] || center.lat;
+          }
+        })
+      })
     }
   })}
 });

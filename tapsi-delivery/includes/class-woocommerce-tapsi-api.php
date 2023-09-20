@@ -125,11 +125,10 @@ class Woocommerce_Tapsi_API
      *
      * @param string $phone
      * @param string $otp
-     * @return object containing `result` key, and value of `result` would be `OK` on success.
+     * @return array|object|WP_Error containing `result` key, and value of `result` would be `OK` on success.
      */
     public function confirm_otp(string $phone, string $otp): object
     {
-
         $request_path = 'v2.2/user/confirm/web';
         $request_body = array(
             'credential' => array(
@@ -372,11 +371,6 @@ class Woocommerce_Tapsi_API
      */
     public function admin_request(string $request_path, array $request_args)
     {
-        // Before making a request, make sure we have keys
-        if (!$this->get_keys()) {
-            $this->__construct();
-        }
-
         $request_url = $this->base_url . $request_path;
 
         $response = $this->remote_request($request_url, $request_args);
@@ -401,34 +395,25 @@ class Woocommerce_Tapsi_API
      */
     public function request_token(string $request_path, array $request_args)
     {
-        // Before making a request, make sure we have keys
-        if (!$this->get_keys()) {
-            $this->__construct();
-        }
 
         $request_url = $this->base_url . $request_path;
 
         $response = $this->remote_request($request_url, $request_args);
 
-        // Log WP error
         if (is_wp_error($response)) {
             return $response;
-        } else {
-            $cookie = $this->extract_cookie($response);
-
-            update_option('woocommerce_tapsi_cookie', $cookie, 'yes');
-            $response = json_decode(wp_remote_retrieve_body($response));
         }
 
-        // Return the response object
-        return $response;
+        $response_code = wp_remote_retrieve_response_code($response);
+
+        if ($response_code != 200) {
+            return $response;
+        }
+
+        $cookie = $this->extract_cookie($response);
+        update_option('woocommerce_tapsi_cookie', $cookie, 'yes');
+        return json_decode(wp_remote_retrieve_body($response));
     }
-
-    function mock_response()
-    {
-
-    }
-
 
     /**
      * Sends a request to the Drive API
@@ -437,7 +422,7 @@ class Woocommerce_Tapsi_API
      * @param array $request_args An array of arguments
      * @return array|WP_Error The response array or a WP_Error on failure
      */
-    public function request(string $request_path, array $request_args)
+    public function request(string $request_path, array $request_args, bool $refresh_token_on_failure = true)
     {
         // Before making a request, make sure we have keys
         if (!$this->get_keys()) {
@@ -470,6 +455,7 @@ class Woocommerce_Tapsi_API
 
         // Log HTTP error
         $response_code = wp_remote_retrieve_response_code($response);
+
         if ($response_code !== 200) {
 
             $body = json_decode(wp_remote_retrieve_body($response));
@@ -487,14 +473,13 @@ class Woocommerce_Tapsi_API
 
                     break;
                 case 401:
-                    // Authentication error
-                    wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
-                    $this->refresh_token();
-                    $this->request($request_path, $request_args);
-                    break;
                 case 403:
-                    // Authorization error
-                    wc_add_notice(__('Tapsi: Authorization Error', 'tapsi-delivery'), 'notice');
+                    if ($refresh_token_on_failure) {
+                        $this->refresh_tokens();
+                        return $this->request($request_path, $request_args, false);
+                    } else {
+                        wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
+                    }
                     break;
                 case 404:
                     // Resource doesn't exist

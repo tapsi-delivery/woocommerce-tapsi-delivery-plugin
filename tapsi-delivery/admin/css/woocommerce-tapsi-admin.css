@@ -10,6 +10,34 @@ table.wc-tapsi-locations thead th {
 	vertical-align: middle;
 }
 
+p.wctd-tapsi-pack-coordinate-error {
+	font-weight: 600;
+	font-size: 24px;
+	color: red;
+}
+
+p.wctd-tapsi-pack-delivery-map-notification {
+	font-weight: bold;
+	color: #b32d2e;
+}
+section.wctd-tapsi-pack-map-form p.form-row {
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	align-items: center;
+	margin: 0 auto;
+}
+section.wctd-tapsi-pack-map-form p.form-row label {
+	vertical-align: top;
+	text-align: left;
+	line-height: 1.3;
+	font-size: 14px;
+	font-weight: 600;
+}
+section.wctd-tapsi-pack-map-form {
+	margin-bottom: 20px;
+}
+
 /**
  * Formats the table td and th cells to match WooCommerce's admin styling.
  */

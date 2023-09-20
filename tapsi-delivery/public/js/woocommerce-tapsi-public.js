@@ -5,8 +5,16 @@
 	 * Public-facing JS for checkout and cart
 	 */
 
+	var map = null;
+
 	// Run on DOM ready
 	$(function() {
+
+		addListeners();
+		const chooseLocationButton = $('#wctd-tapsi-pack-show-map-button-checkout-page');
+		chooseLocationButton.html('در حال بارگزاری...');
+		prepareMapBeforeLoad();
+
 		/**
 		 * Check if a node is blocked for processing.
 		 *
@@ -43,21 +51,14 @@
 			$node.removeClass( 'processing' ).unblock();
 		};
 
-
-		// Enhanced select on location dropdown
-		// Need to make this fire when the shipping method is selected/updated as well
-		// $('#tapsi_pickup_location').selectWoo();
-
-
-		// Updates session when changing pickup location on cart
-		$('body.woocommerce-cart').on( 'change', '#tapsi_pickup_location', function() {
+		function onLocationChange(payload) {
 			block( $('.cart_totals') );
 			$.ajax({
 				type: 'POST',
 				url: woocommerce_params.ajax_url,
 				data: {
-					"action": "wcdd_update_pickup_location", 
-					"location_id":this.value,
+					"action": "wcdd_update_pickup_location",
+					...payload,
 					"nonce":$('#wcdd_set_pickup_location_nonce').val()
 				},
 				success: function( data ) {
@@ -67,8 +68,132 @@
 					unblock( $('.cart_totals') );
 				}
 			});
+		}
+
+
+		// Enhanced select on location dropdown
+		// Need to make this fire when the shipping method is selected/updated as well
+		// $('#tapsi_pickup_location').selectWoo();
+
+
+		// Updates session when changing pickup location on cart
+		$('body.woocommerce-cart').on( 'change', '#tapsi_pickup_location', () => {
+			onLocationChange({"location_id":this.value})
 		} );
 
+		function prepareMapBeforeLoad() {
+			console.log('maryam says hello. loading the scripts...');
+
+			// Define the MapLibre CSS and JavaScript URLs
+			var maplibreCSSUrl = 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css';
+			var maplibreJSUrl = 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js';
+
+			// Load MapLibre CSS dynamically (optional)
+			var maplibreCSS = document.createElement('link');
+			maplibreCSS.rel = 'stylesheet';
+			maplibreCSS.id = 'wctd-tapsi-pack-maplibre-stylesheet';
+			maplibreCSS.href = maplibreCSSUrl;
+			document.head.appendChild(maplibreCSS);
+
+			// var mapContainer = document.createElement('div');
+			// maplibreCSS.id = 'wctd-tapsi-pack-maplibre-map-modal-container';
+			// document.body.appendChild(mapContainer)
+
+			// Load MapLibre JavaScript dynamically
+			var maplibreJS = document.createElement('script');
+			maplibreJS.src = maplibreJSUrl;
+			maplibreJS.id = 'wctd-tapsi-pack-maplibre-library-source';
+			maplibreJS.onload = () => {
+				initializeMap();
+			};
+			document.head.appendChild(maplibreJS);
+
+		}
+
+		function addListeners() {
+			// click event on show map button to open map modal
+			$(document.body).on('click', '#wctd-tapsi-pack-show-map-button-checkout-page', undefined, function (event) {
+				// Check if the clicked element s your button
+				console.log('maryam open event', event);
+				event?.preventDefault();
+				event?.stopPropagation();
+				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
+				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+				let centerLocation = [51.337762, 35.699927]; // Azadi Square
+				if(Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
+				else {
+					alert('با عرض پوزش مشکلی پیش آمده است. لطفا آدرس مقصد را مجددا وارد کنید.')
+				}
+				map.setCenter(centerLocation);
+				map.zoomTo(15, {duration: 1000});
+				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "visible"});
+			});
+
+			// close the modal by click on the back drop
+			$(document.body).on('click', '#wctd-tapsi-pack-maplibre-map-public-root-id', undefined, function (event) {
+				// Check if the clicked element is your button
+				if (event.target.id === 'wctd-tapsi-pack-maplibre-map-public-root-id') {
+					console.log('maryam close event', event);
+					event?.preventDefault();
+					event?.stopPropagation();
+					$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
+				}
+			});
+
+			// close the map modal by clicking the close button (x)
+			$(document.body).on('click', '#wctd-tapsi-pack-mapliblre-map-public-close-modal-button', undefined, function (event) {
+				console.log('maryam close event', event);
+				event?.preventDefault();
+				event?.stopPropagation();
+				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
+			});
+
+			// submit the center location and close the map modal
+			$(document.body).on('click', '#wctd-tapsi-pack-mapliblre-map-public-submit-location-button', undefined, (event) => {
+				console.log('maryam submit event', event);
+				event?.preventDefault();
+				event?.stopPropagation();
+				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
+				const lng =  $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+				console.log('map center', map.getCenter());
+				const center = map.getCenter();
+				if (lat && lng && center) {
+					lng.val(center[0] || center.lng);
+					lat.val(center[1] || center.lat);
+				}
+				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
+				onLocationChange({
+					"wctd_tapsi_destination_long": center[0] || center.lng,
+					"wctd_tapsi_destination_lat": center[1] || center.lat,
+				});
+			})
+		}
+
+		function initializeMap() {
+			console.log('initializing the map')
+			// Add other map-related code here
+			const MAP_CONTAINER_ID = 'wctd-tapsi-pack-maplibre-map-public-container-id';
+			const MAP_STYLE = 'http://localhost/tapsipack/wp-content/plugins/serve/mapsi-style.json';
+			const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
+			const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+			let centerLocation = [51.337762, 35.699927]; // Azadi Square
+			if(Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
+			console.log(lat, lng, centerLocation);
+			map = new maplibregl.Map({
+				container: MAP_CONTAINER_ID, // container id
+				style: MAP_STYLE,
+				center: centerLocation, // starting position
+				zoom: 15, // starting zoom
+			});
+			maplibregl.setRTLTextPlugin(
+				'https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js',
+				null,
+				false, // Lazy load the plugin
+			);
+			map.addControl(new maplibregl.NavigationControl());
+
+			$('#wctd-tapsi-pack-show-map-button-checkout-page').html('آدرس مقصد را انتخاب کنید.');
+		}
 	});
 
 	/**

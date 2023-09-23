@@ -779,9 +779,9 @@ class Woocommerce_Tapsi_Public
             if ($data) {
                 WC()->session->set('tapsi_preview_token', $data->token);
 
-                $timeslots = $data->invoicePerTimeslots;
+                if (property_exists($data, 'invoicePerTimeslots')) {
+                    $timeslots = $data->invoicePerTimeslots;
 
-                if (!empty($timeslots)) {
                     foreach ($timeslots as $timeslot) {
                         $timeslotId = $timeslot->timeslotId;
                         $startTimestamp = $timeslot->startTimestamp / 1000;
@@ -801,6 +801,9 @@ class Woocommerce_Tapsi_Public
                         }
 
                     }
+                } elseif(property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
+                    WCDD()->log->debug('$data->details on get_delivery_times_for_date', $data->details[0]);
+                    echo $data->details[0]->message;
                 } else {
                     echo 'No available delivery times found.';
                 }

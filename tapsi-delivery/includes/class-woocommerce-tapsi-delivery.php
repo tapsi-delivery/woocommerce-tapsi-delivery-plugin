@@ -142,7 +142,7 @@ class Woocommerce_Tapsi_Delivery
             'pickup_address' => $location->get_formatted_address(),
             'pickup_business_name' => $location->get_name(),
             'pickup_phone_number' => $location->get_phone_number(),
-            'pickup_instructions' => $location->get_pickup_instructions() ? $location->get_pickup_instructions() : get_option('woocommerce_tapsi_default_pickup_instructions'),
+            'pickup_instructions' => '',
             'pickup_reference_tag' => '',
             'dropoff_address' => $this->format_address($customer_information),
             'dropoff_business_name' => $customer_information['company'],
@@ -273,19 +273,7 @@ class Woocommerce_Tapsi_Delivery
     {
         $quoted = $this->get_quoted_rate();
 
-        $fees_mode = get_option('woocommerce_tapsi_fees_mode');
-        $delivery_fee = get_option('woocommerce_tapsi_delivery_fee');
-
-        if ($fees_mode == 'no_rate') {
-            return 0;
-        } else if ($fees_mode == 'quoted_rate') {
-            return $quoted + (float)$delivery_fee;
-        } else if ($fees_mode == 'fixed_rate') {
-            return $delivery_fee;
-        }
-
-        // If the option isn't set, return 0
-        return 0;
+	    return $quoted ?? 0;
     }
 
     /**

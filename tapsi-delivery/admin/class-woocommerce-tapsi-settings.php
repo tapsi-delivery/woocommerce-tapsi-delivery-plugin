@@ -59,7 +59,8 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
             'login' => __('Login', 'tapsi-delivery'),
 //            '' => __('Settings', 'tapsi-delivery'),
 //            'webhooks' => __('Webhooks', 'tapsi-delivery'),
-            'locations' => __('Locations', 'tapsi-delivery'),
+            'locations' => __('My Addresses', 'tapsi-delivery'),
+	        'tracking' => __('Tracking Orders', 'tapsi-delivery'),
         );
 
         return apply_filters('woocommerce_get_sections_' . $this->id, $sections);
@@ -77,17 +78,9 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
         $prefix = 'woocommerce_tapsi_'; // used in the partials
 
-        switch ($current_section) {
-            case 'locations':
-            case 'webhooks':
-                $settings = array(
-                    array(),
-                );
-                break;
-            default:
-                $settings = include 'partials/woocommerce-tapsi-admin-settings-main.php';
-                break;
-        }
+	    $settings = array(
+		    array(),
+	    );
 
         return apply_filters('woocommerce_get_settings_' . $this->id, $settings, $current_section);
     }
@@ -113,9 +106,9 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 $hide_save_button = true;
                 $this->output_locations_screen();
             }
-        } elseif ('webhooks' == $current_section) {
-            $hide_save_button = true;
-            $this->output_webhooks_screen();
+        } elseif ('tracking' == $current_section) {
+	        $hide_save_button = true;
+	        $this->output_tracking_orders_screen();
         }
     }
 
@@ -150,11 +143,12 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 				'address_1'     => sanitize_text_field( $_REQUEST['location_address_1'] ),
 				'latitude'      => sanitize_text_field( $_REQUEST['location_lat'] ),
 				'longitude'     => sanitize_text_field( $_REQUEST['location_lng'] ),
+				'should_hide'     => sanitize_text_field( $_REQUEST['hide_location_address'] ),
 				'city'          => sanitize_text_field( $_REQUEST['location_city'] ),
 				'state'         => sanitize_text_field( $_REQUEST['location_state'] ),
 				'postcode'      => sanitize_text_field( $_REQUEST['location_postcode'] ),
 				'country'       => sanitize_text_field( $_REQUEST['location_country'] ),
-				'pickup_instructions' => sanitize_textarea_field( $_REQUEST['location_pickup_instructions'] ),
+				'pickup_instructions' => '',
 				'has_hours'     => isset( $_REQUEST['location_hours_enabled'] ) ? true : false,
 				'weekly_hours'  => array(
 					'sunday'    => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_sunday_hours'] ) ),
@@ -341,6 +335,16 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         include 'partials/woocommerce-tapsi-admin-settings-locations.php';
     }
 
+    /**
+     * Output Tracking Strategy
+     * Links user to Tapsi Pack Sender Panel
+     *
+     * @return void
+     */
+    public function output_tracking_orders_screen(){
+	    include 'partials/woocommerce-tapsi-admin-tracking-orders.php';
+    }
+
 	/**
 	 * Show the individual location editor
 	 *
@@ -356,6 +360,26 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     {
         include 'partials/woocommerce-tapsi-admin-settings-enter-phone.php';
     }
+
+
+	/**
+	 * Handle location deletion from the locations listing screen
+	 *
+	 * @return bool True on deletion, false otherwise
+	 */
+	protected function maybe_delete_location() {
+		if ( array_key_exists( 'delete_location', $_GET ) && wp_verify_nonce( $_GET['_wpnonce'], 'delete_location' ) ) {
+			// Delete the post, save the posts's data so we can display the title
+			$deleted = wp_delete_post( intval( $_GET['delete_location'] ) );
+			if ( $deleted ) {
+				// If the post deletion was successful, show the message. (Otherwise this is probably a refresh)
+				$message = sprintf( __( 'Location "%s" deleted.', 'tapsi-delivery' ), $deleted->post_title );
+				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message );
+				return true;
+			}
+		}
+		return false;
+	}
 
 
     /**
@@ -391,6 +415,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         return $locations;
     }
 
+	// TODO: PRUNE the following screen should be pruned
     /**
      * Display the screen to generate API credentials for Tapsi webhooks
      *

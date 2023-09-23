@@ -6,7 +6,7 @@
 /**
  * Base Flexbox Setup
  */
-.wcdd-delivery-options-powered,
+#wcdd-delivery-options-powered,
 .wcdd-delivery-options #tapsi_tip_select_field .woocommerce-input-wrapper,
 .wcdd-delivery-options .wcdd-delivery-type-select .woocommerce-input-wrapper,
 .wcdd-delivery-options .woocommerce-input-wrapper label.radio,
@@ -18,7 +18,7 @@
 	justify-content: center;
 }
 
-.wcdd-delivery-options-powered > a.wcdd-delivery-options-powered-tapsi-pack-link:first-child {
+#wcdd-delivery-options-powered > #wcdd-delivery-options-powered-tapsi-pack-link:first-child {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -26,7 +26,7 @@
 	font-size: 10px;
 }
 
-.wcdd-delivery-options-powered > .wcdd-delivery-options-powered-tapsi-pack-link img {
+#wcdd-delivery-options-powered > #wcdd-delivery-options-powered-tapsi-pack-link img {
 	margin: 4px;
 }
 
@@ -54,7 +54,7 @@
 	flex-wrap: nowrap;
 }
 
-.wcdd-delivery-options-powered > p {
+#wcdd-delivery-options-powered > p {
 	flex-basis: 100%;
 }
 
@@ -185,7 +185,7 @@ ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
 /**
  * Add styles for the Tapsi shipping method powered by section.
  */
-.wcdd-delivery-options-powered > p {
+#wcdd-delivery-options-powered > p {
  	flex-basis: 100%;
  	width: 100%;
  	text-align: center;
@@ -193,7 +193,7 @@ ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
  	font-size: 0.875rem; /*14px*/
 }
 
-.wcdd-delivery-options-powered > img {
+#wcdd-delivery-options-powered > img {
  	max-width: 6.25rem; /*100px*/
 }
 
@@ -221,4 +221,8 @@ ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
 .wcdd-delivery-options.mobile-view #tapsi_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+5),
 .wcdd-delivery-options.tiny-view #tapsi_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+3) {
 	margin-top: 3.5%;
+}
+
+.wcts-tapsi-pack-checkout-form-label {
+	font-weight: bold;
 }

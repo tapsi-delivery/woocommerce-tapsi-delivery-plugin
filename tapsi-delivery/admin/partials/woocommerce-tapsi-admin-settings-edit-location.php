@@ -62,11 +62,12 @@ echo '<h2>' . __( 'Location Information', 'tapsi-delivery' ) . '</h2>';
 			'required' => true,
 		), $location->get_phone_number() );
 
-		woocommerce_form_field( 'location_pickup_instructions', array(
-			'type' => 'text',
-			'label' => __( 'Pickup Instructions', 'tapsi-delivery' ),
-			'description' => __( 'Pickup instructions for this location. Leave blank to use the default pickup instructions.', 'tapsi-delivery' )
-		), $location->get_pickup_instructions() );
+//		woocommerce_form_field( 'location_pickup_instructions', array(
+//			'type' => 'text',
+//			'label' => __( 'Pickup Instructions', 'tapsi-delivery' ),
+//			'description' => __( 'Pickup instructions for this location. Leave blank to use the default pickup instructions.', 'tapsi-delivery' )
+//		), $location->get_pickup_instructions() );
+
 	echo '</section>';
 
 /**
@@ -124,6 +125,15 @@ echo '<h2>' . __( 'Address', 'tapsi-delivery' ) . '</h2>';
 	echo '</section>';
 
 	include 'wctd-taps-pack-maplibre-map.php';
+
+
+	echo '<section class="wc-tapsi-location option">';
+		woocommerce_form_field( 'hide_location_address', array(
+			'type' => 'checkbox',
+			'label' => __( 'Hide', 'tapsi-delivery' ),
+			'description' => __( 'The exact address of your shop will be hidden to the customers but they can still see the coordinates of your shop in the track link that is sent to them.', 'tapsi-delivery' ),
+		), $address['should_hide'] );
+	echo '</section>';
 
 
 /**

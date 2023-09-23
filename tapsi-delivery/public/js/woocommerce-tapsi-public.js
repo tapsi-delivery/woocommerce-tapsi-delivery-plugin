@@ -52,6 +52,8 @@
 		};
 
 		function onLocationChange(payload) {
+			$( document.body ).trigger( 'update_checkout' );
+
 			block( $('.cart_totals') );
 			$.ajax({
 				type: 'POST',

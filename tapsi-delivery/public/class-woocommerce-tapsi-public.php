@@ -190,18 +190,21 @@ class Woocommerce_Tapsi_Public
 				echo '<p id="wctd-tapsi-pack-maplibre-map-public-warning"><img src="http://localhost/tapsipack/wp-content/plugins/serve/warning.svg" width="24" height="24" alt="!!!"/>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates regardless of the provided address.', 'tapsi-delivery').'</p>';
 				echo '</section>';
 
+                woocommerce_form_field('wctd_tapsi_destination_lat', array(
+                    'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id',
+                    'type' => 'hidden',
+                    'class' => array('wcdd-delivery-destination-lat', 'update_totals_on_change'),
+                    'required' => true,
+                    'default' => WC()->session->get('wctd_tapsi_destination_lat'),
+                ), WC()->session->get('wctd_tapsi_destination_lat'));
 
-				woocommerce_form_field( 'wctd_tapsi_destination_lat', array(
-					'type' => 'hidden',
-					'required' => true,
-					'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id',
-				), WC()->session->get('wctd_tapsi_destination_lat') ?? $azadi_coordinate[1]);
-
-				woocommerce_form_field( 'wctd_tapsi_destination_long', array(
-					'type' => 'hidden',
-					'required' => true,
-					'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id',
-				),  WC()->session->get('wctd_tapsi_destination_long') ?? $azadi_coordinate[0]);
+                woocommerce_form_field('wctd_tapsi_destination_long', array(
+                    'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id',
+                    'type' => 'hidden',
+                    'class' => array('wcdd-delivery-destination-long', 'update_totals_on_change'),
+                    'required' => true,
+                    'default' => WC()->session->get('wctd_tapsi_destination_lat'),
+                ), WC()->session->get('wctd_tapsi_destination_long'));
 
 				wp_nonce_field('wcdd_set_pickup_location', 'wcdd_set_pickup_location_nonce');
 

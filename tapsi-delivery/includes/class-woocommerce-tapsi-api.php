@@ -207,14 +207,14 @@ class Woocommerce_Tapsi_API
     public function remote_request(string $request_url, array $request_args)
     {
         // Log the request
-        WCDD()->log->debug(sprintf(__('Sending request to %s', 'tapsi-delivery'), $request_url));
-        WCDD()->log->debug($request_args);
+        WCDD()->log->debug('$request_url', $request_url);
+        WCDD()->log->debug('$request_args', $request_args);
 
         // Run the remote request
         $response = wp_remote_request($request_url, $request_args);
 
         // Log the response
-        WCDD()->log->debug($response);
+        WCDD()->log->debug('$response', $response);
         return $response;
     }
 
@@ -324,8 +324,7 @@ class Woocommerce_Tapsi_API
 
         // Log WP error
         if (is_wp_error($response)) {
-            WCDD()->log->error(sprintf(__('Error performing request to %s', 'tapsi-delivery'), $request_path));
-            WCDD()->log->error($response);
+            WCDD()->log->error('Error performing request to %s', $response);
             return $response;
         }
 
@@ -377,7 +376,7 @@ class Woocommerce_Tapsi_API
             }
 
             // Log the error
-            WCDD()->log->error(sprintf(__('Error %s performing request to %s', 'tapsi-delivery'), $response_code, $request_url));
+            WCDD()->log->error(sprintf(__('Error %s performing request to %s', 'tapsi-delivery'), $response_code, $request_path));
             WCDD()->log->error($body);
         }
 

@@ -273,19 +273,7 @@ class Woocommerce_Tapsi_Delivery
     {
         $quoted = $this->get_quoted_rate();
 
-        $fees_mode = get_option('woocommerce_tapsi_fees_mode');
-        $delivery_fee = get_option('woocommerce_tapsi_delivery_fee');
-
-        if ($fees_mode == 'no_rate') {
-            return 0;
-        } else if ($fees_mode == 'quoted_rate') {
-            return $quoted + (float)$delivery_fee;
-        } else if ($fees_mode == 'fixed_rate') {
-            return $delivery_fee;
-        }
-
-        // If the option isn't set, return 0
-        return 0;
+	    return $quoted ?? 0;
     }
 
     /**

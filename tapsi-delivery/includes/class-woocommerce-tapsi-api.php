@@ -71,7 +71,7 @@ class Woocommerce_Tapsi_API
     public function get_available_dates()
     {
         $request_path = 'v1/delivery/available-dates';
-        $request_args = array('method' => 'GET');
+        $request_args = array('method' => 'GET', 'timeout'=> 20);
         return $this->client_request($request_path, $request_args);
     }
 
@@ -82,7 +82,7 @@ class Woocommerce_Tapsi_API
     public function is_token_valid(): bool
     {
         $request_path = 'v1/delivery/available-dates';
-        $request_args = array('method' => 'GET');
+        $request_args = array('method' => 'GET', 'timeout'=> 20);
         $response = $this->request_with_credentials($request_path, $request_args);
         $response_code = wp_remote_retrieve_response_code($response);
         return $response_code == 200;
@@ -100,7 +100,7 @@ class Woocommerce_Tapsi_API
 
         $api_url = 'v1/delivery/order/preview';
         $request_path = $api_url . '?originLat=' . $origin_lat . '&originLong=' . $origin_long . '&destinationLat=' . $destination_lat . '&destinationLong=' . $destination_long . '&dateTimestamp=' . $date_timestamp;
-        $request_args = array('method' => 'GET');
+        $request_args = array('method' => 'GET', 'timeout'=> 20);
         return $this->client_request($request_path, $request_args);
     }
 
@@ -126,7 +126,8 @@ class Woocommerce_Tapsi_API
             'body' => json_encode($request_body),
             'headers' => array(
                 'Content-Type' => 'application/json',
-            )
+            ),
+            'timeout'=> 20
         );
 
         return $this->admin_request($request_path, $request_args);
@@ -163,7 +164,8 @@ class Woocommerce_Tapsi_API
                 'Content-Type' => 'application/json',
                 'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB'
 //                'credentials' => 'include'
-            )
+            ),
+            'timeout'=> 20
         );
 
         return $this->request_token($request_path, $request_args);
@@ -183,6 +185,7 @@ class Woocommerce_Tapsi_API
         $request_args = array(
             'method' => 'POST',
             'body' => json_encode($request_body),
+            'timeout'=> 20
         );
 
         return $this->client_request($request_path, $request_args);
@@ -488,7 +491,8 @@ class Woocommerce_Tapsi_API
                 'Content-Type' => 'application/json',
                 'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB',
                 'cookie' => $this->get_cookie(),
-            )
+            ),
+            'timeout'=> 20
         );
 
         return $this->request_token($request_path, $request_args);

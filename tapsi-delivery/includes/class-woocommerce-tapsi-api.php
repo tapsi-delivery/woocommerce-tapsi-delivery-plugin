@@ -22,24 +22,16 @@
  */
 class Woocommerce_Tapsi_API
 {
-
-    protected $developer_id;
-
     protected $env;
-
     protected $key_id;
-
-    protected $signing_secret;
-
     protected string $cookie;
     protected string $x_agw_user_role = 'SCHEDULED_DELIVERY_SENDER';
     protected string $x_agent = 'v2.2|SCHEDULED_DELIVERY_SENDER|WEB|0.1.0||||||||||||||||';
-
     protected string $base_url = "https://api.tapsi.ir/api/";
 
     public function __construct()
     {
-        $this->set_base_url('prod');
+        $this->set_base_url('dev');
         $this->get_keys();
     }
 
@@ -377,10 +369,6 @@ class Woocommerce_Tapsi_API
             if (500 >= $response_code && $response_code > 600) {
                 wc_add_notice(__('There was a problem communicating with Tapsi. Please try again later.', 'tapsi-delivery'), 'notice');
             }
-
-            // Log the error
-            WCDD()->log->error(sprintf(__('Error %s performing request to %s', 'tapsi-delivery'), $response_code, $request_path));
-            WCDD()->log->error($body);
         }
 
         // Return the response object

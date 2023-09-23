@@ -318,7 +318,7 @@ class Woocommerce_Tapsi_API
      * @param array $request_args An array of arguments
      * @return array|WP_Error The response array or a WP_Error on failure
      */
-    public function client_request(string $request_path, array $request_args, bool $refresh_token_on_failure = true)
+    public function client_request(string $request_path, array $request_args)
     {
         $response = $this->request_with_credentials($request_path, $request_args);
 
@@ -350,12 +350,7 @@ class Woocommerce_Tapsi_API
                     break;
                 case 401:
                 case 403:
-                    if ($refresh_token_on_failure) {
-                        $this->refresh_tokens();
-                        return $this->client_request($request_path, $request_args, false);
-                    } else {
-                        wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
-                    }
+                wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
                     break;
                 case 404:
                     // Resource doesn't exist
@@ -420,7 +415,17 @@ class Woocommerce_Tapsi_API
 
         // Combine the defaults with the passed arguments
         $request_args = wp_parse_args($request_args, $defaults);
-        return $this->remote_request($request_url, $request_args);
+        $response = $this->remote_request($request_url, $request_args);
+        $response_code = wp_remote_retrieve_response_code($response);
+
+        if ($response_code == 401 || $response_code == 403) {
+            if ($refresh_token_on_failure) {
+                $this->refresh_tokens();
+                $response = $this->request_with_credentials($request_path, $request_args, false);
+            }
+        }
+
+        return $response;
     }
 
     /**

@@ -31,7 +31,7 @@ class Woocommerce_Tapsi_API
 
     public function __construct()
     {
-        $this->set_base_url('dev');
+        $this->set_base_url('prod');
         $this->get_keys();
     }
 
@@ -63,7 +63,7 @@ class Woocommerce_Tapsi_API
     public function get_available_dates()
     {
         $request_path = 'v1/delivery/available-dates';
-        $request_args = array('method' => 'GET', 'timeout'=> 20);
+        $request_args = array('method' => 'GET', 'timeout' => 20);
         return $this->client_request($request_path, $request_args);
     }
 
@@ -74,7 +74,7 @@ class Woocommerce_Tapsi_API
     public function is_token_valid(): bool
     {
         $request_path = 'v1/delivery/available-dates';
-        $request_args = array('method' => 'GET', 'timeout'=> 20);
+        $request_args = array('method' => 'GET', 'timeout' => 20);
         $response = $this->request_with_credentials($request_path, $request_args);
         $response_code = wp_remote_retrieve_response_code($response);
         return $response_code == 200;
@@ -92,7 +92,7 @@ class Woocommerce_Tapsi_API
 
         $api_url = 'v1/delivery/order/preview';
         $request_path = $api_url . '?originLat=' . $origin_lat . '&originLong=' . $origin_long . '&destinationLat=' . $destination_lat . '&destinationLong=' . $destination_long . '&dateTimestamp=' . $date_timestamp;
-        $request_args = array('method' => 'GET', 'timeout'=> 20);
+        $request_args = array('method' => 'GET', 'timeout' => 20);
         return $this->client_request($request_path, $request_args);
     }
 
@@ -119,7 +119,7 @@ class Woocommerce_Tapsi_API
             'headers' => array(
                 'Content-Type' => 'application/json',
             ),
-            'timeout'=> 20
+            'timeout' => 20
         );
 
         return $this->admin_request($request_path, $request_args);
@@ -157,7 +157,7 @@ class Woocommerce_Tapsi_API
                 'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB'
 //                'credentials' => 'include'
             ),
-            'timeout'=> 20
+            'timeout' => 20
         );
 
         return $this->request_token($request_path, $request_args);
@@ -177,7 +177,7 @@ class Woocommerce_Tapsi_API
         $request_args = array(
             'method' => 'POST',
             'body' => json_encode($request_body),
-            'timeout'=> 20
+            'timeout' => 20
         );
 
         return $this->client_request($request_path, $request_args);
@@ -209,7 +209,12 @@ class Woocommerce_Tapsi_API
         $response = wp_remote_request($request_url, $request_args);
 
         // Log the response
-        WCDD()->log->debug('$response', $response);
+        try {
+            WCDD()->log->debug('$response', json_decode(wp_remote_retrieve_body($response)));
+        } catch (Exception $e) {
+            WCDD()->log->debug('$response', $response);
+        }
+
         return $response;
     }
 
@@ -344,7 +349,7 @@ class Woocommerce_Tapsi_API
                     break;
                 case 401:
                 case 403:
-                wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
+                    wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
                     break;
                 case 404:
                     // Resource doesn't exist
@@ -480,7 +485,7 @@ class Woocommerce_Tapsi_API
                 'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB',
                 'cookie' => $this->get_cookie(),
             ),
-            'timeout'=> 20
+            'timeout' => 20
         );
 
         return $this->request_token($request_path, $request_args);

@@ -91,6 +91,7 @@
 			#wctd-tapsi-pack-maplibre-map-public-preview-img-container #wctd-tapsi-pack-maplibre-map-public-preview-img {
 			    margin: 0 !important;
 				padding: 0 !important;
+				cursor: pointer;
 			}
 			#wctd-tapsi-pack-maplibre-map-public-warning {
 				color: #c91d02 !important;

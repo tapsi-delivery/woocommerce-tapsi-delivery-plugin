@@ -132,7 +132,6 @@
 				openMap(event);
 			});
 
-
 			$(document.body).on('click', '#wctd-tapsi-pack-maplibre-map-public-preview-img', undefined, function (event) {
 				openMap(event);
 			});
@@ -156,13 +155,12 @@
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
 			});
 
-			// submit the center location and close the map modal
-			$(document.body).on('click', '#wctd-tapsi-pack-mapliblre-map-public-submit-location-button', undefined, (event) => {
+			function submitLocation(event) {
 				console.log('maryam submit event', event);
 				event?.preventDefault();
 				event?.stopPropagation();
 				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
-				const lng =  $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 				console.log('map center', map.getCenter());
 				const azadiCoordinate = [51.337762, 35.699927];
 				const mapCenter = map.getCenter();
@@ -185,6 +183,11 @@
 					"wctd_tapsi_destination_long": center[0],
 					"wctd_tapsi_destination_lat": center[1],
 				});
+			}
+
+			// submit the center location and close the map modal
+			$(document.body).on('click', '#wctd-tapsi-pack-mapliblre-map-public-submit-location-button', undefined, (event) => {
+				submitLocation(event);
 			})
 		}
 

@@ -233,3 +233,14 @@ p.form-row .copy-button {
 p.form-row .copy-button:hover {
 	cursor: pointer;
 }
+
+p.taspi-pack-authenticated-phone-number {
+	font-weight: bold;
+	color: green;
+	font-size: 18px;
+}
+p.taspi-pack-unauthenticated-phone-number {
+	font-weight: bold;
+	color: darkred;
+	font-size: 18px;
+}

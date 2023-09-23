@@ -102,7 +102,7 @@ class Woocommerce_Tapsi_Pickup_Location
             'country' => $post->country,
             'email' => $post->email,
             'phone' => $post->phone,
-            'pickup_instructions' => $post->pickup_instructions,
+            'pickup_instructions' => '',
             'has_hours' => $post->has_hours,
             'weekly_hours' => $post->weekly_hours,
             'special_hours' => $post->special_hours,
@@ -264,6 +264,16 @@ class Woocommerce_Tapsi_Pickup_Location
         return $formatted;
     }
 
+	/**
+	 * Get a Tapsi-formatted address for the location
+	 *
+	 * @return string Comma separated address parts
+	 */
+	public function get_formatted_address_public()
+	{
+		return __('Shop address is hidden', 'tapsi-delivery');
+	}
+
     /**
      * Get the location email address
      *
@@ -291,7 +301,7 @@ class Woocommerce_Tapsi_Pickup_Location
      */
     public function get_pickup_instructions()
     {
-        return $this->data['pickup_instructions'];
+        return '';
     }
 
     /**

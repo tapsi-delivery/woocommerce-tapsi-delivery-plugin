@@ -142,7 +142,7 @@ class Woocommerce_Tapsi_Delivery
             'pickup_address' => $location->get_formatted_address(),
             'pickup_business_name' => $location->get_name(),
             'pickup_phone_number' => $location->get_phone_number(),
-            'pickup_instructions' => $location->get_pickup_instructions() ? $location->get_pickup_instructions() : get_option('woocommerce_tapsi_default_pickup_instructions'),
+            'pickup_instructions' => '',
             'pickup_reference_tag' => '',
             'dropoff_address' => $this->format_address($customer_information),
             'dropoff_business_name' => $customer_information['company'],

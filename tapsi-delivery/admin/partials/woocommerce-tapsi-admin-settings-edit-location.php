@@ -62,11 +62,12 @@ echo '<h2>' . __( 'Location Information', 'tapsi-delivery' ) . '</h2>';
 			'required' => true,
 		), $location->get_phone_number() );
 
-		woocommerce_form_field( 'location_pickup_instructions', array(
-			'type' => 'text',
-			'label' => __( 'Pickup Instructions', 'tapsi-delivery' ),
-			'description' => __( 'Pickup instructions for this location. Leave blank to use the default pickup instructions.', 'tapsi-delivery' )
-		), $location->get_pickup_instructions() );
+//		woocommerce_form_field( 'location_pickup_instructions', array(
+//			'type' => 'text',
+//			'label' => __( 'Pickup Instructions', 'tapsi-delivery' ),
+//			'description' => __( 'Pickup instructions for this location. Leave blank to use the default pickup instructions.', 'tapsi-delivery' )
+//		), $location->get_pickup_instructions() );
+
 	echo '</section>';
 
 /**

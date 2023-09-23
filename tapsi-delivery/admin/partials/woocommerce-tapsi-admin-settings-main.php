@@ -1,5 +1,6 @@
 <?php
 
+// TODO: PRUNE these settings are not used anywhere. these fields should be prefilled by default
 /**
  * Main Settings
  *

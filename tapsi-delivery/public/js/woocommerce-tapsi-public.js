@@ -156,15 +156,26 @@
 				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
 				const lng =  $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 				console.log('map center', map.getCenter());
-				const center = map.getCenter();
+				const azadiCoordinate = [51.337762, 35.699927];
+				const mapCenter = map.getCenter();
+				const center = [(mapCenter[0] || mapCenter.lng) ?? azadiCoordinate[0], (mapCenter[1] || mapCenter.lat) ?? azadiCoordinate[1]]
 				if (lat && lng && center) {
 					lng.val(center[0] || center.lng);
 					lat.val(center[1] || center.lat);
 				}
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
+
+				const lng1 = center[0];
+				const lng2 = lng1 + 0.0000001;
+				const lat1 = center[1];
+				const lat2 = lat1 + 0.0000001;
+				const path = `${lng1},${lat1}|${lng2},${lat2}`;
+
+
+				$('#wctd-tapsi-pack-maplibre-map-public-preview-img').attr('src', `https://tap30.services/styles/passenger/static/auto/500x500@2x.png?path=${path}&stroke=black&width=200&padding=50000`);
 				onLocationChange({
-					"wctd_tapsi_destination_long": center[0] || center.lng,
-					"wctd_tapsi_destination_lat": center[1] || center.lat,
+					"wctd_tapsi_destination_long": center[0],
+					"wctd_tapsi_destination_lat": center[1],
 				});
 			})
 		}
@@ -172,6 +183,7 @@
 		function initializeMap() {
 			console.log('initializing the map')
 			// Add other map-related code here
+			if (window.location.pathname.includes('checkout')){
 			const MAP_CONTAINER_ID = 'wctd-tapsi-pack-maplibre-map-public-container-id';
 			const MAP_STYLE = 'http://localhost/tapsipack/wp-content/plugins/serve/mapsi-style.json';
 			const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
@@ -179,18 +191,19 @@
 			let centerLocation = [51.337762, 35.699927]; // Azadi Square
 			if(Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
 			console.log(lat, lng, centerLocation);
-			map = new maplibregl.Map({
-				container: MAP_CONTAINER_ID, // container id
-				style: MAP_STYLE,
-				center: centerLocation, // starting position
-				zoom: 15, // starting zoom
-			});
-			maplibregl.setRTLTextPlugin(
-				'https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js',
-				null,
-				false, // Lazy load the plugin
-			);
-			map.addControl(new maplibregl.NavigationControl());
+				map = new maplibregl.Map({
+					container: MAP_CONTAINER_ID, // container id
+					style: MAP_STYLE,
+					center: centerLocation, // starting position
+					zoom: 15, // starting zoom
+				});
+				maplibregl.setRTLTextPlugin(
+					'https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js',
+					null,
+					false, // Lazy load the plugin
+				);
+				map.addControl(new maplibregl.NavigationControl());
+			}
 
 			$('#wctd-tapsi-pack-show-map-button-checkout-page').html('آدرس مقصد را انتخاب کنید.');
 		}

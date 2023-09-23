@@ -72,6 +72,36 @@
 			    color: #fff !important;
 			    font-weight: 600 !important;
 			}
+			#wctd-tapsi-pack-maplibre-map-public-preview-img-container {
+				position: relative !important;
+				margin: 10px !important;
+				padding: 0 !important;
+			}
+			#wctd-tapsi-pack-maplibre-map-public-preview-img-container #wctd-tapsi-pack-maplibre-map-public-preview-img-dot {
+				position: absolute !important;
+				top: 50% !important; 
+			    left: 50% !important;
+			    transform: translate(-50%, calc(-100% + 10px)) !important; 
+			    margin: 0 !important;
+				padding: 0 !important;
+			}
+			#wctd-tapsi-pack-maplibre-map-public-preview-img-container #wctd-tapsi-pack-maplibre-map-public-preview-img {
+			    margin: 0 !important;
+				padding: 0 !important;
+			}
+			#wctd-tapsi-pack-maplibre-map-public-warning {
+				color: #c91d02 !important;
+				margin: 10px !important;
+				display: block;
+				width: calc(100% - 20px) !important;
+			}
+			#wctd-tapsi-pack-maplibre-map-public-warning img {
+				margin: 0 5px !important;
+			}
+			#wctd-tapsi-pack-show-map-button-checkout-page {
+				margin: 5px 10px !important;
+				width: calc(100% - 20px) !important;
+			}
 		</style>';
 	echo '<div id="wctd-tapsi-pack-maplibre-map-public-root-id">';
 	echo '<div id="wctd-tapsi-pack-maplibre-map-public-container-id"></div>';

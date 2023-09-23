@@ -143,6 +143,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 				'address_1'     => sanitize_text_field( $_REQUEST['location_address_1'] ),
 				'latitude'      => sanitize_text_field( $_REQUEST['location_lat'] ),
 				'longitude'     => sanitize_text_field( $_REQUEST['location_lng'] ),
+				'should_hide'     => sanitize_text_field( $_REQUEST['hide_location_address'] ),
 				'city'          => sanitize_text_field( $_REQUEST['location_city'] ),
 				'state'         => sanitize_text_field( $_REQUEST['location_state'] ),
 				'postcode'      => sanitize_text_field( $_REQUEST['location_postcode'] ),

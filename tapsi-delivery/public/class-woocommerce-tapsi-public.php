@@ -166,7 +166,7 @@ class Woocommerce_Tapsi_Public
 						'default' => $selected_location,
 					), $selected_location);
 
-					echo '<p>' . $locations[0]->get_name() . ' - ' . $locations[0]->get_formatted_address_public() . '</p>';
+					echo '<p>' . $locations[0]->get_name() . ' - ' . $locations[0]->get_formatted_address() . '</p>';
 				} else {
 					woocommerce_form_field('tapsi_pickup_location', array(
 						'type' => 'select',
@@ -432,7 +432,7 @@ class Woocommerce_Tapsi_Public
                 // Add the row with information on the pickup location
                 $new_total_rows['tapsi_pickup_location'] = array(
                     'label' => __('Tapsi from:', 'tapsi-delivery'),
-                    'value' => $location->get_name() . '<br>' . $location->get_formatted_address_public(),
+                    'value' => $location->get_name() . '<br>' . $location->get_formatted_address(),
                 );
                 if ($delivery && $delivery->get_dropoff_time()) {
                     // If the delivery exists, display the dropoff time
@@ -503,7 +503,7 @@ class Woocommerce_Tapsi_Public
         $options = array(0 => __('Select', 'tapsi-delivery'));
 
         foreach ($locations as $location) {
-            $options[$location->get_id()] = apply_filters('wcdd_location_option_name', $location->get_name() . ' - ' . $location->get_formatted_address_public(), $location);
+            $options[$location->get_id()] = apply_filters('wcdd_location_option_name', $location->get_name() . ' - ' . $location->get_formatted_address(), $location);
         }
 
         return $options;

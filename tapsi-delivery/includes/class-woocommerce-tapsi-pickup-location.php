@@ -29,6 +29,7 @@ class Woocommerce_Tapsi_Pickup_Location
         'address_1' => '',
 		'latitude' => '',
 		'longitude' => '',
+		'should_hide' => true,
         'city' => '',
         'postcode' => '',
         'country' => '',
@@ -96,6 +97,7 @@ class Woocommerce_Tapsi_Pickup_Location
             'address_1' => $post->address_1,
             'latitude' => $post->latitude,
             'longitude' => $post->longitude,
+            'should_hide' => $post->should_hide,
             'city' => $post->city,
             'state' => $post->state,
             'postcode' => $post->postcode,
@@ -242,6 +244,7 @@ class Woocommerce_Tapsi_Pickup_Location
             'address_1' => $this->data['address_1'],
             'latitude' => $this->data['latitude'],
             'longitude' => $this->data['longitude'],
+            'should_hide' => $this->data['should_hide'],
             'city' => $this->data['city'],
             'state' => $this->data['state'],
             'postcode' => $this->data['postcode'],
@@ -256,23 +259,14 @@ class Woocommerce_Tapsi_Pickup_Location
      */
     public function get_formatted_address()
     {
-        if (empty($this->data['address_1']) && empty($this->data['address_2'])) return '';
+		if ($this->data['should_hide']) return __('Shop', 'tapsi-delivery');
+        if (empty($this->data['address_1'])) return '';
         $formatted = '';
         $formatted .= $this->data['address_1'];
         $formatted .= ', ' . $this->data['city'] . ', ' . $this->data['state'] . ' ' . $this->data['postcode'];
 
         return $formatted;
     }
-
-	/**
-	 * Get a Tapsi-formatted address for the location
-	 *
-	 * @return string Comma separated address parts
-	 */
-	public function get_formatted_address_public()
-	{
-		return __('Shop address is hidden', 'tapsi-delivery');
-	}
 
     /**
      * Get the location email address

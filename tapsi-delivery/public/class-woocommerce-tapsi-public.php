@@ -768,6 +768,10 @@ class Woocommerce_Tapsi_Public
 	    $destination_long = WC()->session->get( 'wctd_tapsi_destination_long');
         $date_timestamp = $datestamp * 1000;
 
+        if ($origin_lat == null || $origin_long == null || $destination_lat == null || $destination_long == null) {
+            return $days;
+        }
+
         $raw_response = WCDD()->api->get_preview($origin_lat, $origin_long, $destination_lat, $destination_long, $date_timestamp);
 
         if (is_wp_error($raw_response)) {

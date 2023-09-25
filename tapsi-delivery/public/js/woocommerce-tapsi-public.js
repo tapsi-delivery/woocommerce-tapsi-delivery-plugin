@@ -198,7 +198,7 @@
 			// Add other map-related code here
 			if (window.location.pathname.includes('checkout')){
 			const MAP_CONTAINER_ID = 'wctd-tapsi-pack-maplibre-map-public-container-id';
-			const MAP_STYLE = 'http://localhost/tapsipack/wp-content/plugins/serve/mapsi-style.json';
+			const MAP_STYLE = 'https://static.tapsi.cab/pack/wp-plugin/map/mapsi-style.json';
 			const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
 			const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 			let centerLocation = [51.337762, 35.699927]; // Azadi Square

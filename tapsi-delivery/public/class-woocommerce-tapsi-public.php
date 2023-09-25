@@ -185,9 +185,9 @@ class Woocommerce_Tapsi_Public
 				echo '<button id="wctd-tapsi-pack-show-map-button-checkout-page" type="button">'.__('Choose Destination on Map', 'tapsi-delivery').'</button>';
 				echo '<div id="wctd-tapsi-pack-maplibre-map-public-preview-img-container">';
 				echo '<img src="https://tap30.services/styles/passenger/static/auto/500x500@2x.png?path='.$this->get_path().'&stroke=black&width=200&padding=50000" width="500" height="500"  id="wctd-tapsi-pack-maplibre-map-public-preview-img" alt="destination-preview"/>';
-				echo '<img src="http://localhost/tapsipack/wp-content/plugins/serve/dot.svg" width="24" height="24" id="wctd-tapsi-pack-maplibre-map-public-preview-img-dot"/>';
+				echo '<img src="https://static.tapsi.cab/pack/wp-plugin/map/dot.svg" width="24" height="24" id="wctd-tapsi-pack-maplibre-map-public-preview-img-dot"/>';
 				echo '</div>';
-				echo '<p id="wctd-tapsi-pack-maplibre-map-public-warning"><img src="http://localhost/tapsipack/wp-content/plugins/serve/warning.svg" width="24" height="24" alt="!!!"/>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates regardless of the provided address.', 'tapsi-delivery').'</p>';
+				echo '<p id="wctd-tapsi-pack-maplibre-map-public-warning"><img src="https://static.tapsi.cab/pack/wp-plugin/map/warning.svg" width="24" height="24" alt="!!!"/>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates regardless of the provided address.', 'tapsi-delivery').'</p>';
 				echo '</section>';
 
                 woocommerce_form_field('wctd_tapsi_destination_lat', array(

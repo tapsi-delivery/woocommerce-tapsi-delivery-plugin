@@ -615,9 +615,9 @@ class Woocommerce_Tapsi_Public
             }
             WC()->session->set('tapsi_delivery_time', $tapsi_delivery_time);
 
-            $tapsi_delivery_time_keys = explode("_", $tapsi_delivery_time);
-            if (isset($tapsi_delivery_time_keys[2])) {
-                $price = $tapsi_delivery_time_keys[2];
+            $tapsi_delivery_time_keys = explode("--", $tapsi_delivery_time);
+            if (isset($tapsi_delivery_time_keys[1])) {
+                $price = $tapsi_delivery_time_keys[1];
                 WC()->session->set('tapsi_delivery_fee', $price);
             }
 
@@ -796,7 +796,7 @@ class Woocommerce_Tapsi_Public
                             $price = $timeslot->invoice->amount;
                             $displayText = $timeslot_display . ' (Price: ' . $price . ' Toman)';
                             $option_attributes = 'value="' . $timeslotId . '"';
-                            $timeslot_key = $timeslotId . '_' . $price;
+                            $timeslot_key = $timeslotId . '--' . $price;
                             $days[$timeslot_key] = $displayText;
                         } else {
                             $displayText = $timeslot_display . ' is not available';

@@ -342,7 +342,7 @@ class Woocommerce_Tapsi_API
                     } elseif (isset($body->field_errors[0]->field) && $body->field_errors[0]->field == 'dropoff_address') {
                         wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'tapsi-delivery'), 'notice');
                     } else {
-                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __($body->message, 'tapsi-delivery'), 'notice');
+                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __($body->details[0]->message, 'tapsi-delivery'), 'notice');
                     }
 
                     break;

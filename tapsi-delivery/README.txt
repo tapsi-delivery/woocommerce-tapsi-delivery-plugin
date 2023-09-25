@@ -5,7 +5,7 @@ Tags: woocommerce, shipping, delivery, tapsi
 Requires at least: 3.0.1
 Requires PHP: 7.4
 Tested up to: 6.3
-Stable tag: 1.0.8
+Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,7 +135,7 @@ Anyone with a WooCommerce store can use this plugin. Simply install the plugin a
 
 == Changelog ==
 
-= 1.0.8 =
+= 0.1.0 =
 * When selecting scheduled delivery, customers will now select their desired _dropoff_ time (rather than pickup time from the store).
 * Dropoff times are now submitted to the Drive API instead of pickup times. Average delivery time is used in this calculation.
 * Improves error messaging when delivery is not available for the selected pickup and dropoff locations.
@@ -188,7 +188,7 @@ Anyone with a WooCommerce store can use this plugin. Simply install the plugin a
 
 == Upgrade Notice ==
 
-= 1.0.8 = 
+= 0.1.0 =
 When users select "Scheduled Delivery", the plugin will now use the selected time as the DROPOFF time. Before this version, the pickup time was selected here. This will reduce confusion for customers and make sure their deliveries come on-schedule.
 
 = 1.0.6 = 

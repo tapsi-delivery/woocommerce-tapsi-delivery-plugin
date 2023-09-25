@@ -87,8 +87,8 @@ class Woocommerce_Tapsi
      */
     public function __construct()
     {
-        if (defined('WOOCOMMERCE_DOORDASH_VERSION')) {
-            $this->version = WOOCOMMERCE_DOORDASH_VERSION;
+        if (defined('WOOCOMMERCE_TAPSI_VERSION')) {
+            $this->version = WOOCOMMERCE_TAPSI_VERSION;
         } else {
             $this->version = '1.0.7';
         }

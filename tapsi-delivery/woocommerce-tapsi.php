@@ -26,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Current plugin version.
  */
-define( 'WOOCOMMERCE_DOORDASH_VERSION', '0.1.0' );
+define( 'WOOCOMMERCE_TAPSI_VERSION', '0.1.0' );
 
 /**
  * The code that runs during plugin activation.

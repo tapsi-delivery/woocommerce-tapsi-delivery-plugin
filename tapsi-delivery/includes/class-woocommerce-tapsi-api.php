@@ -22,19 +22,11 @@
  */
 class Woocommerce_Tapsi_API
 {
-
-    protected $developer_id;
-
     protected $env;
-
     protected $key_id;
-
-    protected $signing_secret;
-
     protected string $cookie;
     protected string $x_agw_user_role = 'SCHEDULED_DELIVERY_SENDER';
     protected string $x_agent = 'v2.2|SCHEDULED_DELIVERY_SENDER|WEB|0.1.0||||||||||||||||';
-
     protected string $base_url = "https://api.tapsi.ir/api/";
 
     public function __construct()
@@ -71,7 +63,7 @@ class Woocommerce_Tapsi_API
     public function get_available_dates()
     {
         $request_path = 'v1/delivery/available-dates';
-        $request_args = array('method' => 'GET');
+        $request_args = array('method' => 'GET', 'timeout' => 20);
         return $this->client_request($request_path, $request_args);
     }
 
@@ -82,7 +74,7 @@ class Woocommerce_Tapsi_API
     public function is_token_valid(): bool
     {
         $request_path = 'v1/delivery/available-dates';
-        $request_args = array('method' => 'GET');
+        $request_args = array('method' => 'GET', 'timeout' => 20);
         $response = $this->request_with_credentials($request_path, $request_args);
         $response_code = wp_remote_retrieve_response_code($response);
         return $response_code == 200;
@@ -100,7 +92,7 @@ class Woocommerce_Tapsi_API
 
         $api_url = 'v1/delivery/order/preview';
         $request_path = $api_url . '?originLat=' . $origin_lat . '&originLong=' . $origin_long . '&destinationLat=' . $destination_lat . '&destinationLong=' . $destination_long . '&dateTimestamp=' . $date_timestamp;
-        $request_args = array('method' => 'GET');
+        $request_args = array('method' => 'GET', 'timeout' => 20);
         return $this->client_request($request_path, $request_args);
     }
 
@@ -126,7 +118,8 @@ class Woocommerce_Tapsi_API
             'body' => json_encode($request_body),
             'headers' => array(
                 'Content-Type' => 'application/json',
-            )
+            ),
+            'timeout' => 20
         );
 
         return $this->admin_request($request_path, $request_args);
@@ -163,7 +156,8 @@ class Woocommerce_Tapsi_API
                 'Content-Type' => 'application/json',
                 'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB'
 //                'credentials' => 'include'
-            )
+            ),
+            'timeout' => 20
         );
 
         return $this->request_token($request_path, $request_args);
@@ -183,6 +177,7 @@ class Woocommerce_Tapsi_API
         $request_args = array(
             'method' => 'POST',
             'body' => json_encode($request_body),
+            'timeout' => 20
         );
 
         return $this->client_request($request_path, $request_args);
@@ -207,14 +202,19 @@ class Woocommerce_Tapsi_API
     public function remote_request(string $request_url, array $request_args)
     {
         // Log the request
-        WCDD()->log->debug(sprintf(__('Sending request to %s', 'tapsi-delivery'), $request_url));
-        WCDD()->log->debug($request_args);
+        WCDD()->log->debug('$request_url', $request_url);
+        WCDD()->log->debug('$request_args', $request_args);
 
         // Run the remote request
         $response = wp_remote_request($request_url, $request_args);
 
         // Log the response
-        WCDD()->log->debug($response);
+        try {
+            WCDD()->log->debug('$response', json_decode(wp_remote_retrieve_body($response)));
+        } catch (Exception $e) {
+            WCDD()->log->debug('$response', $response);
+        }
+
         return $response;
     }
 
@@ -318,14 +318,13 @@ class Woocommerce_Tapsi_API
      * @param array $request_args An array of arguments
      * @return array|WP_Error The response array or a WP_Error on failure
      */
-    public function client_request(string $request_path, array $request_args, bool $refresh_token_on_failure = true)
+    public function client_request(string $request_path, array $request_args)
     {
         $response = $this->request_with_credentials($request_path, $request_args);
 
         // Log WP error
         if (is_wp_error($response)) {
-            WCDD()->log->error(sprintf(__('Error performing request to %s', 'tapsi-delivery'), $request_path));
-            WCDD()->log->error($response);
+            WCDD()->log->error('Error performing request to %s', $response);
             return $response;
         }
 
@@ -350,12 +349,7 @@ class Woocommerce_Tapsi_API
                     break;
                 case 401:
                 case 403:
-                    if ($refresh_token_on_failure) {
-                        $this->refresh_tokens();
-                        return $this->client_request($request_path, $request_args, false);
-                    } else {
-                        wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
-                    }
+                    wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
                     break;
                 case 404:
                     // Resource doesn't exist
@@ -380,10 +374,6 @@ class Woocommerce_Tapsi_API
             if (500 >= $response_code && $response_code > 600) {
                 wc_add_notice(__('There was a problem communicating with Tapsi. Please try again later.', 'tapsi-delivery'), 'notice');
             }
-
-            // Log the error
-            WCDD()->log->error(sprintf(__('Error %s performing request to %s', 'tapsi-delivery'), $response_code, $request_url));
-            WCDD()->log->error($body);
         }
 
         // Return the response object
@@ -420,7 +410,17 @@ class Woocommerce_Tapsi_API
 
         // Combine the defaults with the passed arguments
         $request_args = wp_parse_args($request_args, $defaults);
-        return $this->remote_request($request_url, $request_args);
+        $response = $this->remote_request($request_url, $request_args);
+        $response_code = wp_remote_retrieve_response_code($response);
+
+        if ($response_code == 401 || $response_code == 403) {
+            if ($refresh_token_on_failure) {
+                $this->refresh_tokens();
+                $response = $this->request_with_credentials($request_path, $request_args, false);
+            }
+        }
+
+        return $response;
     }
 
     /**
@@ -484,7 +484,8 @@ class Woocommerce_Tapsi_API
                 'Content-Type' => 'application/json',
                 'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB',
                 'cookie' => $this->get_cookie(),
-            )
+            ),
+            'timeout' => 20
         );
 
         return $this->request_token($request_path, $request_args);

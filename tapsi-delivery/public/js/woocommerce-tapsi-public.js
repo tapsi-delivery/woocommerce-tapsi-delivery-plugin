@@ -52,6 +52,8 @@
 		};
 
 		function onLocationChange(payload) {
+			$( document.body ).trigger( 'update_checkout' );
+
 			block( $('.cart_totals') );
 			$.ajax({
 				type: 'POST',
@@ -111,8 +113,7 @@
 		}
 
 		function addListeners() {
-			// click event on show map button to open map modal
-			$(document.body).on('click', '#wctd-tapsi-pack-show-map-button-checkout-page', undefined, function (event) {
+			function openMap(event) {
 				// Check if the clicked element s your button
 				console.log('maryam open event', event);
 				event?.preventDefault();
@@ -120,13 +121,21 @@
 				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
 				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 				let centerLocation = [51.337762, 35.699927]; // Azadi Square
-				if(Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
+				if (Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
 				else {
 					alert('با عرض پوزش مشکلی پیش آمده است. لطفا آدرس مقصد را مجددا وارد کنید.')
 				}
 				map.setCenter(centerLocation);
 				map.zoomTo(15, {duration: 1000});
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "visible"});
+			}
+			// click event on show map button to open map modal
+			$(document.body).on('click', '#wctd-tapsi-pack-show-map-button-checkout-page', undefined, function (event) {
+				openMap(event);
+			});
+
+			$(document.body).on('click', '#wctd-tapsi-pack-maplibre-map-public-preview-img', undefined, function (event) {
+				openMap(event);
 			});
 
 			// close the modal by click on the back drop
@@ -148,13 +157,12 @@
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
 			});
 
-			// submit the center location and close the map modal
-			$(document.body).on('click', '#wctd-tapsi-pack-mapliblre-map-public-submit-location-button', undefined, (event) => {
+			function submitLocation(event) {
 				console.log('maryam submit event', event);
 				event?.preventDefault();
 				event?.stopPropagation();
 				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
-				const lng =  $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 				console.log('map center', map.getCenter());
 				const azadiCoordinate = [51.337762, 35.699927];
 				const mapCenter = map.getCenter();
@@ -177,6 +185,11 @@
 					"wctd_tapsi_destination_long": center[0],
 					"wctd_tapsi_destination_lat": center[1],
 				});
+			}
+
+			// submit the center location and close the map modal
+			$(document.body).on('click', '#wctd-tapsi-pack-mapliblre-map-public-submit-location-button', undefined, (event) => {
+				submitLocation(event);
 			})
 		}
 

@@ -666,15 +666,16 @@ class Woocommerce_Tapsi_Admin
             $order->get_shipping_address_2() . '، ' .
             $order->get_shipping_company() . '.';
 
-        $origin_lat = 35.63064956665039;
-        $origin_long = 51.36489486694336;
-        $destination_lat = 35.632899231302616;
-        $destination_long = 51.36615198055347;
+        $destination_lat = $delivery->get_destination_lat();
+        $destination_long = $delivery->get_destination_long();
 
         $sender_address = $sender_location->get_address();
         $sender_location_description = $sender_address['city'] . '، ' .
             $sender_address['address_1'] . '، ' .
             $sender_address['address_2'] . '.';
+
+        $origin_lat = $sender_address['latitude'];
+        $origin_long = $sender_address['longitude'];
 
         $sender = array(
             'location' => array(

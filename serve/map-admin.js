@@ -8,8 +8,8 @@ let centerLocation = [51.337762, 35.699927]; // Azadi Square
 let map = null;
 
 const scriptStart = () => {
-  console.log('script start');
-  console.log(!!Number(getLat()?.value) && Number(getLong()?.value));
+  console.log('map is loading...');
+  console.log('map center location: ',!!Number(getLat()?.value) && Number(getLong()?.value));
   if(Number(getLat()?.value) && Number(getLong()?.value)) centerLocation = [Number(getLong().value), Number(getLat().value)];
   console.log(centerLocation);
     map = new maplibregl.Map({

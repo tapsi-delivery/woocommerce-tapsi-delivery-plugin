@@ -118,13 +118,10 @@
 				console.log('maryam open event', event);
 				event?.preventDefault();
 				event?.stopPropagation();
-				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
 				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
 				let centerLocation = [51.337762, 35.699927]; // Azadi Square
-				if (Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
-				else {
-					alert('با عرض پوزش مشکلی پیش آمده است. لطفا آدرس مقصد را مجددا وارد کنید.')
-				}
+				if (Number(lng.val()) && Number(lat.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
 				map.setCenter(centerLocation);
 				map.zoomTo(15, {duration: 1000});
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "visible"});

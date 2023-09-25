@@ -157,7 +157,9 @@ class Woocommerce_Tapsi_Delivery
             'tip' => $tip,
             'dropoff_time' => gmdate("Y-m-d\TH:i:s\Z", $delivery_time),
             'chosen_time_slot_data' => WC()->session->get('tapsi_delivery_time'),
-            'preview_token' => WC()->session->get('tapsi_preview_token')
+            'preview_token' => WC()->session->get('tapsi_preview_token'),
+            'destination_lat' => WC()->session->get('wctd_tapsi_destination_lat'),
+            'destination_long' => WC()->session->get('wctd_tapsi_destination_long'),
         );
 
         //does cart contain alcohol or tobacco
@@ -273,7 +275,7 @@ class Woocommerce_Tapsi_Delivery
     {
         $quoted = $this->get_quoted_rate();
 
-	    return $quoted ?? 0;
+        return $quoted ?? 0;
     }
 
     /**
@@ -364,6 +366,24 @@ class Woocommerce_Tapsi_Delivery
             // the first part represents the time slot's ID,
             // while the second part indicates the price associated with that particular time slot.
             return explode("--", $this->data['chosen_time_slot_data'])[0];
+        } else {
+            return false;
+        }
+    }
+
+    public function get_destination_lat()
+    {
+        if (array_key_exists('destination_lat', $this->data) && !empty($this->data['destination_lat'])) {
+            return $this->data['destination_lat'];
+        } else {
+            return false;
+        }
+    }
+
+    public function get_destination_long()
+    {
+        if (array_key_exists('destination_long', $this->data) && !empty($this->data['destination_long'])) {
+            return $this->data['destination_long'];
         } else {
             return false;
         }

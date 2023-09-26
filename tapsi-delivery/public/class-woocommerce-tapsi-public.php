@@ -104,13 +104,22 @@ class Woocommerce_Tapsi_Public
 	    wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/woocommerce-tapsi-public.js', array('jquery', 'selectWoo'), $this->version, false);
     }
 
-	public function get_path() {
+	public function get_destination($stringify = false) {
 		$azadi_coordinate = array(51.337762, 35.699927);
-		$lng_1 = (float)WC()->session->get('wctd_tapsi_destination_long') ?? $azadi_coordinate[1];
+
+        $destination_long = floatval(WC()->session->get('wctd_tapsi_destination_long'));
+        if($destination_long != null && $destination_long != 0 && $destination_long != '0') $lng_1 = $destination_long;
+        else $lng_1 = $azadi_coordinate[0];
 		$lng_2 = $lng_1 + 0.0000001;
-		$lat_1 = (float)WC()->session->get('wctd_tapsi_destination_lat') ?? $azadi_coordinate[0];
+
+        $destination_lat = floatval(WC()->session->get('wctd_tapsi_destination_lat'));
+        if($destination_lat != null && $destination_lat != 0 && $destination_lat != '0' ) $lat_1 = $destination_lat;
+        else $lat_1 = $azadi_coordinate[1];
 		$lat_2 = $lat_1 + 0.0000001;
-		return $lng_1 .','. $lat_1. '|'. $lng_2  .','. $lat_2;
+
+
+        if($stringify) return $lng_1 .','. $lat_1. '|'. $lng_2  .','. $lat_2;
+        else return array($lng_1, $lat_1);
 	}
 
     /**
@@ -124,7 +133,6 @@ class Woocommerce_Tapsi_Public
     {
         // Get the selected method
         $chosen_shipping_rate_id = WC()->session->get('chosen_shipping_methods')[0]; // [0]
-	    $azadi_coordinate = array(51.337762, 35.699927);
 
 	    // Get the meta data from the rate
         $meta = $shipping_rate->get_meta_data();
@@ -180,31 +188,34 @@ class Woocommerce_Tapsi_Public
 					), $selected_location); // $checkout->get_value( 'tapsi_pickup_location' ) );
 				}
 
+
 				echo '<section class="wctd-tapsi-pack-destination-shard">';
 				echo '<p class="wcts-tapsi-pack-checkout-form-label">'.__('Destination', 'tapsi-delivery').'</label>&nbsp;<abbr class="required" title="' . esc_attr__( 'required', 'woocommerce' ) . '">*</abbr></p>';// open map modal with this button
 				echo '<button id="wctd-tapsi-pack-show-map-button-checkout-page" type="button">'.__('Choose Destination on Map', 'tapsi-delivery').'</button>';
 				echo '<div id="wctd-tapsi-pack-maplibre-map-public-preview-img-container">';
-				echo '<img src="https://tap30.services/styles/passenger/static/auto/500x500@2x.png?path='.$this->get_path().'&stroke=black&width=200&padding=50000" width="500" height="500"  id="wctd-tapsi-pack-maplibre-map-public-preview-img" alt="destination-preview"/>';
+				echo '<img src="https://tap30.services/styles/passenger/static/auto/500x500@2x.png?path='.$this->get_destination(true).'&stroke=black&width=200&padding=50000" width="500" height="500"  id="wctd-tapsi-pack-maplibre-map-public-preview-img" alt="destination-preview"/>';
 				echo '<img src="https://static.tapsi.cab/pack/wp-plugin/map/dot.svg" width="24" height="24" id="wctd-tapsi-pack-maplibre-map-public-preview-img-dot"/>';
 				echo '</div>';
 				echo '<p id="wctd-tapsi-pack-maplibre-map-public-warning"><img src="https://static.tapsi.cab/pack/wp-plugin/map/warning.svg" width="24" height="24" alt="!!!"/>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates regardless of the provided address.', 'tapsi-delivery').'</p>';
 				echo '</section>';
+
+                $destination = $this->get_destination(false);
 
                 woocommerce_form_field('wctd_tapsi_destination_lat', array(
                     'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id',
                     'type' => 'hidden',
                     'class' => array('wcdd-delivery-destination-lat', 'update_totals_on_change'),
                     'required' => true,
-                    'default' => WC()->session->get('wctd_tapsi_destination_lat'),
-                ), WC()->session->get('wctd_tapsi_destination_lat'));
+                    'default' => $destination[1],
+                ), $destination[1]);
 
                 woocommerce_form_field('wctd_tapsi_destination_long', array(
                     'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id',
                     'type' => 'hidden',
                     'class' => array('wcdd-delivery-destination-long', 'update_totals_on_change'),
                     'required' => true,
-                    'default' => WC()->session->get('wctd_tapsi_destination_lat'),
-                ), WC()->session->get('wctd_tapsi_destination_long'));
+                    'default' => $destination[0],
+                ), $destination[0]);
 
 				wp_nonce_field('wcdd_set_pickup_location', 'wcdd_set_pickup_location_nonce');
 
@@ -267,8 +278,7 @@ class Woocommerce_Tapsi_Public
 				if (apply_filters('wcdd_show_tapsi_logo', true)) {
 					echo '<div id="wcdd-delivery-options-powered">';
 					echo '<a id="wcdd-delivery-options-powered-tapsi-pack-link" target="_blank" href="' . "https://pack.tapsi.ir/landing" .'" >'; // TODO: MARYAM think about this link
-					echo '<img src="' . plugin_dir_url(__FILE__) . '/img/tapsi-pack.png" alt="Tapsi" width="10px" height="10px"/>';
-					echo '<p>' . __('Powered By', 'tapsi-delivery') . " " . __('Tapsi Pack', 'tapsi-delivery') . '</p>';
+					echo '<img src="' . plugin_dir_url(__FILE__) . '/img/tapsi-pack.png" alt="Tapsi" width="100px" height="56.5px"></img>';
 					echo '</a>';
 					echo '</div>';
 				}

@@ -51,10 +51,10 @@
 			$node.removeClass( 'processing' ).unblock();
 		};
 
-		function onLocationChange(payload) {
+		function onLocationChange(payload, src = '') {
 			$( document.body ).trigger( 'update_checkout' );
 
-			block( $('.cart_totals') );
+			if(src !== 'map') block( $('.cart_totals') );
 			$.ajax({
 				type: 'POST',
 				url: woocommerce_params.ajax_url,
@@ -67,7 +67,7 @@
 					$(document).trigger('wc_update_cart');
 				},
 				fail: function( data ) {
-					unblock( $('.cart_totals') );
+					if(src !== 'map') unblock( $('.cart_totals') );
 				}
 			});
 		}
@@ -80,11 +80,11 @@
 
 		// Updates session when changing pickup location on cart
 		$('body.woocommerce-cart').on( 'change', '#tapsi_pickup_location', () => {
-			onLocationChange({"location_id":this.value})
+			onLocationChange({"location_id":this.value}, '');
 		} );
 
 		function prepareMapBeforeLoad() {
-			console.log('maryam says hello. loading the scripts...');
+			console.log('TAPSI Delivery says hello. loading the scripts...');
 
 			// Define the MapLibre CSS and JavaScript URLs
 			var maplibreCSSUrl = 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css';
@@ -115,13 +115,13 @@
 		function addListeners() {
 			function openMap(event) {
 				// Check if the clicked element s your button
-				console.log('maryam open event', event);
+				console.log('open event');
 				event?.preventDefault();
 				event?.stopPropagation();
-				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
+				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 				let centerLocation = [51.337762, 35.699927]; // Azadi Square
-				if (Number(lng.val()) && Number(lat.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
+				if (Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
 				map.setCenter(centerLocation);
 				map.zoomTo(15, {duration: 1000});
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "visible"});
@@ -139,7 +139,7 @@
 			$(document.body).on('click', '#wctd-tapsi-pack-maplibre-map-public-root-id', undefined, function (event) {
 				// Check if the clicked element is your button
 				if (event.target.id === 'wctd-tapsi-pack-maplibre-map-public-root-id') {
-					console.log('maryam close event', event);
+					console.log('close event');
 					event?.preventDefault();
 					event?.stopPropagation();
 					$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
@@ -148,26 +148,34 @@
 
 			// close the map modal by clicking the close button (x)
 			$(document.body).on('click', '#wctd-tapsi-pack-mapliblre-map-public-close-modal-button', undefined, function (event) {
-				console.log('maryam close event', event);
+				console.log('close event');
 				event?.preventDefault();
 				event?.stopPropagation();
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
 			});
 
 			function submitLocation(event) {
-				console.log('maryam submit event', event);
+				console.log('submit event');
 				event?.preventDefault();
 				event?.stopPropagation();
 				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
 				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 				console.log('map center', map.getCenter());
 				const azadiCoordinate = [51.337762, 35.699927];
+
 				const mapCenter = map.getCenter();
-				const center = [(mapCenter[0] || mapCenter.lng) ?? azadiCoordinate[0], (mapCenter[1] || mapCenter.lat) ?? azadiCoordinate[1]]
-				if (lat && lng && center) {
-					lng.val(center[0] || center.lng);
-					lat.val(center[1] || center.lat);
+				const center = [(mapCenter[0] || mapCenter.lng), (mapCenter[1] || mapCenter.lat)];
+
+				if (lat && lng && center[0] && center[1]) {
+					lng.val(center[0]);
+					lat.val(center[1]);
+				} else {
+					alert('خطایی در ذخیره‌سازی مقصد شما پیش آمد. لطفا دوباره تلاش کنید.');
+					lng?.val('');
+					lat?.val('');
+					return;
 				}
+
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "hidden"});
 
 				const lng1 = center[0];
@@ -181,7 +189,7 @@
 				onLocationChange({
 					"wctd_tapsi_destination_long": center[0],
 					"wctd_tapsi_destination_lat": center[1],
-				});
+				}, 'map');
 			}
 
 			// submit the center location and close the map modal
@@ -191,7 +199,7 @@
 		}
 
 		function initializeMap() {
-			console.log('initializing the map')
+			console.log('initializing the map...')
 			// Add other map-related code here
 			if (window.location.pathname.includes('checkout')){
 			const MAP_CONTAINER_ID = 'wctd-tapsi-pack-maplibre-map-public-container-id';
@@ -200,7 +208,7 @@
 			const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 			let centerLocation = [51.337762, 35.699927]; // Azadi Square
 			if(Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
-			console.log(lat, lng, centerLocation);
+			console.log('map center', centerLocation);
 				map = new maplibregl.Map({
 					container: MAP_CONTAINER_ID, // container id
 					style: MAP_STYLE,

@@ -278,7 +278,7 @@ class Woocommerce_Tapsi_Public
 				if (apply_filters('wcdd_show_tapsi_logo', true)) {
 					echo '<div id="wcdd-delivery-options-powered">';
 					echo '<a id="wcdd-delivery-options-powered-tapsi-pack-link" target="_blank" href="' . "https://pack.tapsi.ir/landing" .'" >'; // TODO: MARYAM think about this link
-					echo '<img src="' . plugin_dir_url(__FILE__) . '/img/tapsi-pack.png" alt="Tapsi" width="10px" height="10px">' . __('Powered By', 'tapsi-delivery') . " " . __('Tapsi Pack', 'tapsi-delivery') . '</img>';
+					echo '<img src="' . plugin_dir_url(__FILE__) . '/img/tapsi-pack.png" alt="Tapsi" width="100px" height="56.5px"></img>';
 					echo '</a>';
 					echo '</div>';
 				}

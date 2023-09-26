@@ -118,13 +118,10 @@
 				console.log('maryam open event', event);
 				event?.preventDefault();
 				event?.stopPropagation();
-				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
 				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
 				let centerLocation = [51.337762, 35.699927]; // Azadi Square
-				if (Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
-				else {
-					alert('با عرض پوزش مشکلی پیش آمده است. لطفا آدرس مقصد را مجددا وارد کنید.')
-				}
+				if (Number(lng.val()) && Number(lat.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
 				map.setCenter(centerLocation);
 				map.zoomTo(15, {duration: 1000});
 				$('#wctd-tapsi-pack-maplibre-map-public-root-id').css({visibility: "visible"});
@@ -198,7 +195,7 @@
 			// Add other map-related code here
 			if (window.location.pathname.includes('checkout')){
 			const MAP_CONTAINER_ID = 'wctd-tapsi-pack-maplibre-map-public-container-id';
-			const MAP_STYLE = 'http://localhost/tapsipack/wp-content/plugins/serve/mapsi-style.json';
+			const MAP_STYLE = 'https://static.tapsi.cab/pack/wp-plugin/map/mapsi-style.json';
 			const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
 			const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
 			let centerLocation = [51.337762, 35.699927]; // Azadi Square

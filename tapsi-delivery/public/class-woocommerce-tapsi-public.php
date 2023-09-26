@@ -185,9 +185,9 @@ class Woocommerce_Tapsi_Public
 				echo '<button id="wctd-tapsi-pack-show-map-button-checkout-page" type="button">'.__('Choose Destination on Map', 'tapsi-delivery').'</button>';
 				echo '<div id="wctd-tapsi-pack-maplibre-map-public-preview-img-container">';
 				echo '<img src="https://tap30.services/styles/passenger/static/auto/500x500@2x.png?path='.$this->get_path().'&stroke=black&width=200&padding=50000" width="500" height="500"  id="wctd-tapsi-pack-maplibre-map-public-preview-img" alt="destination-preview"/>';
-				echo '<img src="http://localhost/tapsipack/wp-content/plugins/serve/dot.svg" width="24" height="24" id="wctd-tapsi-pack-maplibre-map-public-preview-img-dot"/>';
+				echo '<img src="https://static.tapsi.cab/pack/wp-plugin/map/dot.svg" width="24" height="24" id="wctd-tapsi-pack-maplibre-map-public-preview-img-dot"/>';
 				echo '</div>';
-				echo '<p id="wctd-tapsi-pack-maplibre-map-public-warning"><img src="http://localhost/tapsipack/wp-content/plugins/serve/warning.svg" width="24" height="24" alt="!!!"/>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates regardless of the provided address.', 'tapsi-delivery').'</p>';
+				echo '<p id="wctd-tapsi-pack-maplibre-map-public-warning"><img src="https://static.tapsi.cab/pack/wp-plugin/map/warning.svg" width="24" height="24" alt="!!!"/>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates regardless of the provided address.', 'tapsi-delivery').'</p>';
 				echo '</section>';
 
                 woocommerce_form_field('wctd_tapsi_destination_lat', array(
@@ -615,9 +615,9 @@ class Woocommerce_Tapsi_Public
             }
             WC()->session->set('tapsi_delivery_time', $tapsi_delivery_time);
 
-            $tapsi_delivery_time_keys = explode("_", $tapsi_delivery_time);
-            if (isset($tapsi_delivery_time_keys[2])) {
-                $price = $tapsi_delivery_time_keys[2];
+            $tapsi_delivery_time_keys = explode("--", $tapsi_delivery_time);
+            if (isset($tapsi_delivery_time_keys[1])) {
+                $price = $tapsi_delivery_time_keys[1];
                 WC()->session->set('tapsi_delivery_fee', $price);
             }
 
@@ -768,6 +768,10 @@ class Woocommerce_Tapsi_Public
 	    $destination_long = WC()->session->get( 'wctd_tapsi_destination_long');
         $date_timestamp = $datestamp * 1000;
 
+        if ($origin_lat == null || $origin_long == null || $destination_lat == null || $destination_long == null) {
+            return $days;
+        }
+
         $raw_response = WCDD()->api->get_preview($origin_lat, $origin_long, $destination_lat, $destination_long, $date_timestamp);
 
         if (is_wp_error($raw_response)) {
@@ -792,7 +796,7 @@ class Woocommerce_Tapsi_Public
                             $price = $timeslot->invoice->amount;
                             $displayText = $timeslot_display . ' (Price: ' . $price . ' Toman)';
                             $option_attributes = 'value="' . $timeslotId . '"';
-                            $timeslot_key = $timeslotId . '_' . $price;
+                            $timeslot_key = $timeslotId . '--' . $price;
                             $days[$timeslot_key] = $displayText;
                         } else {
                             $displayText = $timeslot_display . ' is not available';

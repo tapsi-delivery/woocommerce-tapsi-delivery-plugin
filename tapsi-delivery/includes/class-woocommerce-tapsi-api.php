@@ -26,7 +26,7 @@ class Woocommerce_Tapsi_API
     protected $key_id;
     protected string $cookie;
     protected string $x_agw_user_role = 'SCHEDULED_DELIVERY_SENDER';
-    protected string $x_agent = 'v2.2|SCHEDULED_DELIVERY_SENDER|WEB|0.1.0||||||||||||||||';
+    protected string $x_agent = 'v0.1.0|WOOCOMMERCE_PLUGIN|WEB|0.1.0';
     protected string $base_url = "https://api.tapsi.ir/api/";
 
     public function __construct()
@@ -154,8 +154,7 @@ class Woocommerce_Tapsi_API
             'body' => json_encode($request_body),
             'headers' => array(
                 'Content-Type' => 'application/json',
-                'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB'
-//                'credentials' => 'include'
+                'x-agent' => $this->x_agent
             ),
             'timeout' => 20
         );
@@ -343,7 +342,7 @@ class Woocommerce_Tapsi_API
                     } elseif (isset($body->field_errors[0]->field) && $body->field_errors[0]->field == 'dropoff_address') {
                         wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'tapsi-delivery'), 'notice');
                     } else {
-                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __($body->message, 'tapsi-delivery'), 'notice');
+                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __($body->details[0]->message, 'tapsi-delivery'), 'notice');
                     }
 
                     break;
@@ -482,8 +481,8 @@ class Woocommerce_Tapsi_API
             'method' => 'GET',
             'headers' => array(
                 'Content-Type' => 'application/json',
-                'x-agent' => 'v1|SCHEDULED_DELIVERY_SENDER|WEB',
-                'cookie' => $this->get_cookie(),
+                'x-agent' => $this->x_agent,
+                'cookie' => $this->get_cookie()
             ),
             'timeout' => 20
         );

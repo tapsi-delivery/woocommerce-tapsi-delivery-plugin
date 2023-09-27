@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Tapsi Delivery\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 10:07+0330\n"
-"PO-Revision-Date: 2023-09-27 09:20+0000\n"
+"PO-Revision-Date: 2023-09-27 09:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: فارسی\n"
 "Language: fa_IR\n"
@@ -20,25 +20,25 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:40
 msgid "Tapsi Delivery"
-msgstr "ارسال تپسی"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:59
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:21
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:18
 msgid "Login"
-msgstr "ورود"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:62
 msgid "My Addresses"
-msgstr "آدرس‌های من"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:63
 msgid "Tracking Orders"
-msgstr "پیگیری سفارشات"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:202
 msgid "Phone number"
-msgstr "شماره تلفن"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:244
 #, php-format
@@ -48,55 +48,51 @@ msgstr ""
 #: admin/class-woo-tapsi-delivery-settings.php:244
 #: admin/class-woo-tapsi-delivery-settings.php:268
 msgid "enabled"
-msgstr "فعال"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:244
 #: admin/class-woo-tapsi-delivery-settings.php:268
 msgid "disabled"
-msgstr "غیر فعال"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:322
 msgid "Your changed data will be lost if you leave this page without saving."
 msgstr ""
-"اگر بدون ذخیره کردن تغییرات صفحه را ترک کنید، تغییرات اعمال شده حذف خواهند "
-"شد. "
 
 #: admin/class-woo-tapsi-delivery-settings.php:323
 msgid ""
 "Do you wish to save your changes first? Your changed data will be discarded "
 "if you choose to cancel."
 msgstr ""
-"آیا مایل هستید تغییرات خود را ابتدا ذخیره کنید؟ در صورت انتخاب لغو، داده های "
-"تغییر یافته شما حذف می شوند."
 
 #: admin/class-woo-tapsi-delivery-settings.php:324
 msgid "Your changes were not saved. Please retry."
-msgstr "تغییرات شما ذخیره نشده است. لطفا دوباره سعی کنید."
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:325
 msgid "Are you sure you want to delete this pickup location?"
-msgstr "آیا می‌خواهید این آدرس ارسال را حذف کنید؟"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:326
 msgid "Pickup location could not be added. Please retry."
-msgstr "آدرس ارسال اضافه نشد. لطفا دوباره تلاش کنید."
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:327
 msgid "Yes"
-msgstr "بله"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:328
 msgid "No"
-msgstr "خیر"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:329
 msgid "Location"
-msgstr "آدرس"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:376
 #, php-format
 msgid "Location \"%s\" deleted."
-msgstr "آدرس \"%s\" حذف شد."
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:426
 msgid "Webhooks Configuration"
@@ -108,7 +104,7 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:431
 msgid "This information will only be displayed once."
-msgstr "این اطلاعات تنها یک بار نمایش داده می‌شوند."
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:433
 msgid ""
@@ -135,7 +131,7 @@ msgstr ""
 #: admin/class-woo-tapsi-delivery-settings.php:439
 #: admin/class-woo-tapsi-delivery-settings.php:440
 msgid "Copy"
-msgstr "کپی"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:439
 msgid "Authentication Type"
@@ -217,7 +213,7 @@ msgstr ""
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:50
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:64
 msgid "Signing Secret"
-msgstr "توکن ورود"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:52
 msgid ""
@@ -239,7 +235,7 @@ msgstr ""
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:76
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:127
 msgid "Delivery Configuration"
-msgstr "تنظیمات ارسال"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:78
 msgid "Configure settings for deliveries in your WooCommerce shop."
@@ -247,7 +243,7 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:82
 msgid "Delivery Scheduling"
-msgstr "برنامه ریزی ارسال"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:90
 msgid "Choose the type of delivery scheduling available to users at checkout."
@@ -338,11 +334,11 @@ msgstr ""
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:161
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:46
 msgid "Enabled"
-msgstr "فعال"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:162
 msgid "Disabled"
-msgstr "غیرفعال"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:174
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:222
@@ -370,66 +366,64 @@ msgstr ""
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:187
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:154
 msgid "Sunday"
-msgstr "یکشنبه"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:192
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:155
 msgid "Monday"
-msgstr "دوشنبه"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:197
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:156
 msgid "Tuesday"
-msgstr "سه‌شنبه"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:202
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:157
 msgid "Wednesday"
-msgstr "چهارشنبه"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:207
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:158
 msgid "Thursday"
-msgstr "پنجشنبه"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:212
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:159
 msgid "Friday"
-msgstr "جمعه"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:217
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:160
 msgid "Saturday"
-msgstr "شنبه"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-tracking-orders.php:28
 msgid "Tapsi Pack Taker Panel"
-msgstr "پنل ارسال تپسی"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:21
 msgid "Enter Phone for Login"
-msgstr "شماره را برای ورود وارد کنید"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:23
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:20
 msgid "Login Information"
-msgstr "اطلاعات ورود"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:26
 msgid "Your phone number "
-msgstr "شماره تماس"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:28
 msgid ""
 "Your phone number has not been verified. Please enter the phone number "
 "associated with your Tapsi account."
 msgstr ""
-"شماره تماس شما تائید نشده است. لطفا شماره‌ای که با آن در تپسی‌پک اکانت دارید "
-"را وارد کنید."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:35
 msgid "Phone Number: "
-msgstr "شماره تماس:"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:36
 msgid "09"
@@ -437,11 +431,11 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:18
 msgid "Locations"
-msgstr "مکان‌ها"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:18
 msgid "Edit Location"
-msgstr "ویرایش مکان"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:22
 msgid ""
@@ -449,29 +443,27 @@ msgid ""
 "Tapsi Pack! Please find the exact coordinate of your address on the map and "
 "submit the changes"
 msgstr ""
-"آدرس داده شده نادرست است و یا توسط تپسی‌پک پشتیبانی نمی‌شود. لطفا دوباره "
-"تلاش کنید."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:24
 msgid "Location Information"
-msgstr "اطلاعات مکان"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:26
 msgid "Enter the information for the location you."
-msgstr "اطلاعات مکان مورد نظر را وارد کنید"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:38
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:39
 msgid "Location Name"
-msgstr "نام مکان"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:47
 msgid "Only enabled locations are able to be selected for Tapsi deliveries."
-msgstr "تنها مکان‌های فعال می‌توانند انتخاب شوند"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:54
 msgid "Email Address"
-msgstr "ایمیل"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:56
 msgid ""
@@ -480,32 +472,32 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:61
 msgid "Phone Number"
-msgstr "شماره تماس"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:76
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:100
 msgid "Address"
-msgstr "آدرس"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:78
 msgid "Enter the address for the location."
-msgstr "آدرس این مکان را وارد کنید"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:106
 msgid "City"
-msgstr "شهر"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:112
 msgid "State"
-msgstr "استان"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:117
 msgid "Postcode"
-msgstr "پلاک"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:123
 msgid "Country"
-msgstr "منطقه"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:133
 msgid "Hide"
@@ -516,11 +508,11 @@ msgid ""
 "The exact address of your shop will be hidden to the customers but they can "
 "still see the coordinates of your shop in the track link that is sent to "
 "them."
-msgstr "آدرس دقیقا فروشگاه"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:142
 msgid "Hours"
-msgstr "ساعات"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:144
 msgid "Enter the hours for the location."
@@ -537,15 +529,15 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:18
 msgid "Enter the OTP sent:"
-msgstr "کد پیامک شده را اینجا وارد کنید:"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:22
 msgid "Enter the OTP sent to your phone number."
-msgstr "کدی تائیدی که برای شماره شما ارسال شده را وارد نمائید."
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:28
 msgid "Sent OTP: "
-msgstr "کد ارسال شده:"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:29
 msgid "12345"
@@ -553,12 +545,12 @@ msgstr ""
 
 #: admin/partials/wctd-taps-pack-maplibre-map.php:14
 msgid "Coordinates"
-msgstr "مختصات"
+msgstr ""
 
 #: admin/partials/wctd-taps-pack-maplibre-map.php:15
 msgid ""
 "Please choose the precise coordinate that matches your address on the map."
-msgstr "لطفا آدرس دقیق مطابق با آدرس را وارد نمائید."
+msgstr ""
 
 #: admin/partials/wctd-taps-pack-maplibre-map.php:16
 msgid ""
@@ -566,8 +558,6 @@ msgid ""
 "case of incompatibility, The pin location is Tapsi Pack's reference for your "
 "delivery!!!"
 msgstr ""
-"لطفا از تطابق آدرس و نقشه، اطمینان حاصل نمائید. در صورت عدم تطابقِ، مرسوله "
-"به نقطه‌ی انتخاب شده روی نقشه ارسال خواهد شد."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
 msgid "A pickup location is where an order can be picked up by a Dasher."
@@ -592,7 +582,7 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:134
 msgid "Tapsi Pickup Location"
-msgstr "مکان‌های تحویل بسته به تپسی"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:175
 msgid ""
@@ -618,11 +608,11 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:293
 msgid "Tapsi Delivery Submitted."
-msgstr "ارسال تپسی ثبت شد."
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:322
 msgid "Track Delivery"
-msgstr "ارسال با تپسی"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:462
 msgid "Webhook: Received webhook event \""
@@ -660,7 +650,7 @@ msgstr ""
 #: admin/class-woo-tapsi-delivery-admin.php:519
 #, php-format
 msgid "Reason: \"%s\""
-msgstr "دلیل: \"%s\""
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:523
 msgid ""
@@ -682,7 +672,7 @@ msgstr ""
 #: admin/class-woo-tapsi-delivery-admin.php:551
 #, php-format
 msgid "Tapsi status update: %s."
-msgstr "وضعیت مرسوله تپسی آپدیت شد: %s."
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:561
 #, php-format
@@ -718,7 +708,7 @@ msgstr ""
 #: includes/class-woo-tapsi-delivery-api.php:345
 #: includes/class-woo-tapsi-delivery-api.php:363
 msgid "Tapsi: "
-msgstr "تپسی: "
+msgstr ""
 
 #: includes/class-woo-tapsi-delivery-api.php:341
 msgid ""
@@ -752,12 +742,12 @@ msgstr ""
 
 #: includes/class-woo-tapsi-delivery-pickup-location.php:262
 msgid "Shop"
-msgstr "فروشگاه"
+msgstr ""
 
 #: includes/class-woo-tapsi-delivery-shipping-method.php:35
 #: includes/class-woo-tapsi-delivery-shipping-method.php:116
 msgid "Tapsi"
-msgstr "تپسی"
+msgstr ""
 
 #: includes/class-woo-tapsi-delivery-shipping-method.php:36
 msgid "Allow customers to have their orders delivered via Tapsi"
@@ -765,7 +755,7 @@ msgstr ""
 
 #: includes/class-woo-tapsi-delivery-shipping-method.php:113
 msgid "Title"
-msgstr "عنوان"
+msgstr ""
 
 #: includes/class-woo-tapsi-delivery-shipping-method.php:115
 msgid "This controls the title which the user sees during checkout."
@@ -786,7 +776,7 @@ msgstr "مبدا"
 
 #: public/class-woo-tapsi-delivery-public.php:174
 msgid "Select..."
-msgstr "انتخاب کنید..."
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:184
 msgid "Destination"
@@ -794,7 +784,7 @@ msgstr "مقصد"
 
 #: public/class-woo-tapsi-delivery-public.php:185
 msgid "Choose Destination on Map"
-msgstr "مقصد را از نقشه انتخاب کنید"
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:190
 msgid ""
@@ -802,24 +792,22 @@ msgid ""
 "Tapsi Pack delivers the package to the chosen coordinates regardless of the "
 "provided address."
 msgstr ""
-"لطفا از صحت آدرس مقصد اطمینان حاصل نمائید. تپسی مرسوله‌ها را به نقطه‌ی مشخص "
-"شده روی نقشه می‌فرستد."
 
 #: public/class-woo-tapsi-delivery-public.php:218
 msgid "Day"
-msgstr "روز"
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:229
 msgid "Time"
-msgstr "بازه زمانی"
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:241
 msgid "Dropoff Instructions"
-msgstr "توضیحات برای راننده (اختیاری)"
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:257
 msgid "Rules"
-msgstr "شرایط"
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:259
 msgid "The package delivery is done within 3 hours in the same day."
@@ -848,19 +836,19 @@ msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:271
 msgid "Tapsi Pack"
-msgstr "تپسی‌پک"
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:296
 msgid "Tapsi Delivery: Please choose a valid location."
-msgstr "تپسی: یک آدرس معتبر را انتخاب کنید."
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:346
 msgid "Phone"
-msgstr "شماره تماس"
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:437
 msgid "Tapsi from:"
-msgstr "تپسی از:"
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:447
 msgid "Estimated Delivery Time:"
@@ -868,7 +856,7 @@ msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:506
 msgid "Select"
-msgstr "انتخاب"
+msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:778
 #: public/class-woo-tapsi-delivery-public.php:779
@@ -881,8 +869,8 @@ msgstr ""
 
 #: public/partials/wctd-taps-pack-maplibre-map-modal.php:113
 msgid "Choose This Location"
-msgstr "این مکان را انتخاب کنید"
+msgstr ""
 
 #: woo-tapsi-delivery.php:101
 msgid "Settings"
-msgstr "تنظیمات"
+msgstr ""

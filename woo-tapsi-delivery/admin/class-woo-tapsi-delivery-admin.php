@@ -331,15 +331,29 @@ class Woocommerce_Tapsi_Admin
 
 
         $location_id = (int)$method->get_meta("_tapsi_pickup_location");
-
+        $note = '';
 
         if ($location_id) {
-            $location = new Woocommerce_Tapsi_Pickup_Location($location_id);
-            $this->submit_delivery_order($delivery, $order, $location);
+            try {
+                $location = new Woocommerce_Tapsi_Pickup_Location($location_id);
+                $response = $this->submit_delivery_order($delivery, $order, $location);
+                $response = json_decode(wp_remote_retrieve_body($response));
+
+                if(property_exists($response, 'details') && property_exists($response->details[0], 'message')) {
+                    $note = $response->details[0]->message;
+                } else {
+                    $note = 'Tapsi Delivery Submission: ' . print_r($response, true);
+                }
+
+            } catch (Exception $e) {
+            }
         }
 
-        // Add the note to the order
-        $order->add_order_note($note);
+        if ($note == '') {
+            $order->add_order_note('Could not submit delivery!');
+        } else {
+            $order->add_order_note($note);
+        }
 
         // Clear delivery details from session. Leave the selected location.
         WC()->session->set('tapsi_external_delivery_id', '');
@@ -659,7 +673,7 @@ class Woocommerce_Tapsi_Admin
         Woocommerce_Tapsi_Delivery        $delivery,
         WC_Order                          $order,
         Woocommerce_Tapsi_Pickup_Location $sender_location
-    ): void
+    ): array
     {
         $receiver_location_description = $order->get_shipping_city() . '، ' .
             $order->get_shipping_address_1() . '، ' .
@@ -707,6 +721,6 @@ class Woocommerce_Tapsi_Admin
         $time_slot_id = $delivery->get_time_slot_id();
         $preview_token = $delivery->get_preview_token();
 
-        $submit_response = WCDD()->api->submit_delivery_order($receiver, $sender, $pack, $time_slot_id, $preview_token);
+        return WCDD()->api->submit_delivery_order($receiver, $sender, $pack, $time_slot_id, $preview_token);
     }
 }

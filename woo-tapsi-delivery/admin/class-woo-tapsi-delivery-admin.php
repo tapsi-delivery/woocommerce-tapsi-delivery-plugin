@@ -341,8 +341,10 @@ class Woocommerce_Tapsi_Admin
 
                 if(property_exists($response, 'details') && property_exists($response->details[0], 'message')) {
                     $note = $response->details[0]->message;
+                } elseif(property_exists($response, 'successfulOrderSubmission')) {
+                    $note = __('Tapsi Delivery Submitted Successfully. ID: ', 'woo-tapsi-delivery') . $response->successfulOrderSubmission->orderId;
                 } else {
-                    $note = 'Tapsi Delivery Submission: ' . print_r($response, true);
+                    $note =  __('Tapsi Delivery Submission: ', 'woo-tapsi-delivery') . print_r($response, true);
                 }
 
             } catch (Exception $e) {

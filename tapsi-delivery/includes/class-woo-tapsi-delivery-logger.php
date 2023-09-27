@@ -39,7 +39,7 @@ class Woocommerce_Tapsi_Logger
      * @var array
      */
     public $context = array(
-        'source' => 'tapsi-delivery'
+        'source' => 'woo-tapsi-delivery'
     );
 
     /**

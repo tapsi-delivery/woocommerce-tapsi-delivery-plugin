@@ -160,7 +160,7 @@ class Woocommerce_Tapsi_Public
 					//hidden field + display for single location
 					woocommerce_form_field('tapsi_pickup_location', array(
 						'type' => 'hidden',
-						'label' => __('Origin', 'tapsi-delivery'),
+						'label' => __('Origin', 'woo-tapsi-delivery'),
 						'class' => array('wcdd-pickup-location-select', 'update_totals_on_change'), // add 'wc-enhanced-select'?
 						'label_class' => 'wcts-tapsi-pack-checkout-form-label',
 						'default' => $selected_location,
@@ -170,8 +170,8 @@ class Woocommerce_Tapsi_Public
 				} else {
 					woocommerce_form_field('tapsi_pickup_location', array(
 						'type' => 'select',
-						'label' => __('Origin', 'tapsi-delivery'),
-						'placeholder' => __('Select...', 'tapsi-delivery'),
+						'label' => __('Origin', 'woo-tapsi-delivery'),
+						'placeholder' => __('Select...', 'woo-tapsi-delivery'),
 						'label_class' => 'wcts-tapsi-pack-checkout-form-label',
 						'class' => array('wcdd-pickup-location-select', 'update_totals_on_change'), // add 'wc-enhanced-select'?
 						'required' => true,
@@ -181,13 +181,13 @@ class Woocommerce_Tapsi_Public
 				}
 
 				echo '<section class="wctd-tapsi-pack-destination-shard">';
-				echo '<p class="wcts-tapsi-pack-checkout-form-label">'.__('Destination', 'tapsi-delivery').'</label>&nbsp;<abbr class="required" title="' . esc_attr__( 'required', 'woocommerce' ) . '">*</abbr></p>';// open map modal with this button
-				echo '<button id="wctd-tapsi-pack-show-map-button-checkout-page" type="button">'.__('Choose Destination on Map', 'tapsi-delivery').'</button>';
+				echo '<p class="wcts-tapsi-pack-checkout-form-label">'.__('Destination', 'woo-tapsi-delivery').'</label>&nbsp;<abbr class="required" title="' . esc_attr__( 'required', 'woocommerce' ) . '">*</abbr></p>';// open map modal with this button
+				echo '<button id="wctd-tapsi-pack-show-map-button-checkout-page" type="button">'.__('Choose Destination on Map', 'woo-tapsi-delivery').'</button>';
 				echo '<div id="wctd-tapsi-pack-maplibre-map-public-preview-img-container">';
 				echo '<img src="https://tap30.services/styles/passenger/static/auto/500x500@2x.png?path='.$this->get_path().'&stroke=black&width=200&padding=50000" width="500" height="500"  id="wctd-tapsi-pack-maplibre-map-public-preview-img" alt="destination-preview"/>';
 				echo '<img src="https://static.tapsi.cab/pack/wp-plugin/map/dot.svg" width="24" height="24" id="wctd-tapsi-pack-maplibre-map-public-preview-img-dot"/>';
 				echo '</div>';
-				echo '<p id="wctd-tapsi-pack-maplibre-map-public-warning"><img src="https://static.tapsi.cab/pack/wp-plugin/map/warning.svg" width="24" height="24" alt="!!!"/>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates regardless of the provided address.', 'tapsi-delivery').'</p>';
+				echo '<p id="wctd-tapsi-pack-maplibre-map-public-warning"><img src="https://static.tapsi.cab/pack/wp-plugin/map/warning.svg" width="24" height="24" alt="!!!"/>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates regardless of the provided address.', 'woo-tapsi-delivery').'</p>';
 				echo '</section>';
 
                 woocommerce_form_field('wctd_tapsi_destination_lat', array(
@@ -215,7 +215,7 @@ class Woocommerce_Tapsi_Public
 					$delivery_days = $location->get_delivery_days();
 					woocommerce_form_field('tapsi_delivery_date', array(
 						'type' => 'select',
-						'label' => __('Day', 'tapsi-delivery'),
+						'label' => __('Day', 'woo-tapsi-delivery'),
 						'class' => array('wcdd-delivery-date-select', 'update_totals_on_change'),
 						'required' => true,
 						'default' => WC()->session->get('tapsi_delivery_date'),
@@ -226,7 +226,7 @@ class Woocommerce_Tapsi_Public
 					$delivery_times_for_date = $this->get_delivery_times_for_date($selected_date);
 					woocommerce_form_field('tapsi_delivery_time', array(
 						'type' => 'select',
-						'label' => __('Time', 'tapsi-delivery'),
+						'label' => __('Time', 'woo-tapsi-delivery'),
 						'class' => array('wcdd-delivery-time-select', 'update_totals_on_change'),
 						'required' => true,
 						'default' => WC()->session->get('tapsi_delivery_time'),
@@ -238,7 +238,7 @@ class Woocommerce_Tapsi_Public
 					// Output the Dropoff Instructions field
 					woocommerce_form_field('tapsi_dropoff_instructions', array(
 						'type' => 'text',
-						'label' => __('Dropoff Instructions', 'tapsi-delivery'),
+						'label' => __('Dropoff Instructions', 'woo-tapsi-delivery'),
 						'class' => array('wcdd-dropoff-instructions', 'update_totals_on_change'),
 						'default' => WC()->session->get('tapsi_dropoff_instructions'),
 					), WC()->checkout->get_value('tapsi_dropoff_instructions'));
@@ -254,12 +254,12 @@ class Woocommerce_Tapsi_Public
 				// Render the rules when the user has seen the price
 				if (!empty($delivery_times_for_date)) {
 					echo '<section>
-						<p>' . __( 'Rules', 'tapsi-delivery' ) . '</p>
+						<p>' . __( 'Rules', 'woo-tapsi-delivery' ) . '</p>
 						<ul>
-							<li>' . __( 'The package delivery is done within 3 hours in the same day.', 'tapsi-delivery' ) . '</li>
-							<li>' . __( 'Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'tapsi-delivery' ) . '</li>
-							<li>' . __( 'The allowed dimensions of the packages are 50cmx50cmx50cm.', 'tapsi-delivery' ) . '</li>
-							<li>' . __( 'After starting the trip, the driver\'s information and the approximate arrival time will be sent to you via SMS.', 'tapsi-delivery' ) . '</li>
+							<li>' . __( 'The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery' ) . '</li>
+							<li>' . __( 'Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'woo-tapsi-delivery' ) . '</li>
+							<li>' . __( 'The allowed dimensions of the packages are 50cmx50cmx50cm.', 'woo-tapsi-delivery' ) . '</li>
+							<li>' . __( 'After starting the trip, the driver\'s information and the approximate arrival time will be sent to you via SMS.', 'woo-tapsi-delivery' ) . '</li>
 						</ul>
 					 </section>';
 				}
@@ -268,7 +268,7 @@ class Woocommerce_Tapsi_Public
 					echo '<div id="wcdd-delivery-options-powered">';
 					echo '<a id="wcdd-delivery-options-powered-tapsi-pack-link" target="_blank" href="' . "https://pack.tapsi.ir/landing" .'" >'; // TODO: MARYAM think about this link
 					echo '<img src="' . plugin_dir_url(__FILE__) . '/img/tapsi-pack.png" alt="Tapsi" width="10px" height="10px"/>';
-					echo '<p>' . __('Powered By', 'tapsi-delivery') . " " . __('Tapsi Pack', 'tapsi-delivery') . '</p>';
+					echo '<p>' . __('Powered By', 'woo-tapsi-delivery') . " " . __('Tapsi Pack', 'woo-tapsi-delivery') . '</p>';
 					echo '</a>';
 					echo '</div>';
 				}
@@ -293,7 +293,7 @@ class Woocommerce_Tapsi_Public
 
             // Fail if a location is not selected or a quote hasn't been retrieved
             if (empty($external_delivery_id)) {
-                wc_add_notice(__('Tapsi Delivery: Please choose a valid location.', 'tapsi-delivery'), 'error');
+                wc_add_notice(__('Tapsi Delivery: Please choose a valid location.', 'woo-tapsi-delivery'), 'error');
                 return;
             }
 
@@ -303,7 +303,7 @@ class Woocommerce_Tapsi_Public
             // $response = WCDD()->api->get_delivery_status( $delivery );
             // // Fail if the delivery status request isn't successful. This could indicate a bad delivery ID or an expired quote.
             // if ( wp_remote_retrieve_response_code( $response ) != 200 ) {
-            // 	wc_add_notice( __( 'There was a problem creating your Tapsi Delivery. Please try again.', 'tapsi-delivery' ), 'error' );
+            // 	wc_add_notice( __( 'There was a problem creating your Tapsi Delivery. Please try again.', 'woo-tapsi-delivery' ), 'error' );
             // 	return;
             // }
         }
@@ -434,7 +434,7 @@ class Woocommerce_Tapsi_Public
             if ('shipping' == $key) {
                 // Add the row with information on the pickup location
                 $new_total_rows['tapsi_pickup_location'] = array(
-                    'label' => __('Tapsi from:', 'tapsi-delivery'),
+                    'label' => __('Tapsi from:', 'woo-tapsi-delivery'),
                     'value' => $location->get_name() . '<br>' . $location->get_formatted_address(),
                 );
                 if ($delivery && $delivery->get_dropoff_time()) {
@@ -444,7 +444,7 @@ class Woocommerce_Tapsi_Public
                     $displayed_dropoff_time = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $time + $gmt_offset);
 
                     $new_total_rows['tapsi_delivery_time'] = array(
-                        'label' => __('Estimated Delivery Time:', 'tapsi-delivery'),
+                        'label' => __('Estimated Delivery Time:', 'woo-tapsi-delivery'),
                         'value' => $displayed_dropoff_time,
                     );
                 }
@@ -503,7 +503,7 @@ class Woocommerce_Tapsi_Public
     public function generate_locations_options($locations)
     {
         // Add a placeholder option
-        $options = array(0 => __('Select', 'tapsi-delivery'));
+        $options = array(0 => __('Select', 'woo-tapsi-delivery'));
 
         foreach ($locations as $location) {
             $options[$location->get_id()] = apply_filters('wcdd_location_option_name', $location->get_name() . ' - ' . $location->get_formatted_address(), $location);
@@ -722,7 +722,7 @@ class Woocommerce_Tapsi_Public
 //
 //                if ($tip_amount > 0) {
 //                    // Only add the fee if there is a tip attached
-//                    WC()->cart->add_fee(__('Dasher Tip', 'tapsi-delivery'), $tip_amount);
+//                    WC()->cart->add_fee(__('Dasher Tip', 'woo-tapsi-delivery'), $tip_amount);
 //                }
 //            }
 //        }
@@ -775,8 +775,8 @@ class Woocommerce_Tapsi_Public
         $raw_response = WCDD()->api->get_preview($origin_lat, $origin_long, $destination_lat, $destination_long, $date_timestamp);
 
         if (is_wp_error($raw_response)) {
-	        wc_add_notice(__('Failed to fetch delivery times. Please try again later.', 'tapsi-delivery'), 'error');
-            echo __('Failed to fetch delivery times. Please try again later.', 'tapsi-delivery');
+	        wc_add_notice(__('Failed to fetch delivery times. Please try again later.', 'woo-tapsi-delivery'), 'error');
+            echo __('Failed to fetch delivery times. Please try again later.', 'woo-tapsi-delivery');
         } else {
             $data = json_decode(wp_remote_retrieve_body($raw_response));
 

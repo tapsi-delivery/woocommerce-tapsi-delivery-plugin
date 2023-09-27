@@ -109,8 +109,8 @@
 		</style>';
 	echo '<div id="wctd-tapsi-pack-maplibre-map-public-root-id">';
 	echo '<div id="wctd-tapsi-pack-maplibre-map-public-container-id"></div>';
-	echo '<button id="wctd-tapsi-pack-mapliblre-map-public-close-modal-button" type="button">'.__('X','tapsi-delivery').'</button>';
-	echo '<button id="wctd-tapsi-pack-mapliblre-map-public-submit-location-button" type="button">'.__('Choose This Location','tapsi-delivery').'</button>';
+	echo '<button id="wctd-tapsi-pack-mapliblre-map-public-close-modal-button" type="button">'.__('X','woo-tapsi-delivery').'</button>';
+	echo '<button id="wctd-tapsi-pack-mapliblre-map-public-submit-location-button" type="button">'.__('Choose This Location','woo-tapsi-delivery').'</button>';
 	echo '<img id="wctd-tapsi-pack-maplibre-map-public-center-marker-id" src="https://static.tapsi.cab/pack/wp-plugin/map/map-center-marker.svg"/>';
 	echo '</div>';
 

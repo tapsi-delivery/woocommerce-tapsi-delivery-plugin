@@ -51,15 +51,15 @@
 		 * Adds Copy buttons for some inputs
 		 */
 		function addCopyButtons() {
-			// $('.has-copy-button').after('<button class="copy-button">' + __('Copy', 'tapsi-delivery') + '</button>');
+			// $('.has-copy-button').after('<button class="copy-button">' + __('Copy', 'woo-tapsi-delivery') + '</button>');
 			$('.copy-button').on( 'click', function(e) {
 				e.preventDefault();
 				var $button = $(this), $input = $button.siblings('.has-copy-button'), $row = $button.parents('.form-row');
 
-				$('.copied').removeClass('copied').find('.copy-button').text( __('Copy', 'tapsi-delivery') );
+				$('.copied').removeClass('copied').find('.copy-button').text( __('Copy', 'woo-tapsi-delivery') );
 				navigator.clipboard.writeText( $input.val() );
 				$row.addClass('copied');
-				$button.text( __('Copied!', 'tapsi-delivery') );
+				$button.text( __('Copied!', 'woo-tapsi-delivery') );
 			});
 		}
 		addCopyButtons();

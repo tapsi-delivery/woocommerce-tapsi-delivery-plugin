@@ -37,7 +37,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     public function __construct()
     {
         $this->id = 'woocommerce-tapsi';
-        $this->label = __('Tapsi Delivery', 'tapsi-delivery');
+        $this->label = __('Tapsi Delivery', 'woo-tapsi-delivery');
 
         // Define all hooks instead of inheriting from parent
         add_filter('woocommerce_settings_tabs_array', array($this, 'add_settings_page'), 20);
@@ -55,12 +55,12 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     public function get_sections()
     {
         $sections = array(
-//            '' => __('Login', 'tapsi-delivery'),
-            'login' => __('Login', 'tapsi-delivery'),
-//            '' => __('Settings', 'tapsi-delivery'),
-//            'webhooks' => __('Webhooks', 'tapsi-delivery'),
-            'locations' => __('My Addresses', 'tapsi-delivery'),
-	        'tracking' => __('Tracking Orders', 'tapsi-delivery'),
+//            '' => __('Login', 'woo-tapsi-delivery'),
+            'login' => __('Login', 'woo-tapsi-delivery'),
+//            '' => __('Settings', 'woo-tapsi-delivery'),
+//            'webhooks' => __('Webhooks', 'woo-tapsi-delivery'),
+            'locations' => __('My Addresses', 'woo-tapsi-delivery'),
+	        'tracking' => __('Tracking Orders', 'woo-tapsi-delivery'),
         );
 
         return apply_filters('woocommerce_get_sections_' . $this->id, $sections);
@@ -176,7 +176,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
             if (property_exists($response, 'result')) {
                 if ($response->result == 'ERR') {
                     $should_save = false;
-                    $error_message = __($response->data->message, 'tapsi-delivery');
+                    $error_message = __($response->data->message, 'woo-tapsi-delivery');
                     WC_Admin_Settings::add_error($error_message);
                 } elseif ($response->result == 'OK') {
                     update_option('woocommerce_tapsi_user_phone', $tapsi_phone, true);
@@ -195,11 +195,11 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
             if (property_exists($authenticated_user, 'result')) {
                 if ($authenticated_user->result == 'ERR') {
                     $should_save = false;
-                    $error_message = __($authenticated_user->data->message, 'tapsi-delivery');
+                    $error_message = __($authenticated_user->data->message, 'woo-tapsi-delivery');
                     WC_Admin_Settings::add_error($error_message);
                 } elseif ($authenticated_user->result == 'OK') {
                     wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login'));
-                    $message = __('Phone number' . $tapsi_phone . ' was verified successfully!', 'tapsi-delivery');
+                    $message = __('Phone number' . $tapsi_phone . ' was verified successfully!', 'woo-tapsi-delivery');
                     WC_Admin_Settings::add_message($message);
                 }
             }
@@ -241,7 +241,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
             $updated = update_post_meta($toggle_hours_location->ID, 'has_hours', !$enabled);
             // Display a message to the user
             if ($updated) {
-                $message = sprintf(__('%s hours %s.', 'tapsi-delivery'), $toggle_hours_location->post_title, !$enabled ? __('enabled', 'tapsi-delivery') : __('disabled', 'tapsi-delivery'));
+                $message = sprintf(__('%s hours %s.', 'woo-tapsi-delivery'), $toggle_hours_location->post_title, !$enabled ? __('enabled', 'woo-tapsi-delivery') : __('disabled', 'woo-tapsi-delivery'));
                 printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message);
                 return true;
             }
@@ -265,7 +265,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
             $updated = wp_update_post(array('ID' => $toggle_enabled_location->ID, 'post_status' => !$enabled ? 'publish' : 'draft'));
             // Display a message to the user
             if ($updated) {
-                $message = sprintf('%s %s.', $toggle_enabled_location->post_title, !$enabled ? __('enabled', 'tapsi-delivery') : __('disabled', 'tapsi-delivery'));
+                $message = sprintf('%s %s.', $toggle_enabled_location->post_title, !$enabled ? __('enabled', 'woo-tapsi-delivery') : __('disabled', 'woo-tapsi-delivery'));
                 printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message);
                 return true;
             }
@@ -319,14 +319,14 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 'locations' => $location_localized,
                 'wc_tapsi_pickup_locations_nonce' => wp_create_nonce('wc_tapsi_pickup_locations_nonce'),
                 'strings' => array(
-                    'unload_confirmation_msg' => __('Your changed data will be lost if you leave this page without saving.', 'tapsi-delivery'),
-                    'save_changes_prompt' => __('Do you wish to save your changes first? Your changed data will be discarded if you choose to cancel.', 'tapsi-delivery'),
-                    'save_failed' => __('Your changes were not saved. Please retry.', 'tapsi-delivery'),
-                    'delete_confirmation_msg' => __('Are you sure you want to delete this pickup location?', 'tapsi-delivery'),
-                    'add_method_failed' => __('Pickup location could not be added. Please retry.', 'tapsi-delivery'),
-                    'yes' => __('Yes', 'tapsi-delivery'),
-                    'no' => __('No', 'tapsi-delivery'),
-                    'default_location_name' => __('Location', 'tapsi-delivery'),
+                    'unload_confirmation_msg' => __('Your changed data will be lost if you leave this page without saving.', 'woo-tapsi-delivery'),
+                    'save_changes_prompt' => __('Do you wish to save your changes first? Your changed data will be discarded if you choose to cancel.', 'woo-tapsi-delivery'),
+                    'save_failed' => __('Your changes were not saved. Please retry.', 'woo-tapsi-delivery'),
+                    'delete_confirmation_msg' => __('Are you sure you want to delete this pickup location?', 'woo-tapsi-delivery'),
+                    'add_method_failed' => __('Pickup location could not be added. Please retry.', 'woo-tapsi-delivery'),
+                    'yes' => __('Yes', 'woo-tapsi-delivery'),
+                    'no' => __('No', 'woo-tapsi-delivery'),
+                    'default_location_name' => __('Location', 'woo-tapsi-delivery'),
                 ),
             )
         );
@@ -373,7 +373,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 			$deleted = wp_delete_post( intval( $_GET['delete_location'] ) );
 			if ( $deleted ) {
 				// If the post deletion was successful, show the message. (Otherwise this is probably a refresh)
-				$message = sprintf( __( 'Location "%s" deleted.', 'tapsi-delivery' ), $deleted->post_title );
+				$message = sprintf( __( 'Location "%s" deleted.', 'woo-tapsi-delivery' ), $deleted->post_title );
 				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message );
 				return true;
 			}
@@ -423,27 +423,27 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      */
     public function output_webhooks_screen()
     {
-        printf('<h1>%s</h1>', __('Webhooks Configuration', 'tapsi-delivery'));
+        printf('<h1>%s</h1>', __('Webhooks Configuration', 'woo-tapsi-delivery'));
         $header = get_transient('woocommerce_tapsi_auth_header');
 
         if (!empty($header)) {
-            printf('<p>%s</p>', __('Your authorization header has been generated.', 'tapsi-delivery'));
-            printf('<h2>%s</h2>', __('This information will only be displayed once.', 'tapsi-delivery'));
+            printf('<p>%s</p>', __('Your authorization header has been generated.', 'woo-tapsi-delivery'));
+            printf('<h2>%s</h2>', __('This information will only be displayed once.', 'woo-tapsi-delivery'));
             echo '<ol>';
-            printf('<li>%s</li>', __('Visit the <a target="_blank" href="https://developer.tapsi.com/portal/integration/drive/webhooks">Webhooks configuration in the Tapsi Developer Portal</a>.', 'tapsi-delivery'));
-            printf('<li>%s</li>', __('Click the button to configure a Sandbox or Production endpoint.', 'tapsi-delivery'));
-            printf('<li>%s</li>', __('Copy the values below into the form and click <strong>Configure Endpoint</strong>.', 'tapsi-delivery'));
+            printf('<li>%s</li>', __('Visit the <a target="_blank" href="https://developer.tapsi.com/portal/integration/drive/webhooks">Webhooks configuration in the Tapsi Developer Portal</a>.', 'woo-tapsi-delivery'));
+            printf('<li>%s</li>', __('Click the button to configure a Sandbox or Production endpoint.', 'woo-tapsi-delivery'));
+            printf('<li>%s</li>', __('Copy the values below into the form and click <strong>Configure Endpoint</strong>.', 'woo-tapsi-delivery'));
             echo '</ol>';
 
-            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Webhook Delivery URL', 'tapsi-delivery'), rest_url('wc/v3/tapsi/status_updated'), __('Copy', 'tapsi-delivery'));
-            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Authentication Type', 'tapsi-delivery'), 'Basic', __('Copy', 'tapsi-delivery'));
-            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Authorization Header', 'tapsi-delivery'), $header, __('Copy', 'tapsi-delivery'));
+            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Webhook Delivery URL', 'woo-tapsi-delivery'), rest_url('wc/v3/tapsi/status_updated'), __('Copy', 'woo-tapsi-delivery'));
+            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Authentication Type', 'woo-tapsi-delivery'), 'Basic', __('Copy', 'woo-tapsi-delivery'));
+            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Authorization Header', 'woo-tapsi-delivery'), $header, __('Copy', 'woo-tapsi-delivery'));
             delete_transient('woocommerce_tapsi_auth_header');
         } else {
 
-            printf('<p>%s</p>', __('Tapsi webhooks are used to update your WooCommerce orders with delivery status from Tapsi in real-time as the order is being delivered.', 'tapsi-delivery'));
-            printf('<p>%s</p>', __('Use this page to generate WooCommerce credentials that you can paste into the Tapsi developer portal to connect your application.', 'tapsi-delivery'));
-            printf('<p>%s <a href="%s"><em>%s</em></a></p>', __('Previously generated credentials can be managed under', 'tapsi-delivery'), admin_url('admin.php?page=wc-settings&tab=advanced&section=keys'), __('WooCommerce Settings > Advanced > REST API', 'tapsi-delivery'));
+            printf('<p>%s</p>', __('Tapsi webhooks are used to update your WooCommerce orders with delivery status from Tapsi in real-time as the order is being delivered.', 'woo-tapsi-delivery'));
+            printf('<p>%s</p>', __('Use this page to generate WooCommerce credentials that you can paste into the Tapsi developer portal to connect your application.', 'woo-tapsi-delivery'));
+            printf('<p>%s <a href="%s"><em>%s</em></a></p>', __('Previously generated credentials can be managed under', 'woo-tapsi-delivery'), admin_url('admin.php?page=wc-settings&tab=advanced&section=keys'), __('WooCommerce Settings > Advanced > REST API', 'woo-tapsi-delivery'));
             $auth_url = get_site_url() . '/wc-auth/v1/authorize';
             $auth_url = add_query_arg(array(
                 'app_name' => 'Tapsi',
@@ -453,7 +453,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 'callback_url' => urlencode(rest_url('wc/v3/tapsi/save_auth_header')),
             ), $auth_url);
 
-            printf('<a href="%s" class="button">%s</a>', esc_url($auth_url), __('Generate Credentials', 'tapsi-delivery'));
+            printf('<a href="%s" class="button">%s</a>', esc_url($auth_url), __('Generate Credentials', 'woo-tapsi-delivery'));
         }
     }
 }

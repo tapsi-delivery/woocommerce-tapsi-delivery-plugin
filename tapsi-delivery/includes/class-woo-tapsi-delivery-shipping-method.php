@@ -32,8 +32,8 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
     {
         $this->id = 'woocommerce_tapsi';
         $this->instance_id = absint($instance_id);
-        $this->method_title = __('Tapsi', 'tapsi-delivery');
-        $this->method_description = __('Allow customers to have their orders delivered via Tapsi', 'tapsi-delivery');
+        $this->method_title = __('Tapsi', 'woo-tapsi-delivery');
+        $this->method_description = __('Allow customers to have their orders delivered via Tapsi', 'woo-tapsi-delivery');
         $this->supports = array(
             'shipping-zones',
             'instance-settings',

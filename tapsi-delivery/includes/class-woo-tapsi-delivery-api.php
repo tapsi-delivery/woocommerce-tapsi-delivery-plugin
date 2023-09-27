@@ -338,40 +338,40 @@ class Woocommerce_Tapsi_API
                 case 400:
                     // The request was syntactically invalid
                     if (isset($body->field_errors[0]->field) && $body->field_errors[0]->field == 'dropoff_phone_number') {
-                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __(' Make sure the phone number is valid and belongs to the same country as the address.', 'tapsi-delivery'), 'notice');
+                        wc_add_notice(__('Tapsi: ', 'woo-tapsi-delivery') . __(' Make sure the phone number is valid and belongs to the same country as the address.', 'woo-tapsi-delivery'), 'notice');
                     } elseif (isset($body->field_errors[0]->field) && $body->field_errors[0]->field == 'dropoff_address') {
-                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'tapsi-delivery'), 'notice');
+                        wc_add_notice(__('Tapsi: ', 'woo-tapsi-delivery') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'woo-tapsi-delivery'), 'notice');
                     } else {
-                        wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __($body->details[0]->message, 'tapsi-delivery'), 'notice');
+                        wc_add_notice(__('Tapsi: ', 'woo-tapsi-delivery') . __($body->details[0]->message, 'woo-tapsi-delivery'), 'notice');
                     }
 
                     break;
                 case 401:
                 case 403:
-                    wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'tapsi-delivery'), 'notice');
+                    wc_add_notice(__('Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi.', 'woo-tapsi-delivery'), 'notice');
                     break;
                 case 404:
                     // Resource doesn't exist
-                    wc_add_notice(__('Tapsi: Resource does not exist', 'tapsi-delivery'), 'notice');
+                    wc_add_notice(__('Tapsi: Resource does not exist', 'woo-tapsi-delivery'), 'notice');
                     break;
                 case 409:
                     // System state doesn't allow operation to proceed
-                    // wc_add_notice( __( 'Tapsi: ', 'tapsi-delivery' ) . __( $body->message, 'tapsi-delivery' ), 'notice' );
+                    // wc_add_notice( __( 'Tapsi: ', 'woo-tapsi-delivery' ) . __( $body->message, 'woo-tapsi-delivery' ), 'notice' );
                     break;
                 case 422:
                     // Logical validation error
-                    wc_add_notice(__('Tapsi: ', 'tapsi-delivery') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'tapsi-delivery'), 'notice');
+                    wc_add_notice(__('Tapsi: ', 'woo-tapsi-delivery') . __('Delivery is not available from this pickup location to your selected address. Please enter another dropoff address or select a different delivery method.', 'woo-tapsi-delivery'), 'notice');
                     // wc_add_notice( wc_print_r( $body->message, true ) );
                     break;
                 case 429:
                     // Too many requests
-                    wc_add_notice(__('Tapsi: Too many requests', 'tapsi-delivery'), 'notice');
+                    wc_add_notice(__('Tapsi: Too many requests', 'woo-tapsi-delivery'), 'notice');
                     break;
             }
 
             // Add a notice for server connectivity issues
             if (500 >= $response_code && $response_code > 600) {
-                wc_add_notice(__('There was a problem communicating with Tapsi. Please try again later.', 'tapsi-delivery'), 'notice');
+                wc_add_notice(__('There was a problem communicating with Tapsi. Please try again later.', 'woo-tapsi-delivery'), 'notice');
             }
         }
 

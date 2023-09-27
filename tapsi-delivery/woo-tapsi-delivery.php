@@ -70,7 +70,7 @@ function WCDD() {
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		// If WooCommerce is not active, display a notice.
 		add_action( 'admin_notices', function() {
-			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Tapsi Delivery requires WooCommerce to be installed and active.', 'tapsi-delivery' ) ); 
+			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Tapsi Delivery requires WooCommerce to be installed and active.', 'woo-tapsi-delivery' ) ); 
 		} );
 		return false;
 	}
@@ -98,7 +98,7 @@ add_action( 'plugins_loaded', 'WCDD' );
  * @return array Filtered links
  */
 function wcdd_add_action_links ( $links ) {
-	array_unshift( $links, sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi' ), __( 'Settings', 'tapsi-delivery' ) ) );
+	array_unshift( $links, sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi' ), __( 'Settings', 'woo-tapsi-delivery' ) ) );
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wcdd_add_action_links' );

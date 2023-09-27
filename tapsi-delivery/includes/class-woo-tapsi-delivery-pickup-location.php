@@ -259,7 +259,7 @@ class Woocommerce_Tapsi_Pickup_Location
      */
     public function get_formatted_address()
     {
-		if ($this->data['should_hide']) return __('Shop', 'tapsi-delivery');
+		if ($this->data['should_hide']) return __('Shop', 'woo-tapsi-delivery');
         if (empty($this->data['address_1'])) return '';
         $formatted = '';
         $formatted .= $this->data['address_1'];

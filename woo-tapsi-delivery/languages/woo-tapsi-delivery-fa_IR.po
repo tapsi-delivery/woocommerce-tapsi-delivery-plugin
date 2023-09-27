@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Tapsi Delivery\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 10:07+0330\n"
-"PO-Revision-Date: 2023-09-27 10:34+0000\n"
+"PO-Revision-Date: 2023-09-27 10:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: فارسی\n"
 "Language: fa_IR\n"
@@ -832,16 +832,19 @@ msgid ""
 "door of the building and the driver will wait for you for a maximum of 5 "
 "minutes."
 msgstr ""
+"با توجه به ارسال مرسوله‌ها با خودرو، پس از رسیدن سفیر تا ۵ دقیقه بسته را "
+"جلوی ساختمان دریافت کنید."
 
 #: public/class-woo-tapsi-delivery-public.php:261
 msgid "The allowed dimensions of the packages are 50cmx50cmx50cm."
-msgstr ""
+msgstr "ابعداد مجاز بسته‌ها، ۵۰×۵۰×۵۰ سانتی‌متر است."
 
 #: public/class-woo-tapsi-delivery-public.php:262
 msgid ""
 "After starting the trip, the driver's information and the approximate "
 "arrival time will be sent to you via SMS."
 msgstr ""
+"پس از ارسال مرسوله، مشخصات راننده و زمان حدودی تحویل برای شما پیامک خواهد شد."
 
 #: public/class-woo-tapsi-delivery-public.php:271
 msgid "Powered By"

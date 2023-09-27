@@ -350,7 +350,11 @@ class Woocommerce_Tapsi_Pickup_Location
             if (isset($data->availableDatesTimestamp) && is_array($data->availableDatesTimestamp)) {
                 foreach ($data->availableDatesTimestamp as $timestamp) {
                     $timestamp /= 1000;
-                    $timeslot_display = date('m-d', $timestamp);
+
+                    $j_date = new jDateTime();
+                    $timestamp = time(); // Your Unix timestamp here
+                    $timeslot_display = $j_date->date('m-d', $timestamp);
+
                     $days[$timestamp] = $timeslot_display;
                 }
             } else {

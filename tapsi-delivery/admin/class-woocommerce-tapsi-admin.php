@@ -520,7 +520,7 @@ class Woocommerce_Tapsi_Admin
                                 'wc_status' => 'cancelled',
                             ),
                             'DELIVERY_RETURN_INITIALIZED' => array(
-                                'note' => __('The Dasher was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'tapsi-delivery'),
+                                'note' => __('The Dasher was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DASHER_CONFIRMED_RETURN_ARRIVAL' => array(

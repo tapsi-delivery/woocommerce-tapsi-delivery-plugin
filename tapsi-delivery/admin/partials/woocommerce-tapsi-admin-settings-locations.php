@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php _e( 'Pickup Locations', 'tapsi-delivery' ); ?>
 	<a href="<?php echo admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations&location_id=new' ); ?>" class="page-title-action"><?php esc_html_e( 'Add pickup location', 'tapsi-delivery' ); ?></a>
 </h2>
-<p><?php echo __( 'A pickup location is where an order can be picked up by a Dasher.', 'tapsi-delivery' ) . '<br>' . __( 'Enabled locations can be selected by users at checkout during a location’s open hours.', 'tapsi-delivery' ); ?></p>
+<p><?php echo __( 'A pickup location is where an order can be picked up by a Dasher.', 'tapsi-delivery' ) . '<br>' . __( 'Enabled locations can be selected by users at checkout during a location\'s open hours.', 'tapsi-delivery' ); ?></p>
 <table class="wc-tapsi-locations widefat">
 	<thead>
 		<tr>
@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<td class="wc-tapsi-location-name">
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations&location_id=' ) ); ?>{{ data.location_id }}">{{ data.location_name }}</a>
 			<div class="row-actions">
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations&location_id=' ) ); ?>{{ data.location_id }}"><?php _e( 'Edit', 'tapsi-delivery' ); ?></a> | 
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations&location_id=' ) ); ?>{{ data.location_id }}"><?php _e( 'Edit', 'tapsi-delivery' ); ?></a> |
 				<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations' ), 'delete_location' ) ); ?>&amp;delete_location={{ data.location_id }}" class="wc-tapsi-location-delete"><?php _e( 'Delete', 'tapsi-delivery' ); ?></a>
 				<!-- <a href="admin.php?page=wc-settings&amp;tab=woocommerce-tapsi&amp;section=locations&amp;location_id={{ data.location_id }}"><?php _e( 'Edit', 'tapsi-delivery' ); ?></a> | <a href="admin.php?page=wc-settings&amp;tab=woocommerce-tapsi&amp;section=locations&amp;location_delete={{ data.location_id }}" class="wc-tapsi-location-delete"><?php _e( 'Delete', 'tapsi-delivery' ); ?></a> -->
 			</div>

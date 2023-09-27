@@ -143,7 +143,7 @@ return array(
 			'quoted_rate' => __( 'Charge customer the quoted Tapsi rate', 'tapsi-delivery' ),
 //			'fixed_rate' => __( 'Charge customer a fixed rate', 'tapsi-delivery' ),
 		),
-		'desc_tip' => __( 'Choose how the customer will be charged for deliveries. Note: Tapsi will collect all delivery fees and tips directly from the shop owner. You can choose to offer free delivery or pass through any portion of Tapsi’s quoted delivery fee to the customer.', 'tapsi-delivery' ),
+		'desc_tip' => __( 'Choose how the customer will be charged for deliveries.', 'tapsi-delivery' ),
 	),
 	array(
 		'id' => $prefix . 'delivery_fee',

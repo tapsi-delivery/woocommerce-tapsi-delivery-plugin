@@ -27,9 +27,9 @@ class Woocommerce_Tapsi_Pickup_Location
         'ID' => 0,
         'name' => '',
         'address_1' => '',
-		'latitude' => '',
-		'longitude' => '',
-		'should_hide' => true,
+        'latitude' => '',
+        'longitude' => '',
+        'should_hide' => true,
         'city' => '',
         'postcode' => '',
         'country' => '',
@@ -259,7 +259,7 @@ class Woocommerce_Tapsi_Pickup_Location
      */
     public function get_formatted_address()
     {
-		if ($this->data['should_hide']) return __('Shop', 'woo-tapsi-delivery');
+        if ($this->data['should_hide']) return __('Shop', 'woo-tapsi-delivery');
         if (empty($this->data['address_1'])) return '';
         $formatted = '';
         $formatted .= $this->data['address_1'];
@@ -348,14 +348,12 @@ class Woocommerce_Tapsi_Pickup_Location
 
         if ($data) {
             if (isset($data->availableDatesTimestamp) && is_array($data->availableDatesTimestamp)) {
-                foreach ($data->availableDatesTimestamp as $timestamp) {
-                    $timestamp /= 1000;
+                foreach ($data->availableDatesTimestamp as $int_timestamp) {
+                    $int_timestamp /= 1000;
+                    $obj_timestamp = new jDateTime('@' . $int_timestamp, true, 'Asia/Tehran');
+                    $timeslot_display = $obj_timestamp->date('m-d', $int_timestamp);
 
-                    $j_date = new jDateTime();
-                    $timestamp = time(); // Your Unix timestamp here
-                    $timeslot_display = $j_date->date('m-d', $timestamp);
-
-                    $days[$timestamp] = $timeslot_display;
+                    $days[$int_timestamp] = $timeslot_display;
                 }
             } else {
                 $days[0] = "Invalid response structure.";

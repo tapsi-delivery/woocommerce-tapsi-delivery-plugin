@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Tapsi Delivery\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 10:07+0330\n"
-"PO-Revision-Date: 2023-09-27 10:30+0330\n"
+"PO-Revision-Date: 2023-09-27 09:09+0000\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: Persian\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.3.1"
 
 #: admin/class-woo-tapsi-delivery-settings.php:40
 msgid "Tapsi Delivery"
@@ -111,9 +112,9 @@ msgstr "این اطلاعات تنها یک بار نمایش داده می‌ش
 
 #: admin/class-woo-tapsi-delivery-settings.php:433
 msgid ""
-"Visit the <a target=\"_blank\" href=\"https://developer.tapsi.com/portal/"
-"integration/drive/webhooks\">Webhooks configuration in the Tapsi Developer "
-"Portal</a>."
+"Visit the <a target=\"_blank\" href=\"https://developer.tapsi."
+"com/portal/integration/drive/webhooks\">Webhooks configuration in the Tapsi "
+"Developer Portal</a>."
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:434
@@ -122,8 +123,8 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:435
 msgid ""
-"Copy the values below into the form and click <strong>Configure Endpoint</"
-"strong>."
+"Copy the values below into the form and click <strong>Configure "
+"Endpoint</strong>."
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:438
@@ -175,11 +176,11 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:21
 msgid ""
-"Visit the <a href=\"https://developer.tapsi.com/en-US/docs/drive/how_to/"
-"manage_credentials\" target=\"_blank\">Tapsi Documentation</a> for "
-"instructions on how to sign in to the <a href=\"https://developer.tapsi.com/"
-"portal/integration/drive/credentials\" target=\"_blank\">Tapsi Developer "
-"Portal</a> and create your access keys."
+"Visit the <a href=\"https://developer.tapsi.com/en-"
+"US/docs/drive/how_to/manage_credentials\" target=\"_blank\">Tapsi "
+"Documentation</a> for instructions on how to sign in to the <a href=\"https:"
+"//developer.tapsi.com/portal/integration/drive/credentials\" "
+"target=\"_blank\">Tapsi Developer Portal</a> and create your access keys."
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:25
@@ -275,8 +276,8 @@ msgstr ""
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:112
 msgid ""
 "These instructions will be provided to Dashers when picking up orders. These "
-"instructions can be overridden for each location on the <em>Edit Location</"
-"em> screen."
+"instructions can be overridden for each location on the <em>Edit "
+"Location</em> screen."
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:116
@@ -328,7 +329,7 @@ msgid "Dasher Tipping"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:159
-#, no-php-format
+#, php-format
 msgid ""
 "Select Enabled to allow your customers to add a tip for their Tapsier. 100% "
 "of tips are passed on to the Dasher."
@@ -357,8 +358,8 @@ msgid ""
 "\t\t\n"
 "\t\tEnter hours for each day with a dash separating the opening and closing "
 "time, eg <code>10:00am - 8:00pm</code>. \n"
-"\t\tMultiple ranges can also be entered separated with a comma, eg, "
-"<code>10:00am - 1:00pm, 4:00pm - 7:00pm</code>. \n"
+"\t\tMultiple ranges can also be entered separated with a comma, eg, <code>10:"
+"00am - 1:00pm, 4:00pm - 7:00pm</code>. \n"
 "\t\tIf deliveries are not offered, leave the field for that day blank.\n"
 "\n"
 "\t\tMake sure you have configured your Timezone in your WordPress settings "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-27 09:06+0330\n"
+"POT-Creation-Date: 2023-09-27 10:07+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,145 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: woo-tapsi-delivery.php:101
-msgid "Settings"
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:133
-#: admin/class-woo-tapsi-delivery-admin.php:192
-msgid "Pickup Location"
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:134
-msgid "Tapsi Pickup Location"
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:175
-msgid ""
-"Tapsi Delivery is in <strong>Sandbox mode</strong>. Switch to Production "
-"mode to enable deliveries."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:195
-msgid "Delivery ID"
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:198
-msgid "Estimated Pickup"
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:201
-msgid "Estimated Dropoff"
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:204
-msgid "Support Reference"
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:293
-msgid "Tapsi Delivery Submitted."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:322
-msgid "Track Delivery"
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:462
-msgid "Webhook: Received webhook event \""
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:499
-msgid ""
-"A Dasher has accepted your delivery and is on the way to the pickup location."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:503
-msgid ""
-"The Dasher has confirmed that they arrived at the pickup location and are "
-"attempting to pick up the delivery."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:507
-msgid "The Dasher has picked up the delivery."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:511
-msgid "The Dasher has confirmed that they arrived at the dropoff location."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:515
-msgid ""
-"The Dasher has dropped off the delivery at the dropoff location and the "
-"delivery is complete."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:519
-msgid "The delivery has been cancelled."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:519
-#, php-format
-msgid "Reason: \"%s\""
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:523
-msgid ""
-"The Dasher was unable to deliver your delivery to the dropoff location; they "
-"contacted support to arrange a return-to-pickup delivery and are returning "
-"to the pickup location."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:527
-msgid ""
-"The Dasher has confirmed that they arrived at the pickup location and are "
-"attempting to return the delivery."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:531
-msgid "The delivery has been returned successfully."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:551
-#, php-format
-msgid "Tapsi status update: %s."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:561
-#, php-format
-msgid "Webhook: Tapsi not found order #%s."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:565
-#, php-format
-msgid "Webhook: Order #%s updated successfully."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:569
-#, php-format
-msgid "Webhook: Unable to find an order with Delivery ID %s."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:573
-msgid "Webhook: Missing required parameters."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:588
-#: admin/class-woo-tapsi-delivery-admin.php:613
-msgid "Delivery Picked Up"
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:596
-#: admin/class-woo-tapsi-delivery-admin.php:614
-msgid "Delivery Returned"
-msgstr ""
-
 #: admin/class-woo-tapsi-delivery-settings.php:40
 msgid "Tapsi Delivery"
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:59
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:18
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:21
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:18
 msgid "Login"
 msgstr ""
 
@@ -294,53 +162,6 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:456
 msgid "Generate Credentials"
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:18
-msgid "Enter the OTP sent:"
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:20
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:23
-msgid "Login Information"
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:22
-msgid "Enter the OTP sent to your phone number."
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:28
-msgid "Sent OTP: "
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:29
-msgid "12345"
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:21
-msgid "Enter Phone for Login"
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:26
-msgid "Your phone number "
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:28
-msgid ""
-"Your phone number has not been verified. Please enter the phone number "
-"associated with your Tapsi account."
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:35
-msgid "Phone Number: "
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:36
-msgid "09"
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-tracking-orders.php:28
-msgid "Tapsi Pack Taker Panel"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:19
@@ -576,20 +397,35 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
-#: admin/partials/wctd-taps-pack-maplibre-map.php:14
-msgid "Coordinates"
+#: admin/partials/woo-tapsi-delivery-admin-tracking-orders.php:28
+msgid "Tapsi Pack Taker Panel"
 msgstr ""
 
-#: admin/partials/wctd-taps-pack-maplibre-map.php:15
-msgid ""
-"Please choose the precise coordinate that matches your address on the map."
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:21
+msgid "Enter Phone for Login"
 msgstr ""
 
-#: admin/partials/wctd-taps-pack-maplibre-map.php:16
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:23
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:20
+msgid "Login Information"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:26
+msgid "Your phone number "
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:28
 msgid ""
-"Make sure to check the compatibility between the address and the pin. In "
-"case of incompatibility, The pin location is Tapsi Pack's reference for your "
-"delivery!!!"
+"Your phone number has not been verified. Please enter the phone number "
+"associated with your Tapsi account."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:35
+msgid "Phone Number: "
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:36
+msgid "09"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:18
@@ -690,6 +526,38 @@ msgstr ""
 msgid "%1$s Hours"
 msgstr ""
 
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:18
+msgid "Enter the OTP sent:"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:22
+msgid "Enter the OTP sent to your phone number."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:28
+msgid "Sent OTP: "
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:29
+msgid "12345"
+msgstr ""
+
+#: admin/partials/wctd-taps-pack-maplibre-map.php:14
+msgid "Coordinates"
+msgstr ""
+
+#: admin/partials/wctd-taps-pack-maplibre-map.php:15
+msgid ""
+"Please choose the precise coordinate that matches your address on the map."
+msgstr ""
+
+#: admin/partials/wctd-taps-pack-maplibre-map.php:16
+msgid ""
+"Make sure to check the compatibility between the address and the pin. In "
+"case of incompatibility, The pin location is Tapsi Pack's reference for your "
+"delivery!!!"
+msgstr ""
+
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
 msgid "A pickup location is where an order can be picked up by a Dasher."
 msgstr ""
@@ -706,29 +574,132 @@ msgid ""
 "will be matched against the customer address."
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:35
-#: includes/class-woo-tapsi-delivery-shipping-method.php:116
-msgid "Tapsi"
+#: admin/class-woo-tapsi-delivery-admin.php:133
+#: admin/class-woo-tapsi-delivery-admin.php:192
+msgid "Pickup Location"
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:36
-msgid "Allow customers to have their orders delivered via Tapsi"
+#: admin/class-woo-tapsi-delivery-admin.php:134
+msgid "Tapsi Pickup Location"
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:113
-msgid "Title"
+#: admin/class-woo-tapsi-delivery-admin.php:175
+msgid ""
+"Tapsi Delivery is in <strong>Sandbox mode</strong>. Switch to Production "
+"mode to enable deliveries."
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:115
-msgid "This controls the title which the user sees during checkout."
+#: admin/class-woo-tapsi-delivery-admin.php:195
+msgid "Delivery ID"
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:120
-msgid "Tax status"
+#: admin/class-woo-tapsi-delivery-admin.php:198
+msgid "Estimated Pickup"
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:125
-msgid "Taxable"
+#: admin/class-woo-tapsi-delivery-admin.php:201
+msgid "Estimated Dropoff"
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:204
+msgid "Support Reference"
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:293
+msgid "Tapsi Delivery Submitted."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:322
+msgid "Track Delivery"
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:462
+msgid "Webhook: Received webhook event \""
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:499
+msgid ""
+"A Dasher has accepted your delivery and is on the way to the pickup location."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:503
+msgid ""
+"The Dasher has confirmed that they arrived at the pickup location and are "
+"attempting to pick up the delivery."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:507
+msgid "The Dasher has picked up the delivery."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:511
+msgid "The Dasher has confirmed that they arrived at the dropoff location."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:515
+msgid ""
+"The Dasher has dropped off the delivery at the dropoff location and the "
+"delivery is complete."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:519
+msgid "The delivery has been cancelled."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:519
+#, php-format
+msgid "Reason: \"%s\""
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:523
+msgid ""
+"The Dasher was unable to deliver your delivery to the dropoff location; they "
+"contacted support to arrange a return-to-pickup delivery and are returning "
+"to the pickup location."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:527
+msgid ""
+"The Dasher has confirmed that they arrived at the pickup location and are "
+"attempting to return the delivery."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:531
+msgid "The delivery has been returned successfully."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:551
+#, php-format
+msgid "Tapsi status update: %s."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:561
+#, php-format
+msgid "Webhook: Tapsi not found order #%s."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:565
+#, php-format
+msgid "Webhook: Order #%s updated successfully."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:569
+#, php-format
+msgid "Webhook: Unable to find an order with Delivery ID %s."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:573
+msgid "Webhook: Missing required parameters."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:588
+#: admin/class-woo-tapsi-delivery-admin.php:613
+msgid "Delivery Picked Up"
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:596
+#: admin/class-woo-tapsi-delivery-admin.php:614
+msgid "Delivery Returned"
 msgstr ""
 
 #: includes/class-woo-tapsi-delivery-api.php:341
@@ -773,12 +744,29 @@ msgstr ""
 msgid "Shop"
 msgstr ""
 
-#: public/partials/wctd-taps-pack-maplibre-map-modal.php:112
-msgid "X"
+#: includes/class-woo-tapsi-delivery-shipping-method.php:35
+#: includes/class-woo-tapsi-delivery-shipping-method.php:116
+msgid "Tapsi"
 msgstr ""
 
-#: public/partials/wctd-taps-pack-maplibre-map-modal.php:113
-msgid "Choose This Location"
+#: includes/class-woo-tapsi-delivery-shipping-method.php:36
+msgid "Allow customers to have their orders delivered via Tapsi"
+msgstr ""
+
+#: includes/class-woo-tapsi-delivery-shipping-method.php:113
+msgid "Title"
+msgstr ""
+
+#: includes/class-woo-tapsi-delivery-shipping-method.php:115
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
+#: includes/class-woo-tapsi-delivery-shipping-method.php:120
+msgid "Tax status"
+msgstr ""
+
+#: includes/class-woo-tapsi-delivery-shipping-method.php:125
+msgid "Taxable"
 msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:163
@@ -873,4 +861,16 @@ msgstr ""
 #: public/class-woo-tapsi-delivery-public.php:778
 #: public/class-woo-tapsi-delivery-public.php:779
 msgid "Failed to fetch delivery times. Please try again later."
+msgstr ""
+
+#: public/partials/wctd-taps-pack-maplibre-map-modal.php:112
+msgid "X"
+msgstr ""
+
+#: public/partials/wctd-taps-pack-maplibre-map-modal.php:113
+msgid "Choose This Location"
+msgstr ""
+
+#: woo-tapsi-delivery.php:101
+msgid "Settings"
 msgstr ""

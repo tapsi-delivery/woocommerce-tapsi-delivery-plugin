@@ -71,6 +71,9 @@
 			    border: none !important;
 			    color: #fff !important;
 			    font-weight: 600 !important;
+			    display: flex !important;
+			    justify-content: center !important;
+			    align-items: center !important;
 			}
 			#wctd-tapsi-pack-maplibre-map-public-preview-img-container {
 				position: relative !important;
@@ -94,10 +97,15 @@
 				cursor: pointer;
 			}
 			#wctd-tapsi-pack-maplibre-map-public-warning {
-				color: #c91d02 !important;
-				margin: 10px !important;
-				display: block;
-				width: calc(100% - 20px) !important;
+				color: #000 !important;
+			    margin: 10px !important;
+			    display: block !important;
+			    width: calc(100% - 20px) !important;
+			    background-color: #fdf4cc !important;
+			    border-radius: 8px !important;
+			    padding: 10px !important;
+			    box-sizing: border-box !important;
+			    font-weight: 600 !important;
 			}
 			#wctd-tapsi-pack-maplibre-map-public-warning img {
 				margin: 0 5px !important;

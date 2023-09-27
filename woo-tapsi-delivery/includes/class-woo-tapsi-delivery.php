@@ -179,6 +179,11 @@ class Woocommerce_Tapsi
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-woo-tapsi-delivery-public.php';
 
+        /**
+         * The class responsible for defining the Tapsi Location object
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/jdatetime.class.php';
+
         $this->loader = new Woocommerce_Tapsi_Loader();
         $this->log = new Woocommerce_Tapsi_Logger();
         $this->api = new Woocommerce_Tapsi_API();

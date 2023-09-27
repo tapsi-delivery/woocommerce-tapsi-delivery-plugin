@@ -14,7 +14,7 @@
  * Author URI:        https://developer.tapsi.com/en-US/wordpress-plugin
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       tapsi-delivery
+ * Text Domain:       woo-tapsi-delivery
  * Domain Path:       /languages
  */
 

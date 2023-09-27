@@ -15,7 +15,7 @@
 /**
  * Output the Location Information section
  */
-echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations' ) . '">' . __( 'Locations' ) . '</a> > ' . __( 'Edit Location', 'woo-tapsi-delivery' ) . '</h2>';
+echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=locations' ) . '">' . __( 'Locations' ) . '</a> > ' . __( 'Edit Location', 'woo-tapsi-delivery' ) . '</h2>';
 
 $address = $location->get_address();
 if (  $_GET['location_id'] !== 'new' && (!$address['latitude'] || $address['latitude'] === 'undefined' || !$address['longitude'] || $address['longitude'] === 'undefined')) {
@@ -173,4 +173,4 @@ echo '<h2>' . __( 'Hours', 'woo-tapsi-delivery' ) . '</h2>';
 /**
  * Nonce field
  */
-wp_nonce_field( 'woocommerce-tapsi-update-location', '_update-location-nonce' );
+wp_nonce_field( 'woo-tapsi-delivery-update-location', '_update-location-nonce' );

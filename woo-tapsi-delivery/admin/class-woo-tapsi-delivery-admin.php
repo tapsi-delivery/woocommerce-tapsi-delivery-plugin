@@ -76,7 +76,7 @@ class Woocommerce_Tapsi_Admin
          * class.
          */
 
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/woocommerce-tapsi-admin.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/woo-tapsi-delivery-admin.css', array(), $this->version, 'all');
 
     }
 
@@ -100,9 +100,9 @@ class Woocommerce_Tapsi_Admin
          * class.
          */
 
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/woocommerce-tapsi-admin.js', array('jquery', 'wp-i18n'), $this->version, false);
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/woo-tapsi-delivery-admin.js', array('jquery', 'wp-i18n'), $this->version, false);
 
-        wp_register_script('woocommerce-tapsi-admin-locations', plugin_dir_url(__FILE__) . 'js/woocommerce-tapsi-admin-locations.js', array('jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-backbone-modal'), $this->version, false);
+        wp_register_script('woo-tapsi-delivery-admin-locations', plugin_dir_url(__FILE__) . 'js/woo-tapsi-delivery-admin-locations.js', array('jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-backbone-modal'), $this->version, false);
     }
 
     /**
@@ -113,7 +113,7 @@ class Woocommerce_Tapsi_Admin
      */
     public function add_settings($settings)
     {
-        $settings[] = include_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-woocommerce-tapsi-settings.php';
+        $settings[] = include_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-woo-tapsi-delivery-settings.php';
         return $settings;
     }
 

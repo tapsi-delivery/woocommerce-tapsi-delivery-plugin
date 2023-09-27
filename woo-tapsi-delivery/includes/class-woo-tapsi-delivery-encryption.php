@@ -60,7 +60,7 @@ class Woocommerce_Tapsi_Encryption
         $decrypted = $this->decrypt($value);
 
         // Obfuscate the value of signing secrets
-        if (is_admin() && did_action('woocommerce_settings_woocommerce-tapsi') && ($option == 'woocommerce_tapsi_production_signing_secret' || $option == 'woocommerce_tapsi_sandbox_signing_secret')) {
+        if (is_admin() && did_action('woocommerce_settings_woo-tapsi-delivery') && ($option == 'woocommerce_tapsi_production_signing_secret' || $option == 'woocommerce_tapsi_sandbox_signing_secret')) {
             // Fill it with stars, but only if we're on the settings page where it's being output
             $decrypted = str_pad(substr($decrypted, -9), 32, '*', STR_PAD_LEFT);
         }

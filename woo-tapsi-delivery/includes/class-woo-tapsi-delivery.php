@@ -124,60 +124,60 @@ class Woocommerce_Tapsi
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-logger.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-logger.php';
 
         /**
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-loader.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-loader.php';
 
         /**
          * The class responsible for defining internationalization functionality
          * of the plugin.
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-i18n.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-i18n.php';
 
         /**
          * The class responsible for defining the Tapsi Delivery object
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-delivery.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-delivery.php';
 
         /**
          * The class responsible for defining the Tapsi Location object
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-pickup-location.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-pickup-location.php';
 
         /**
          * The class responsible for encryption functionality
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-encryption.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-encryption.php';
 
         /**
          * The class responsible for location hours functionality
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-hours.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-hours.php';
 
         /**
          * The class responsible for Tapsi API operations
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-api.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-api.php';
 
         /**
          * The class responsible for Tapsi API operations
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woocommerce-tapsi-shipping-method.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-shipping-method.php';
 
         /**
          * The class responsible for defining all actions that occur in the admin area.
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-woocommerce-tapsi-admin.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-woo-tapsi-delivery-admin.php';
 
         /**
          * The class responsible for defining all actions that occur in the public-facing
          * side of the site.
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-woocommerce-tapsi-public.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-woo-tapsi-delivery-public.php';
 
         $this->loader = new Woocommerce_Tapsi_Loader();
         $this->log = new Woocommerce_Tapsi_Logger();

@@ -107,13 +107,13 @@ return array(
 	),
 	array(
 		'id' => $prefix . 'default_pickup_instructions',
-		'name' => __( 'Default Pickup Instructions', 'woocommerce-tapsi' ),
+		'name' => __( 'Default Pickup Instructions', 'woo-tapsi-delivery' ),
 		'type' => 'text',
 		'desc_tip' => __( 'These instructions will be provided to Dashers when picking up orders. These instructions can be overridden for each location on the <em>Edit Location</em> screen.', 'woo-tapsi-delivery' ),
 	),
 	array(
 		'id' => $prefix . 'enable_alcohol_tobacco',
-		'name' => __( 'Liquor Store/Smoke Shop Mode', 'woocommerce-tapsi' ),
+		'name' => __( 'Liquor Store/Smoke Shop Mode', 'woo-tapsi-delivery' ),
 		'type'      => 'select',
 		'options'   => array(
 			'disabled' => 'Disabled',

@@ -17,338 +17,338 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.3.2\n"
 
-#: woocommerce-tapsi.php:101
+#: woo-tapsi-delivery.php:101
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: admin/class-woocommerce-tapsi-admin.php:133
-#: admin/class-woocommerce-tapsi-admin.php:192
+#: admin/class-woo-tapsi-delivery-admin.php:133
+#: admin/class-woo-tapsi-delivery-admin.php:192
 msgid "Pickup Location"
 msgstr "مبدا"
 
-#: admin/class-woocommerce-tapsi-admin.php:134
+#: admin/class-woo-tapsi-delivery-admin.php:134
 msgid "Tapsi Pickup Location"
 msgstr "مبدا بسته"
 
-#: admin/class-woocommerce-tapsi-admin.php:175
+#: admin/class-woo-tapsi-delivery-admin.php:175
 msgid ""
 "Tapsi Delivery is in <strong>Sandbox mode</strong>. Switch to Production "
 "mode to enable deliveries."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:195
+#: admin/class-woo-tapsi-delivery-admin.php:195
 msgid "Delivery ID"
 msgstr "شناسه مرسوله"
 
-#: admin/class-woocommerce-tapsi-admin.php:198
+#: admin/class-woo-tapsi-delivery-admin.php:198
 msgid "Estimated Pickup"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:201
+#: admin/class-woo-tapsi-delivery-admin.php:201
 msgid "Estimated Dropoff"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:204
+#: admin/class-woo-tapsi-delivery-admin.php:204
 msgid "Support Reference"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:293
+#: admin/class-woo-tapsi-delivery-admin.php:293
 msgid "Tapsi Delivery Submitted."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:322
+#: admin/class-woo-tapsi-delivery-admin.php:322
 msgid "Track Delivery"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:462
+#: admin/class-woo-tapsi-delivery-admin.php:462
 msgid "Webhook: Received webhook event \""
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:499
+#: admin/class-woo-tapsi-delivery-admin.php:499
 msgid ""
 "A Dasher has accepted your delivery and is on the way to the pickup location."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:503
+#: admin/class-woo-tapsi-delivery-admin.php:503
 msgid ""
 "The Dasher has confirmed that they arrived at the pickup location and are "
 "attempting to pick up the delivery."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:507
+#: admin/class-woo-tapsi-delivery-admin.php:507
 msgid "The Dasher has picked up the delivery."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:511
+#: admin/class-woo-tapsi-delivery-admin.php:511
 msgid "The Dasher has confirmed that they arrived at the dropoff location."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:515
+#: admin/class-woo-tapsi-delivery-admin.php:515
 msgid ""
 "The Dasher has dropped off the delivery at the dropoff location and the "
 "delivery is complete."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:519
+#: admin/class-woo-tapsi-delivery-admin.php:519
 msgid "The delivery has been cancelled."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:519
+#: admin/class-woo-tapsi-delivery-admin.php:519
 #, php-format
 msgid "Reason: \"%s\""
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:523
+#: admin/class-woo-tapsi-delivery-admin.php:523
 msgid ""
 "The Dasher was unable to deliver your delivery to the dropoff location; they "
 "contacted support to arrange a return-to-pickup delivery and are returning "
 "to the pickup location."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:527
+#: admin/class-woo-tapsi-delivery-admin.php:527
 msgid ""
 "The Dasher has confirmed that they arrived at the pickup location and are "
 "attempting to return the delivery."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:531
+#: admin/class-woo-tapsi-delivery-admin.php:531
 msgid "The delivery has been returned successfully."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:551
+#: admin/class-woo-tapsi-delivery-admin.php:551
 #, php-format
 msgid "Tapsi status update: %s."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:561
+#: admin/class-woo-tapsi-delivery-admin.php:561
 #, php-format
 msgid "Webhook: Tapsi not found order #%s."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:565
+#: admin/class-woo-tapsi-delivery-admin.php:565
 #, php-format
 msgid "Webhook: Order #%s updated successfully."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:569
+#: admin/class-woo-tapsi-delivery-admin.php:569
 #, php-format
 msgid "Webhook: Unable to find an order with Delivery ID %s."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:573
+#: admin/class-woo-tapsi-delivery-admin.php:573
 msgid "Webhook: Missing required parameters."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:588
-#: admin/class-woocommerce-tapsi-admin.php:613
+#: admin/class-woo-tapsi-delivery-admin.php:588
+#: admin/class-woo-tapsi-delivery-admin.php:613
 msgid "Delivery Picked Up"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-admin.php:596
-#: admin/class-woocommerce-tapsi-admin.php:614
+#: admin/class-woo-tapsi-delivery-admin.php:596
+#: admin/class-woo-tapsi-delivery-admin.php:614
 msgid "Delivery Returned"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:40
+#: admin/class-woo-tapsi-delivery-settings.php:40
 msgid "Tapsi Delivery"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:59
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-otp.php:18
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-phone.php:21
+#: admin/class-woo-tapsi-delivery-settings.php:59
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:18
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:21
 msgid "Login"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:62
+#: admin/class-woo-tapsi-delivery-settings.php:62
 msgid "My Addresses"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:63
+#: admin/class-woo-tapsi-delivery-settings.php:63
 msgid "Tracking Orders"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:202
+#: admin/class-woo-tapsi-delivery-settings.php:202
 msgid "Phone number"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:244
+#: admin/class-woo-tapsi-delivery-settings.php:244
 #, php-format
 msgid "%s hours %s."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:244
-#: admin/class-woocommerce-tapsi-settings.php:268
+#: admin/class-woo-tapsi-delivery-settings.php:244
+#: admin/class-woo-tapsi-delivery-settings.php:268
 msgid "enabled"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:244
-#: admin/class-woocommerce-tapsi-settings.php:268
+#: admin/class-woo-tapsi-delivery-settings.php:244
+#: admin/class-woo-tapsi-delivery-settings.php:268
 msgid "disabled"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:322
+#: admin/class-woo-tapsi-delivery-settings.php:322
 msgid "Your changed data will be lost if you leave this page without saving."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:323
+#: admin/class-woo-tapsi-delivery-settings.php:323
 msgid ""
 "Do you wish to save your changes first? Your changed data will be discarded "
 "if you choose to cancel."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:324
+#: admin/class-woo-tapsi-delivery-settings.php:324
 msgid "Your changes were not saved. Please retry."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:325
+#: admin/class-woo-tapsi-delivery-settings.php:325
 msgid "Are you sure you want to delete this pickup location?"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:326
+#: admin/class-woo-tapsi-delivery-settings.php:326
 msgid "Pickup location could not be added. Please retry."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:327
+#: admin/class-woo-tapsi-delivery-settings.php:327
 msgid "Yes"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:328
+#: admin/class-woo-tapsi-delivery-settings.php:328
 msgid "No"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:329
+#: admin/class-woo-tapsi-delivery-settings.php:329
 msgid "Location"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:376
+#: admin/class-woo-tapsi-delivery-settings.php:376
 #, php-format
 msgid "Location \"%s\" deleted."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:426
+#: admin/class-woo-tapsi-delivery-settings.php:426
 msgid "Webhooks Configuration"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:430
+#: admin/class-woo-tapsi-delivery-settings.php:430
 msgid "Your authorization header has been generated."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:431
+#: admin/class-woo-tapsi-delivery-settings.php:431
 msgid "This information will only be displayed once."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:433
+#: admin/class-woo-tapsi-delivery-settings.php:433
 msgid ""
 "Visit the <a target=\"_blank\" href=\"https://developer.tapsi.com/portal/"
 "integration/drive/webhooks\">Webhooks configuration in the Tapsi Developer "
 "Portal</a>."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:434
+#: admin/class-woo-tapsi-delivery-settings.php:434
 msgid "Click the button to configure a Sandbox or Production endpoint."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:435
+#: admin/class-woo-tapsi-delivery-settings.php:435
 msgid ""
 "Copy the values below into the form and click <strong>Configure Endpoint</"
 "strong>."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:438
+#: admin/class-woo-tapsi-delivery-settings.php:438
 msgid "Webhook Delivery URL"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:438
-#: admin/class-woocommerce-tapsi-settings.php:439
-#: admin/class-woocommerce-tapsi-settings.php:440
+#: admin/class-woo-tapsi-delivery-settings.php:438
+#: admin/class-woo-tapsi-delivery-settings.php:439
+#: admin/class-woo-tapsi-delivery-settings.php:440
 msgid "Copy"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:439
+#: admin/class-woo-tapsi-delivery-settings.php:439
 msgid "Authentication Type"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:440
+#: admin/class-woo-tapsi-delivery-settings.php:440
 msgid "Authorization Header"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:444
+#: admin/class-woo-tapsi-delivery-settings.php:444
 msgid ""
 "Tapsi webhooks are used to update your WooCommerce orders with delivery "
 "status from Tapsi in real-time as the order is being delivered."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:445
+#: admin/class-woo-tapsi-delivery-settings.php:445
 msgid ""
 "Use this page to generate WooCommerce credentials that you can paste into "
 "the Tapsi developer portal to connect your application."
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:446
+#: admin/class-woo-tapsi-delivery-settings.php:446
 msgid "Previously generated credentials can be managed under"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:446
+#: admin/class-woo-tapsi-delivery-settings.php:446
 msgid "WooCommerce Settings > Advanced > REST API"
 msgstr ""
 
-#: admin/class-woocommerce-tapsi-settings.php:456
+#: admin/class-woo-tapsi-delivery-settings.php:456
 msgid "Generate Credentials"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-otp.php:18
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:18
 msgid "Enter the OTP sent:"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-otp.php:20
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-phone.php:23
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:20
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:23
 msgid "Login Information"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-otp.php:22
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:22
 msgid "Enter the OTP sent to your phone number."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-otp.php:28
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:28
 msgid "Sent OTP: "
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-otp.php:29
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-otp.php:29
 msgid "12345"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-phone.php:21
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:21
 msgid "Enter Phone for Login"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-phone.php:26
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:26
 msgid "Your phone number "
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-phone.php:28
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:28
 msgid ""
 "Your phone number has not been verified. Please enter the phone number "
 "associated with your Tapsi account."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-phone.php:35
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:35
 msgid "Phone Number: "
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-enter-phone.php:36
+#: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:36
 msgid "09"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-tracking-orders.php:28
+#: admin/partials/woo-tapsi-delivery-admin-tracking-orders.php:28
 msgid "Tapsi Pack Taker Panel"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:19
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:70
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:19
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:70
 msgid "API Configuration"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:21
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:21
 msgid ""
 "Visit the <a href=\"https://developer.tapsi.com/en-US/docs/drive/how_to/"
 "manage_credentials\" target=\"_blank\">Tapsi Documentation</a> for "
@@ -357,19 +357,19 @@ msgid ""
 "Portal</a> and create your access keys."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:25
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:25
 msgid "Developer ID"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:27
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:27
 msgid "Paste your Developer ID obtained from the Tapsi Developer Portal."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:31
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:31
 msgid "Active Environment"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:37
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:37
 msgid ""
 "Enable <strong>Sandbox</strong> mode to test your integration with Tapsi. "
 "Enable <strong>Production</strong> mode to process live deliveries. A "
@@ -377,88 +377,88 @@ msgid ""
 "and Production environments."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:43
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:57
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:43
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:57
 msgid "Key ID"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:45
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:45
 msgid ""
 "Paste your <em>Production</em> Key ID obtained from the Tapsi Developer "
 "Portal."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:50
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:64
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:50
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:64
 msgid "Signing Secret"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:52
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:52
 msgid ""
 "Paste your <em>Production</em> Signing Secret obtained from the Tapsi "
 "Developer Portal."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:59
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:59
 msgid ""
 "Paste your <em>Sandbox</em> Key ID obtained from the Tapsi Developer Portal."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:66
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:66
 msgid ""
 "Paste your <em>Sandbox</em> Signing Secret obtained from the Tapsi Developer "
 "Portal."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:76
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:127
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:76
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:127
 msgid "Delivery Configuration"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:78
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:78
 msgid "Configure settings for deliveries in your WooCommerce shop."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:82
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:82
 msgid "Delivery Scheduling"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:90
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:90
 msgid "Choose the type of delivery scheduling available to users at checkout."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:94
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:94
 msgid "Scheduled Delivery Days Ahead"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:96
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:96
 msgid "Number of days ahead that deliveries can be scheduled."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:103
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:103
 msgid "Order Lead Time"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:105
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:105
 msgid "Number of minutes to allow for preparation of an order."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:110
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:110
 msgid "Default Pickup Instructions"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:112
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:112
 msgid ""
 "These instructions will be provided to Dashers when picking up orders. These "
 "instructions can be overridden for each location on the <em>Edit Location</"
 "em> screen."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:116
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:116
 msgid "Liquor Store/Smoke Shop Mode"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:122
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:122
 msgid ""
 "Contact Tapsi at developer-support@tapsi.com to get approval before enabling "
 "this setting in sandbox or production. If your business has not been "
@@ -466,64 +466,64 @@ msgid ""
 "setting will cause all delivery requests to be rejected."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:133
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:168
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:133
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:168
 msgid "Fees Configuration"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:135
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:135
 msgid "Set the fees charged to your customers."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:139
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:139
 msgid "Delivery Fees Mode"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:143
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:143
 msgid "Charge customer the quoted Tapsi rate"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:146
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:146
 msgid "Choose how the customer will be charged for deliveries."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:150
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:150
 msgid "Delivery Fee"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:153
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:153
 msgid ""
 "Add a delivery fee in this amount to customer orders. If used with the "
 "\"Quoted Rate\" option above, customer will be charged this fee in addition "
 "to the quoted Tapsi rate."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:157
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:157
 msgid "Dasher Tipping"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:159
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:159
 #, no-php-format
 msgid ""
 "Select Enabled to allow your customers to add a tip for their Tapsier. 100% "
 "of tips are passed on to the Dasher."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:161
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:46
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:161
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:46
 msgid "Enabled"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:162
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:162
 msgid "Disabled"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:174
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:222
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:174
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:222
 msgid "Default Delivery Hours"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:177
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:177
 #, php-format
 msgid ""
 "Set the default hours that your shop will fulfill deliveries. These will be "
@@ -541,38 +541,38 @@ msgid ""
 "<code>%s</code>."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:187
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:154
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:187
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:154
 msgid "Sunday"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:192
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:155
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:192
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:155
 msgid "Monday"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:197
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:156
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:197
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:156
 msgid "Tuesday"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:202
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:157
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:202
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:157
 msgid "Wednesday"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:207
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:158
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:207
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:158
 msgid "Thursday"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:212
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:159
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:212
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:159
 msgid "Friday"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-main.php:217
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:160
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:217
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:160
 msgid "Saturday"
 msgstr ""
 
@@ -592,184 +592,184 @@ msgid ""
 "delivery!!!"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:18
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:18
 msgid "Locations"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:18
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:18
 msgid "Edit Location"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:22
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:22
 msgid ""
 "There is something wrong with your coordinate or this address may be new to "
 "Tapsi Pack! Please find the exact coordinate of your address on the map and "
 "submit the changes"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:24
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:24
 msgid "Location Information"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:26
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:26
 msgid "Enter the information for the location you."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:38
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:39
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:38
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:39
 msgid "Location Name"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:47
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:47
 msgid "Only enabled locations are able to be selected for Tapsi deliveries."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:54
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:54
 msgid "Email Address"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:56
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:56
 msgid ""
 "New order notifications for this location will be sent to this email address."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:61
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:61
 msgid "Phone Number"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:76
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:100
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:76
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:100
 msgid "Address"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:78
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:78
 msgid "Enter the address for the location."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:106
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:106
 msgid "City"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:112
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:112
 msgid "State"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:117
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:117
 msgid "Postcode"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:123
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:123
 msgid "Country"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:133
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:133
 msgid "Hide"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:134
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:134
 msgid ""
 "The exact address of your shop will be hidden to the customers but they can "
 "still see the coordinates of your shop in the track link that is sent to "
 "them."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:142
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:142
 msgid "Hours"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:144
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:144
 msgid "Enter the hours for the location."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:149
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:149
 msgid "Customize hours for this location"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-edit-location.php:167
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:167
 #, php-format
 msgid "%1$s Hours"
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-locations.php:24
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
 msgid "A pickup location is where an order can be picked up by a Dasher."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-locations.php:24
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
 msgid ""
 "Enabled locations can be selected by users at checkout during a location's "
 "open hours."
 msgstr ""
 
-#: admin/partials/woocommerce-tapsi-admin-settings-locations.php:28
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:28
 msgid ""
 "Drag and drop to re-order your custom zones. This is the order in which they "
 "will be matched against the customer address."
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-shipping-method.php:35
-#: includes/class-woocommerce-tapsi-shipping-method.php:116
+#: includes/class-woo-tapsi-delivery-shipping-method.php:35
+#: includes/class-woo-tapsi-delivery-shipping-method.php:116
 msgid "Tapsi"
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-shipping-method.php:36
+#: includes/class-woo-tapsi-delivery-shipping-method.php:36
 msgid "Allow customers to have their orders delivered via Tapsi"
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-shipping-method.php:113
+#: includes/class-woo-tapsi-delivery-shipping-method.php:113
 msgid "Title"
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-shipping-method.php:115
+#: includes/class-woo-tapsi-delivery-shipping-method.php:115
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-shipping-method.php:120
+#: includes/class-woo-tapsi-delivery-shipping-method.php:120
 msgid "Tax status"
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-shipping-method.php:125
+#: includes/class-woo-tapsi-delivery-shipping-method.php:125
 msgid "Taxable"
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-api.php:341
-#: includes/class-woocommerce-tapsi-api.php:343
-#: includes/class-woocommerce-tapsi-api.php:345
-#: includes/class-woocommerce-tapsi-api.php:363
+#: includes/class-woo-tapsi-delivery-api.php:341
+#: includes/class-woo-tapsi-delivery-api.php:343
+#: includes/class-woo-tapsi-delivery-api.php:345
+#: includes/class-woo-tapsi-delivery-api.php:363
 msgid "Tapsi: "
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-api.php:341
+#: includes/class-woo-tapsi-delivery-api.php:341
 msgid ""
 " Make sure the phone number is valid and belongs to the same country as the "
 "address."
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-api.php:343
-#: includes/class-woocommerce-tapsi-api.php:363
+#: includes/class-woo-tapsi-delivery-api.php:343
+#: includes/class-woo-tapsi-delivery-api.php:363
 msgid ""
 "Delivery is not available from this pickup location to your selected "
 "address. Please enter another dropoff address or select a different delivery "
 "method."
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-api.php:351
+#: includes/class-woo-tapsi-delivery-api.php:351
 msgid ""
 "Tapsi: Authentication Error. Call shopper to authenticate again on Tapsi."
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-api.php:355
+#: includes/class-woo-tapsi-delivery-api.php:355
 msgid "Tapsi: Resource does not exist"
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-api.php:368
+#: includes/class-woo-tapsi-delivery-api.php:368
 msgid "Tapsi: Too many requests"
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-api.php:374
+#: includes/class-woo-tapsi-delivery-api.php:374
 msgid "There was a problem communicating with Tapsi. Please try again later."
 msgstr ""
 
-#: includes/class-woocommerce-tapsi-pickup-location.php:262
+#: includes/class-woo-tapsi-delivery-pickup-location.php:262
 msgid "Shop"
 msgstr ""
 
@@ -781,96 +781,96 @@ msgstr ""
 msgid "Choose This Location"
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:163
-#: public/class-woocommerce-tapsi-public.php:173
+#: public/class-woo-tapsi-delivery-public.php:163
+#: public/class-woo-tapsi-delivery-public.php:173
 msgid "Origin"
 msgstr "مبدا"
 
-#: public/class-woocommerce-tapsi-public.php:174
+#: public/class-woo-tapsi-delivery-public.php:174
 msgid "Select..."
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:184
+#: public/class-woo-tapsi-delivery-public.php:184
 msgid "Destination"
 msgstr "مقصد"
 
-#: public/class-woocommerce-tapsi-public.php:185
+#: public/class-woo-tapsi-delivery-public.php:185
 msgid "Choose Destination on Map"
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:190
+#: public/class-woo-tapsi-delivery-public.php:190
 msgid ""
 "Please make sure that the coordinates on the map match your destination. "
 "Tapsi Pack delivers the package to the chosen coordinates regardless of the "
 "provided address."
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:218
+#: public/class-woo-tapsi-delivery-public.php:218
 msgid "Day"
 msgstr "روز"
 
-#: public/class-woocommerce-tapsi-public.php:229
+#: public/class-woo-tapsi-delivery-public.php:229
 msgid "Time"
 msgstr "زمان"
 
-#: public/class-woocommerce-tapsi-public.php:241
+#: public/class-woo-tapsi-delivery-public.php:241
 msgid "Dropoff Instructions"
 msgstr "یادداشت برای راننده"
 
-#: public/class-woocommerce-tapsi-public.php:257
+#: public/class-woo-tapsi-delivery-public.php:257
 msgid "Rules"
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:259
+#: public/class-woo-tapsi-delivery-public.php:259
 msgid "The package delivery is done within 3 hours in the same day."
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:260
+#: public/class-woo-tapsi-delivery-public.php:260
 msgid ""
 "Package delivery is done by car, so the packages are delivered only at the "
 "door of the building and the driver will wait for you for a maximum of 5 "
 "minutes."
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:261
+#: public/class-woo-tapsi-delivery-public.php:261
 msgid "The allowed dimensions of the packages are 50cmx50cmx50cm."
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:262
+#: public/class-woo-tapsi-delivery-public.php:262
 msgid ""
 "After starting the trip, the driver's information and the approximate "
 "arrival time will be sent to you via SMS."
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:271
+#: public/class-woo-tapsi-delivery-public.php:271
 msgid "Powered By"
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:271
+#: public/class-woo-tapsi-delivery-public.php:271
 msgid "Tapsi Pack"
 msgstr "تپسی پک"
 
-#: public/class-woocommerce-tapsi-public.php:296
+#: public/class-woo-tapsi-delivery-public.php:296
 msgid "Tapsi Delivery: Please choose a valid location."
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:346
+#: public/class-woo-tapsi-delivery-public.php:346
 msgid "Phone"
 msgstr "شماره"
 
-#: public/class-woocommerce-tapsi-public.php:437
+#: public/class-woo-tapsi-delivery-public.php:437
 msgid "Tapsi from:"
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:447
+#: public/class-woo-tapsi-delivery-public.php:447
 msgid "Estimated Delivery Time:"
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:506
+#: public/class-woo-tapsi-delivery-public.php:506
 msgid "Select"
 msgstr ""
 
-#: public/class-woocommerce-tapsi-public.php:778
-#: public/class-woocommerce-tapsi-public.php:779
+#: public/class-woo-tapsi-delivery-public.php:778
+#: public/class-woo-tapsi-delivery-public.php:779
 msgid "Failed to fetch delivery times. Please try again later."
 msgstr ""

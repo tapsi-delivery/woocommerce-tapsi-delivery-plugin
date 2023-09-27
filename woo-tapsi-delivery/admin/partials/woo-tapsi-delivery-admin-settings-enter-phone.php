@@ -18,7 +18,7 @@ $is_token_valid = WCDD()->api->is_token_valid();
 /**
  * Output the Location Information section
  */
-echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login' ) . '">' . __( 'Login' ) . '</a> > ' . __( 'Enter Phone for Login', 'woo-tapsi-delivery' ) . '</h2>';
+echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=login' ) . '">' . __( 'Login' ) . '</a> > ' . __( 'Enter Phone for Login', 'woo-tapsi-delivery' ) . '</h2>';
 
 echo '<h2>' . __( 'Login Information', 'woo-tapsi-delivery' ) . '</h2>';
 
@@ -41,4 +41,4 @@ echo '<h2>' . __( 'Login Information', 'woo-tapsi-delivery' ) . '</h2>';
 /**
  * Nonce field
  */
-wp_nonce_field( 'woocommerce-tapsi-update-phone', '_update-phone-nonce' );
+wp_nonce_field( 'woo-tapsi-delivery-update-phone', '_update-phone-nonce' );

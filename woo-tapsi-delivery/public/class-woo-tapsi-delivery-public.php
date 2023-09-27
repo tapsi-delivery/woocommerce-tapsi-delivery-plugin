@@ -78,7 +78,7 @@ class Woocommerce_Tapsi_Public
          * class.
          */
 
-	    wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/woocommerce-tapsi-public.css', array(), $this->version, 'all');
+	    wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/woo-tapsi-delivery-public.css', array(), $this->version, 'all');
 
     }
 
@@ -101,7 +101,7 @@ class Woocommerce_Tapsi_Public
          * between the defined hooks and the functions defined in this
          * class.
          */
-	    wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/woocommerce-tapsi-public.js', array('jquery', 'selectWoo'), $this->version, false);
+	    wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/woo-tapsi-delivery-public.js', array('jquery', 'selectWoo'), $this->version, false);
     }
 
 	public function get_path() {
@@ -825,7 +825,7 @@ class Woocommerce_Tapsi_Public
 		if (strpos($current_url, 'checkout') !== false) {
 			// Map Libre Js and Map Libre CSS where previously added by enqueue script function
 			require_once 'partials/wctd-taps-pack-maplibre-map-modal.php';
-			// Map Js is handled inside the woocommerce-tapsi-public file
+			// Map Js is handled inside the woo-tapsi-delivery-public file
 		}
 	}
 

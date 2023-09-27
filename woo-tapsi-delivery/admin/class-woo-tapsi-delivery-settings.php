@@ -36,7 +36,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      */
     public function __construct()
     {
-        $this->id = 'woocommerce-tapsi';
+        $this->id = 'woo-tapsi-delivery';
         $this->label = __('Tapsi Delivery', 'woo-tapsi-delivery');
 
         // Define all hooks instead of inheriting from parent
@@ -124,7 +124,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         $should_save = true;
 
         // If we're updating a location, set the data for that post
-        if (isset($_REQUEST['_update-location-nonce']) && wp_verify_nonce($_REQUEST['_update-location-nonce'], 'woocommerce-tapsi-update-location')) {
+        if (isset($_REQUEST['_update-location-nonce']) && wp_verify_nonce($_REQUEST['_update-location-nonce'], 'woo-tapsi-delivery-update-location')) {
             $hours = new Woocommerce_Tapsi_Hours();
 
             $location_id = $_REQUEST['location_id'] == 'new' ? 'new' : intval($_REQUEST['location_id']);
@@ -165,9 +165,9 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
             if ($_REQUEST['location_id'] != $location_id) {
                 // If this was a new location, redirect to the newly created location
-                wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=locations&location_id=' . $location_id));
+                wp_redirect(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=locations&location_id=' . $location_id));
             }
-        } elseif (isset($_REQUEST['_update-phone-nonce']) && wp_verify_nonce($_REQUEST['_update-phone-nonce'], 'woocommerce-tapsi-update-phone')) {
+        } elseif (isset($_REQUEST['_update-phone-nonce']) && wp_verify_nonce($_REQUEST['_update-phone-nonce'], 'woo-tapsi-delivery-update-phone')) {
             $tapsi_phone = sanitize_text_field($_REQUEST['tapsi_phone']);
             $tapsi_phone = str_replace(['-', '(', ')', ' ', '+'], '', sanitize_text_field($tapsi_phone));
 
@@ -180,11 +180,11 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                     WC_Admin_Settings::add_error($error_message);
                 } elseif ($response->result == 'OK') {
                     update_option('woocommerce_tapsi_user_phone', $tapsi_phone, true);
-                    wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login&phone=' . $tapsi_phone));
+                    wp_redirect(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=login&phone=' . $tapsi_phone));
                 }
             }
 
-        } elseif (isset($_REQUEST['_update-otp-nonce']) && wp_verify_nonce($_REQUEST['_update-otp-nonce'], 'woocommerce-tapsi-set-otp')) {
+        } elseif (isset($_REQUEST['_update-otp-nonce']) && wp_verify_nonce($_REQUEST['_update-otp-nonce'], 'woo-tapsi-delivery-set-otp')) {
             $otp = sanitize_text_field($_REQUEST['tapsi_otp']);
             $tapsi_phone = sanitize_text_field($_REQUEST['phone']);
 
@@ -198,7 +198,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                     $error_message = __($authenticated_user->data->message, 'woo-tapsi-delivery');
                     WC_Admin_Settings::add_error($error_message);
                 } elseif ($authenticated_user->result == 'OK') {
-                    wp_redirect(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=login'));
+                    wp_redirect(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=login'));
                     $message = __('Phone number' . $tapsi_phone . ' was verified successfully!', 'woo-tapsi-delivery');
                     WC_Admin_Settings::add_message($message);
                 }
@@ -222,7 +222,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 		// TODO: MARYAM: Replace all localhosts
 		// TODO: MARYAM: Send q-params with request for future customization
 		wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
-		include 'partials/woocommerce-tapsi-admin-settings-edit-location.php';
+		include 'partials/woo-tapsi-delivery-admin-settings-edit-location.php';
 	}
 
     /**
@@ -313,7 +313,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
         // Send our data over to the JavaScript
         wp_localize_script(
-            'woocommerce-tapsi-admin-locations',
+            'woo-tapsi-delivery-admin-locations',
             'wcDDLocalizeScript',
             array(
                 'locations' => $location_localized,
@@ -330,9 +330,9 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 ),
             )
         );
-        wp_enqueue_script('woocommerce-tapsi-admin-locations');
+        wp_enqueue_script('woo-tapsi-delivery-admin-locations');
         // Include the partial containing the table and templates
-        include 'partials/woocommerce-tapsi-admin-settings-locations.php';
+        include 'partials/woo-tapsi-delivery-admin-settings-locations.php';
     }
 
     /**
@@ -342,7 +342,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      * @return void
      */
     public function output_tracking_orders_screen(){
-	    include 'partials/woocommerce-tapsi-admin-tracking-orders.php';
+	    include 'partials/woo-tapsi-delivery-admin-tracking-orders.php';
     }
 
 	/**
@@ -358,7 +358,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      */
     public function output_enter_phone_screen()
     {
-        include 'partials/woocommerce-tapsi-admin-settings-enter-phone.php';
+        include 'partials/woo-tapsi-delivery-admin-settings-enter-phone.php';
     }
 
 
@@ -389,7 +389,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      */
     public function output_enter_otp_screen()
     {
-        include 'partials/woocommerce-tapsi-admin-settings-enter-otp.php';
+        include 'partials/woo-tapsi-delivery-admin-settings-enter-otp.php';
     }
 
 
@@ -449,7 +449,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 'app_name' => 'Tapsi',
                 'scope' => 'write',
                 'user_id' => get_current_user_id(),
-                'return_url' => urlencode(admin_url('admin.php?page=wc-settings&tab=woocommerce-tapsi&section=webhooks')),
+                'return_url' => urlencode(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=webhooks')),
                 'callback_url' => urlencode(rest_url('wc/v3/tapsi/save_auth_header')),
             ), $auth_url);
 

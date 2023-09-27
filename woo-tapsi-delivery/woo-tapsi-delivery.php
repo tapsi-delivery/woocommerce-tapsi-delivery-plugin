@@ -30,19 +30,19 @@ define( 'WOOCOMMERCE_TAPSI_VERSION', '0.1.0' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-woocommerce-tapsi-activator.php
+ * This action is documented in includes/class-woo-tapsi-delivery-activator.php
  */
 function activate_woocommerce_tapsi() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-tapsi-activator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-tapsi-delivery-activator.php';
 	Woocommerce_Tapsi_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-woocommerce-tapsi-deactivator.php
+ * This action is documented in includes/class-woo-tapsi-delivery-deactivator.php
  */
 function deactivate_woocommerce_tapsi() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-tapsi-deactivator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-tapsi-delivery-deactivator.php';
 	Woocommerce_Tapsi_Deactivator::deactivate();
 }
 
@@ -53,7 +53,7 @@ register_deactivation_hook( __FILE__, 'deactivate_woocommerce_tapsi' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-tapsi.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-woo-tapsi-delivery.php';
 
 /**
  * Begins execution of the plugin.
@@ -98,7 +98,7 @@ add_action( 'plugins_loaded', 'WCDD' );
  * @return array Filtered links
  */
 function wcdd_add_action_links ( $links ) {
-	array_unshift( $links, sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=woocommerce-tapsi' ), __( 'Settings', 'woo-tapsi-delivery' ) ) );
+	array_unshift( $links, sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=woo-tapsi-delivery' ), __( 'Settings', 'woo-tapsi-delivery' ) ) );
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wcdd_add_action_links' );

@@ -57,7 +57,7 @@ Installing the plugin is easy. Just use one of these methods:
 1. Click **Install Now**. After the plugin downloads, click **Activate**
 
 = Install Tapsi Delivery Manually =
-1. Upload the `woocommerce-tapsi` folder to your `/wp-content/plugins/` directory.
+1. Upload the `woo-tapsi-delivery` folder to your `/wp-content/plugins/` directory.
 1. Activate the Tapsi Delivery plugin by visiting *Plugins > Installed Plugins* and clicking **Activate**.
 
 = After Activation =

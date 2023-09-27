@@ -3,32 +3,32 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 09:06+0330\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2023-09-27 09:12+0330\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fa_IR\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: woocommerce-tapsi.php:101
 msgid "Settings"
-msgstr ""
+msgstr "تنظیمات"
 
 #: admin/class-woocommerce-tapsi-admin.php:133
 #: admin/class-woocommerce-tapsi-admin.php:192
 msgid "Pickup Location"
-msgstr ""
+msgstr "مبدا"
 
 #: admin/class-woocommerce-tapsi-admin.php:134
 msgid "Tapsi Pickup Location"
-msgstr ""
+msgstr "مبدا بسته"
 
 #: admin/class-woocommerce-tapsi-admin.php:175
 msgid ""
@@ -38,7 +38,7 @@ msgstr ""
 
 #: admin/class-woocommerce-tapsi-admin.php:195
 msgid "Delivery ID"
-msgstr ""
+msgstr "شناسه مرسوله"
 
 #: admin/class-woocommerce-tapsi-admin.php:198
 msgid "Estimated Pickup"
@@ -503,10 +503,10 @@ msgid "Dasher Tipping"
 msgstr ""
 
 #: admin/partials/woocommerce-tapsi-admin-settings-main.php:159
-#, php-format
+#, no-php-format
 msgid ""
-"Select Enabled to allow your customers to add a tip for their Tapsier. "
-"100% of tips are passed on to the Dasher."
+"Select Enabled to allow your customers to add a tip for their Tapsier. 100% "
+"of tips are passed on to the Dasher."
 msgstr ""
 
 #: admin/partials/woocommerce-tapsi-admin-settings-main.php:161
@@ -784,7 +784,7 @@ msgstr ""
 #: public/class-woocommerce-tapsi-public.php:163
 #: public/class-woocommerce-tapsi-public.php:173
 msgid "Origin"
-msgstr ""
+msgstr "مبدا"
 
 #: public/class-woocommerce-tapsi-public.php:174
 msgid "Select..."
@@ -792,7 +792,7 @@ msgstr ""
 
 #: public/class-woocommerce-tapsi-public.php:184
 msgid "Destination"
-msgstr ""
+msgstr "مقصد"
 
 #: public/class-woocommerce-tapsi-public.php:185
 msgid "Choose Destination on Map"
@@ -807,15 +807,15 @@ msgstr ""
 
 #: public/class-woocommerce-tapsi-public.php:218
 msgid "Day"
-msgstr ""
+msgstr "روز"
 
 #: public/class-woocommerce-tapsi-public.php:229
 msgid "Time"
-msgstr ""
+msgstr "زمان"
 
 #: public/class-woocommerce-tapsi-public.php:241
 msgid "Dropoff Instructions"
-msgstr ""
+msgstr "یادداشت برای راننده"
 
 #: public/class-woocommerce-tapsi-public.php:257
 msgid "Rules"
@@ -848,7 +848,7 @@ msgstr ""
 
 #: public/class-woocommerce-tapsi-public.php:271
 msgid "Tapsi Pack"
-msgstr ""
+msgstr "تپسی پک"
 
 #: public/class-woocommerce-tapsi-public.php:296
 msgid "Tapsi Delivery: Please choose a valid location."
@@ -856,7 +856,7 @@ msgstr ""
 
 #: public/class-woocommerce-tapsi-public.php:346
 msgid "Phone"
-msgstr ""
+msgstr "شماره"
 
 #: public/class-woocommerce-tapsi-public.php:437
 msgid "Tapsi from:"

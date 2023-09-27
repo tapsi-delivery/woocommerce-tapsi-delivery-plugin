@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-27 10:07+0330\n"
+"POT-Creation-Date: 2023-09-27 14:43+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -769,105 +769,105 @@ msgstr ""
 msgid "Taxable"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:163
-#: public/class-woo-tapsi-delivery-public.php:173
+#: public/class-woo-tapsi-delivery-public.php:171
+#: public/class-woo-tapsi-delivery-public.php:181
 msgid "Origin"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:174
+#: public/class-woo-tapsi-delivery-public.php:182
 msgid "Select..."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:184
+#: public/class-woo-tapsi-delivery-public.php:193
 msgid "Destination"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:185
+#: public/class-woo-tapsi-delivery-public.php:194
 msgid "Choose Destination on Map"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:190
+#: public/class-woo-tapsi-delivery-public.php:199
 msgid ""
 "Please make sure that the coordinates on the map match your destination. "
 "Tapsi Pack delivers the package to the chosen coordinates regardless of the "
 "provided address."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:218
+#: public/class-woo-tapsi-delivery-public.php:229
 msgid "Day"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:229
+#: public/class-woo-tapsi-delivery-public.php:240
 msgid "Time"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:241
+#: public/class-woo-tapsi-delivery-public.php:252
 msgid "Dropoff Instructions"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:257
+#: public/class-woo-tapsi-delivery-public.php:268
 msgid "Rules"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:259
+#: public/class-woo-tapsi-delivery-public.php:270
 msgid "The package delivery is done within 3 hours in the same day."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:260
+#: public/class-woo-tapsi-delivery-public.php:271
 msgid ""
 "Package delivery is done by car, so the packages are delivered only at the "
 "door of the building and the driver will wait for you for a maximum of 5 "
 "minutes."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:261
+#: public/class-woo-tapsi-delivery-public.php:272
 msgid "The allowed dimensions of the packages are 50cmx50cmx50cm."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:262
+#: public/class-woo-tapsi-delivery-public.php:273
 msgid ""
 "After starting the trip, the driver's information and the approximate "
 "arrival time will be sent to you via SMS."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:271
-msgid "Powered By"
-msgstr ""
-
-#: public/class-woo-tapsi-delivery-public.php:271
-msgid "Tapsi Pack"
-msgstr ""
-
-#: public/class-woo-tapsi-delivery-public.php:296
+#: public/class-woo-tapsi-delivery-public.php:306
 msgid "Tapsi Delivery: Please choose a valid location."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:346
+#: public/class-woo-tapsi-delivery-public.php:356
 msgid "Phone"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:437
+#: public/class-woo-tapsi-delivery-public.php:447
 msgid "Tapsi from:"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:447
+#: public/class-woo-tapsi-delivery-public.php:457
 msgid "Estimated Delivery Time:"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:506
+#: public/class-woo-tapsi-delivery-public.php:516
 msgid "Select"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:778
-#: public/class-woo-tapsi-delivery-public.php:779
+#: public/class-woo-tapsi-delivery-public.php:788
+#: public/class-woo-tapsi-delivery-public.php:789
 msgid "Failed to fetch delivery times. Please try again later."
 msgstr ""
 
-#: public/partials/wctd-taps-pack-maplibre-map-modal.php:112
+#: public/class-woo-tapsi-delivery-public.php:807
+msgid "Price"
+msgstr ""
+
+#: public/class-woo-tapsi-delivery-public.php:807
+msgid "Toman"
+msgstr ""
+
+#: public/partials/wctd-taps-pack-maplibre-map-modal.php:120
 msgid "X"
 msgstr ""
 
-#: public/partials/wctd-taps-pack-maplibre-map-modal.php:113
+#: public/partials/wctd-taps-pack-maplibre-map-modal.php:121
 msgid "Choose This Location"
 msgstr ""
 

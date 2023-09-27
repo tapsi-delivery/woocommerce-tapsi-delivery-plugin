@@ -9,7 +9,7 @@ sendy-api
 class-wc-connect-shipping-method/class-wc-connect-shipping-method_.php
 cider-shipping-method/
 local-delivery-by-doordash/
-tapsi-delivery/.idea/
+woo-tapsi-delivery/.idea/
 fake-pay-for-woocommerce/
 dummy-gateway-for-woocommerce/
 woo-cardcom-payment-gateway/

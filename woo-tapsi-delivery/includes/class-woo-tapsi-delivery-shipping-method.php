@@ -113,7 +113,7 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
                 'title' => __('Title', 'woocommerce'),
                 'type' => 'text',
                 'description' => __('This controls the title which the user sees during checkout.', 'woocommerce'),
-                'default' => __('Tapsi', 'woocommerce'),
+                'default' => __('Tapsi', 'woo-tapsi-delivery'),
                 'desc_tip' => true,
             ),
             'tax_status' => array(

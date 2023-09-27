@@ -798,13 +798,11 @@ class Woocommerce_Tapsi_Public
 
                     foreach ($timeslots as $timeslot) {
                         $timeslotId = $timeslot->timeslotId;
-                        $startTimestamp = $timeslot->startTimestamp / 1000;
-                        $endTimestamp = $timeslot->endTimestamp / 1000;
-                        $timeslot_display = date('H:i', $startTimestamp) . ' - ' . date('H:i', $endTimestamp);
+                        $timeslot_display = $this->make_timeslot_display($timeslot);
 
                         if ($timeslot->isAvailable) {
                             $price = $timeslot->invoice->amount;
-                            $displayText = $timeslot_display . ' (Price: ' . $price . ' Toman)';
+                            $displayText = $timeslot_display . ' (' . __('Price', 'woo-tapsi-delivery') . ': ' . $price . ' ' . __('Toman', 'woo-tapsi-delivery') . ')';
                             $option_attributes = 'value="' . $timeslotId . '"';
                             $timeslot_key = $timeslotId . '--' . $price;
                             $days[$timeslot_key] = $displayText;
@@ -838,5 +836,26 @@ class Woocommerce_Tapsi_Public
 			// Map Js is handled inside the woo-tapsi-delivery-public file
 		}
 	}
+
+    /**
+     * @param $timeslot
+     * @return string
+     */
+    public function make_timeslot_display($timeslot): string
+    {
+        $timezone = new DateTimeZone('Asia/Tehran'); // +3:30 timezone
+
+        $int_start_timestamp = $timeslot->startTimestamp / 1000;
+        $int_end_timestamp = $timeslot->endTimestamp / 1000;
+
+        $obj_start_timestamp = new DateTime('@' . $int_start_timestamp);
+        $obj_end_timestamp = new DateTime('@' . $int_end_timestamp);
+
+        $obj_start_timestamp->setTimezone($timezone);
+        $obj_end_timestamp->setTimezone($timezone);
+
+        return $obj_start_timestamp->format('H:i') . ' - ' . $obj_end_timestamp->format('H:i');
+
+    }
 
 }

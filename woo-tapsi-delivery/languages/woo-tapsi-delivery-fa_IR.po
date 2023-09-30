@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 10:07+0330\n"
 "Last-Translator: \n"
-"PO-Revision-Date: 2023-09-30 11:14+0000\n"
+"PO-Revision-Date: 2023-09-30 11:51+0000\n"
 "Language-Team: فارسی\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,6 @@ msgstr ""
 msgid ""
 " Make sure the phone number is valid and belongs to the same country as the "
 "address."
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:167
-#, php-format
-msgid "%1$s Hours"
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:244
@@ -155,13 +150,15 @@ msgid ""
 "Endpoint</strong>."
 msgstr ""
 
+#: admin/class-woo-tapsi-delivery-admin.php:355
+msgid "Could not submit delivery! Try Again"
+msgstr ""
+"مشکلی در ثبت سفارش در تپسی‌پک به وجود آمد! دوباره سفارش را در تپسی‌پک ثبت "
+"کنید."
+
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:123
 msgid "Country"
 msgstr "منطقه"
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:149
-msgid "Customize hours for this location"
-msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:229
 msgid "Day"
@@ -267,10 +264,6 @@ msgstr ""
 msgid "Edit Location"
 msgstr "ویرایش مکان"
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:54
-msgid "Email Address"
-msgstr "ایمیل"
-
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:37
 msgid ""
 "Enable <strong>Sandbox</strong> mode to test your integration with Tapsi. "
@@ -302,10 +295,6 @@ msgstr "شماره را برای ورود وارد کنید"
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:78
 msgid "Enter the address for the location."
 msgstr "آدرس این مکان را وارد کنید"
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:144
-msgid "Enter the hours for the location."
-msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:26
 msgid "Enter the information for the location you."
@@ -342,7 +331,6 @@ msgid "Fees Configuration"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:212
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:159
 msgid "Friday"
 msgstr "جمعه"
 
@@ -351,12 +339,8 @@ msgid "Generate Credentials"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:133
-msgid "Hide"
-msgstr ""
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:142
-msgid "Hours"
-msgstr "ساعات"
+msgid "Hide Address"
+msgstr "پنهان کردن آدرس"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:43
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:57
@@ -410,18 +394,12 @@ msgstr ""
 "به نقطه‌ی انتخاب شده روی نقشه ارسال خواهد شد."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:192
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:155
 msgid "Monday"
 msgstr "دوشنبه"
 
 #: admin/class-woo-tapsi-delivery-settings.php:62
 msgid "My Addresses"
 msgstr "آدرس‌های من"
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:56
-msgid ""
-"New order notifications for this location will be sent to this email address."
-msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:328
 msgid "No"
@@ -437,7 +415,9 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:47
 msgid "Only enabled locations are able to be selected for Tapsi deliveries."
-msgstr "تنها مکان‌های فعال می‌توانند انتخاب شوند"
+msgstr ""
+"کاربران تنها می‌توانند مکان‌هایی را انتخاب کنند که به عنوان فعال ذخیره "
+"شده‌اند."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:103
 msgid "Order Lead Time"
@@ -486,10 +466,6 @@ msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:356
 msgid "Phone"
-msgstr "شماره تماس"
-
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:61
-msgid "Phone Number"
 msgstr "شماره تماس"
 
 #: admin/class-woo-tapsi-delivery-settings.php:202
@@ -557,7 +533,6 @@ msgid "Rules"
 msgstr "شرایط"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:217
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:160
 msgid "Saturday"
 msgstr "شنبه"
 
@@ -624,7 +599,6 @@ msgid "State"
 msgstr "استان"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:187
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:154
 msgid "Sunday"
 msgstr "یکشنبه"
 
@@ -649,11 +623,11 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:347
 msgid "Tapsi Delivery Submission: "
-msgstr ""
+msgstr "نتیجه‌ی درخواست سفارش در تپسی: "
 
 #: admin/class-woo-tapsi-delivery-admin.php:345
 msgid "Tapsi Delivery Submitted Successfully. ID: "
-msgstr ""
+msgstr "سفارش با موفقیت در تپسی ثبت شد. شناسه‌ی سفارش: "
 
 #: admin/class-woo-tapsi-delivery-admin.php:293
 msgid "Tapsi Delivery Submitted."
@@ -764,7 +738,10 @@ msgid ""
 "The exact address of your shop will be hidden to the customers but they can "
 "still see the coordinates of your shop in the track link that is sent to "
 "them."
-msgstr "آدرس دقیقا فروشگاه"
+msgstr ""
+"آدرس دقیق فروشگاه به خریداران نمایش داده نمی‌شود، اما همچنان خریداران "
+"می‌توانند از طریق لینک پیگیری‌ای که برای آن‌ها ارسال می‌شود، نقطه‌ی دقیق "
+"ارسال را ببینند."
 
 #: public/class-woo-tapsi-delivery-public.php:270
 msgid "The package delivery is done within 3 hours in the same day."
@@ -800,7 +777,6 @@ msgid "This information will only be displayed once."
 msgstr "این اطلاعات تنها یک بار نمایش داده می‌شوند."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:207
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:158
 msgid "Thursday"
 msgstr "پنجشنبه"
 
@@ -825,7 +801,6 @@ msgid "Tracking Orders"
 msgstr "پیگیری سفارشات"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:197
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:156
 msgid "Tuesday"
 msgstr "سه‌شنبه"
 
@@ -893,7 +868,6 @@ msgid "Webhooks Configuration"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:202
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:157
 msgid "Wednesday"
 msgstr "چهارشنبه"
 

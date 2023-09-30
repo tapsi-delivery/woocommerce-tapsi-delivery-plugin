@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-30 14:42+0330\n"
+"POT-Creation-Date: 2023-09-30 15:33+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -585,26 +585,51 @@ msgid ""
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:44
-msgid "Pickup locations are the various points from which you can ship orders."
+msgid ""
+"Pickup locations can be configured for each of the physical locations of "
+"your business."
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:45
+msgid "Each location can be configured with:"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:47
+msgid "<em>Location Name</em>"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:48
+msgid "<em>Location Address</em> where orders will be picked up by Drivers"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:49
+msgid ""
+"<em>Open Hours</em> for the location, which determine when users will be "
+"able to select this location for Tapsi"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:50
+msgid ""
+"<em>Lead Time</em> that is required for orders to be filled at this location."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:52
 msgid ""
 "Users will be able to select the location their order will be fulfilled from "
 "during checkout."
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:46
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:53
 msgid "Add pickup location"
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:58
-#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:60
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:65
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:67
 msgid "Edit"
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:59
-#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:60
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:66
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:67
 msgid "Delete"
 msgstr ""
 
@@ -654,6 +679,10 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:347
 msgid "Tapsi Delivery Submission: "
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:355
+msgid "Could not submit delivery! Try Again"
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:478

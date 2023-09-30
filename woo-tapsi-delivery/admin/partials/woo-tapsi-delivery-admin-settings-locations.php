@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php _e( 'Pickup Locations', 'woo-tapsi-delivery' ); ?>
 	<a href="<?php echo admin_url( 'admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=locations&location_id=new' ); ?>" class="page-title-action"><?php esc_html_e( 'Add pickup location', 'woo-tapsi-delivery' ); ?></a>
 </h2>
-<p><?php echo __( 'A pickup location is where an order can be picked up by a Driver.', 'woo-tapsi-delivery' ) . '<br>' . __( 'Enabled locations can be selected by users at checkout during a location\'s open hours.', 'woo-tapsi-delivery' ); ?></p>
+<p><?php echo __( 'A pickup location is where an order can be picked up by a Driver.', 'woo-tapsi-delivery' ) . '<br>' . __( 'Enabled locations can be selected by users at checkout.', 'woo-tapsi-delivery' ); ?></p>
 <table class="wc-tapsi-locations widefat">
 	<thead>
 		<tr>

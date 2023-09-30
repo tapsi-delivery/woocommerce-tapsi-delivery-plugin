@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-30 14:37+0330\n"
+"POT-Creation-Date: 2023-09-30 14:42+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -575,9 +575,7 @@ msgid "A pickup location is where an order can be picked up by a Driver."
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
-msgid ""
-"Enabled locations can be selected by users at checkout during a location's "
-"open hours."
+msgid "Enabled locations can be selected by users at checkout."
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:28

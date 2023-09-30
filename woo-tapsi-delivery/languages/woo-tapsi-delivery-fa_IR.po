@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Tapsi Delivery\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 10:07+0330\n"
-"PO-Revision-Date: 2023-09-27 11:14+0000\n"
 "Last-Translator: \n"
+"PO-Revision-Date: 2023-09-30 08:48+0000\n"
 "Language-Team: فارسی\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -613,7 +613,7 @@ msgstr "تپسی"
 
 #: admin/class-woo-tapsi-delivery-settings.php:40
 msgid "Tapsi Delivery"
-msgstr "ارسال تپسی"
+msgstr "ارسال با تپسی"
 
 #: admin/class-woo-tapsi-delivery-admin.php:175
 msgid ""

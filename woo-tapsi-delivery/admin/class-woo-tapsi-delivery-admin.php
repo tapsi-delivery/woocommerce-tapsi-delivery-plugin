@@ -126,8 +126,8 @@ class Woocommerce_Tapsi_Admin
     {
 
         $labels = array(
-            'name' => _x('Pickup Locations', 'Post Type General Name', 'woo-tapsi-delivery'),
-            'singular_name' => _x('Pickup Location', 'Post Type Singular Name', 'woo-tapsi-delivery'),
+            'name' => __('Pickup Locations', 'woo-tapsi-delivery'),
+            'singular_name' => __('Pickup Location',  'woo-tapsi-delivery'),
         );
         $args = array(
             'label' => __('Pickup Location', 'woo-tapsi-delivery'),

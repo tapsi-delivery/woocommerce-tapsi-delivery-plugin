@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 10:07+0330\n"
 "Last-Translator: \n"
-"PO-Revision-Date: 2023-09-30 08:48+0000\n"
+"PO-Revision-Date: 2023-09-30 09:16+0000\n"
 "Language-Team: فارسی\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr ""
 msgid "12345"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:499
+#: admin/class-woo-tapsi-delivery-admin.php:515
 msgid ""
 "A Dasher has accepted your delivery and is on the way to the pickup location."
 msgstr ""
@@ -200,13 +200,13 @@ msgid ""
 " Please enter another dropoff address or select a different delivery method."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:588
-#: admin/class-woo-tapsi-delivery-admin.php:613
+#: admin/class-woo-tapsi-delivery-admin.php:604
+#: admin/class-woo-tapsi-delivery-admin.php:629
 msgid "Delivery Picked Up"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:596
-#: admin/class-woo-tapsi-delivery-admin.php:614
+#: admin/class-woo-tapsi-delivery-admin.php:612
+#: admin/class-woo-tapsi-delivery-admin.php:630
 msgid "Delivery Returned"
 msgstr ""
 
@@ -517,11 +517,11 @@ msgstr "پلاک"
 msgid "Previously generated credentials can be managed under"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:807
+#: public/class-woo-tapsi-delivery-public.php:805
 msgid "Price"
 msgstr "مبلغ"
 
-#: admin/class-woo-tapsi-delivery-admin.php:519
+#: admin/class-woo-tapsi-delivery-admin.php:535
 #, php-format
 msgid "Reason: \"%s\""
 msgstr "دلیل: \"%s\""
@@ -621,6 +621,14 @@ msgid ""
 "mode to enable deliveries."
 msgstr ""
 
+#: admin/class-woo-tapsi-delivery-admin.php:347
+msgid "Tapsi Delivery Submission: "
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:345
+msgid "Tapsi Delivery Submitted Successfully. ID: "
+msgstr ""
+
 #: admin/class-woo-tapsi-delivery-admin.php:293
 msgid "Tapsi Delivery Submitted."
 msgstr "ارسال تپسی ثبت شد."
@@ -641,7 +649,7 @@ msgstr "پنل ارسال تپسی"
 msgid "Tapsi Pickup Location"
 msgstr "مکان‌های تحویل بسته به تپسی"
 
-#: admin/class-woo-tapsi-delivery-admin.php:551
+#: admin/class-woo-tapsi-delivery-admin.php:567
 #, php-format
 msgid "Tapsi status update: %s."
 msgstr "وضعیت مرسوله تپسی آپدیت شد: %s."
@@ -684,44 +692,44 @@ msgstr ""
 msgid "The allowed dimensions of the packages are 50cmx50cmx50cm."
 msgstr "ابعداد مجاز بسته‌ها، ۵۰×۵۰×۵۰ سانتی‌متر است."
 
-#: admin/class-woo-tapsi-delivery-admin.php:511
+#: admin/class-woo-tapsi-delivery-admin.php:527
 msgid "The Dasher has confirmed that they arrived at the dropoff location."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:503
+#: admin/class-woo-tapsi-delivery-admin.php:519
 msgid ""
 "The Dasher has confirmed that they arrived at the pickup location and are "
 "attempting to pick up the delivery."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:527
+#: admin/class-woo-tapsi-delivery-admin.php:543
 msgid ""
 "The Dasher has confirmed that they arrived at the pickup location and are "
 "attempting to return the delivery."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:515
+#: admin/class-woo-tapsi-delivery-admin.php:531
 msgid ""
 "The Dasher has dropped off the delivery at the dropoff location and the "
 "delivery is complete."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:507
+#: admin/class-woo-tapsi-delivery-admin.php:523
 msgid "The Dasher has picked up the delivery."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:523
+#: admin/class-woo-tapsi-delivery-admin.php:539
 msgid ""
 "The Dasher was unable to deliver your delivery to the dropoff location; they "
 "contacted support to arrange a return-to-pickup delivery and are returning "
 "to the pickup location."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:519
+#: admin/class-woo-tapsi-delivery-admin.php:535
 msgid "The delivery has been cancelled."
 msgstr "مرسوله لغو شده است."
 
-#: admin/class-woo-tapsi-delivery-admin.php:531
+#: admin/class-woo-tapsi-delivery-admin.php:547
 msgid "The delivery has been returned successfully."
 msgstr ""
 
@@ -778,7 +786,7 @@ msgstr "بازه زمانی"
 msgid "Title"
 msgstr "عنوان"
 
-#: public/class-woo-tapsi-delivery-public.php:807
+#: public/class-woo-tapsi-delivery-public.php:805
 msgid "Toman"
 msgstr "تومان"
 
@@ -821,25 +829,25 @@ msgstr ""
 msgid "Webhook Delivery URL"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:573
+#: admin/class-woo-tapsi-delivery-admin.php:589
 msgid "Webhook: Missing required parameters."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:565
+#: admin/class-woo-tapsi-delivery-admin.php:581
 #, php-format
 msgid "Webhook: Order #%s updated successfully."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:462
+#: admin/class-woo-tapsi-delivery-admin.php:478
 msgid "Webhook: Received webhook event \""
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:561
+#: admin/class-woo-tapsi-delivery-admin.php:577
 #, php-format
 msgid "Webhook: Tapsi not found order #%s."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:569
+#: admin/class-woo-tapsi-delivery-admin.php:585
 #, php-format
 msgid "Webhook: Unable to find an order with Delivery ID %s."
 msgstr ""
@@ -880,8 +888,12 @@ msgid "Your changes were not saved. Please retry."
 msgstr "تغییرات شما ذخیره نشده است. لطفا دوباره سعی کنید."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:26
-msgid "Your phone number "
-msgstr "شماره تماس"
+#, php-format
+msgid ""
+"Your phone number \"%s\" has been verified, and you can update it at any "
+"time."
+msgstr ""
+"شماره‌ی \"%s\"  ثبت و تائید شده است.  هر زمان می‌توانید آن را تغییر دهید."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:28
 msgid ""

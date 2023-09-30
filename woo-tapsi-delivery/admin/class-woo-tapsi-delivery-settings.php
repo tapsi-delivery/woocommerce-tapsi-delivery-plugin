@@ -179,7 +179,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                     $error_message = __($response->data->message, 'woo-tapsi-delivery');
                     WC_Admin_Settings::add_error($error_message);
                 } elseif ($response->result == 'OK') {
-                    update_option('woocommerce_tapsi_user_phone', $tapsi_phone, true);
                     wp_redirect(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=login&phone=' . $tapsi_phone));
                 }
             }
@@ -198,6 +197,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                     $error_message = __($authenticated_user->data->message, 'woo-tapsi-delivery');
                     WC_Admin_Settings::add_error($error_message);
                 } elseif ($authenticated_user->result == 'OK') {
+                    update_option('woocommerce_tapsi_user_phone', $tapsi_phone, true);
                     wp_redirect(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=login'));
                     $message = __('Phone number' . $tapsi_phone . ' was verified successfully!', 'woo-tapsi-delivery');
                     WC_Admin_Settings::add_message($message);

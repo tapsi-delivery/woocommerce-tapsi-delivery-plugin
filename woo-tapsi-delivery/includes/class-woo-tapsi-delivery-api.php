@@ -154,7 +154,7 @@ class Woocommerce_Tapsi_API
             'body' => json_encode($request_body),
             'headers' => array(
                 'Content-Type' => 'application/json',
-                'x-agent' => $this->x_agent
+                'x-agent' => 'v0.1.0|SCHEDULED_DELIVERY_SENDER|WEB|0.1.0'
             ),
             'timeout' => 20
         );

@@ -335,8 +335,8 @@ class Woocommerce_Tapsi_Admin
 
         if ($location_id) {
             try {
-                $location = new Woocommerce_Tapsi_Pickup_Location($location_id);
-                $response = $this->submit_delivery_order($delivery, $order, $location);
+                $pickup_location = new Woocommerce_Tapsi_Pickup_Location($location_id);
+                $response = $this->submit_delivery_order($order, $delivery, $pickup_location);
                 $response = json_decode(wp_remote_retrieve_body($response));
 
                 if(property_exists($response, 'details') && property_exists($response->details[0], 'message')) {
@@ -352,7 +352,7 @@ class Woocommerce_Tapsi_Admin
         }
 
         if ($note == '') {
-            $order->add_order_note('Could not submit delivery!');
+            $order->add_order_note(__('Could not submit delivery! Try Again', 'woo-tapsi-delivery'));
         } else {
             $order->add_order_note($note);
         }
@@ -668,13 +668,13 @@ class Woocommerce_Tapsi_Admin
     /**
      * @param Woocommerce_Tapsi_Delivery $delivery
      * @param WC_Order $order
-     * @param Woocommerce_Tapsi_Pickup_Location $sender_location
+     * @param Woocommerce_Tapsi_Pickup_Location $pickup_location
      * @return void
      */
     public function submit_delivery_order(
-        Woocommerce_Tapsi_Delivery        $delivery,
         WC_Order                          $order,
-        Woocommerce_Tapsi_Pickup_Location $sender_location
+        Woocommerce_Tapsi_Delivery        $delivery,
+        Woocommerce_Tapsi_Pickup_Location $pickup_location
     ): array
     {
         $receiver_location_description = $order->get_shipping_city() . '، ' .
@@ -685,7 +685,7 @@ class Woocommerce_Tapsi_Admin
         $destination_lat = $delivery->get_destination_lat();
         $destination_long = $delivery->get_destination_long();
 
-        $sender_address = $sender_location->get_address();
+        $sender_address = $pickup_location->get_address();
         $sender_location_description = $sender_address['city'] . '، ' .
             $sender_address['address_1'] . '، ' .
             $sender_address['address_2'] . '.';

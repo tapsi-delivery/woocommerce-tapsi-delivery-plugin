@@ -512,23 +512,23 @@ class Woocommerce_Tapsi_Admin
                         // Read the order status from the request, and update the order status/notes as needed
                         $dd_to_woo_status_map = array(
                             'DASHER_CONFIRMED' => array(
-                                'note' => __('A Dasher has accepted your delivery and is on the way to the pickup location.', 'woo-tapsi-delivery'),
+                                'note' => __('A Driver has accepted your delivery and is on the way to the pickup location.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DASHER_CONFIRMED_PICKUP_ARRIVAL' => array(
-                                'note' => __('The Dasher has confirmed that they arrived at the pickup location and are attempting to pick up the delivery.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has confirmed that they arrived at the pickup location and are attempting to pick up the delivery.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DASHER_PICKED_UP' => array(
-                                'note' => __('The Dasher has picked up the delivery.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has picked up the delivery.', 'woo-tapsi-delivery'),
                                 'wc_status' => 'wcdd-picked-up',
                             ),
                             'DASHER_CONFIRMED_DROPOFF_ARRIVAL' => array(
-                                'note' => __('The Dasher has confirmed that they arrived at the dropoff location.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has confirmed that they arrived at the dropoff location.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DASHER_DROPPED_OFF' => array(
-                                'note' => __('The Dasher has dropped off the delivery at the dropoff location and the delivery is complete.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has dropped off the delivery at the dropoff location and the delivery is complete.', 'woo-tapsi-delivery'),
                                 'wc_status' => 'completed',
                             ),
                             'DELIVERY_CANCELLED' => array(
@@ -536,11 +536,11 @@ class Woocommerce_Tapsi_Admin
                                 'wc_status' => 'cancelled',
                             ),
                             'DELIVERY_RETURN_INITIALIZED' => array(
-                                'note' => __('The Dasher was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DASHER_CONFIRMED_RETURN_ARRIVAL' => array(
-                                'note' => __('The Dasher has confirmed that they arrived at the pickup location and are attempting to return the delivery.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has confirmed that they arrived at the pickup location and are attempting to return the delivery.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DELIVERY_RETURNED' => array(

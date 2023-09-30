@@ -109,7 +109,7 @@ return array(
 		'id' => $prefix . 'default_pickup_instructions',
 		'name' => __( 'Default Pickup Instructions', 'woo-tapsi-delivery' ),
 		'type' => 'text',
-		'desc_tip' => __( 'These instructions will be provided to Dashers when picking up orders. These instructions can be overridden for each location on the <em>Edit Location</em> screen.', 'woo-tapsi-delivery' ),
+		'desc_tip' => __( 'These instructions will be provided to Drivers when picking up orders. These instructions can be overridden for each location on the <em>Edit Location</em> screen.', 'woo-tapsi-delivery' ),
 	),
 	array(
 		'id' => $prefix . 'enable_alcohol_tobacco',
@@ -154,9 +154,9 @@ return array(
 	),
 	array(
 		'id' => $prefix . 'tipping',
-		'name' => __( 'Dasher Tipping', 'woo-tapsi-delivery' ),
+		'name' => __( 'Driver Tipping', 'woo-tapsi-delivery' ),
 		'type' => 'select',
-		'desc_tip' => __( 'Select Enabled to allow your customers to add a tip for their Tapsier. 100% of tips are passed on to the Dasher.', 'woo-tapsi-delivery' ),
+		'desc_tip' => __( 'Select Enabled to allow your customers to add a tip for their Tapsier. 100% of tips are passed on to the Driver.', 'woo-tapsi-delivery' ),
 		'options' => array(
 			'enabled' => __( 'Enabled', 'woo-tapsi-delivery' ),
 			'disabled' => __( 'Disabled', 'woo-tapsi-delivery' ),

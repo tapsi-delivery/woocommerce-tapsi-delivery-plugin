@@ -23,7 +23,7 @@ echo '<h2><a href="' . admin_url( 'admin.php?page=wc-settings&tab=woo-tapsi-deli
 echo '<h2>' . __( 'Login Information', 'woo-tapsi-delivery' ) . '</h2>';
 
     if ($is_token_valid) {
-        echo '<p class="taspi-pack-authenticated-phone-number">' . __( 'Your phone number ' . $tapsi_phone .  ' has been verified, and you can update it at any time.', 'woo-tapsi-delivery' ) . '</p>';
+        echo '<p class="taspi-pack-authenticated-phone-number">' .  sprintf(__('Your phone number "%s" has been verified, and you can update it at any time.', 'woo-tapsi-delivery'), $tapsi_phone) . '</p>';
     } else {
         echo '<p class="taspi-pack-unauthenticated-phone-number">' . __( 'Your phone number has not been verified. Please enter the phone number associated with your Tapsi account.', 'woo-tapsi-delivery' ) . '</p>';
     }

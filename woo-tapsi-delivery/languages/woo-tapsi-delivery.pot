@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-30 14:22+0330\n"
+"POT-Creation-Date: 2023-09-30 14:37+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -397,6 +397,10 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
+#: admin/partials/woo-tapsi-delivery-admin-tracking-orders.php:26
+msgid "Use the following link to track your shop deliveries."
+msgstr ""
+
 #: admin/partials/woo-tapsi-delivery-admin-tracking-orders.php:28
 msgid "Tapsi Pack Taker Panel"
 msgstr ""
@@ -561,6 +565,11 @@ msgid ""
 "delivery!!!"
 msgstr ""
 
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:21
+#: admin/class-woo-tapsi-delivery-admin.php:129
+msgid "Pickup Locations"
+msgstr ""
+
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
 msgid "A pickup location is where an order can be picked up by a Driver."
 msgstr ""
@@ -577,8 +586,28 @@ msgid ""
 "will be matched against the customer address."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:129
-msgid "Pickup Locations"
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:44
+msgid "Pickup locations are the various points from which you can ship orders."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:45
+msgid ""
+"Users will be able to select the location their order will be fulfilled from "
+"during checkout."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:46
+msgid "Add pickup location"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:58
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:60
+msgid "Edit"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:59
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:60
+msgid "Delete"
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:130

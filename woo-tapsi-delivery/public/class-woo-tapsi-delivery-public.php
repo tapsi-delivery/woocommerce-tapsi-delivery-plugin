@@ -267,6 +267,7 @@ class Woocommerce_Tapsi_Public
 					echo '<section>
 						<p>' . __( 'Rules', 'woo-tapsi-delivery' ) . '</p>
 						<ul>
+							<li>' . __( 'Delivery is done in Tehran only.', 'woo-tapsi-delivery' ) . '</li>
 							<li>' . __( 'The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery' ) . '</li>
 							<li>' . __( 'Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'woo-tapsi-delivery' ) . '</li>
 							<li>' . __( 'The allowed dimensions of the packages are 50cmx50cmx50cm.', 'woo-tapsi-delivery' ) . '</li>
@@ -831,6 +832,7 @@ class Woocommerce_Tapsi_Public
 		$current_url = $_SERVER['REQUEST_URI'];
 
 		if (strpos($current_url, 'checkout') !== false) {
+			wp_enqueue_style('wctd-tapsi-pack-map-modal-public-stylesheet', 'https://static.tapsi.cab/pack/wp-plugin/map/map-public.css');
 			// Map Libre Js and Map Libre CSS where previously added by enqueue script function
 			require_once 'partials/wctd-taps-pack-maplibre-map-modal.php';
 			// Map Js is handled inside the woo-tapsi-delivery-public file

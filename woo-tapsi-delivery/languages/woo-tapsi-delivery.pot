@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-30 12:39+0330\n"
+"POT-Creation-Date: 2023-09-30 15:33+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,7 +270,7 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:112
 msgid ""
-"These instructions will be provided to Dashers when picking up orders. These "
+"These instructions will be provided to Drivers when picking up orders. These "
 "instructions can be overridden for each location on the <em>Edit Location</"
 "em> screen."
 msgstr ""
@@ -320,14 +320,14 @@ msgid ""
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:157
-msgid "Dasher Tipping"
+msgid "Driver Tipping"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:159
 #, php-format
 msgid ""
 "Select Enabled to allow your customers to add a tip for their Tapsier. "
-"100% of tips are passed on to the Dasher."
+"100% of tips are passed on to the Driver."
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:161
@@ -395,6 +395,10 @@ msgstr ""
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:217
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:160
 msgid "Saturday"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-tracking-orders.php:26
+msgid "Use the following link to track your shop deliveries."
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-tracking-orders.php:28
@@ -561,14 +565,17 @@ msgid ""
 "delivery!!!"
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
-msgid "A pickup location is where an order can be picked up by a Dasher."
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:21
+#: admin/class-woo-tapsi-delivery-admin.php:129
+msgid "Pickup Locations"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
-msgid ""
-"Enabled locations can be selected by users at checkout during a location's "
-"open hours."
+msgid "A pickup location is where an order can be picked up by a Driver."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
+msgid "Enabled locations can be selected by users at checkout."
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:28
@@ -577,6 +584,56 @@ msgid ""
 "will be matched against the customer address."
 msgstr ""
 
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:44
+msgid ""
+"Pickup locations can be configured for each of the physical locations of "
+"your business."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:45
+msgid "Each location can be configured with:"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:47
+msgid "<em>Location Name</em>"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:48
+msgid "<em>Location Address</em> where orders will be picked up by Drivers"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:49
+msgid ""
+"<em>Open Hours</em> for the location, which determine when users will be "
+"able to select this location for Tapsi"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:50
+msgid ""
+"<em>Lead Time</em> that is required for orders to be filled at this location."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:52
+msgid ""
+"Users will be able to select the location their order will be fulfilled from "
+"during checkout."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:53
+msgid "Add pickup location"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:65
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:67
+msgid "Edit"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:66
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:67
+msgid "Delete"
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:130
 #: admin/class-woo-tapsi-delivery-admin.php:133
 #: admin/class-woo-tapsi-delivery-admin.php:192
 msgid "Pickup Location"
@@ -624,32 +681,36 @@ msgstr ""
 msgid "Tapsi Delivery Submission: "
 msgstr ""
 
+#: admin/class-woo-tapsi-delivery-admin.php:355
+msgid "Could not submit delivery! Try Again"
+msgstr ""
+
 #: admin/class-woo-tapsi-delivery-admin.php:478
 msgid "Webhook: Received webhook event \""
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:515
 msgid ""
-"A Dasher has accepted your delivery and is on the way to the pickup location."
+"A Driver has accepted your delivery and is on the way to the pickup location."
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:519
 msgid ""
-"The Dasher has confirmed that they arrived at the pickup location and are "
+"The Driver has confirmed that they arrived at the pickup location and are "
 "attempting to pick up the delivery."
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:523
-msgid "The Dasher has picked up the delivery."
+msgid "The Driver has picked up the delivery."
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:527
-msgid "The Dasher has confirmed that they arrived at the dropoff location."
+msgid "The Driver has confirmed that they arrived at the dropoff location."
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:531
 msgid ""
-"The Dasher has dropped off the delivery at the dropoff location and the "
+"The Driver has dropped off the delivery at the dropoff location and the "
 "delivery is complete."
 msgstr ""
 
@@ -664,14 +725,14 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:539
 msgid ""
-"The Dasher was unable to deliver your delivery to the dropoff location; they "
+"The Driver was unable to deliver your delivery to the dropoff location; they "
 "contacted support to arrange a return-to-pickup delivery and are returning "
 "to the pickup location."
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:543
 msgid ""
-"The Dasher has confirmed that they arrived at the pickup location and are "
+"The Driver has confirmed that they arrived at the pickup location and are "
 "attempting to return the delivery."
 msgstr ""
 

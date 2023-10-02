@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php _e( 'Pickup Locations', 'woo-tapsi-delivery' ); ?>
 	<a href="<?php echo admin_url( 'admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=locations&location_id=new' ); ?>" class="page-title-action"><?php esc_html_e( 'Add pickup location', 'woo-tapsi-delivery' ); ?></a>
 </h2>
-<p><?php echo __( 'A pickup location is where an order can be picked up by a Dasher.', 'woo-tapsi-delivery' ) . '<br>' . __( 'Enabled locations can be selected by users at checkout during a location\'s open hours.', 'woo-tapsi-delivery' ); ?></p>
+<p><?php echo __( 'A pickup location is where an order can be picked up by a Driver.', 'woo-tapsi-delivery' ) . '<br>' . __( 'Enabled locations can be selected by users at checkout.', 'woo-tapsi-delivery' ); ?></p>
 <table class="wc-tapsi-locations widefat">
 	<thead>
 		<tr>
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p><?php _e( 'Each location can be configured with:', 'woo-tapsi-delivery' ); ?></p>
 				<ul>
 					<li><?php _e( '<em>Location Name</em>', 'woo-tapsi-delivery' ); ?>
-					<li><?php _e( '<em>Location Address</em> where orders will be picked up by Dashers', 'woo-tapsi-delivery' ); ?>
+					<li><?php _e( '<em>Location Address</em> where orders will be picked up by Drivers', 'woo-tapsi-delivery' ); ?>
 					<li><?php _e( '<em>Open Hours</em> for the location, which determine when users will be able to select this location for Tapsi', 'woo-tapsi-delivery' ); ?>
 					<li><?php _e( '<em>Lead Time</em> that is required for orders to be filled at this location.', 'woo-tapsi-delivery' ); ?>
 				</ul>

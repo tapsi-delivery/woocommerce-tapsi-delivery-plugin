@@ -62,7 +62,6 @@ class Woocommerce_Tapsi_shipping_zone
     public static function get_tapsi_zone()
     {
         $zones = WC_Shipping_Zones::get_zones();
-        error_log('$zones: ' .  print_r($zones, true));
 
         foreach ($zones as $zone) {
             if ($zone['zone_name'] === self::$tapsi_zone_name) {

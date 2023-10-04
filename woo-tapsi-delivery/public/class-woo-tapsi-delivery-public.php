@@ -140,11 +140,6 @@ class Woocommerce_Tapsi_Public
         if (array_key_exists('tapsi_delivery', $meta)) $delivery = $meta['tapsi_delivery'];
         else $delivery = false;
 
-//		error_log('maryam $chosen_shipping_rate_id' . print_r($chosen_shipping_rate_id));
-//		error_log('maryam $delivery' . print_r($delivery));
-//		error_log('maryam $delivery $meta' . print_r($meta));
-//		error_log('maryam $delivery $shipping_rate' . print_r($shipping_rate));
-
 		// Only output the fields in the checkout page
 		if (is_checkout()){
 			// Only output the field if the selected method is a WooCommerce Tapsi method

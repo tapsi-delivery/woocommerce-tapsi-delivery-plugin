@@ -334,11 +334,11 @@ class Woocommerce_Tapsi_Admin
         $note = '';
 
         if ($location_id) {
-            try {
-                $pickup_location = new Woocommerce_Tapsi_Pickup_Location($location_id);
-                $response = $this->submit_delivery_order($order, $delivery, $pickup_location);
-                $response = json_decode(wp_remote_retrieve_body($response));
+            $pickup_location = new Woocommerce_Tapsi_Pickup_Location($location_id);
+            $response = $this->submit_delivery_order($order, $delivery, $pickup_location);
 
+            try {
+                $response = json_decode(wp_remote_retrieve_body($response));
                 if(property_exists($response, 'details') && property_exists($response->details[0], 'message')) {
                     $note = $response->details[0]->message;
                 } elseif(property_exists($response, 'successfulOrderSubmission')) {
@@ -348,14 +348,15 @@ class Woocommerce_Tapsi_Admin
                 }
 
             } catch (Exception $e) {
+                WCDD()->log->debug('Error while parsing submission response! response is: ', $response);
             }
         }
 
         if ($note == '') {
-            $order->add_order_note(__('Could not submit delivery! Try Again', 'woo-tapsi-delivery'));
-        } else {
-            $order->add_order_note($note);
+            $note = __('Could not submit delivery! Try Again', 'woo-tapsi-delivery');
         }
+
+        $order->add_order_note($note);
 
         // Clear delivery details from session. Leave the selected location.
         WC()->session->set('tapsi_external_delivery_id', '');

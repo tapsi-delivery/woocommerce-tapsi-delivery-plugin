@@ -98,7 +98,7 @@ class Woocommerce_Tapsi
         $this->set_locale();
         $this->define_admin_hooks();
         $this->define_public_hooks();
-
+        $this->set_shipping_method_for_zone();
     }
 
     /**
@@ -137,6 +137,13 @@ class Woocommerce_Tapsi
          * of the plugin.
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-i18n.php';
+
+
+        /**
+         * The class responsible for adding plugin as a shipping method for desired shipping zone
+         * of the plugin.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-woo-tapsi-delivery-shipping-zone.php';
 
         /**
          * The class responsible for defining the Tapsi Delivery object
@@ -375,6 +382,12 @@ class Woocommerce_Tapsi
     public function get_version()
     {
         return $this->version;
+    }
+
+    private function set_shipping_method_for_zone()
+    {
+        $plugin_shipping_zone = new Woocommerce_Tapsi_shipping_zone();
+        $this->loader->add_action('init', $plugin_shipping_zone, 'set_shipping_zone');
     }
 
 }

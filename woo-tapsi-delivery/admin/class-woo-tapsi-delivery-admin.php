@@ -126,8 +126,8 @@ class Woocommerce_Tapsi_Admin
     {
 
         $labels = array(
-            'name' => _x('Pickup Locations', 'Post Type General Name', 'woo-tapsi-delivery'),
-            'singular_name' => _x('Pickup Location', 'Post Type Singular Name', 'woo-tapsi-delivery'),
+            'name' => __('Pickup Locations', 'woo-tapsi-delivery'),
+            'singular_name' => __('Pickup Location',  'woo-tapsi-delivery'),
         );
         $args = array(
             'label' => __('Pickup Location', 'woo-tapsi-delivery'),
@@ -335,8 +335,8 @@ class Woocommerce_Tapsi_Admin
 
         if ($location_id) {
             try {
-                $location = new Woocommerce_Tapsi_Pickup_Location($location_id);
-                $response = $this->submit_delivery_order($delivery, $order, $location);
+                $pickup_location = new Woocommerce_Tapsi_Pickup_Location($location_id);
+                $response = $this->submit_delivery_order($order, $delivery, $pickup_location);
                 $response = json_decode(wp_remote_retrieve_body($response));
 
                 if(property_exists($response, 'details') && property_exists($response->details[0], 'message')) {
@@ -352,7 +352,7 @@ class Woocommerce_Tapsi_Admin
         }
 
         if ($note == '') {
-            $order->add_order_note('Could not submit delivery!');
+            $order->add_order_note(__('Could not submit delivery! Try Again', 'woo-tapsi-delivery'));
         } else {
             $order->add_order_note($note);
         }
@@ -512,23 +512,23 @@ class Woocommerce_Tapsi_Admin
                         // Read the order status from the request, and update the order status/notes as needed
                         $dd_to_woo_status_map = array(
                             'DASHER_CONFIRMED' => array(
-                                'note' => __('A Dasher has accepted your delivery and is on the way to the pickup location.', 'woo-tapsi-delivery'),
+                                'note' => __('A Driver has accepted your delivery and is on the way to the pickup location.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DASHER_CONFIRMED_PICKUP_ARRIVAL' => array(
-                                'note' => __('The Dasher has confirmed that they arrived at the pickup location and are attempting to pick up the delivery.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has confirmed that they arrived at the pickup location and are attempting to pick up the delivery.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DASHER_PICKED_UP' => array(
-                                'note' => __('The Dasher has picked up the delivery.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has picked up the delivery.', 'woo-tapsi-delivery'),
                                 'wc_status' => 'wcdd-picked-up',
                             ),
                             'DASHER_CONFIRMED_DROPOFF_ARRIVAL' => array(
-                                'note' => __('The Dasher has confirmed that they arrived at the dropoff location.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has confirmed that they arrived at the dropoff location.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DASHER_DROPPED_OFF' => array(
-                                'note' => __('The Dasher has dropped off the delivery at the dropoff location and the delivery is complete.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has dropped off the delivery at the dropoff location and the delivery is complete.', 'woo-tapsi-delivery'),
                                 'wc_status' => 'completed',
                             ),
                             'DELIVERY_CANCELLED' => array(
@@ -536,11 +536,11 @@ class Woocommerce_Tapsi_Admin
                                 'wc_status' => 'cancelled',
                             ),
                             'DELIVERY_RETURN_INITIALIZED' => array(
-                                'note' => __('The Dasher was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver was unable to deliver your delivery to the dropoff location; they contacted support to arrange a return-to-pickup delivery and are returning to the pickup location.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DASHER_CONFIRMED_RETURN_ARRIVAL' => array(
-                                'note' => __('The Dasher has confirmed that they arrived at the pickup location and are attempting to return the delivery.', 'woo-tapsi-delivery'),
+                                'note' => __('The Driver has confirmed that they arrived at the pickup location and are attempting to return the delivery.', 'woo-tapsi-delivery'),
                                 'wc_status' => false,
                             ),
                             'DELIVERY_RETURNED' => array(
@@ -668,13 +668,13 @@ class Woocommerce_Tapsi_Admin
     /**
      * @param Woocommerce_Tapsi_Delivery $delivery
      * @param WC_Order $order
-     * @param Woocommerce_Tapsi_Pickup_Location $sender_location
+     * @param Woocommerce_Tapsi_Pickup_Location $pickup_location
      * @return void
      */
     public function submit_delivery_order(
-        Woocommerce_Tapsi_Delivery        $delivery,
         WC_Order                          $order,
-        Woocommerce_Tapsi_Pickup_Location $sender_location
+        Woocommerce_Tapsi_Delivery        $delivery,
+        Woocommerce_Tapsi_Pickup_Location $pickup_location
     ): array
     {
         $receiver_location_description = $order->get_shipping_city() . '، ' .
@@ -685,7 +685,7 @@ class Woocommerce_Tapsi_Admin
         $destination_lat = $delivery->get_destination_lat();
         $destination_long = $delivery->get_destination_long();
 
-        $sender_address = $sender_location->get_address();
+        $sender_address = $pickup_location->get_address();
         $sender_location_description = $sender_address['city'] . '، ' .
             $sender_address['address_1'] . '، ' .
             $sender_address['address_2'] . '.';

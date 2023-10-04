@@ -732,7 +732,7 @@ class Woocommerce_Tapsi_Public
 //
 //                if ($tip_amount > 0) {
 //                    // Only add the fee if there is a tip attached
-//                    WC()->cart->add_fee(__('Dasher Tip', 'woo-tapsi-delivery'), $tip_amount);
+//                    WC()->cart->add_fee(__('Driver Tip', 'woo-tapsi-delivery'), $tip_amount);
 //                }
 //            }
 //        }

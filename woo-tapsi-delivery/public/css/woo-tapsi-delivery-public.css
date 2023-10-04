@@ -226,3 +226,24 @@ ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
 .wcts-tapsi-pack-checkout-form-label {
 	font-weight: bold;
 }
+
+.wcts-tapsi-pack-rules-section {
+	text-indent: 0 !important;
+}
+
+.wcts-tapsi-pack-rules-section ul {
+	margin: 0 !important;
+}
+
+
+.wcts-tapsi-pack-rules-section li {
+	text-indent: 0 !important;
+}
+
+#wctd-tapsi-pack-maplibre-map-public-warning {
+	text-indent: 0 !important;
+}
+
+.wctd-tapsi-pack-destination-shard {
+	text-indent: 0 !important;
+}

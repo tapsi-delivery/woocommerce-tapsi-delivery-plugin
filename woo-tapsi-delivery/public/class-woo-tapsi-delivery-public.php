@@ -197,7 +197,6 @@ class Woocommerce_Tapsi_Public
 				echo '<img src="https://static.tapsi.cab/pack/wp-plugin/map/dot.svg" width="24" height="24" id="wctd-tapsi-pack-maplibre-map-public-preview-img-dot"/>';
 				echo '</div>';
 				echo '<p id="wctd-tapsi-pack-maplibre-map-public-warning"><img src="https://static.tapsi.cab/pack/wp-plugin/map/warning.svg" width="24" height="24" alt="!!!"/>'.__('Please make sure that the coordinates on the map match your destination. Tapsi Pack delivers the package to the chosen coordinates regardless of the provided address.', 'woo-tapsi-delivery').'</p>';
-				echo '</section>';
 
                 $destination = $this->get_destination(false);
 
@@ -264,14 +263,14 @@ class Woocommerce_Tapsi_Public
 
 				// Render the rules when the user has seen the price
 				if (!empty($delivery_times_for_date)) {
-					echo '<section>
+					echo '<section class="wcts-tapsi-pack-rules-section">
 						<p>' . __( 'Rules', 'woo-tapsi-delivery' ) . '</p>
 						<ul>
-							<li>' . __( 'Delivery is done in Tehran only.', 'woo-tapsi-delivery' ) . '</li>
-							<li>' . __( 'The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery' ) . '</li>
-							<li>' . __( 'Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'woo-tapsi-delivery' ) . '</li>
-							<li>' . __( 'The allowed dimensions of the packages are 50cmx50cmx50cm.', 'woo-tapsi-delivery' ) . '</li>
-							<li>' . __( 'After starting the trip, the driver\'s information and the approximate arrival time will be sent to you via SMS.', 'woo-tapsi-delivery' ) . '</li>
+							<li>- ' . __( 'Delivery is done in Tehran only.', 'woo-tapsi-delivery' ) . '</li>
+							<li>- ' . __( 'The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery' ) . '</li>
+							<li>- ' . __( 'Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'woo-tapsi-delivery' ) . '</li>
+							<li>- ' . __( 'The allowed dimensions of the packages are 50cmx50cmx50cm.', 'woo-tapsi-delivery' ) . '</li>
+							<li>- ' . __( 'After starting the trip, the driver\'s information and the approximate arrival time will be sent to you via SMS.', 'woo-tapsi-delivery' ) . '</li>
 						</ul>
 					 </section>';
 				}

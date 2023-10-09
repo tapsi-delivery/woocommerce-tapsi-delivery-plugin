@@ -274,4 +274,18 @@
 		mobileViews();
 	} );
 
+	jQuery(document).ready(function ($) {
+		// Listen for changes in the country field
+		$('select#billing_country, select#shipping_country').change(function () {
+			// Trigger an update of shipping methods
+			$(document.body).trigger('update_checkout');
+		});
+
+		// Listen for changes in the state/province field
+		$('select#billing_state, select#shipping_state').change(function () {
+			// Trigger an update of shipping methods
+			$(document.body).trigger('update_checkout');
+		});
+	});
+
 })( jQuery );

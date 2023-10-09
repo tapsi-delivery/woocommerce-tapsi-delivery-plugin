@@ -209,9 +209,9 @@ class Woocommerce_Tapsi_API
 
         // Log the response
         try {
-            WCDD()->log->debug('$response', json_decode(wp_remote_retrieve_body($response)));
+            WCDD()->log->debug('decoded $response', json_decode(wp_remote_retrieve_body($response)));
         } catch (Exception $e) {
-            WCDD()->log->debug('$response', $response);
+            WCDD()->log->debug('raw $response', $response);
         }
 
         return $response;
@@ -398,7 +398,7 @@ class Woocommerce_Tapsi_API
         $request_url = $this->base_url . $request_path;
 
         // Set up default arguments for WP Remote Request
-        $defaults = array(
+        $default_args = array(
             'headers' => array(
                 'cookie' => $this->get_cookie(),
                 'Content-Type' => 'application/json',
@@ -408,8 +408,8 @@ class Woocommerce_Tapsi_API
         );
 
         // Combine the defaults with the passed arguments
-        $request_args = wp_parse_args($request_args, $defaults);
-        $response = $this->remote_request($request_url, $request_args);
+        $parsed_request_args = wp_parse_args($request_args, $default_args);
+        $response = $this->remote_request($request_url, $parsed_request_args);
         $response_code = wp_remote_retrieve_response_code($response);
 
         if ($response_code == 401 || $response_code == 403) {

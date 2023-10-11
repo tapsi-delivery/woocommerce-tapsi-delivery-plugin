@@ -557,6 +557,7 @@ class Woocommerce_Tapsi_Public
         // Save the Pickup Location
         if (array_key_exists('tapsi_pickup_location', $data)) { // phpcs:ignore String is parsed to array
             $tapsi_pickup_location = $data['tapsi_pickup_location'];
+            if ($tapsi_pickup_location != WC()->session->get('tapsi_pickup_location') && WC()->session->get('tapsi_pickup_location') != '') $preview_changed = true;
             WC()->session->set('tapsi_pickup_location', $tapsi_pickup_location);
         } else {
             //make pickup location gets set if possible

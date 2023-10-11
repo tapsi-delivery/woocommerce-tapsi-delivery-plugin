@@ -581,12 +581,14 @@ class Woocommerce_Tapsi_Public
 	    // Save destination coordinate latitude
 	    if (array_key_exists('wctd_tapsi_destination_lat', $data)) { // phpcs:ignore
 		    $wctd_tapsi_destination_lat = $data['wctd_tapsi_destination_lat'];
-		    WC()->session->set('wctd_tapsi_destination_lat', $wctd_tapsi_destination_lat);
+            if ($wctd_tapsi_destination_lat != WC()->session->get('wctd_tapsi_destination_lat') && WC()->session->get('wctd_tapsi_destination_lat') != '') $preview_changed = true;
+            WC()->session->set('wctd_tapsi_destination_lat', $wctd_tapsi_destination_lat);
 	    }
 		// Save destination coordinate longitude
 	    if (array_key_exists('wctd_tapsi_destination_long', $data)) { // phpcs:ignore
 		    $wctd_tapsi_destination_long = $data['wctd_tapsi_destination_long'];
-		    WC()->session->set('wctd_tapsi_destination_long', $wctd_tapsi_destination_long);
+            if ($wctd_tapsi_destination_long != WC()->session->get('wctd_tapsi_destination_long') && WC()->session->get('wctd_tapsi_destination_long') != '') $preview_changed = true;
+            WC()->session->set('wctd_tapsi_destination_long', $wctd_tapsi_destination_long);
 	    }
 
         // Save the delivery type

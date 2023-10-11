@@ -1,7 +1,9 @@
-# Woocommerce Tapsi Delivery Plugin
+# WooCommerce Tapsi Delivery Plugin
 
-Seamlessly integrate your WooCommerce website with Tapsi Pack Delivery!
+Integrate your WooCommerce website seamlessly with Tapsi Pack Delivery!
 
-Here you can read more about Tapsi Pack:
+Get started with this plugin by visiting plugin's website:
+[Tapsi Pack WooCommerce Plugin](https://tapsi-pack.github.io/woocommerce-plugin/)
 
+For additional information about Tapsi Pack and its services, you can explore the official Tapsi Pack website:
 [Tapsi Pack Website](https://pack.tapsi.ir/landing)

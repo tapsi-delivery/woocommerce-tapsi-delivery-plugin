@@ -541,7 +541,7 @@ class Woocommerce_Tapsi_Public
         $woocommerce_tapsi_delivery_scheduling = get_option('woocommerce_tapsi_delivery_scheduling');
 
         // Has the date changed?
-        $date_changed = false;
+        $preview_changed = false;
 
         // Store the customer contact info in an array, then save to the session
         $customer_data_keys = array($prefix . 'first_name', $prefix . 'last_name', $prefix . 'company', $prefix . 'country', $prefix . 'address_1', $prefix . 'address_2', $prefix . 'city', $prefix . 'state', $prefix . 'postcode', $prefix . 'phone');
@@ -604,16 +604,16 @@ class Woocommerce_Tapsi_Public
         if (array_key_exists('tapsi_delivery_date', $data)) { // phpcs:ignore
             $tapsi_delivery_date = $data['tapsi_delivery_date'];
             // Set $date_changed if the user changed the date since the last request.
-            if ($tapsi_delivery_date != WC()->session->get('tapsi_delivery_date') && $tapsi_delivery_type == 'scheduled' && WC()->session->get('tapsi_delivery_date') != '') $date_changed = true;
+            if ($tapsi_delivery_date != WC()->session->get('tapsi_delivery_date') && WC()->session->get('tapsi_delivery_date') != '') $preview_changed = true;
             WC()->session->set('tapsi_delivery_date', $tapsi_delivery_date);
         }
 
         // Save the delivery time
         if (array_key_exists('tapsi_delivery_time', $data)) { //phpcs:ignore
-            if ($date_changed) {
+            if ($preview_changed) {
                 // If the date changed, we need to manually get the first available time for that day
-                $location = new Woocommerce_Tapsi_Pickup_Location($tapsi_pickup_location);
-                $tapsi_delivery_time = array_shift(array_keys($this->get_delivery_times_for_date($tapsi_delivery_date)));
+                $available_times = array_keys($this->get_delivery_times_for_date($tapsi_delivery_date));
+                $tapsi_delivery_time = array_shift($available_times);
             } else {
                 // If the date didn't change, carry on
                 $tapsi_delivery_time = $data['tapsi_delivery_time'];
@@ -809,7 +809,6 @@ class Woocommerce_Tapsi_Public
 
                     }
                 } elseif(property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
-                    WCDD()->log->debug('$data->details on get_delivery_times_for_date', $data->details[0]);
                     echo $data->details[0]->message;
                 } else {
                     echo 'No available delivery times found.';

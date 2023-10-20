@@ -347,9 +347,8 @@ class Woocommerce_Tapsi
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
-	    $this->loader->add_action('template_redirect', $plugin_public, 'render_checkout_map_modal', 10);
+        $this->loader->add_action('template_redirect', $plugin_public, 'render_checkout_map_modal', 10);
 
-	    // Show the Location Selector
         $this->loader->add_action('woocommerce_after_shipping_rate', $plugin_public, 'show_available_locations_dropdown', 10, 2);
 
         // Update location in session on cart page
@@ -374,10 +373,6 @@ class Woocommerce_Tapsi
 
         // Trigger shipping calculation on update_totals
         $this->loader->add_action('woocommerce_checkout_update_order_review', $plugin_public, 'trigger_shipping_calculation', 10, 1);
-
-		// TODO: PRUNE
-        // Handle tips
-//        $this->loader->add_action('woocommerce_cart_calculate_fees', $plugin_public, 'maybe_add_tip', 10);
 
         // Save pickup location to order meta
         $this->loader->add_action('woocommerce_checkout_create_order', $plugin_public, 'save_pickup_location_to_order', 10, 2);

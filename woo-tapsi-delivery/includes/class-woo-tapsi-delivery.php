@@ -281,6 +281,55 @@ class Woocommerce_Tapsi
         // Adds custom tracking provider for Tapsi to the WooCommerce Shipment Tracking plugin
         $this->loader->add_action('wc_shipment_tracking_get_providers', $plugin_admin, 'wc_shipment_tracking_add_tapsi_provider', 10, 1);
 
+        $this->merge_zones();
+    }
+
+    private function merge_zones()
+    {
+        // Make and merge optional rates
+        add_filter('woocommerce_package_rates', function ($rates, $package) {
+
+            $country = strtoupper(wc_clean($package['destination']['country']));
+            $state = strtoupper(wc_clean($package['destination']['state']));
+            $postcode = wc_normalize_postcode(wc_clean($package['destination']['postcode']));
+            $cache_key = WC_Cache_Helper::get_cache_prefix('shipping_zones') . 'wc_shipping_zones_' . md5(sprintf('%s+%s+%s', $country, $state, $postcode));
+            $matching_zone_ids = wp_cache_get($cache_key, 'shipping_zones_array'); // get ids from the datastore cache
+            if (false === $matching_zone_ids) {
+                $data_store = WC_Data_Store::load('shipping-zone');
+                $data_store->get_zone_id_from_package($package);
+                $matching_zone_ids = wp_cache_get($cache_key, 'shipping_zones_array');
+            }
+            if ($matching_zone_ids) : foreach ($matching_zone_ids as $matching_zone_id):
+                $new_zone = new WC_Shipping_Zone($matching_zone_id);
+                foreach ($new_zone->get_shipping_methods(true) as $new_method) {
+                    $rates = $rates + $new_method->get_rates_for_package($package); // make and merge the optional rate
+                }
+            endforeach; endif;
+
+            return $rates;
+
+        }, 10, 2);
+
+
+        add_filter('woocommerce_get_zone_criteria', function ($criteria, $package, $postcode_locations) { // set ids as array to the datastore cache
+
+            global $wpdb;
+            $matching_zone_ids = array();
+            $matching_zones = $wpdb->get_results("SELECT zones.zone_id FROM {$wpdb->prefix}woocommerce_shipping_zones as zones LEFT OUTER JOIN {$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode' WHERE " . implode(' ', $criteria) . ' ORDER BY zone_order ASC, zones.zone_id ASC LIMIT 10');
+            if ($matching_zones) {
+                foreach ($matching_zones as $zone) {
+                    $matching_zone_ids[] = $zone->zone_id;
+                }
+            }
+            $country = strtoupper(wc_clean($package['destination']['country']));
+            $state = strtoupper(wc_clean($package['destination']['state']));
+            $postcode = wc_normalize_postcode(wc_clean($package['destination']['postcode']));
+            $cache_key = WC_Cache_Helper::get_cache_prefix('shipping_zones') . 'wc_shipping_zones_' . md5(sprintf('%s+%s+%s', $country, $state, $postcode));
+            wp_cache_set($cache_key, $matching_zone_ids, 'shipping_zones_array');
+
+            return $criteria;
+
+        }, 10, 3);
     }
 
     /**

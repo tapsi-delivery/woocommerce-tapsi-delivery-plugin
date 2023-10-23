@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 10:07+0330\n"
 "Last-Translator: ادمین فروشگاه\n"
-"PO-Revision-Date: 2023-10-23 14:05+0000\n"
+"PO-Revision-Date: 2023-10-23 15:44+0000\n"
 "Language-Team: فارسی\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -521,11 +521,11 @@ msgstr "شماره تماس"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:61
 msgid "Phone Number"
-msgstr ""
+msgstr "شماره تماس"
 
 #: admin/class-woo-tapsi-delivery-settings.php:202
 msgid "Phone number"
-msgstr "شماره تلفن"
+msgstr "شماره تماس"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:35
 msgid "Phone Number: "

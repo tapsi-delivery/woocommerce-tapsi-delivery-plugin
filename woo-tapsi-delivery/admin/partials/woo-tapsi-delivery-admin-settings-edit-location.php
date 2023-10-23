@@ -73,9 +73,9 @@ echo '<h2>' . __( 'Location Information', 'woo-tapsi-delivery' ) . '</h2>';
 /**
  * Output the Location Address section
  */
-echo '<h2>' . __( 'Address', 'woo-tapsi-delivery' ) . '</h2>';
+echo '<h2>' . __('Address', 'woo-tapsi-delivery') . '</h2>';
 
-	echo '<p>' . __( 'Enter the address for the location.', 'woo-tapsi-delivery' ) . '</p>';
+echo '<p>' . __('Enter the address for the location.', 'woo-tapsi-delivery') . '</p>';
 
 	$address = $location->get_address();
 	$azadi_coordinate = array(51.337762, 35.699927);
@@ -139,36 +139,36 @@ echo '<h2>' . __( 'Address', 'woo-tapsi-delivery' ) . '</h2>';
 /**
  * Output the Location Hours section
  */
-echo '<h2>' . __( 'Hours', 'woo-tapsi-delivery' ) . '</h2>';
+echo '<h2>' . __('Sending Hours', 'woo-tapsi-delivery') . '</h2>';
 
-	echo '<p>' . __( 'Enter the hours for the location.', 'woo-tapsi-delivery' ) . '</p>';
+echo '<p>' . __('Enter the hours for the location.', 'woo-tapsi-delivery') . '</p>';
 
-	echo '<section class="wc-tapsi-location option hours-wrapper">';
-		woocommerce_form_field( 'location_hours_enabled', array(
-			'type' => 'checkbox',
-			'label' => __( 'Customize hours for this location', 'woo-tapsi-delivery' ),
-		), $location->has_hours() );
+echo '<section class="wc-tapsi-location option hours-wrapper">';
+woocommerce_form_field('location_hours_enabled', array(
+    'type' => 'checkbox',
+    'label' => __('Customize hours for this location', 'woo-tapsi-delivery'),
+), $location->has_hours());
 
-		// TODO: This should follow the start_of_week option
-		$weekdays = array(
-			'sunday'    => __( 'Sunday', 'woo-tapsi-delivery' ),
-			'monday'    => __( 'Monday', 'woo-tapsi-delivery' ),
-			'tuesday'   => __( 'Tuesday', 'woo-tapsi-delivery' ),
-			'wednesday' => __( 'Wednesday', 'woo-tapsi-delivery' ),
-			'thursday'  => __( 'Thursday', 'woo-tapsi-delivery' ),
-			'friday'    => __( 'Friday', 'woo-tapsi-delivery' ),
-			'saturday'  => __( 'Saturday', 'woo-tapsi-delivery' ),
-		);
+// TODO: This should follow the start_of_week option
+$weekdays = array(
+    'saturday' => __('Saturday', 'woo-tapsi-delivery'),
+    'sunday' => __('Sunday', 'woo-tapsi-delivery'),
+    'monday' => __('Monday', 'woo-tapsi-delivery'),
+    'tuesday' => __('Tuesday', 'woo-tapsi-delivery'),
+    'wednesday' => __('Wednesday', 'woo-tapsi-delivery'),
+    'thursday' => __('Thursday', 'woo-tapsi-delivery'),
+//    'friday' => __('Friday', 'woo-tapsi-delivery'),
+);
 
-		echo '<section class="wc-tapsi-location hours">';
-			foreach ( $weekdays as $key => $label ) {
-				woocommerce_form_field( "location_{$key}_hours", array(
-					'type' => 'text',
-					'label' => sprintf( __( '%1$s Hours' ), $label ),
-				), $location->get_weekly_hours_meta( $key ) );
-			}
-		echo '</section>';
-	echo '</section>';
+echo '<section class="wc-tapsi-location hours">';
+foreach ($weekdays as $key => $label) {
+    woocommerce_form_field("location_{$key}_hours", array(
+        'type' => 'text',
+        'label' => $label,
+    ), $location->get_weekly_hours_meta($key));
+}
+echo '</section>';
+echo '</section>';
 
 /**
  * Nonce field

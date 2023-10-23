@@ -312,7 +312,7 @@ class Woocommerce_Tapsi_Pickup_Location
      * Get the weekly hours for the location, or default hours if location does not have hours enabled
      *
      * @param string $key Day of week for hours
-     * @return void
+     * @return mixed
      */
     public function get_weekly_hours($key)
     {

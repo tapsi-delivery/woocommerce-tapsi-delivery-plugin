@@ -768,12 +768,13 @@ class Woocommerce_Tapsi_Public
             return $days;
         }
 
-	    $selected_location = WC()->checkout->get_value('tapsi_pickup_location') ? WC()->checkout->get_value('tapsi_pickup_location') : WC()->session->get('tapsi_pickup_location');
-		$location = new Woocommerce_Tapsi_Pickup_Location($selected_location);
-	    $origin_lat = $location->get_address()['latitude'];
-	    $origin_long = $location->get_address()['longitude'];
-	    $destination_lat = WC()->session->get( 'wctd_tapsi_destination_lat');
-	    $destination_long = WC()->session->get( 'wctd_tapsi_destination_long');
+        $selected_location = WC()->checkout->get_value('tapsi_pickup_location') ? WC()->checkout->get_value('tapsi_pickup_location') : WC()->session->get('tapsi_pickup_location');
+        $location = new Woocommerce_Tapsi_Pickup_Location($selected_location);
+
+        $origin_lat = $location->get_address()['latitude'];
+        $origin_long = $location->get_address()['longitude'];
+        $destination_lat = WC()->session->get('wctd_tapsi_destination_lat');
+        $destination_long = WC()->session->get('wctd_tapsi_destination_long');
         $date_timestamp = $datestamp * 1000;
 
         if ($origin_lat == null || $origin_long == null || $destination_lat == null || $destination_long == null) {
@@ -795,23 +796,36 @@ class Woocommerce_Tapsi_Public
                     $timeslots = $data->invoicePerTimeslots;
 
                     foreach ($timeslots as $timeslot) {
-                        $timeslotId = $timeslot->timeslotId;
-                        $timeslot_display = $this->make_timeslot_display($timeslot);
 
                         if ($timeslot->isAvailable) {
+
+                            $timeslotId = $timeslot->timeslotId;
+                            $timeslot_interval = $this->get_timeslot_interval($timeslot);
+
+                            if ($location->has_hours()) {
+                                $weekday = $this->get_weekday($timeslot);
+                                $working_hour = $location->get_weekly_hours($weekday);
+                                if ($working_hour == '') {
+                                    continue;
+                                }
+                                $working_interval = $this->get_working_interval($working_hour);
+
+                                $is_timeslot_working = $this->is_timeslot_on_working($timeslot_interval, $working_interval);
+
+                                if (!$is_timeslot_working) {
+                                    continue;
+                                }
+                            }
+
+                            $timeslot_display = $this->make_timeslot_display($timeslot_interval);
                             $price = $timeslot->invoice->amount;
                             $displayText = $timeslot_display . ' (' . __('Price', 'woo-tapsi-delivery') . ': ' . $price . ' ' . __('Toman', 'woo-tapsi-delivery') . ')';
-                            $option_attributes = 'value="' . $timeslotId . '"';
                             $timeslot_key = $timeslotId . '--' . $price;
                             $days[$timeslot_key] = $displayText;
-                        } else {
-                            $displayText = $timeslot_display . ' is not available';
-                            $option_attributes = 'disabled="disabled"';
-                            // TODO: Show as disabled option
                         }
 
                     }
-                } elseif(property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
+                } elseif (property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
                     echo $data->details[0]->message;
                 } else {
                     echo 'No available delivery times found.';
@@ -826,6 +840,7 @@ class Woocommerce_Tapsi_Public
 
 	public function render_checkout_map_modal(){
 		$current_url = $_SERVER['REQUEST_URI'];
+    public function render_checkout_map_modal()
 
 		if (strpos($current_url, 'checkout') !== false) {
 			wp_enqueue_style('wctd-tapsi-pack-map-modal-public-stylesheet', 'https://static.tapsi.cab/pack/wp-plugin/map/map-public.css');
@@ -837,9 +852,9 @@ class Woocommerce_Tapsi_Public
 
     /**
      * @param $timeslot
-     * @return string
+     * @return array
      */
-    public function make_timeslot_display($timeslot): string
+    public function get_timeslot_interval($timeslot): array
     {
         $timezone = new DateTimeZone('Asia/Tehran'); // +3:30 timezone
 
@@ -852,8 +867,63 @@ class Woocommerce_Tapsi_Public
         $obj_start_timestamp->setTimezone($timezone);
         $obj_end_timestamp->setTimezone($timezone);
 
-        return $obj_start_timestamp->format('H:i') . ' - ' . $obj_end_timestamp->format('H:i');
+        return array(
+            'start_hour' => intval($obj_start_timestamp->format('H')),
+            'start_min' => intval($obj_start_timestamp->format('i')),
+            'end_hour' => intval($obj_end_timestamp->format('H')),
+            'end_min' => intval($obj_end_timestamp->format('i')),
+        );
+    }
 
+    /**
+     * @param $timeslot
+     * @return string|null
+     */
+    public function get_weekday($timeslot): ?string
+    {
+        $timezone = new DateTimeZone('Asia/Tehran');
+        $int_timestamp = $timeslot->startTimestamp / 1000;
+        try {
+            $obj_timestamp = new DateTime('@' . $int_timestamp);
+        } catch (Exception $e) {
+            return null;
+        }
+        $obj_timestamp->setTimezone($timezone);
+        return $obj_timestamp->format('l');
+    }
+
+    private function get_working_interval($working_hour): array
+    {
+        $times = explode('-', $working_hour);
+        $start_time = explode(':', $times[0]);
+        $end_time = explode(':', $times[1]);
+
+
+        return array(
+            'start_hour' => intval($start_time[0]),
+            'start_min' => intval($start_time[1]),
+            'end_hour' => intval($end_time[0]),
+            'end_min' => intval($end_time[1])
+        );
+
+    }
+
+    private function is_timeslot_on_working(array $timeslot_interval, array $working_interval): bool
+    {
+        $is_timeslot_start_working = ($timeslot_interval['start_hour'] > $working_interval['start_hour'])
+            || (($timeslot_interval['start_hour'] == $working_interval['start_hour'])
+                && ($timeslot_interval['start_min'] > $working_interval['start_min']));
+
+        $is_timeslot_end_working = ($timeslot_interval['end_hour'] < $working_interval['end_hour'])
+            || (($timeslot_interval['end_hour'] == $working_interval['end_hour'])
+                && ($timeslot_interval['end_min'] < $working_interval['end_min']));
+
+        return $is_timeslot_start_working && $is_timeslot_end_working;
+    }
+
+    private function make_timeslot_display(array $interval)
+    {
+        return $interval['start_hour'] . ':' . $interval['start_min'] . '-' . $interval['end_hour'] . ':' . $interval['end_min'];
     }
 
 }

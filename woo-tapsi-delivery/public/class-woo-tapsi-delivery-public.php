@@ -913,11 +913,11 @@ class Woocommerce_Tapsi_Public
     {
         $is_timeslot_start_working = ($timeslot_interval['start_hour'] > $working_interval['start_hour'])
             || (($timeslot_interval['start_hour'] == $working_interval['start_hour'])
-                && ($timeslot_interval['start_min'] > $working_interval['start_min']));
+                && ($timeslot_interval['start_min'] >= $working_interval['start_min']));
 
         $is_timeslot_end_working = ($timeslot_interval['end_hour'] < $working_interval['end_hour'])
             || (($timeslot_interval['end_hour'] == $working_interval['end_hour'])
-                && ($timeslot_interval['end_min'] < $working_interval['end_min']));
+                && ($timeslot_interval['end_min'] <= $working_interval['end_min']));
 
         return $is_timeslot_start_working && $is_timeslot_end_working;
     }

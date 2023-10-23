@@ -922,9 +922,9 @@ class Woocommerce_Tapsi_Public
         return $is_timeslot_start_working && $is_timeslot_end_working;
     }
 
-    private function make_timeslot_display(array $interval)
+    private function make_timeslot_display(array $interval): string
     {
-        return $interval['start_hour'] . ':' . $interval['start_min'] . '-' . $interval['end_hour'] . ':' . $interval['end_min'];
+        return sprintf("%02d:%02d-%02d:%02d", $interval['start_hour'], $interval['start_min'], $interval['end_hour'], $interval['end_min']);
     }
 
 }

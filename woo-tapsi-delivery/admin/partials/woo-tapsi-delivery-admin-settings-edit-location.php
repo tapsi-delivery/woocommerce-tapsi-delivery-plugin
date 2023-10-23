@@ -31,6 +31,14 @@ woocommerce_form_field('location_id', array(
 ), $location->get_id());
 echo '</section>';
 
+echo '<section class="wc-tapsi-location option">';
+woocommerce_form_field('location_enabled', array(
+    'type' => 'checkbox',
+    'label' => __('Enabled', 'woo-tapsi-delivery'),
+    'description' => __('Only enabled locations are able to be selected for Tapsi deliveries.', 'woo-tapsi-delivery'),
+), $location->is_enabled());
+echo '</section>';
+
 echo '<section class="wc-tapsi-location name">';
 woocommerce_form_field('location_name', array(
     'type' => 'text',
@@ -40,26 +48,19 @@ woocommerce_form_field('location_name', array(
 ), $location->get_name());
 echo '</section>';
 
-echo '<section class="wc-tapsi-location option">';
-woocommerce_form_field('location_enabled', array(
-    'type' => 'checkbox',
-    'label' => __('Enabled', 'woo-tapsi-delivery'),
-    'description' => __('Only enabled locations are able to be selected for Tapsi deliveries.', 'woo-tapsi-delivery'),
-), $location->is_enabled());
-echo '</section>';
-
 echo '<section class="wc-tapsi-location info">';
 woocommerce_form_field('location_email', array(
-    'type' => 'email',
-    'label' => __('Email Address', 'woo-tapsi-delivery'),
+    'type' => 'hidden',
+//    'label' => __('Email Address', 'woo-tapsi-delivery'),
     'required' => true,
-    'description' => __('New order notifications for this location will be sent to this email address.', 'woo-tapsi-delivery')
+//    'description' => __('New order notifications for this location will be sent to this email address.', 'woo-tapsi-delivery')
 ), $location->get_email());
 
 woocommerce_form_field('location_phone', array(
-    'type' => 'tel',
-    'label' => __('Phone Number', 'woo-tapsi-delivery'),
-    'required' => true,
+//    'type' => 'tel',
+    'type' => 'hidden',
+//    'label' => __('Phone Number', 'woo-tapsi-delivery'),
+    'required' => false,
 ), $location->get_phone_number());
 
 //		woocommerce_form_field( 'location_pickup_instructions', array(
@@ -94,33 +95,34 @@ woocommerce_form_field('location_lng', array(
     'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lng-field-id',
 ), !$address['longitude'] || $address['longitude'] === 'undefined' ? $azadi_coordinate[0] : $address['longitude']);
 
-woocommerce_form_field('location_address_1', array(
-    'type' => 'text',
-    'required' => true,
-    'label' => __('Address', 'woo-tapsi-delivery'),
-), $address['address_1']);
-
 woocommerce_form_field('location_city', array(
     'type' => 'text',
     'required' => true,
     'label' => __('City', 'woo-tapsi-delivery'),
 ), $address['city']);
 
-woocommerce_form_field('location_state', array(
+woocommerce_form_field('location_address_1', array(
     'type' => 'text',
     'required' => true,
-    'label' => __('State', 'woo-tapsi-delivery'),
-), $address['state']);
+    'label' => __('Address', 'woo-tapsi-delivery'),
+), $address['address_1']);
 
 woocommerce_form_field('location_postcode', array(
     'type' => 'text',
     'label' => __('Postcode', 'woo-tapsi-delivery'),
+    'required' => true,
 ), $address['postcode']);
 
-woocommerce_form_field('location_country', array(
+woocommerce_form_field('location_state', array(
     'type' => 'text',
     'required' => true,
-    'label' => __('Country', 'woo-tapsi-delivery'),
+    'label' => __('Building Number', 'woo-tapsi-delivery'),
+), $address['state']);
+
+woocommerce_form_field('location_country', array(
+    'type' => 'hidden',
+    'required' => false,
+//    'label' => __('Country', 'woo-tapsi-delivery'),
 ), $address['country']);
 echo '</section>';
 

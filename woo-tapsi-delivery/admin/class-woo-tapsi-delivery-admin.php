@@ -127,7 +127,7 @@ class Woocommerce_Tapsi_Admin
 
         $labels = array(
             'name' => __('Pickup Locations', 'woo-tapsi-delivery'),
-            'singular_name' => __('Pickup Location',  'woo-tapsi-delivery'),
+            'singular_name' => __('Pickup Location', 'woo-tapsi-delivery'),
         );
         $args = array(
             'label' => __('Pickup Location', 'woo-tapsi-delivery'),
@@ -339,12 +339,26 @@ class Woocommerce_Tapsi_Admin
 
             try {
                 $response = json_decode(wp_remote_retrieve_body($response));
-                if(property_exists($response, 'details') && property_exists($response->details[0], 'message')) {
+                if (property_exists($response, 'details') && property_exists($response->details[0], 'message')) {
                     $note = $response->details[0]->message;
-                } elseif(property_exists($response, 'successfulOrderSubmission')) {
+                } elseif (property_exists($response, 'successfulOrderSubmission')) {
                     $note = __('Tapsi Delivery Submitted Successfully. ID: ', 'woo-tapsi-delivery') . $response->successfulOrderSubmission->orderId;
+                } elseif (property_exists($response, 'failedOrderSubmission')) {
+                    $note = __('Tapsi Delivery Submission Failed.', 'woo-tapsi-delivery') . ' | ';
+
+                    $failed_response = $response->failedOrderSubmission;
+                    if (property_exists($failed_response, 'creditDifference')) {
+                        $note .= __('Failure reason: ', 'woo-tapsi-delivery')
+                            . __('Balance deficit', 'woo-tapsi-delivery') . ' | '
+                            . __('Balance deficit amount: ', 'woo-tapsi-delivery') . $failed_response->creditDifference . ' | ';
+                    }
+
+                    if (property_exists($failed_response, 'orderId')) {
+                        $note .= __('Order ID: ', 'woo-tapsi-delivery') . $failed_response->orderId . ' | ';
+                    }
+
                 } else {
-                    $note =  __('Tapsi Delivery Submission: ', 'woo-tapsi-delivery') . print_r($response, true);
+                    $note = __('Tapsi Delivery Submission: ', 'woo-tapsi-delivery') . print_r($response, true);
                 }
 
             } catch (Exception $e) {
@@ -688,8 +702,7 @@ class Woocommerce_Tapsi_Admin
 
         $sender_address = $pickup_location->get_address();
         $sender_location_description = $sender_address['city'] . '، ' .
-            $sender_address['address_1'] . '، ' .
-            $sender_address['address_2'] . '.';
+            $sender_address['address_1'] . '.';
 
         $origin_lat = $sender_address['latitude'];
         $origin_long = $sender_address['longitude'];
@@ -702,7 +715,7 @@ class Woocommerce_Tapsi_Admin
                 ),
                 'description' => $sender_location_description,
                 'buildingNumber' => $sender_address['postcode'],
-                'apartmentNumber' => ''
+                'apartmentNumber' => $sender_address['state']
             )
         );
 

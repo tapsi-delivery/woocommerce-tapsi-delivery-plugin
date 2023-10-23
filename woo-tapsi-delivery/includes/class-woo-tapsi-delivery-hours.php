@@ -34,8 +34,7 @@ class Woocommerce_Tapsi_Hours
      */
     public function __construct()
     {
-        // Get the site's setting for the time format, allow filtering
-        $this->time_fmt = apply_filters('wcdd_time_format', get_option('time_format'));
+        $this->time_fmt = 'H:i';
     }
 
     /**
@@ -48,15 +47,12 @@ class Woocommerce_Tapsi_Hours
     {
         if (empty($hours)) return $hours;
 
-        // Break the hour ranges into an array
         $ranges = $this->get_hour_ranges($hours);
 
         foreach ($ranges as &$range) {
-            // Normalize the times in each range according to the time format, ignore more than two times
             $range = date($this->time_fmt, $range[0]) . ' - ' . date($this->time_fmt, $range[1]);
         }
-
-        // Recombine the ranges into a comma separated string
+        
         return implode(', ', $ranges);
     }
 

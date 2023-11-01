@@ -431,7 +431,7 @@ class Woocommerce_Tapsi
     private function set_shipping_method_for_zone()
     {
         $plugin_shipping_zone = new Woocommerce_Tapsi_shipping_zone();
-        $this->loader->add_action('init', $plugin_shipping_zone, 'set_shipping_zone');
+        $this->loader->add_action('wp_loaded', $plugin_shipping_zone, 'set_shipping_zone');
     }
 
 }

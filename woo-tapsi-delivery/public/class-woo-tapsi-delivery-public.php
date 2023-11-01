@@ -305,14 +305,19 @@ class Woocommerce_Tapsi_Public
             }
 
             // // Get the delivery object
-            // $delivery = new Woocommerce_Tapsi_Delivery( [ 'external_delivery_id' => $external_delivery_id ] );
-            // // Check the delivery status
-            // $response = WCDD()->api->get_delivery_status( $delivery );
-            // // Fail if the delivery status request isn't successful. This could indicate a bad delivery ID or an expired quote.
-            // if ( wp_remote_retrieve_response_code( $response ) != 200 ) {
-            // 	wc_add_notice( __( 'There was a problem creating your Tapsi Delivery. Please try again.', 'woo-tapsi-delivery' ), 'error' );
-            // 	return;
-            // }
+            $delivery = new Woocommerce_Tapsi_Delivery(['external_delivery_id' => $external_delivery_id]);
+
+            if (!$delivery->get_time_slot_id()) {
+                wc_add_notice(__('Tapsi Delivery: Please choose a valid time slot.', 'woo-tapsi-delivery'), 'error');
+            }
+
+            if ($this->location_is_not_valid($delivery->get_destination_lat(), $delivery->get_destination_long())) {
+                wc_add_notice(__('Tapsi Delivery: Please choose a valid location.', 'woo-tapsi-delivery'), 'error');
+            }
+
+            if (!$delivery->get_preview_token() || $delivery->get_preview_token() == '') {
+                wc_add_notice(__('Tapsi Delivery: Delivery is not selected properly. Please try again.', 'woo-tapsi-delivery'), 'error');
+            }
         }
     }
 
@@ -925,6 +930,21 @@ class Woocommerce_Tapsi_Public
     private function make_timeslot_display(array $interval): string
     {
         return sprintf("%02d:%02d-%02d:%02d", $interval['start_hour'], $interval['start_min'], $interval['end_hour'], $interval['end_min']);
+    }
+
+    /**
+     * @param $lat
+     * @param $long
+     * @return bool
+     */
+    private function location_is_not_valid($lat, $long): bool
+    {
+        $azadi_coordinate = [
+            'long' => 51.337762,
+            'lat' => 35.699927
+        ];
+
+        return (!$lat || !$long || ($lat == $azadi_coordinate['lat'] && $long == $azadi_coordinate['long']));
     }
 
 }

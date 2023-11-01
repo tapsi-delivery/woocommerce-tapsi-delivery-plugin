@@ -162,15 +162,6 @@ class Woocommerce_Tapsi_Delivery
             'destination_long' => WC()->session->get('wctd_tapsi_destination_long'),
         );
 
-        //does cart contain alcohol or tobacco
-        $alcohol_tobacco_in_cart = apply_filters('alcohol_tobacco_in_cart', (get_option('woocommerce_tapsi_enable_alcohol_tobacco') == 'enabled' ? 1 : 0), WC()->cart->get_cart());
-
-        if ($alcohol_tobacco_in_cart) {
-            $data['order_contains'] = array('alcohol' => true);
-            $data['action_if_undeliverable'] = 'return_to_pickup';
-            $data['contactless_dropoff'] = false;
-        }
-
         $this->create_from_array($data);
     }
 

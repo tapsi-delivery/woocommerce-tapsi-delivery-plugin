@@ -230,7 +230,7 @@ class Woocommerce_Tapsi_Public
 
                     $delivery_days_keys = array_keys($delivery_days);
                     $selected_date = !empty(WC()->session->get('tapsi_delivery_date')) ? WC()->session->get('tapsi_delivery_date') : array_shift($delivery_days_keys);
-                    $delivery_times_for_date = $this->get_delivery_times_for_date($selected_date);
+                    $delivery_times_for_date = $this->get_time_slots($selected_date);
                     woocommerce_form_field('tapsi_delivery_time', array(
                         'type' => 'select',
                         'label' => __('Time', 'woo-tapsi-delivery'),
@@ -622,7 +622,7 @@ class Woocommerce_Tapsi_Public
         if (array_key_exists('tapsi_delivery_time', $data)) { //phpcs:ignore
             if ($preview_changed) {
                 // If the date changed, we need to manually get the first available time for that day
-                $available_times = array_keys($this->get_delivery_times_for_date($tapsi_delivery_date));
+                $available_times = array_keys($this->get_time_slots($tapsi_delivery_date));
                 $tapsi_delivery_time = array_shift($available_times);
             } else {
                 // If the date didn't change, carry on
@@ -759,6 +759,14 @@ class Woocommerce_Tapsi_Public
         }
     }
 
+    private function get_time_slots(?int $datestamp): array
+    {
+        $preview = $this->get_delivery_preview($datestamp);
+
+        WC()->session->set('tapsi_preview_token', $preview['token']);
+        return $preview['time_slots'];
+    }
+
 
     /**
      * Given a datestamp, retrieve the user-selectable pickup time options for that date
@@ -766,12 +774,15 @@ class Woocommerce_Tapsi_Public
      * @param ?int $datestamp Date to get options for
      * @return array Array containing timestamp keys and formatted time values
      */
-    public function get_delivery_times_for_date(?int $datestamp): array
+    private function get_delivery_preview(?int $datestamp): array
     {
-        $days = array();
-        
+        $preview = [
+            'time_slots' => array(),
+            'token' => ''
+        ];
+
         if ($datestamp == null) {
-            return $days;
+            return $preview;
         }
 
         $selected_location = WC()->checkout->get_value('tapsi_pickup_location') ? WC()->checkout->get_value('tapsi_pickup_location') : WC()->session->get('tapsi_pickup_location');
@@ -784,7 +795,7 @@ class Woocommerce_Tapsi_Public
         $date_timestamp = $datestamp * 1000;
 
         if ($origin_lat == null || $origin_long == null || $destination_lat == null || $destination_long == null) {
-            return $days;
+            return $preview;
         }
 
         $raw_response = WCDD()->api->get_preview($origin_lat, $origin_long, $destination_lat, $destination_long, $date_timestamp);
@@ -796,13 +807,12 @@ class Woocommerce_Tapsi_Public
             $data = json_decode(wp_remote_retrieve_body($raw_response));
 
             if ($data) {
-                WC()->session->set('tapsi_preview_token', $data->token);
+                $preview['token'] = $data->token;
 
                 if (property_exists($data, 'invoicePerTimeslots')) {
                     $timeslots = $data->invoicePerTimeslots;
 
                     foreach ($timeslots as $timeslot) {
-
                         if ($timeslot->isAvailable) {
 
                             $timeslotId = $timeslot->timeslotId;
@@ -827,9 +837,8 @@ class Woocommerce_Tapsi_Public
                             $price = $timeslot->invoice->amount;
                             $displayText = $timeslot_display . ' (' . __('Price', 'woo-tapsi-delivery') . ': ' . $price . ' ' . __('Toman', 'woo-tapsi-delivery') . ')';
                             $timeslot_key = $timeslotId . '--' . $price;
-                            $days[$timeslot_key] = $displayText;
+                            $preview['time_slots'][$timeslot_key] = $displayText;
                         }
-
                     }
                 } elseif (property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
                     echo $data->details[0]->message;
@@ -841,7 +850,7 @@ class Woocommerce_Tapsi_Public
             }
         }
 
-        return $days;
+        return $preview;
     }
 
     public function render_checkout_map_modal()

@@ -230,7 +230,7 @@ class Woocommerce_Tapsi_Public
 
                     $delivery_days_keys = array_keys($delivery_days);
                     $selected_date = !empty(WC()->session->get('tapsi_delivery_date')) ? WC()->session->get('tapsi_delivery_date') : array_shift($delivery_days_keys);
-                    $delivery_times_for_date = $this->get_delivery_times_for_date($selected_date);
+                    $delivery_times_for_date = $this->get_time_slots($selected_date);
                     woocommerce_form_field('tapsi_delivery_time', array(
                         'type' => 'select',
                         'label' => __('Time', 'woo-tapsi-delivery'),
@@ -304,15 +304,19 @@ class Woocommerce_Tapsi_Public
                 return;
             }
 
-            // // Get the delivery object
-            // $delivery = new Woocommerce_Tapsi_Delivery( [ 'external_delivery_id' => $external_delivery_id ] );
-            // // Check the delivery status
-            // $response = WCDD()->api->get_delivery_status( $delivery );
-            // // Fail if the delivery status request isn't successful. This could indicate a bad delivery ID or an expired quote.
-            // if ( wp_remote_retrieve_response_code( $response ) != 200 ) {
-            // 	wc_add_notice( __( 'There was a problem creating your Tapsi Delivery. Please try again.', 'woo-tapsi-delivery' ), 'error' );
-            // 	return;
-            // }
+            $delivery = new Woocommerce_Tapsi_Delivery();
+
+            if (!$delivery->get_time_slot_id()) {
+                wc_add_notice(__('Tapsi Delivery: Please choose a valid time slot.', 'woo-tapsi-delivery'), 'error');
+            }
+
+            if ($this->location_is_not_valid($delivery->get_destination_lat(), $delivery->get_destination_long())) {
+                wc_add_notice(__('Tapsi Delivery: Please choose a valid location.', 'woo-tapsi-delivery'), 'error');
+            }
+
+            if (!$delivery->get_preview_token() || $delivery->get_preview_token() == '') {
+                wc_add_notice(__('Tapsi Delivery: Delivery is not selected properly. Please try again.', 'woo-tapsi-delivery'), 'error');
+            }
         }
     }
 
@@ -617,7 +621,7 @@ class Woocommerce_Tapsi_Public
         if (array_key_exists('tapsi_delivery_time', $data)) { //phpcs:ignore
             if ($preview_changed) {
                 // If the date changed, we need to manually get the first available time for that day
-                $available_times = array_keys($this->get_delivery_times_for_date($tapsi_delivery_date));
+                $available_times = array_keys($this->get_time_slots($tapsi_delivery_date));
                 $tapsi_delivery_time = array_shift($available_times);
             } else {
                 // If the date didn't change, carry on
@@ -754,6 +758,14 @@ class Woocommerce_Tapsi_Public
         }
     }
 
+    private function get_time_slots(?int $datestamp): array
+    {
+        $preview = $this->get_delivery_preview($datestamp);
+
+        WC()->session->set('tapsi_preview_token', $preview['token']);
+        return $preview['time_slots'];
+    }
+
 
     /**
      * Given a datestamp, retrieve the user-selectable pickup time options for that date
@@ -761,12 +773,15 @@ class Woocommerce_Tapsi_Public
      * @param ?int $datestamp Date to get options for
      * @return array Array containing timestamp keys and formatted time values
      */
-    public function get_delivery_times_for_date(?int $datestamp): array
+    private function get_delivery_preview(?int $datestamp): array
     {
-        $days = array();
-        
+        $preview = [
+            'time_slots' => array(),
+            'token' => ''
+        ];
+
         if ($datestamp == null) {
-            return $days;
+            return $preview;
         }
 
         $selected_location = WC()->checkout->get_value('tapsi_pickup_location') ? WC()->checkout->get_value('tapsi_pickup_location') : WC()->session->get('tapsi_pickup_location');
@@ -779,7 +794,7 @@ class Woocommerce_Tapsi_Public
         $date_timestamp = $datestamp * 1000;
 
         if ($origin_lat == null || $origin_long == null || $destination_lat == null || $destination_long == null) {
-            return $days;
+            return $preview;
         }
 
         $raw_response = WCDD()->api->get_preview($origin_lat, $origin_long, $destination_lat, $destination_long, $date_timestamp);
@@ -791,14 +806,16 @@ class Woocommerce_Tapsi_Public
             $data = json_decode(wp_remote_retrieve_body($raw_response));
 
             if ($data) {
-                WC()->session->set('tapsi_preview_token', $data->token);
+                $preview['token'] = $data->token;
 
                 if (property_exists($data, 'invoicePerTimeslots')) {
                     $timeslots = $data->invoicePerTimeslots;
 
                     foreach ($timeslots as $timeslot) {
-
                         if ($timeslot->isAvailable) {
+                            $payment_in_advance = $timeslot->invoice->paymentInAdvance;
+
+                            if ($payment_in_advance > 0) continue;
 
                             $timeslotId = $timeslot->timeslotId;
                             $timeslot_interval = $this->get_timeslot_interval($timeslot);
@@ -813,18 +830,16 @@ class Woocommerce_Tapsi_Public
 
                                 $is_timeslot_working = $this->is_timeslot_on_working($timeslot_interval, $working_interval);
 
-                                if (!$is_timeslot_working) {
-                                    continue;
-                                }
+                                if (!$is_timeslot_working) continue;
                             }
 
                             $timeslot_display = $this->make_timeslot_display($timeslot_interval);
+
                             $price = $timeslot->invoice->amount;
                             $displayText = $timeslot_display . ' (' . __('Price', 'woo-tapsi-delivery') . ': ' . $price . ' ' . __('Toman', 'woo-tapsi-delivery') . ')';
                             $timeslot_key = $timeslotId . '--' . $price;
-                            $days[$timeslot_key] = $displayText;
+                            $preview['time_slots'][$timeslot_key] = $displayText;
                         }
-
                     }
                 } elseif (property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
                     echo $data->details[0]->message;
@@ -836,7 +851,7 @@ class Woocommerce_Tapsi_Public
             }
         }
 
-        return $days;
+        return $preview;
     }
 
     public function render_checkout_map_modal()
@@ -925,6 +940,21 @@ class Woocommerce_Tapsi_Public
     private function make_timeslot_display(array $interval): string
     {
         return sprintf("%02d:%02d-%02d:%02d", $interval['start_hour'], $interval['start_min'], $interval['end_hour'], $interval['end_min']);
+    }
+
+    /**
+     * @param $lat
+     * @param $long
+     * @return bool
+     */
+    private function location_is_not_valid($lat, $long): bool
+    {
+        $azadi_coordinate = [
+            'long' => 51.337762,
+            'lat' => 35.699927
+        ];
+
+        return (!$lat || !$long || ($lat == $azadi_coordinate['lat'] && $long == $azadi_coordinate['long']));
     }
 
 }

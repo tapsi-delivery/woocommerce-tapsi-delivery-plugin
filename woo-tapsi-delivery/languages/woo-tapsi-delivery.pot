@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-23 20:07+0330\n"
+"POT-Creation-Date: 2023-11-01 15:41+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -816,7 +816,7 @@ msgid "Shop"
 msgstr ""
 
 #: includes/class-woo-tapsi-delivery-shipping-method.php:35
-#: includes/class-woo-tapsi-delivery-shipping-method.php:116
+#: includes/class-woo-tapsi-delivery-shipping-method.php:107
 msgid "Tapsi"
 msgstr ""
 
@@ -824,19 +824,19 @@ msgstr ""
 msgid "Allow customers to have their orders delivered via Tapsi"
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:113
+#: includes/class-woo-tapsi-delivery-shipping-method.php:104
 msgid "Title"
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:115
+#: includes/class-woo-tapsi-delivery-shipping-method.php:106
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:120
+#: includes/class-woo-tapsi-delivery-shipping-method.php:111
 msgid "Tax status"
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-shipping-method.php:125
+#: includes/class-woo-tapsi-delivery-shipping-method.php:116
 msgid "Taxable"
 msgstr ""
 
@@ -906,35 +906,44 @@ msgid ""
 msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:303
+#: public/class-woo-tapsi-delivery-public.php:315
 msgid "Tapsi Delivery: Please choose a valid location."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:353
+#: public/class-woo-tapsi-delivery-public.php:311
+msgid "Tapsi Delivery: Please choose a valid time slot."
+msgstr ""
+
+#: public/class-woo-tapsi-delivery-public.php:319
+msgid "Tapsi Delivery: Delivery is not selected properly. Please try again."
+msgstr ""
+
+#: public/class-woo-tapsi-delivery-public.php:358
 msgid "Phone"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:444
+#: public/class-woo-tapsi-delivery-public.php:449
 msgid "Tapsi from:"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:454
+#: public/class-woo-tapsi-delivery-public.php:459
 msgid "Estimated Delivery Time:"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:513
+#: public/class-woo-tapsi-delivery-public.php:518
 msgid "Select"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:788
-#: public/class-woo-tapsi-delivery-public.php:789
+#: public/class-woo-tapsi-delivery-public.php:804
+#: public/class-woo-tapsi-delivery-public.php:805
 msgid "Failed to fetch delivery times. Please try again later."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:823
+#: public/class-woo-tapsi-delivery-public.php:838
 msgid "Price"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:823
+#: public/class-woo-tapsi-delivery-public.php:838
 msgid "Toman"
 msgstr ""
 

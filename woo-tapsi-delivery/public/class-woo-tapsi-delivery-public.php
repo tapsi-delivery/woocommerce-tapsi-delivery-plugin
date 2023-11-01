@@ -304,8 +304,7 @@ class Woocommerce_Tapsi_Public
                 return;
             }
 
-            // // Get the delivery object
-            $delivery = new Woocommerce_Tapsi_Delivery(['external_delivery_id' => $external_delivery_id]);
+            $delivery = new Woocommerce_Tapsi_Delivery();
 
             if (!$delivery->get_time_slot_id()) {
                 wc_add_notice(__('Tapsi Delivery: Please choose a valid time slot.', 'woo-tapsi-delivery'), 'error');

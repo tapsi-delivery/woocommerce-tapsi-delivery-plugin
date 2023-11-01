@@ -813,6 +813,9 @@ class Woocommerce_Tapsi_Public
 
                     foreach ($timeslots as $timeslot) {
                         if ($timeslot->isAvailable) {
+                            $payment_in_advance = $timeslot->invoice->paymentInAdvance;
+
+                            if ($payment_in_advance > 0) continue;
 
                             $timeslotId = $timeslot->timeslotId;
                             $timeslot_interval = $this->get_timeslot_interval($timeslot);
@@ -827,12 +830,11 @@ class Woocommerce_Tapsi_Public
 
                                 $is_timeslot_working = $this->is_timeslot_on_working($timeslot_interval, $working_interval);
 
-                                if (!$is_timeslot_working) {
-                                    continue;
-                                }
+                                if (!$is_timeslot_working) continue;
                             }
 
                             $timeslot_display = $this->make_timeslot_display($timeslot_interval);
+
                             $price = $timeslot->invoice->amount;
                             $displayText = $timeslot_display . ' (' . __('Price', 'woo-tapsi-delivery') . ': ' . $price . ' ' . __('Toman', 'woo-tapsi-delivery') . ')';
                             $timeslot_key = $timeslotId . '--' . $price;

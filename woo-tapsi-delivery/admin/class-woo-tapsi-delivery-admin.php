@@ -737,6 +737,13 @@ class Woocommerce_Tapsi_Admin
         $time_slot_id = $delivery->get_time_slot_id();
         $preview_token = $delivery->get_preview_token();
 
+        if ($sender["location"]["buildingNumber"] == null || $sender["location"]["buildingNumber"] == "") {
+            $sender["location"]["buildingNumber"] = "0";
+        }
+        if ($receiver["location"]["buildingNumber"] == null || $receiver["location"]["buildingNumber"] == "") {
+            $receiver["location"]["buildingNumber"] = "0";
+        }
+
         return WCDD()->api->submit_delivery_order($receiver, $sender, $pack, $time_slot_id, $preview_token);
     }
 }

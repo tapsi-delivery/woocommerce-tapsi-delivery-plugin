@@ -339,10 +339,10 @@ class Woocommerce_Tapsi_Admin
 
             try {
                 $response = json_decode(wp_remote_retrieve_body($response));
-                if (property_exists($response, 'details') && property_exists($response->details[0], 'message')) {
-                    $note = $response->details[0]->message;
-                } elseif (property_exists($response, 'successfulOrderSubmission')) {
+                if (property_exists($response, 'successfulOrderSubmission')) {
                     $note = __('Tapsi Delivery Submitted Successfully. ID: ', 'woo-tapsi-delivery') . $response->successfulOrderSubmission->orderId;
+                } elseif (property_exists($response, 'details') && property_exists($response->details[0], 'message')) {
+                    $note = __('Tapsi Delivery Submission: ', 'woo-tapsi-delivery') . print_r($response->details[0]->message, true);
                 } elseif (property_exists($response, 'failedOrderSubmission')) {
                     $note = __('Tapsi Delivery Submission Failed.', 'woo-tapsi-delivery') . ' | ';
 
@@ -736,6 +736,13 @@ class Woocommerce_Tapsi_Admin
         $pack = array('description' => $delivery->get_dropoff_instructions());  // TODO: add pickup instructions
         $time_slot_id = $delivery->get_time_slot_id();
         $preview_token = $delivery->get_preview_token();
+
+        if ($sender["location"]["buildingNumber"] == null || $sender["location"]["buildingNumber"] == "") {
+            $sender["location"]["buildingNumber"] = "0";
+        }
+        if ($receiver["location"]["buildingNumber"] == null || $receiver["location"]["buildingNumber"] == "") {
+            $receiver["location"]["buildingNumber"] = "0";
+        }
 
         return WCDD()->api->submit_delivery_order($receiver, $sender, $pack, $time_slot_id, $preview_token);
     }

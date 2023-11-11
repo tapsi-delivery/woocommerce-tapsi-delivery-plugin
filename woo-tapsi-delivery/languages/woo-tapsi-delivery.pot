@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-01 15:41+0330\n"
+"POT-Creation-Date: 2023-11-11 13:50+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -652,8 +652,13 @@ msgstr ""
 msgid "Track Delivery"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:345
+#: admin/class-woo-tapsi-delivery-admin.php:343
 msgid "Tapsi Delivery Submitted Successfully. ID: "
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:345
+#: admin/class-woo-tapsi-delivery-admin.php:361
+msgid "Tapsi Delivery Submission: "
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:347
@@ -674,10 +679,6 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:357
 msgid "Order ID: "
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:361
-msgid "Tapsi Delivery Submission: "
 msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:370
@@ -906,44 +907,60 @@ msgid ""
 msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:303
-#: public/class-woo-tapsi-delivery-public.php:315
+#: public/class-woo-tapsi-delivery-public.php:314
 msgid "Tapsi Delivery: Please choose a valid location."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:311
+#: public/class-woo-tapsi-delivery-public.php:310
 msgid "Tapsi Delivery: Please choose a valid time slot."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:319
+#: public/class-woo-tapsi-delivery-public.php:318
 msgid "Tapsi Delivery: Delivery is not selected properly. Please try again."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:358
+#: public/class-woo-tapsi-delivery-public.php:357
 msgid "Phone"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:449
+#: public/class-woo-tapsi-delivery-public.php:448
 msgid "Tapsi from:"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:459
+#: public/class-woo-tapsi-delivery-public.php:458
 msgid "Estimated Delivery Time:"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:518
+#: public/class-woo-tapsi-delivery-public.php:517
 msgid "Select"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:804
+#: public/class-woo-tapsi-delivery-public.php:784
+msgid "First select a date"
+msgstr ""
+
+#: public/class-woo-tapsi-delivery-public.php:798
+msgid "First select origin and destination"
+msgstr ""
+
 #: public/class-woo-tapsi-delivery-public.php:805
+#: public/class-woo-tapsi-delivery-public.php:806
 msgid "Failed to fetch delivery times. Please try again later."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:838
+#: public/class-woo-tapsi-delivery-public.php:826
+msgid "Balance is not enough"
+msgstr ""
+
+#: public/class-woo-tapsi-delivery-public.php:830
+msgid "Store is not available"
+msgstr ""
+
+#: public/class-woo-tapsi-delivery-public.php:1000
 msgid "Price"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:838
+#: public/class-woo-tapsi-delivery-public.php:1000
 msgid "Toman"
 msgstr ""
 

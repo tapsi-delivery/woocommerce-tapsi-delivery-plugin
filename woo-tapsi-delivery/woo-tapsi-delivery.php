@@ -9,7 +9,7 @@
  * Plugin Name:       Tapsi Delivery
  * Plugin URI:        https://developer.tapsi.com/wordpress-plugin
  * Description:       Let Tapsi power your delivery. Use Tapsi as a shipping provider to offer local, scheduled delivery for your WooCommerce store. Configure multiple pickup locations, delivery hours, tip amounts, and more.
- * Version:           0.1.6
+ * Version:           0.1.7
  * Author:            Tapsi
  * Author URI:        https://developer.tapsi.com/en-US/wordpress-plugin
  * License:           GPL-2.0+
@@ -26,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Current plugin version.
  */
-define( 'WOOCOMMERCE_TAPSI_VERSION', '0.1.6' );
+define( 'WOOCOMMERCE_TAPSI_VERSION', '0.1.7' );
 
 /**
  * The code that runs during plugin activation.

@@ -352,7 +352,7 @@ class Woocommerce_Tapsi_Pickup_Location
                 foreach ($data->availableDatesTimestamp as $int_timestamp) {
                     $int_timestamp /= 1000;
                     $obj_timestamp = new jDateTime('@' . $int_timestamp, true, 'Asia/Tehran');
-                    $timeslot_display = $obj_timestamp->date('m-d', $int_timestamp);
+                    $timeslot_display = $obj_timestamp->date('l - d F', $int_timestamp);
 
                     $days[$int_timestamp] = $timeslot_display;
                 }

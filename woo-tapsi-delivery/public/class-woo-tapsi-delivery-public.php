@@ -263,13 +263,14 @@ class Woocommerce_Tapsi_Public
                     echo '<section class="wcts-tapsi-pack-rules-section">
 						<p>' . __('Rules', 'woo-tapsi-delivery') . '</p>
 						<ul>
-							<li>- ' . __('Delivery is done in Tehran only.', 'woo-tapsi-delivery') . '</li>
-							<li>- ' . __('The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery') . '</li>
 							<li>- ' . __('Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'woo-tapsi-delivery') . '</li>
-							<li>- ' . __('The allowed dimensions of the packages are 50cmx50cmx50cm.', 'woo-tapsi-delivery') . '</li>
 							<li>- ' . __('After starting the trip, the driver\'s information and the approximate arrival time will be sent to you via SMS.', 'woo-tapsi-delivery') . '</li>
 						</ul>
 					 </section>';
+
+//                    <li>- ' . __('The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery') . '</li>
+//                    <li>- ' . __('Delivery is done in Tehran only.', 'woo-tapsi-delivery') . '</li>
+//                    <li>- ' . __('The allowed dimensions of the packages are 50cmx50cmx50cm.', 'woo-tapsi-delivery') . '</li>
                 }
 
                 if (apply_filters('wcdd_show_tapsi_logo', true)) {
@@ -781,19 +782,21 @@ class Woocommerce_Tapsi_Public
         ];
 
         if ($datestamp == null) {
+            echo __('First select a date', 'woo-tapsi-delivery');
             return $preview;
         }
 
         $selected_location = WC()->checkout->get_value('tapsi_pickup_location') ? WC()->checkout->get_value('tapsi_pickup_location') : WC()->session->get('tapsi_pickup_location');
-        $location = new Woocommerce_Tapsi_Pickup_Location($selected_location);
+        $pickup_Location = new Woocommerce_Tapsi_Pickup_Location($selected_location);
 
-        $origin_lat = $location->get_address()['latitude'];
-        $origin_long = $location->get_address()['longitude'];
+        $origin_lat = $pickup_Location->get_address()['latitude'];
+        $origin_long = $pickup_Location->get_address()['longitude'];
         $destination_lat = WC()->session->get('wctd_tapsi_destination_lat');
         $destination_long = WC()->session->get('wctd_tapsi_destination_long');
         $date_timestamp = $datestamp * 1000;
 
         if ($origin_lat == null || $origin_long == null || $destination_lat == null || $destination_long == null) {
+            echo __('First select origin and destination', 'woo-tapsi-delivery');
             return $preview;
         }
 
@@ -809,45 +812,40 @@ class Woocommerce_Tapsi_Public
                 $preview['token'] = $data->token;
 
                 if (property_exists($data, 'invoicePerTimeslots')) {
-                    $timeslots = $data->invoicePerTimeslots;
+                    $raw_timeslots = $data->invoicePerTimeslots;
+                    $timeslots = $this->process_timeslots($raw_timeslots, $pickup_Location);
+
+                    WCDD()->log->debug('$timeslots', $timeslots);
 
                     foreach ($timeslots as $timeslot) {
-                        if ($timeslot->isAvailable) {
-                            $payment_in_advance = $timeslot->invoice->paymentInAdvance;
-
-                            if ($payment_in_advance > 0) continue;
-
-                            $timeslotId = $timeslot->timeslotId;
-                            $timeslot_interval = $this->get_timeslot_interval($timeslot);
-
-                            if ($location->has_hours()) {
-                                $weekday = $this->get_weekday($timeslot);
-                                $working_hour = $location->get_weekly_hours($weekday);
-                                if ($working_hour == '') {
-                                    continue;
-                                }
-                                $working_interval = $this->get_working_interval($working_hour);
-
-                                $is_timeslot_working = $this->is_timeslot_on_working($timeslot_interval, $working_interval);
-
-                                if (!$is_timeslot_working) continue;
-                            }
-
-                            $timeslot_display = $this->make_timeslot_display($timeslot_interval);
-
-                            $price = $timeslot->invoice->amount;
-                            $displayText = $timeslot_display . ' (' . __('Price', 'woo-tapsi-delivery') . ': ' . $price . ' ' . __('Toman', 'woo-tapsi-delivery') . ')';
-                            $timeslot_key = $timeslotId . '--' . $price;
-                            $preview['time_slots'][$timeslot_key] = $displayText;
+                        if ($timeslot['status'] == 'ok') {
+                            $preview['time_slots'][$timeslot['key']] = $timeslot['display'];
                         }
                     }
-                } elseif (property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
+
+                    if (count($preview['time_slots']) == 0) {
+                        foreach ($timeslots as $timeslot) {
+                            if ($timeslot['status'] == 'balance_deficit') {
+                                echo __('Balance is not enough', 'woo-tapsi-delivery');
+                                return $preview;
+                            }
+                            if ($timeslot['status'] == 'store_unavailable') {
+                                echo __('Store is not available', 'woo-tapsi-delivery');
+                                return $preview;
+                            }
+                        }
+                    }
+
+                    } elseif (property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
                     echo $data->details[0]->message;
+                    return $preview;
                 } else {
                     echo 'No available delivery times found.';
+                    return $preview;
                 }
             } else {
                 echo 'Failed to parse API response.';
+                return $preview;
             }
         }
 
@@ -955,6 +953,65 @@ class Woocommerce_Tapsi_Public
         ];
 
         return (!$lat || !$long || ($lat == $azadi_coordinate['lat'] && $long == $azadi_coordinate['long']));
+    }
+
+    private function process_timeslots($raw_timeslots, $pickup_location): array
+    {
+        $timeslots = [];
+
+        foreach ($raw_timeslots as $raw_timeslot) {
+
+            $timeslot = [
+                'status' => null,
+                'key' => null,
+                'display' => null
+            ];
+
+            if ($raw_timeslot->isAvailable) {
+                $payment_in_advance = $raw_timeslot->invoice->paymentInAdvance;
+
+                if ($payment_in_advance > 0) {
+                    $timeslot['status'] = 'balance_deficit';
+                    $timeslots[] = $timeslot;
+                    continue;
+                }
+
+                $timeslotId = $raw_timeslot->timeslotId;
+                $timeslot_interval = $this->get_timeslot_interval($raw_timeslot);
+
+                if ($pickup_location->has_hours()) {
+                    $weekday = $this->get_weekday($raw_timeslot);
+                    $working_hour = $pickup_location->get_weekly_hours($weekday);
+                    if ($working_hour == '') {
+                        $timeslot['status'] = 'store_unavailable';
+                        $timeslots[] = $timeslot;
+                        continue;
+                    }
+                    $working_interval = $this->get_working_interval($working_hour);
+                    $is_timeslot_working = $this->is_timeslot_on_working($timeslot_interval, $working_interval);
+
+                    if (!$is_timeslot_working) {
+                        $timeslot['status'] = 'store_unavailable';
+                        $timeslots[] = $timeslot;
+                        continue;
+                    }
+                }
+
+                $timeslot_display = $this->make_timeslot_display($timeslot_interval);
+
+                $price = $raw_timeslot->invoice->amount;
+                $displayText = $timeslot_display . ' (' . __('Price', 'woo-tapsi-delivery') . ': ' . $price . ' ' . __('Toman', 'woo-tapsi-delivery') . ')';
+                $timeslot_key = $timeslotId . '--' . $price;
+
+                $timeslot['status'] = 'ok';
+                $timeslot['key'] = $timeslot_key;
+                $timeslot['display'] = $displayText;
+
+                $timeslots[] = $timeslot;
+            }
+        }
+
+        return $timeslots;
     }
 
 }

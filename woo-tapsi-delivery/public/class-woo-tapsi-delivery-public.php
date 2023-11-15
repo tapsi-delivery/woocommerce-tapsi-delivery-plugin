@@ -263,13 +263,14 @@ class Woocommerce_Tapsi_Public
                     echo '<section class="wcts-tapsi-pack-rules-section">
 						<p>' . __('Rules', 'woo-tapsi-delivery') . '</p>
 						<ul>
-							<li>- ' . __('Delivery is done in Tehran only.', 'woo-tapsi-delivery') . '</li>
-							<li>- ' . __('The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery') . '</li>
 							<li>- ' . __('Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'woo-tapsi-delivery') . '</li>
-							<li>- ' . __('The allowed dimensions of the packages are 50cmx50cmx50cm.', 'woo-tapsi-delivery') . '</li>
 							<li>- ' . __('After starting the trip, the driver\'s information and the approximate arrival time will be sent to you via SMS.', 'woo-tapsi-delivery') . '</li>
 						</ul>
 					 </section>';
+
+//                    <li>- ' . __('The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery') . '</li>
+//                    <li>- ' . __('Delivery is done in Tehran only.', 'woo-tapsi-delivery') . '</li>
+//                    <li>- ' . __('The allowed dimensions of the packages are 50cmx50cmx50cm.', 'woo-tapsi-delivery') . '</li>
                 }
 
                 if (apply_filters('wcdd_show_tapsi_logo', true)) {

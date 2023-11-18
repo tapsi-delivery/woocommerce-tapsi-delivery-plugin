@@ -255,7 +255,7 @@ class Woocommerce_Tapsi_Public
 						'label' => __('Dropoff Instructions', 'woo-tapsi-delivery'),
 						'class' => array('wcdd-dropoff-instructions', 'update_totals_on_change'),
 						'default' => WC()->session->get('tapsi_dropoff_instructions'),
-						'placeholder' => __('Optional', 'woo-tapsi-delivery'),
+						'placeholder' => __('(اختیاری)', 'woo-tapsi-delivery'),
 					), WC()->checkout->get_value('tapsi_dropoff_instructions'));
 
 				}

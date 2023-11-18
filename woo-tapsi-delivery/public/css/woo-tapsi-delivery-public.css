@@ -253,21 +253,3 @@ ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
 .wctd-tapsi-pack-destination-shard {
 	text-indent: 0 !important;
 }
-
-.wctd-tapsi-pack-destination-shard div#wctd-tapsi-pack-input-container.wctd-tapsi-pack-input-container {
-	position: fixed;
-	z-index: -33333333;
-	top: -300px;
-	left: -300px;
-	opacity: 0;
-}
-
-.wctd-tapsi-pack-destination-shard div#wctd-tapsi-pack-input-container.wctd-tapsi-pack-input-container * {
-	color: transparent !important;
-	background-color: transparent !important;
-	border: 0 !important;
-	height: 0 !important;
-	min-height: 0 !important;
-	max-height: 0 !important;
-	opacity: 0 !important;
-}

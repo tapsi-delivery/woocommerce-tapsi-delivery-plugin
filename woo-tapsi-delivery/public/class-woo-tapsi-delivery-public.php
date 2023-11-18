@@ -200,9 +200,11 @@ class Woocommerce_Tapsi_Public
 
                 $destination = $this->get_destination(false);
 
+				echo '<div id="wctd-tapsi-pack-input-container" class="wctd-tapsi-pack-input-container">';
+
                 woocommerce_form_field('wctd_tapsi_destination_lat', array(
                     'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id',
-                    'type' => 'hidden',
+	                'type' => 'text',
                     'class' => array('wcdd-delivery-destination-lat', 'update_totals_on_change'),
                     'required' => true,
                     'default' => $destination[1],
@@ -210,11 +212,13 @@ class Woocommerce_Tapsi_Public
 
                 woocommerce_form_field('wctd_tapsi_destination_long', array(
                     'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id',
-                    'type' => 'hidden',
+                    'type' => 'text',
                     'class' => array('wcdd-delivery-destination-long', 'update_totals_on_change'),
                     'required' => true,
                     'default' => $destination[0],
                 ), $destination[0]);
+
+				echo '</div>';
 
 				wp_nonce_field('wcdd_set_pickup_location', 'wcdd_set_pickup_location_nonce');
 

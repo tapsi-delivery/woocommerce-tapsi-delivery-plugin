@@ -263,7 +263,8 @@ class Woocommerce_Tapsi_Pickup_Location
         if (empty($this->data['address_1'])) return '';
         $formatted = '';
         $formatted .= $this->data['address_1'];
-        $formatted .= ', ' . $this->data['city'] . ', ' . $this->data['state'] . ' ' . $this->data['postcode'];
+        $formatted .= ', ' . $this->data['city'] . ', ' . __('Building Number', 'woo-tapsi-delivery')
+            . $this->data['state'] . ', ' . __('Postcode', 'woo-tapsi-delivery') . $this->data['postcode'];
 
         return $formatted;
     }
@@ -312,7 +313,7 @@ class Woocommerce_Tapsi_Pickup_Location
      * Get the weekly hours for the location, or default hours if location does not have hours enabled
      *
      * @param string $key Day of week for hours
-     * @return void
+     * @return mixed
      */
     public function get_weekly_hours($key)
     {
@@ -351,7 +352,7 @@ class Woocommerce_Tapsi_Pickup_Location
                 foreach ($data->availableDatesTimestamp as $int_timestamp) {
                     $int_timestamp /= 1000;
                     $obj_timestamp = new jDateTime('@' . $int_timestamp, true, 'Asia/Tehran');
-                    $timeslot_display = $obj_timestamp->date('m-d', $int_timestamp);
+                    $timeslot_display = $obj_timestamp->date('l - d F', $int_timestamp);
 
                     $days[$int_timestamp] = $timeslot_display;
                 }

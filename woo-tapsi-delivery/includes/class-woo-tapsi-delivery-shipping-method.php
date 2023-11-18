@@ -79,15 +79,8 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
             return;
         }
 
-        // $tapsi_pickup_location = WC()->session->get( 'tapsi_pickup_location' );
-        $delivery = new Woocommerce_Tapsi_Delivery(); // create from session data
+        $delivery = new Woocommerce_Tapsi_Delivery();
 
-        // Only fire an API request if certain params have been set for the delivery
-//        if ($delivery->is_valid()) {
-//            $quote_result = WCDD()->api->get_delivery_quote($delivery);
-//        }
-
-        // Save the delivery id
         WC()->session->set('tapsi_external_delivery_id', $delivery->get_id());
 
         $this->add_rate(array(
@@ -102,8 +95,6 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
                 'tapsi_support_reference' => $delivery->get_support_reference(),
             )
         ));
-
-//        if (wp_remote_retrieve_response_code($quote_result) !== 200) WC()->session->set('tapsi_external_delivery_id', '');
     }
 
     public function init_form_fields()

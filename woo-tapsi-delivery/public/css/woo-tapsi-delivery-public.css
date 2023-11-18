@@ -55,7 +55,7 @@
 }
 
 #wcdd-delivery-options-powered > p {
-	flex-basis: 100%;
+	flex-basis: 48.75%;
 }
 
 /**
@@ -201,16 +201,16 @@ ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
 /**
  * Add styles for the Tapsi shipping method when the container it is in becomes to thin.
  */
-.wcdd-delivery-options.mobile-view #tapsi_tip_select_field .woocommerce-input-wrapper,
-.wcdd-delivery-options.mobile-view .wcdd-delivery-type-select .woocommerce-input-wrapper,
-.wcdd-delivery-options.mobile-view .wcdd-delivery-schedule {
+.wcdd-delivery-options #tapsi_tip_select_field .woocommerce-input-wrapper,
+.wcdd-delivery-options .wcdd-delivery-type-select .woocommerce-input-wrapper,
+.wcdd-delivery-options .wcdd-delivery-schedule {
 	flex-wrap: wrap;
 }
 
-.wcdd-delivery-options.mobile-view .wcdd-delivery-schedule > p,
-.wcdd-delivery-options.mobile-view .woocommerce-input-wrapper label.radio,
-.wcdd-delivery-options.tiny-view #tapsi_tip_select_field .woocommerce-input-wrapper label.radio {
-	flex-basis: 100%;
+.wcdd-delivery-options .wcdd-delivery-schedule > p,
+.wcdd-delivery-options .woocommerce-input-wrapper label.radio,
+.wcdd-delivery-options #tapsi_tip_select_field .woocommerce-input-wrapper label.radio {
+	flex-basis: 48.75%;
 }
 
 .wcdd-delivery-options.mobile-view #tapsi_tip_select_field .woocommerce-input-wrapper label.radio:nth-child(n+3) {
@@ -232,7 +232,13 @@ ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
 }
 
 .wcts-tapsi-pack-rules-section ul {
+	margin: 10px 0 0 0 !important;
+	display: none;
+}
+
+.wcts-tapsi-pack-rules-section button {
 	margin: 0 !important;
+	width: 100% !important;
 }
 
 

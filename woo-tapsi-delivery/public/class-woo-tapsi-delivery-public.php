@@ -255,6 +255,7 @@ class Woocommerce_Tapsi_Public
 						'label' => __('Dropoff Instructions', 'woo-tapsi-delivery'),
 						'class' => array('wcdd-dropoff-instructions', 'update_totals_on_change'),
 						'default' => WC()->session->get('tapsi_dropoff_instructions'),
+						'placeholder' => __('Optional', 'woo-tapsi-delivery'),
 					), WC()->checkout->get_value('tapsi_dropoff_instructions'));
 
 				}
@@ -267,9 +268,9 @@ class Woocommerce_Tapsi_Public
 
 				// Render the rules when the user has seen the price
 				if (!empty($delivery_times_for_date)) {
-					echo '<section class="wcts-tapsi-pack-rules-section">
-						<p>' . __( 'Rules', 'woo-tapsi-delivery' ) . '</p>
-						<ul>
+					echo '<section class="wcts-tapsi-pack-rules-section" >
+						<button id="wctd-tapsi-pack-rules-button">' . __( 'Rules', 'woo-tapsi-delivery' ) . '</button>
+						<ul id="wctd-tapsi-pack-rules">
 							<li>- ' . __( 'Delivery is done in Tehran only.', 'woo-tapsi-delivery' ) . '</li>
 							<li>- ' . __( 'The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery' ) . '</li>
 							<li>- ' . __( 'Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'woo-tapsi-delivery' ) . '</li>

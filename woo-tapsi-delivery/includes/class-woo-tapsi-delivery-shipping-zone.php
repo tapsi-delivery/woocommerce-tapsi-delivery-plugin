@@ -34,6 +34,10 @@ class Woocommerce_Tapsi_shipping_zone
         array(
             'code' => 'IR:THR',
             'type' => 'state'
+        ),
+        array(
+            'code' => 'IR:276',
+            'type' => 'state'
         )
     );
 

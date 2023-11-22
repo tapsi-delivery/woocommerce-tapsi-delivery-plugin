@@ -637,7 +637,7 @@ class Woocommerce_Tapsi_Public
                 WC()->session->set('tapsi_delivery_fee', $price);
             }
 
-        } elseif ($data['tapsi_delivery_date'] == '') {
+        } elseif (array_key_exists('tapsi_delivery_date', $data) && $data['tapsi_delivery_date'] == '') {
             //if this doesn't exist, set it to earliest. The form fields probably didn't exist in the html for this update
             $location = new Woocommerce_Tapsi_Pickup_Location($tapsi_pickup_location);
             $tapsi_delivery_time = $location->get_next_valid_time();

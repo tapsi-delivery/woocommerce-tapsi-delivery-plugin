@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 10:07+0330\n"
 "Last-Translator: \n"
-"PO-Revision-Date: 2023-10-02 13:31+0000\n"
+"PO-Revision-Date: 2023-11-18 07:35+0000\n"
 "Language-Team: فارسی\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -42,14 +42,33 @@ msgstr ""
 msgid "12345"
 msgstr ""
 
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:50
+msgid ""
+"<em>Lead Time</em> that is required for orders to be filled at this location."
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:48
+msgid "<em>Location Address</em> where orders will be picked up by Drivers"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:47
+msgid "<em>Location Name</em>"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:49
+msgid ""
+"<em>Open Hours</em> for the location, which determine when users will be "
+"able to select this location for Tapsi"
+msgstr ""
+
 #: admin/class-woo-tapsi-delivery-admin.php:515
 msgid ""
-"A Dasher has accepted your delivery and is on the way to the pickup location."
+"A Driver has accepted your delivery and is on the way to the pickup location."
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
-msgid "A pickup location is where an order can be picked up by a Dasher."
-msgstr ""
+msgid "A pickup location is where an order can be picked up by a Driver."
+msgstr "مبداهای ارسال، نقاطی هستند که راننده بسته را در آن‌ها تحویل می‌گیرد."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:31
 msgid "Active Environment"
@@ -62,12 +81,16 @@ msgid ""
 "to the quoted Tapsi rate."
 msgstr ""
 
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:53
+msgid "Add pickup location"
+msgstr "افزودن مبدا ارسال"
+
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:76
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:100
 msgid "Address"
 msgstr "آدرس"
 
-#: public/class-woo-tapsi-delivery-public.php:274
+#: public/class-woo-tapsi-delivery-public.php:273
 msgid ""
 "After starting the trip, the driver's information and the approximate "
 "arrival time will be sent to you via SMS."
@@ -151,6 +174,12 @@ msgid ""
 "Endpoint</strong>."
 msgstr ""
 
+#: admin/class-woo-tapsi-delivery-admin.php:355
+msgid "Could not submit delivery! Try Again"
+msgstr ""
+"مشکلی در ثبت سفارش در تپسی‌پک به وجود آمد! دوباره سفارش را در تپسی‌پک ثبت "
+"کنید."
+
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:123
 msgid "Country"
 msgstr "منطقه"
@@ -159,11 +188,7 @@ msgstr "منطقه"
 msgid "Customize hours for this location"
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:157
-msgid "Dasher Tipping"
-msgstr ""
-
-#: public/class-woo-tapsi-delivery-public.php:229
+#: public/class-woo-tapsi-delivery-public.php:228
 msgid "Day"
 msgstr "روز"
 
@@ -174,6 +199,11 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:110
 msgid "Default Pickup Instructions"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:66
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:67
+msgid "Delete"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:76
@@ -193,7 +223,7 @@ msgstr ""
 msgid "Delivery ID"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:270
+#: public/class-woo-tapsi-delivery-public.php:269
 msgid "Delivery is done in Tehran only."
 msgstr "تپسی‌پک در حال حاضر فقط در شهر تهران فعال است."
 
@@ -249,9 +279,22 @@ msgid ""
 "will be matched against the customer address."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:252
+#: admin/partials/woo-tapsi-delivery-admin-settings-main.php:157
+msgid "Driver Tipping"
+msgstr ""
+
+#: public/class-woo-tapsi-delivery-public.php:251
 msgid "Dropoff Instructions"
 msgstr "توضیحات برای راننده (اختیاری)"
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:45
+msgid "Each location can be configured with:"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:65
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:67
+msgid "Edit"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:18
 msgid "Edit Location"
@@ -259,7 +302,7 @@ msgstr "ویرایش مکان"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:54
 msgid "Email Address"
-msgstr "ایمیل"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:37
 msgid ""
@@ -280,10 +323,10 @@ msgid "enabled"
 msgstr "فعال"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
-msgid ""
-"Enabled locations can be selected by users at checkout during a location's "
-"open hours."
+msgid "Enabled locations can be selected by users at checkout."
 msgstr ""
+"در مرحله‌ی تصفیه حساب، کاربران می‌توانند هر یک از مکان‌های فعال را انتخاب "
+"کنند."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:21
 msgid "Enter Phone for Login"
@@ -309,7 +352,7 @@ msgstr "کدی تائیدی که برای شماره شما ارسال شده ر
 msgid "Enter the OTP sent:"
 msgstr "کد پیامک شده را اینجا وارد کنید:"
 
-#: public/class-woo-tapsi-delivery-public.php:458
+#: public/class-woo-tapsi-delivery-public.php:457
 msgid "Estimated Delivery Time:"
 msgstr ""
 
@@ -321,8 +364,8 @@ msgstr ""
 msgid "Estimated Pickup"
 msgstr ""
 
+#: public/class-woo-tapsi-delivery-public.php:788
 #: public/class-woo-tapsi-delivery-public.php:789
-#: public/class-woo-tapsi-delivery-public.php:790
 msgid "Failed to fetch delivery times. Please try again later."
 msgstr ""
 
@@ -346,7 +389,7 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:142
 msgid "Hours"
-msgstr "ساعات"
+msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:43
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:57
@@ -427,7 +470,9 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:47
 msgid "Only enabled locations are able to be selected for Tapsi deliveries."
-msgstr "تنها مکان‌های فعال می‌توانند انتخاب شوند"
+msgstr ""
+"کاربران تنها می‌توانند مکان‌هایی را انتخاب کنند که به عنوان فعال ذخیره "
+"شده‌اند."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:103
 msgid "Order Lead Time"
@@ -438,14 +483,15 @@ msgstr ""
 msgid "Origin"
 msgstr "مبدا"
 
-#: public/class-woo-tapsi-delivery-public.php:272
+#: public/class-woo-tapsi-delivery-public.php:271
 msgid ""
 "Package delivery is done by car, so the packages are delivered only at the "
 "door of the building and the driver will wait for you for a maximum of 5 "
 "minutes."
 msgstr ""
-"با توجه به ارسال مرسوله‌ها با خودرو، پس از رسیدن سفیر تا ۵ دقیقه بسته را "
-"جلوی ساختمان دریافت کنید."
+"با توجه به ارسال مرسوله‌ها با خودرو، پس از رسیدن سفیر تا «۵ دقیقه» فرصت "
+"دارید که بسته‌ی خود را درب ساختمان دریافت کنید. توجه داشته باشید که سفیر "
+"تپسی‌پک به درب واحد مراجعه نمی‌کند."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:45
 msgid ""
@@ -474,13 +520,13 @@ msgstr ""
 msgid "Paste your Developer ID obtained from the Tapsi Developer Portal."
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:357
+#: public/class-woo-tapsi-delivery-public.php:356
 msgid "Phone"
 msgstr "شماره تماس"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:61
 msgid "Phone Number"
-msgstr "شماره تماس"
+msgstr ""
 
 #: admin/class-woo-tapsi-delivery-settings.php:202
 msgid "Phone number"
@@ -490,6 +536,7 @@ msgstr "شماره تلفن"
 msgid "Phone Number: "
 msgstr "شماره تماس:"
 
+#: admin/class-woo-tapsi-delivery-admin.php:130
 #: admin/class-woo-tapsi-delivery-admin.php:133
 #: admin/class-woo-tapsi-delivery-admin.php:192
 msgid "Pickup Location"
@@ -498,6 +545,17 @@ msgstr ""
 #: admin/class-woo-tapsi-delivery-settings.php:326
 msgid "Pickup location could not be added. Please retry."
 msgstr "آدرس ارسال اضافه نشد. لطفا دوباره تلاش کنید."
+
+#: admin/class-woo-tapsi-delivery-admin.php:129
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:21
+msgid "Pickup Locations"
+msgstr "مبداهای ارسال"
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:44
+msgid ""
+"Pickup locations can be configured for each of the physical locations of "
+"your business."
+msgstr ""
 
 #: admin/partials/wctd-taps-pack-maplibre-map.php:15
 msgid ""
@@ -521,7 +579,7 @@ msgstr "پلاک"
 msgid "Previously generated credentials can be managed under"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:806
+#: public/class-woo-tapsi-delivery-public.php:805
 msgid "Price"
 msgstr "مبلغ"
 
@@ -530,9 +588,9 @@ msgstr "مبلغ"
 msgid "Reason: \"%s\""
 msgstr "دلیل: \"%s\""
 
-#: public/class-woo-tapsi-delivery-public.php:268
+#: public/class-woo-tapsi-delivery-public.php:267
 msgid "Rules"
-msgstr "شرایط"
+msgstr "شرایط و قوانین"
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:160
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:217
@@ -543,7 +601,7 @@ msgstr "شنبه"
 msgid "Scheduled Delivery Days Ahead"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:517
+#: public/class-woo-tapsi-delivery-public.php:516
 msgid "Select"
 msgstr "انتخاب"
 
@@ -551,7 +609,7 @@ msgstr "انتخاب"
 #, php-format
 msgid ""
 "Select Enabled to allow your customers to add a tip for their Tapsier. 100% "
-"of tips are passed on to the Dasher."
+"of tips are passed on to the Driver."
 msgstr ""
 
 #: public/class-woo-tapsi-delivery-public.php:182
@@ -627,21 +685,21 @@ msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:347
 msgid "Tapsi Delivery Submission: "
-msgstr ""
+msgstr "نتیجه‌ی درخواست سفارش در تپسی: "
 
 #: admin/class-woo-tapsi-delivery-admin.php:345
 msgid "Tapsi Delivery Submitted Successfully. ID: "
-msgstr ""
+msgstr "سفارش با موفقیت در تپسی ثبت شد. شناسه‌ی سفارش: "
 
 #: admin/class-woo-tapsi-delivery-admin.php:293
 msgid "Tapsi Delivery Submitted."
 msgstr "ارسال تپسی ثبت شد."
 
-#: public/class-woo-tapsi-delivery-public.php:307
+#: public/class-woo-tapsi-delivery-public.php:306
 msgid "Tapsi Delivery: Please choose a valid location."
 msgstr "تپسی: یک آدرس معتبر را انتخاب کنید."
 
-#: public/class-woo-tapsi-delivery-public.php:448
+#: public/class-woo-tapsi-delivery-public.php:447
 msgid "Tapsi from:"
 msgstr "تپسی از:"
 
@@ -692,42 +750,9 @@ msgstr ""
 msgid "Taxable"
 msgstr ""
 
-#: public/class-woo-tapsi-delivery-public.php:273
+#: public/class-woo-tapsi-delivery-public.php:272
 msgid "The allowed dimensions of the packages are 50cmx50cmx50cm."
 msgstr "ابعداد مجاز بسته‌ها، ۵۰×۵۰×۵۰ سانتی‌متر است."
-
-#: admin/class-woo-tapsi-delivery-admin.php:527
-msgid "The Dasher has confirmed that they arrived at the dropoff location."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:519
-msgid ""
-"The Dasher has confirmed that they arrived at the pickup location and are "
-"attempting to pick up the delivery."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:543
-msgid ""
-"The Dasher has confirmed that they arrived at the pickup location and are "
-"attempting to return the delivery."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:531
-msgid ""
-"The Dasher has dropped off the delivery at the dropoff location and the "
-"delivery is complete."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:523
-msgid "The Dasher has picked up the delivery."
-msgstr ""
-
-#: admin/class-woo-tapsi-delivery-admin.php:539
-msgid ""
-"The Dasher was unable to deliver your delivery to the dropoff location; they "
-"contacted support to arrange a return-to-pickup delivery and are returning "
-"to the pickup location."
-msgstr ""
 
 #: admin/class-woo-tapsi-delivery-admin.php:535
 msgid "The delivery has been cancelled."
@@ -737,14 +762,50 @@ msgstr "مرسوله لغو شده است."
 msgid "The delivery has been returned successfully."
 msgstr ""
 
+#: admin/class-woo-tapsi-delivery-admin.php:527
+msgid "The Driver has confirmed that they arrived at the dropoff location."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:519
+msgid ""
+"The Driver has confirmed that they arrived at the pickup location and are "
+"attempting to pick up the delivery."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:543
+msgid ""
+"The Driver has confirmed that they arrived at the pickup location and are "
+"attempting to return the delivery."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:531
+msgid ""
+"The Driver has dropped off the delivery at the dropoff location and the "
+"delivery is complete."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:523
+msgid "The Driver has picked up the delivery."
+msgstr ""
+
+#: admin/class-woo-tapsi-delivery-admin.php:539
+msgid ""
+"The Driver was unable to deliver your delivery to the dropoff location; they "
+"contacted support to arrange a return-to-pickup delivery and are returning "
+"to the pickup location."
+msgstr ""
+
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:134
 msgid ""
 "The exact address of your shop will be hidden to the customers but they can "
 "still see the coordinates of your shop in the track link that is sent to "
 "them."
-msgstr "آدرس دقیقا فروشگاه"
+msgstr ""
+"آدرس دقیق فروشگاه به خریداران نمایش داده نمی‌شود، اما همچنان خریداران "
+"می‌توانند از طریق لینک پیگیری‌ای که برای آن‌ها ارسال می‌شود، نقطه‌ی دقیق "
+"ارسال را ببینند."
 
-#: public/class-woo-tapsi-delivery-public.php:271
+#: public/class-woo-tapsi-delivery-public.php:270
 msgid "The package delivery is done within 3 hours in the same day."
 msgstr ""
 "بسته‌ها در طول بازه زمانی سه ساعته، تحویل گرفته می‌شوند و به مقصد می‌رسند."
@@ -764,7 +825,7 @@ msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:112
 msgid ""
-"These instructions will be provided to Dashers when picking up orders. These "
+"These instructions will be provided to Drivers when picking up orders. These "
 "instructions can be overridden for each location on the <em>Edit "
 "Location</em> screen."
 msgstr ""
@@ -782,7 +843,7 @@ msgstr "این اطلاعات تنها یک بار نمایش داده می‌ش
 msgid "Thursday"
 msgstr "پنجشنبه"
 
-#: public/class-woo-tapsi-delivery-public.php:240
+#: public/class-woo-tapsi-delivery-public.php:239
 msgid "Time"
 msgstr "بازه زمانی"
 
@@ -790,7 +851,7 @@ msgstr "بازه زمانی"
 msgid "Title"
 msgstr "عنوان"
 
-#: public/class-woo-tapsi-delivery-public.php:806
+#: public/class-woo-tapsi-delivery-public.php:805
 msgid "Toman"
 msgstr "تومان"
 
@@ -807,11 +868,21 @@ msgstr "پیگیری سفارشات"
 msgid "Tuesday"
 msgstr "سه‌شنبه"
 
+#: admin/partials/woo-tapsi-delivery-admin-tracking-orders.php:26
+msgid "Use the following link to track your shop deliveries."
+msgstr "با ورود به لینک زیر، می‌توانید ارسال‌های خود را بررسی کنید."
+
 #: admin/class-woo-tapsi-delivery-settings.php:445
 msgid ""
 "Use this page to generate WooCommerce credentials that you can paste into "
 "the Tapsi developer portal to connect your application."
 msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:52
+msgid ""
+"Users will be able to select the location their order will be fulfilled from "
+"during checkout."
+msgstr "کابران در مرحله‌ی تصفیه حساب، می‌توانند مبدا را انتخاب کنند."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:21
 msgid ""

@@ -196,6 +196,17 @@
 			$(document.body).on('click', '#wctd-tapsi-pack-mapliblre-map-public-submit-location-button', undefined, (event) => {
 				submitLocation(event);
 			})
+
+			// open | close rules section
+			$(document.body).on('click', '#wctd-tapsi-pack-rules-button', undefined, (event) => {
+				event?.preventDefault();
+				event?.stopPropagation();
+				const rules = $('#wctd-tapsi-pack-rules');
+				const isHidden = rules.css('display') === 'none';
+				console.log('rules click', rules, isHidden);
+				if (isHidden) rules.css({display: 'block'});
+				else rules.css({display: 'none'});
+			});
 		}
 
 		function initializeMap() {

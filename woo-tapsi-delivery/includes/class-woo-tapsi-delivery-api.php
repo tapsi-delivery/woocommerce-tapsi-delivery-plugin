@@ -26,7 +26,7 @@ class Woocommerce_Tapsi_API
     protected $key_id;
     protected string $cookie;
     protected string $x_agw_user_role = 'SCHEDULED_DELIVERY_SENDER';
-    protected string $x_agent = 'v0.1.0|WOOCOMMERCE_PLUGIN|WEB|0.1.7';
+    protected string $x_agent = 'v0.1.0|WOOCOMMERCE_PLUGIN|WEB|0.1.8';
     protected string $base_url = "https://api.tapsi.ir/api/";
 
     public function __construct()
@@ -154,7 +154,7 @@ class Woocommerce_Tapsi_API
             'body' => json_encode($request_body),
             'headers' => array(
                 'Content-Type' => 'application/json',
-                'x-agent' => 'v0.1.0|SCHEDULED_DELIVERY_SENDER|WEB|0.1.7'
+                'x-agent' => 'v0.1.0|SCHEDULED_DELIVERY_SENDER|WEB|0.1.8'
             ),
             'timeout' => 20
         );

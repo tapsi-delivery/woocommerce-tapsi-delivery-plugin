@@ -197,7 +197,7 @@ class Woocommerce_Tapsi_Public
                 $destination = $this->get_destination(false);
 
                 woocommerce_form_field('wctd_tapsi_destination_lat', array(
-                    'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id',
+                    'id' => 'wctd_tapsi_destination_lat',
                     'type' => 'hidden',
                     'class' => array('wcdd-delivery-destination-lat', 'update_totals_on_change'),
                     'required' => true,
@@ -205,7 +205,7 @@ class Woocommerce_Tapsi_Public
                 ), $destination[1]);
 
                 woocommerce_form_field('wctd_tapsi_destination_long', array(
-                    'id' => 'wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id',
+                    'id' => 'wctd_tapsi_destination_long',
                     'type' => 'hidden',
                     'class' => array('wcdd-delivery-destination-long', 'update_totals_on_change'),
                     'required' => true,
@@ -242,14 +242,14 @@ class Woocommerce_Tapsi_Public
                     echo '</div>';
                     $gmt_offset = get_option('gmt_offset') * HOUR_IN_SECONDS;
 
-					// Output the Dropoff Instructions field
-					woocommerce_form_field('tapsi_dropoff_instructions', array(
-						'type' => 'text',
-						'label' => __('Dropoff Instructions', 'woo-tapsi-delivery'),
-						'class' => array('wcdd-dropoff-instructions', 'update_totals_on_change'),
-						'default' => WC()->session->get('tapsi_dropoff_instructions'),
-						'placeholder' => __('(اختیاری)', 'woo-tapsi-delivery'),
-					), WC()->checkout->get_value('tapsi_dropoff_instructions'));
+                    // Output the Dropoff Instructions field
+                    woocommerce_form_field('tapsi_dropoff_instructions', array(
+                        'type' => 'text',
+                        'label' => __('Dropoff Instructions', 'woo-tapsi-delivery'),
+                        'class' => array('wcdd-dropoff-instructions', 'update_totals_on_change'),
+                        'default' => WC()->session->get('tapsi_dropoff_instructions'),
+                        'placeholder' => __('(اختیاری)', 'woo-tapsi-delivery'),
+                    ), WC()->checkout->get_value('tapsi_dropoff_instructions'));
 
                 }
 
@@ -259,13 +259,13 @@ class Woocommerce_Tapsi_Public
                     'default' => WC()->session->get('tapsi_external_delivery_id'),
                 ), WC()->checkout->get_value('tapsi_external_delivery_id'));
 
-				// Render the rules when the user has seen the price
-				if (!empty($delivery_times_for_date)) {
-					echo '<section class="wcts-tapsi-pack-rules-section" >
-						<button id="wctd-tapsi-pack-rules-button">' . __( 'Rules', 'woo-tapsi-delivery' ) . '</button>
+                // Render the rules when the user has seen the price
+                if (!empty($delivery_times_for_date)) {
+                    echo '<section class="wcts-tapsi-pack-rules-section" >
+						<button id="wctd-tapsi-pack-rules-button">' . __('Rules', 'woo-tapsi-delivery') . '</button>
 						<ul id="wctd-tapsi-pack-rules">
-							<li>- ' . __( 'Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'woo-tapsi-delivery' ) . '</li>
-							<li>- ' . __( 'After starting the trip, the driver\'s information and the approximate arrival time will be sent to you via SMS.', 'woo-tapsi-delivery' ) . '</li>
+							<li>- ' . __('Package delivery is done by car, so the packages are delivered only at the door of the building and the driver will wait for you for a maximum of 5 minutes.', 'woo-tapsi-delivery') . '</li>
+							<li>- ' . __('After starting the trip, the driver\'s information and the approximate arrival time will be sent to you via SMS.', 'woo-tapsi-delivery') . '</li>
 						</ul>
 					 </section>';
 
@@ -837,7 +837,7 @@ class Woocommerce_Tapsi_Public
                         }
                     }
 
-                    } elseif (property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
+                } elseif (property_exists($data, 'details') && property_exists($data->details[0], 'message')) {
                     echo $data->details[0]->message;
                     return $preview;
                 } else {

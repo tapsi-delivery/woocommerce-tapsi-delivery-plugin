@@ -118,8 +118,9 @@
 				console.log('open event');
 				event?.preventDefault();
 				event?.stopPropagation();
-				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
-				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+				const lat = $('#wctd_tapsi_destination_lat');
+				const lng = $('#wctd_tapsi_destination_long');
+
 				let centerLocation = [51.337762, 35.699927]; // Azadi Square
 				if (Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
 				map.setCenter(centerLocation);
@@ -158,8 +159,9 @@
 				console.log('submit event');
 				event?.preventDefault();
 				event?.stopPropagation();
-				const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
-				const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+				const lat = $('#wctd_tapsi_destination_lat');
+				const lng = $('#wctd_tapsi_destination_long');
+
 				console.log('map center', map.getCenter());
 				const azadiCoordinate = [51.337762, 35.699927];
 
@@ -215,8 +217,8 @@
 			if (window.location.pathname.includes('checkout')){
 			const MAP_CONTAINER_ID = 'wctd-tapsi-pack-maplibre-map-public-container-id';
 			const MAP_STYLE = 'https://static.tapsi.cab/pack/wp-plugin/map/mapsi-style.json';
-			const lat = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lat-field-id');
-			const lng = $('#wctd-tapsi-pack-maplibre-map-public-location-form-lng-field-id');
+			const lat = $('#wctd_tapsi_destination_lat');
+			const lng = $('#wctd_tapsi_destination_long');
 			let centerLocation = [51.337762, 35.699927]; // Azadi Square
 			if(Number(lat.val()) && Number(lng.val())) centerLocation = [Number(lng.val()), Number(lat.val())];
 			console.log('map center', centerLocation);

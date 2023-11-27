@@ -1,15 +1,17 @@
 const WCTD_MAP_CONTAINER_ID = 'wctd-tapsi-pack-maplibre-map-container-id';
 const WCTD_MAP_STYLE = 'https://static.tapsi.cab/pack/wp-plugin/map/mapsi-style.json';
 const WCTDgetMap = () => document.getElementById(WCTD_MAP_CONTAINER_ID);
-const WCTDgetLat = () => document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id');
-const WCTDgetLong = () => document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id');
+const WCTDgetLat = () => document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lat-field-id') ||
+    document.getElementById('wctd_tapsi_origin_lat');
+const WCTDgetLong = () => document.getElementById('wctd-tapsi-pack-maplibre-map-location-form-lng-field-id') ||
+    document.getElementById('wctd_tapsi_origin_long');
 let WCTD_centerLocation = [51.337762, 35.699927]; // Azadi Square
 let WCTD_map = null;
 
 const WCTDscriptStart = () => {
     console.log('map is loading...');
-    console.log('map center location: ',!!Number(WCTDgetLat()?.value) && Number(WCTDgetLong()?.value));
-    if(Number(WCTDgetLat()?.value) && Number(WCTDgetLong()?.value)) WCTD_centerLocation = [Number(WCTDgetLong().value), Number(WCTDgetLat().value)];
+    console.log('map center location: ', !!Number(WCTDgetLat()?.value) && Number(WCTDgetLong()?.value));
+    if (Number(WCTDgetLat()?.value) && Number(WCTDgetLong()?.value)) WCTD_centerLocation = [Number(WCTDgetLong().value), Number(WCTDgetLat().value)];
     console.log(WCTD_centerLocation);
     WCTD_map = new maplibregl.Map({
         container: WCTD_MAP_CONTAINER_ID, // container id

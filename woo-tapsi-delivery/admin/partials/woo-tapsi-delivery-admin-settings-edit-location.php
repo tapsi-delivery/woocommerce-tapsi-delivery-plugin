@@ -83,16 +83,16 @@ $azadi_coordinate = array(51.337762, 35.699927);
 
 echo '<section class="wc-tapsi-location address">';
 
-woocommerce_form_field('location_lat', array(
+woocommerce_form_field('wctd_tapsi_origin_lat', array(
     'type' => 'hidden',
     'required' => true,
-    'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lat-field-id',
+    'id' => 'wctd_tapsi_origin_lat',
 ), !$address['latitude'] || $address['latitude'] === 'undefined' ? $azadi_coordinate[1] : $address['latitude']);
 
-woocommerce_form_field('location_lng', array(
+woocommerce_form_field('wctd_tapsi_origin_long', array(
     'type' => 'hidden',
     'required' => true,
-    'id' => 'wctd-tapsi-pack-maplibre-map-location-form-lng-field-id',
+    'id' => 'wctd_tapsi_origin_long',
 ), !$address['longitude'] || $address['longitude'] === 'undefined' ? $azadi_coordinate[0] : $address['longitude']);
 
 woocommerce_form_field('location_city', array(

@@ -315,7 +315,7 @@ class Woocommerce_Tapsi
 
             global $wpdb;
             $matching_zone_ids = array();
-            $matching_zones = $wpdb->get_results("SELECT zones.zone_id FROM {$wpdb->prefix}woocommerce_shipping_zones as zones LEFT OUTER JOIN {$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode' WHERE " . implode(' ', $criteria) . ' ORDER BY zone_order ASC, zones.zone_id ASC LIMIT 10');
+            $matching_zones = $wpdb->get_results("SELECT zones.zone_id, zones.zone_name FROM {$wpdb->prefix}woocommerce_shipping_zones as zones LEFT OUTER JOIN {$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode' WHERE " . implode(' ', $criteria) . ' ORDER BY zone_order ASC, zones.zone_id ASC LIMIT 10');
 
             $tapsi_is_included = false;
             $tapsi_zone_name = 'Tapsi-Zone';
@@ -334,10 +334,10 @@ class Woocommerce_Tapsi
             if (!$tapsi_is_included) {
                 $tapsi_should_be_included = false;
 
-                if ($state == 'THR' || $state == 'تهران' || $state == 276) {
+                if ($state == 'THR' || $state == 'TE' || $state == 'تهران' || $state == 276) {
                     $tapsi_should_be_included = true;
                 } elseif (array_key_exists('city', $package['destination'])) {
-                    $city = strtoupper(wc_clean($package['destination']['$city']));
+                    $city = strtoupper(wc_clean($package['destination']['city']));
                     if ($city == 286 || $city == 'TEHRAN' || $city == 'THR' || $city == 'تهران') {
                         $tapsi_should_be_included = true;
                     }

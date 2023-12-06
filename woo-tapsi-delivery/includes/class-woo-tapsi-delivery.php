@@ -216,7 +216,7 @@ class Woocommerce_Tapsi
     }
 
     /**
-     * Register all of the hooks related to the admin area functionality
+     * Register all the hooks related to the admin area functionality
      * of the plugin.
      *
      * @since    1.0.0

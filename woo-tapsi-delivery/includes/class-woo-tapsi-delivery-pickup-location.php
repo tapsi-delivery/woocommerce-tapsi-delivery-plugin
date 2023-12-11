@@ -351,10 +351,10 @@ class Woocommerce_Tapsi_Pickup_Location
             if (isset($data->availableDatesTimestamp) && is_array($data->availableDatesTimestamp)) {
                 foreach ($data->availableDatesTimestamp as $int_timestamp) {
                     $int_timestamp /= 1000;
+                    $timestamp_key = 'timestamp__' . $int_timestamp;
                     $obj_timestamp = new jDateTime('@' . $int_timestamp, true, 'Asia/Tehran');
                     $timeslot_display = $obj_timestamp->date('l - d F', $int_timestamp);
-
-                    $days[$int_timestamp] = $timeslot_display;
+                    $days[$timestamp_key] = $timeslot_display;
                 }
             } else {
                 $days[0] = "Invalid response structure.";

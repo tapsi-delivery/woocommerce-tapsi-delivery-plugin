@@ -344,7 +344,7 @@ class Woocommerce_Tapsi
                 }
 
                 if ($tapsi_should_be_included) {
-                    $find_tapsi_zone_query = "SELECT zone_id FROM wp_woocommerce_shipping_zones WHERE (zone_name = '" . $tapsi_zone_name . "')";
+                    $find_tapsi_zone_query = "SELECT zone_id FROM {$wpdb->prefix}woocommerce_shipping_zones WHERE (zone_name = '" . $tapsi_zone_name . "')";
                     $tapsi_zone = $wpdb->get_results($find_tapsi_zone_query);
                     if (count($tapsi_zone) != 0) $matching_zone_ids[] = $tapsi_zone[0]->zone_id;
                 }

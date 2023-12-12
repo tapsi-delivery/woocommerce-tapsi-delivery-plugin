@@ -24,7 +24,7 @@ class Woocommerce_Tapsi_Pickup_Location
 {
 
     protected $data = array(
-        'ID' => 0,
+        'ID' => 'pickuplocation__0',
         'name' => '',
         'address_1' => '',
         'latitude' => '',
@@ -57,7 +57,14 @@ class Woocommerce_Tapsi_Pickup_Location
      */
     public function __construct($data)
     {
-        if (is_string($data)) $data = intval($data);
+        if (is_string($data)) {
+            $data_parts = explode("__", $data);
+            if (is_array($data_parts) && count($data_parts) >= 2) {
+                $data = intval($data_parts[1]);
+            } else {
+                $data = intval($data);
+            }
+        }
         if (is_int($data)) {
             $data = get_post($data); // Get the post object
         }
@@ -92,7 +99,7 @@ class Woocommerce_Tapsi_Pickup_Location
     public function create_from_post($post)
     {
         $data = array(
-            'ID' => $post->ID,
+            'ID' => 'pickuplocation__' . $post->ID,
             'name' => $post->post_title,
             'address_1' => $post->address_1,
             'latitude' => $post->latitude,
@@ -116,7 +123,7 @@ class Woocommerce_Tapsi_Pickup_Location
     /**
      * Saves the delivery data to an order
      *
-     * @return int Post ID of new post
+     * @return string Post ID of new post
      */
     public function save()
     {
@@ -127,14 +134,17 @@ class Woocommerce_Tapsi_Pickup_Location
             'meta_input' => $this->get_data(),
             'post_status' => $this->get_post_status(),
         );
-        $this->data['ID'] = wp_insert_post($postdata);
+
+        WCDD()->log->debug('$postdata', $postdata);
+
+        $this->data['ID'] = 'pickuplocation__' . wp_insert_post($postdata);
         return $this->get_id();
     }
 
     /**
      * Enable pickup from this location
      *
-     * @return int Post ID of location
+     * @return string Post ID of location
      */
     public function enable()
     {
@@ -145,7 +155,7 @@ class Woocommerce_Tapsi_Pickup_Location
     /**
      * Disable pickup from this location
      *
-     * @return int Post ID of location
+     * @return string Post ID of location
      */
     public function disable()
     {
@@ -186,7 +196,7 @@ class Woocommerce_Tapsi_Pickup_Location
     /**
      * Retrieve location post ID
      *
-     * @return int Post ID
+     * @return string Post ID
      */
     public function get_id()
     {

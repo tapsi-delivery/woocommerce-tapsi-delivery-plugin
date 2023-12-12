@@ -216,7 +216,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 	 * @return void
 	 */
 	public function output_location_edit_screen() {
-		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $_GET['location_id'] ) );
+		$location = new Woocommerce_Tapsi_Pickup_Location( $_GET['location_id'] );
 		wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
 		wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'https://static.tapsi.cab/pack/wp-plugin/map/map-admin.css');
 		// TODO: MARYAM: Replace all localhosts

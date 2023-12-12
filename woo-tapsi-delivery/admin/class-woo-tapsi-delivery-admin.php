@@ -222,7 +222,7 @@ class Woocommerce_Tapsi_Admin
             $gmt_offset = get_option('gmt_offset') * HOUR_IN_SECONDS;
             switch ($meta->key) {
                 case '_tapsi_pickup_location':
-                    $location = new Woocommerce_Tapsi_Pickup_Location(intval($meta->value));
+                    $location = new Woocommerce_Tapsi_Pickup_Location($meta->value);
                     $displayed_value = $location->get_name() . '<br>' . $location->get_formatted_address();
                     break;
                 case 'tapsi_pickup_time':
@@ -330,7 +330,7 @@ class Woocommerce_Tapsi_Admin
         }
 
 
-        $location_id = (int)$method->get_meta("_tapsi_pickup_location");
+        $location_id = $method->get_meta("_tapsi_pickup_location");
         $note = '';
 
         if ($location_id) {
@@ -667,7 +667,7 @@ class Woocommerce_Tapsi_Admin
         $method = array_shift($methods);
 
         // Get the location ID from the meta if it exists
-        $location_id = (int)$method->get_meta("_tapsi_pickup_location");
+        $location_id = $method->get_meta("_tapsi_pickup_location");
 
         if ($location_id) {
             // Get the location object

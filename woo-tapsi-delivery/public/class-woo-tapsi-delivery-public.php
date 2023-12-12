@@ -248,9 +248,8 @@ class Woocommerce_Tapsi_Public
                         'label' => __('Dropoff Instructions', 'woo-tapsi-delivery'),
                         'class' => array('wcdd-dropoff-instructions', 'update_totals_on_change'),
                         'default' => WC()->session->get('tapsi_dropoff_instructions'),
-                        'placeholder' => __('(اختیاری)', 'woo-tapsi-delivery'),
+                        'placeholder' => __('(Optional)', 'woo-tapsi-delivery'),
                     ), WC()->checkout->get_value('tapsi_dropoff_instructions'));
-
                 }
 
                 woocommerce_form_field('tapsi_external_delivery_id', array(
@@ -825,27 +824,30 @@ class Woocommerce_Tapsi_Public
 
                 if (property_exists($data, 'invoicePerTimeslots')) {
                     $raw_timeslots = $data->invoicePerTimeslots;
-                    $timeslots = $this->process_timeslots($raw_timeslots, $pickup_Location);
+                    $all_timeslots = $this->process_timeslots($raw_timeslots, $pickup_Location);
 
-                    WCDD()->log->debug('$timeslots', $timeslots);
-
-                    foreach ($timeslots as $timeslot) {
+                    foreach ($all_timeslots as $timeslot) {
                         if ($timeslot['status'] == 'ok') {
                             $preview['time_slots'][$timeslot['key']] = $timeslot['display'];
                         }
                     }
 
                     if (count($preview['time_slots']) == 0) {
-                        foreach ($timeslots as $timeslot) {
+                        $no_time_slot_alert = __('No available time slot', 'woo-tapsi-delivery');
+
+                        foreach ($all_timeslots as $timeslot) {
                             if ($timeslot['status'] == 'balance_deficit') {
-                                echo __('Balance is not enough', 'woo-tapsi-delivery');
-                                return $preview;
+                                $no_time_slot_alert = __('Balance is not enough', 'woo-tapsi-delivery');
+                                break;
                             }
                             if ($timeslot['status'] == 'store_unavailable') {
-                                echo __('Store is not available', 'woo-tapsi-delivery');
-                                return $preview;
+                                $no_time_slot_alert = __('Store is not available', 'woo-tapsi-delivery');;
+                                break;
                             }
                         }
+
+                        echo $no_time_slot_alert;
+                        return $preview;
                     }
 
                 } elseif (property_exists($data, 'details') && property_exists($data->details[0], 'message')) {

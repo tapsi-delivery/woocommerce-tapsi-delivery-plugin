@@ -760,8 +760,24 @@ class Woocommerce_Tapsi_Public
         }
     }
 
-    private function get_time_slots(?int $datestamp): array
+    private function get_time_slots($datestamp): array
     {
+        if ($datestamp == null) {
+            echo __('First select a date', 'woo-tapsi-delivery');
+            WC()->session->set('tapsi_preview_token', '');
+            return [];
+        }
+
+        if (is_string($datestamp)) {
+            $datestamp = intval($datestamp);
+        }
+
+        if ($datestamp == 0) {
+            echo __('Selected date is not valid', 'woo-tapsi-delivery');
+            WC()->session->set('tapsi_preview_token', '');
+            return [];
+        }
+
         $preview = $this->get_delivery_preview($datestamp);
 
         WC()->session->set('tapsi_preview_token', $preview['token']);
@@ -775,17 +791,12 @@ class Woocommerce_Tapsi_Public
      * @param ?int $datestamp Date to get options for
      * @return array Array containing timestamp keys and formatted time values
      */
-    private function get_delivery_preview(?int $datestamp): array
+    private function get_delivery_preview(int $datestamp): array
     {
         $preview = [
             'time_slots' => array(),
             'token' => ''
         ];
-
-        if ($datestamp == null) {
-            echo __('First select a date', 'woo-tapsi-delivery');
-            return $preview;
-        }
 
         $selected_location = WC()->checkout->get_value('tapsi_pickup_location') ? WC()->checkout->get_value('tapsi_pickup_location') : WC()->session->get('tapsi_pickup_location');
         $pickup_Location = new Woocommerce_Tapsi_Pickup_Location($selected_location);

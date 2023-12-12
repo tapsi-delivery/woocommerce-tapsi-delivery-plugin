@@ -216,7 +216,7 @@ class Woocommerce_Tapsi
     }
 
     /**
-     * Register all of the hooks related to the admin area functionality
+     * Register all the hooks related to the admin area functionality
      * of the plugin.
      *
      * @since    1.0.0
@@ -315,16 +315,40 @@ class Woocommerce_Tapsi
 
             global $wpdb;
             $matching_zone_ids = array();
-            $matching_zones = $wpdb->get_results("SELECT zones.zone_id FROM {$wpdb->prefix}woocommerce_shipping_zones as zones LEFT OUTER JOIN {$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode' WHERE " . implode(' ', $criteria) . ' ORDER BY zone_order ASC, zones.zone_id ASC LIMIT 10');
+            $matching_zones = $wpdb->get_results("SELECT zones.zone_id, zones.zone_name FROM {$wpdb->prefix}woocommerce_shipping_zones as zones LEFT OUTER JOIN {$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode' WHERE " . implode(' ', $criteria) . ' ORDER BY zone_order ASC, zones.zone_id ASC LIMIT 10');
+
+            $tapsi_is_included = false;
+            $tapsi_zone_name = 'Tapsi-Zone';
+
             if ($matching_zones) {
                 foreach ($matching_zones as $zone) {
                     $matching_zone_ids[] = $zone->zone_id;
+                    if ($zone->zone_name == $tapsi_zone_name) $tapsi_is_included = true;
                 }
             }
             $country = strtoupper(wc_clean($package['destination']['country']));
             $state = strtoupper(wc_clean($package['destination']['state']));
             $postcode = wc_normalize_postcode(wc_clean($package['destination']['postcode']));
             $cache_key = WC_Cache_Helper::get_cache_prefix('shipping_zones') . 'wc_shipping_zones_' . md5(sprintf('%s+%s+%s', $country, $state, $postcode));
+
+            if (!$tapsi_is_included) {
+                $tapsi_should_be_included = false;
+
+                if ($state == 'THR' || $state == 'TE' || $state == 'تهران' || $state == 276) {
+                    $tapsi_should_be_included = true;
+                } elseif (array_key_exists('city', $package['destination'])) {
+                    $city = strtoupper(wc_clean($package['destination']['city']));
+                    if ($city == 286 || $city == 'TEHRAN' || $city == 'THR' || $city == 'تهران') {
+                        $tapsi_should_be_included = true;
+                    }
+                }
+
+                if ($tapsi_should_be_included) {
+                    $find_tapsi_zone_query = "SELECT zone_id FROM {$wpdb->prefix}woocommerce_shipping_zones WHERE (zone_name = '" . $tapsi_zone_name . "')";
+                    $tapsi_zone = $wpdb->get_results($find_tapsi_zone_query);
+                    if (count($tapsi_zone) != 0) $matching_zone_ids[] = $tapsi_zone[0]->zone_id;
+                }
+            }
             wp_cache_set($cache_key, $matching_zone_ids, 'shipping_zones_array');
 
             return $criteria;

@@ -159,6 +159,8 @@ class Woocommerce_Tapsi_Public
 
                 $location = new Woocommerce_Tapsi_Pickup_Location($selected_location);
 
+                $this->disable_problematic_filters();
+
                 // Output pickup locations field
                 if (is_countable($locations) && count($locations) == 1) {
                     //hidden field + display for single location
@@ -243,6 +245,8 @@ class Woocommerce_Tapsi_Public
                         'default' => $selected_time_key,
                         'options' => $delivery_times_for_date,
                     ), $selected_time_key);
+                    $this->enable_problematic_filters();
+
                     echo '</div>';
                     $gmt_offset = get_option('gmt_offset') * HOUR_IN_SECONDS;
 
@@ -1041,6 +1045,22 @@ class Woocommerce_Tapsi_Public
                 WC()->session->set('tapsi_delivery_fee', $new_price);
             }
         }
+    }
+
+    /**
+     * @return void
+     */
+    public function disable_problematic_filters(): void
+    {
+        remove_filter('woocommerce_form_field_select', array(\QuadLayers\WOOCCM\View\Frontend\Fields_Filter::instance(), 'custom_field'), 10);
+    }
+
+    /**
+     * @return void
+     */
+    public function enable_problematic_filters(): void
+    {
+        remove_filter('woocommerce_form_field_select', array(\QuadLayers\WOOCCM\View\Frontend\Fields_Filter::instance(), 'custom_field'), 10, 4);
     }
 
 }

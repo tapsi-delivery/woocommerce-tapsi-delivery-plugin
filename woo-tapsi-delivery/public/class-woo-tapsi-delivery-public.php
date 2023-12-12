@@ -231,14 +231,18 @@ class Woocommerce_Tapsi_Public
                     $delivery_days_keys = array_keys($delivery_days);
                     $selected_date = !empty(WC()->session->get('tapsi_delivery_date')) ? WC()->session->get('tapsi_delivery_date') : array_shift($delivery_days_keys);
                     $delivery_times_for_date = $this->get_time_slots($selected_date);
+
+                    $selected_time_key = WC()->session->get('tapsi_delivery_time');
+                    $this->update_fee($selected_time_key);
+
                     woocommerce_form_field('tapsi_delivery_time', array(
                         'type' => 'select',
                         'label' => __('Time', 'woo-tapsi-delivery'),
                         'class' => array('wcdd-delivery-time-select', 'update_totals_on_change'),
                         'required' => true,
-                        'default' => WC()->session->get('tapsi_delivery_time'),
+                        'default' => $selected_time_key,
                         'options' => $delivery_times_for_date,
-                    ), WC()->session->get('tapsi_delivery_time'));
+                    ), $selected_time_key);
                     echo '</div>';
                     $gmt_offset = get_option('gmt_offset') * HOUR_IN_SECONDS;
 
@@ -610,7 +614,7 @@ class Woocommerce_Tapsi_Public
             WC()->session->set('tapsi_delivery_type', $tapsi_delivery_type);
         }
 
-        // Save the delivery date
+        $tapsi_delivery_date = null;
         if (array_key_exists('tapsi_delivery_date', $data)) { // phpcs:ignore
             $tapsi_delivery_date = $data['tapsi_delivery_date'];
             // Set $date_changed if the user changed the date since the last request.
@@ -629,13 +633,7 @@ class Woocommerce_Tapsi_Public
                 $tapsi_delivery_time = $data['tapsi_delivery_time'];
             }
             WC()->session->set('tapsi_delivery_time', $tapsi_delivery_time);
-
-            $tapsi_delivery_time_keys = explode("--", $tapsi_delivery_time);
-            if (isset($tapsi_delivery_time_keys[1])) {
-                $price = $tapsi_delivery_time_keys[1];
-                WC()->session->set('tapsi_delivery_fee', $price);
-            }
-
+            $this->update_fee($tapsi_delivery_time);
         } elseif (array_key_exists('tapsi_delivery_date', $data) && $data['tapsi_delivery_date'] == '') {
             //if this doesn't exist, set it to earliest. The form fields probably didn't exist in the html for this update
             $location = new Woocommerce_Tapsi_Pickup_Location($tapsi_pickup_location);
@@ -1026,6 +1024,23 @@ class Woocommerce_Tapsi_Public
         }
 
         return $timeslots;
+    }
+
+    /**
+     * @param $time_slot_key
+     * @return void
+     */
+    public function update_fee($time_slot_key): void
+    {
+        $selected_time_key_parts = explode("--", $time_slot_key);
+
+        if (isset($selected_time_key_parts[1])) {
+            $new_price = $selected_time_key_parts[1];
+            $last_price = WC()->session->get('tapsi_delivery_fee');
+            if ($new_price != $last_price) {
+                WC()->session->set('tapsi_delivery_fee', $new_price);
+            }
+        }
     }
 
 }

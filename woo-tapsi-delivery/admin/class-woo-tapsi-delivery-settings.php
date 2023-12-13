@@ -219,9 +219,8 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $_GET['location_id'] ) );
 		wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
 		wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'https://static.tapsi.cab/pack/wp-plugin/map/map-admin.css');
-		// TODO: MARYAM: Replace all localhosts
-		// TODO: MARYAM: Send q-params with request for future customization
 		wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
+		wp_enqueue_script('woo-tapsi-delivery-admin-map');
 		include 'partials/woo-tapsi-delivery-admin-settings-edit-location.php';
 	}
 

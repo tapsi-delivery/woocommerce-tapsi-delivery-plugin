@@ -252,21 +252,11 @@ class Woocommerce_Tapsi
         // Filter the default and location hours before save
         $this->loader->add_filter('pre_update_option', $plugin_admin, 'update_default_hours', 10, 3);
 
-        // Show a notice in sandbox mode
-        $this->loader->add_action('admin_notices', $plugin_admin, 'admin_sandbox_notice');
-
         // Add custom post type for the Pickup Locations
         $this->loader->add_action('init', $plugin_admin, 'register_pickup_location_cpt');
 
         // Register a shipping method
         $this->loader->add_filter('woocommerce_shipping_methods', $plugin_admin, 'register_shipping_method');
-
-        // setup tapsi order statuses
-        $this->loader->add_action('init', $plugin_admin, 'register_tapsi_order_statuses');
-        $this->loader->add_filter('wc_order_statuses', $plugin_admin, 'add_tapsi_order_statuses');
-
-        // register custom endpoint / route to update order statuses
-        $this->loader->add_action('rest_api_init', $plugin_admin, 'wc_tapsi_register_rest_route');
 
         // Filter meta key and value display
         $this->loader->add_filter('woocommerce_order_item_display_meta_key', $plugin_admin, 'filter_order_item_displayed_meta_key', 20, 3);
@@ -277,9 +267,6 @@ class Woocommerce_Tapsi
 
         // Send email to selected location when order is placed
         $this->loader->add_action('woocommerce_email_recipient_new_order', $plugin_admin, 'new_order_email_recipient', 10, 3);
-
-        // Adds custom tracking provider for Tapsi to the WooCommerce Shipment Tracking plugin
-        $this->loader->add_action('wc_shipment_tracking_get_providers', $plugin_admin, 'wc_shipment_tracking_add_tapsi_provider', 10, 1);
 
         $this->merge_zones();
     }

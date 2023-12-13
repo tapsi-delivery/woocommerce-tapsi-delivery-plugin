@@ -414,48 +414,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
         return $locations;
     }
-
-	// TODO: PRUNE the following screen should be pruned
-    /**
-     * Display the screen to generate API credentials for Tapsi webhooks
-     *
-     * @return void
-     */
-    public function output_webhooks_screen()
-    {
-        printf('<h1>%s</h1>', __('Webhooks Configuration', 'woo-tapsi-delivery'));
-        $header = get_transient('woocommerce_tapsi_auth_header');
-
-        if (!empty($header)) {
-            printf('<p>%s</p>', __('Your authorization header has been generated.', 'woo-tapsi-delivery'));
-            printf('<h2>%s</h2>', __('This information will only be displayed once.', 'woo-tapsi-delivery'));
-            echo '<ol>';
-            printf('<li>%s</li>', __('Visit the <a target="_blank" href="https://developer.tapsi.com/portal/integration/drive/webhooks">Webhooks configuration in the Tapsi Developer Portal</a>.', 'woo-tapsi-delivery'));
-            printf('<li>%s</li>', __('Click the button to configure a Sandbox or Production endpoint.', 'woo-tapsi-delivery'));
-            printf('<li>%s</li>', __('Copy the values below into the form and click <strong>Configure Endpoint</strong>.', 'woo-tapsi-delivery'));
-            echo '</ol>';
-
-            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Webhook Delivery URL', 'woo-tapsi-delivery'), rest_url('wc/v3/tapsi/status_updated'), __('Copy', 'woo-tapsi-delivery'));
-            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Authentication Type', 'woo-tapsi-delivery'), 'Basic', __('Copy', 'woo-tapsi-delivery'));
-            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Authorization Header', 'woo-tapsi-delivery'), $header, __('Copy', 'woo-tapsi-delivery'));
-            delete_transient('woocommerce_tapsi_auth_header');
-        } else {
-
-            printf('<p>%s</p>', __('Tapsi webhooks are used to update your WooCommerce orders with delivery status from Tapsi in real-time as the order is being delivered.', 'woo-tapsi-delivery'));
-            printf('<p>%s</p>', __('Use this page to generate WooCommerce credentials that you can paste into the Tapsi developer portal to connect your application.', 'woo-tapsi-delivery'));
-            printf('<p>%s <a href="%s"><em>%s</em></a></p>', __('Previously generated credentials can be managed under', 'woo-tapsi-delivery'), admin_url('admin.php?page=wc-settings&tab=advanced&section=keys'), __('WooCommerce Settings > Advanced > REST API', 'woo-tapsi-delivery'));
-            $auth_url = get_site_url() . '/wc-auth/v1/authorize';
-            $auth_url = add_query_arg(array(
-                'app_name' => 'Tapsi',
-                'scope' => 'write',
-                'user_id' => get_current_user_id(),
-                'return_url' => urlencode(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=webhooks')),
-                'callback_url' => urlencode(rest_url('wc/v3/tapsi/save_auth_header')),
-            ), $auth_url);
-
-            printf('<a href="%s" class="button">%s</a>', esc_url($auth_url), __('Generate Credentials', 'woo-tapsi-delivery'));
-        }
-    }
 }
 
 return new Woocommerce_Tapsi_Settings();

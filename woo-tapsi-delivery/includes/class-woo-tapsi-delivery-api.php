@@ -22,8 +22,6 @@
  */
 class Woocommerce_Tapsi_API
 {
-    protected $env;
-    protected $key_id;
     protected string $cookie;
     protected string $x_agw_user_role = 'SCHEDULED_DELIVERY_SENDER';
     protected string $x_agent = 'v0.1.0|WOOCOMMERCE_PLUGIN|WEB|0.1.10';
@@ -31,11 +29,10 @@ class Woocommerce_Tapsi_API
 
     public function __construct()
     {
-        $this->set_base_url('prod');
         $this->get_keys();
     }
 
-    protected function get_keys()
+    protected function get_keys(): bool
     {
         // If the JWT already exists we're set
         if (!empty($this->cookie)) return true;
@@ -100,7 +97,7 @@ class Woocommerce_Tapsi_API
     /**
      * Send a message to phone number of user, containing OTP
      *
-     * @param int $phone phone number of user
+     * @param string $phone phone number of user
      * @return object containing `result` key, and value of `result` would be `OK` on success.
      */
     public function send_otp(string $phone): object
@@ -182,17 +179,6 @@ class Woocommerce_Tapsi_API
         return $this->client_request($request_path, $request_args);
     }
 
-
-    /**
-     * Returns the current API mode, sandbox or production
-     *
-     * @return string 'sandbox' or 'production'
-     */
-    public function get_env()
-    {
-        return $this->env;
-    }
-
     /**
      * @param string $request_url
      * @param array $request_args
@@ -215,29 +201,6 @@ class Woocommerce_Tapsi_API
         }
 
         return $response;
-    }
-
-    /**
-     * Encodes data for generating token
-     *
-     * @param string $data Data to encode
-     * @return string Encoded data
-     */
-    protected function base64_url_encode($data)
-    {
-        $base64_url = strtr(base64_encode($data), '+/', '-_');
-        return rtrim($base64_url, '=');
-    }
-
-    /**
-     * Decode base64 data from URL
-     *
-     * @param string $base64_url Encoded data
-     * @return string Decoded data
-     */
-    protected function base64_url_decode($base64_url)
-    {
-        return base64_decode(strtr($base64_url, '-_', '+/'));
     }
 
     /**
@@ -454,17 +417,6 @@ class Woocommerce_Tapsi_API
         } else {
             // TODO: raise error here
             return '';
-        }
-    }
-
-    private function set_base_url(string $env)
-    {
-        if ($env == 'prod') {
-            $this->base_url = "https://api.tapsi.ir/api/";
-        } elseif ($env == 'dev') {
-            $this->base_url = "https://frodo.backyard.tapsi.tech/api/";
-        } elseif ($env == 'local') {
-            $this->base_url = "http://localhost:51051/api/";
         }
     }
 

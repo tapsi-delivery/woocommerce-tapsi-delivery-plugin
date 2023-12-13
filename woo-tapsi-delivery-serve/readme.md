@@ -12,12 +12,12 @@
 | name                    | may change | purpose                                                                                                           |
 |-------------------------|------------|-------------------------------------------------------------------------------------------------------------------|
 | map-admin.js (legacy)   | Y          | script: handles map js codes on admin panel of the plugin                                                         |
-| map-center-marker.svg   | **N**          | icon: the center pin of the map (displayed on the map)                                                            |
+| map-center-marker.svg   | **N**      | icon: the center pin of the map (displayed on the map)                                                            |
 | map-admin.css (legacy)  | M          | styles: admin panel's map css codes (handles centering map center marker, handles map size, border, positioning, etc) |
-| dot.svg                 | **N**          | icon: the black dot that is displayed on map preview image in the checkout page                                   |
-| warning.svg             | **N**          | icon: the warning icon used in checkout page                                                                      |
-| map-public.css          | M          | styles: handles same responsibility as map-admin.js in the checkout page + managing map modal styles              |
-| mapsi-style.json        | **N**          | style: tapsi map canvas style configurations                                                                      |
+| dot.svg                 | **N**      | icon: the black dot that is displayed on map preview image in the checkout page                                   |
+| warning.svg             | **N**      | icon: the warning icon used in checkout page                                                                      |
+| map-public.css (legacy) | M          | styles: handles same responsibility as map-admin.js in the checkout page + managing map modal styles              |
+| mapsi-style.json        | **N**      | style: tapsi map canvas style configurations                                                                      |
 
 ## Looking for `map-public.js` ?
 

@@ -206,7 +206,7 @@ class Woocommerce_Tapsi_API
     /**
      * @return string saved cookie
      */
-    public function get_cookie()
+    public function get_cookie(): string
     {
         if (!empty($this->cookie)) return $this->cookie;
         $this->cookie = get_option('woocommerce_tapsi_cookie');
@@ -333,7 +333,7 @@ class Woocommerce_Tapsi_API
             }
 
             // Add a notice for server connectivity issues
-            if (500 >= $response_code && $response_code > 600) {
+            if (500 >= $response_code && $response_code < 600) {
                 wc_add_notice(__('There was a problem communicating with Tapsi. Please try again later.', 'woo-tapsi-delivery'), 'notice');
             }
         }
@@ -423,9 +423,9 @@ class Woocommerce_Tapsi_API
     /**
      * Sends a request for Admin, like requesting an OTP or verifying it
      *
-     * @return object|WP_Error The response array or a WP_Error on failure
+     * @return void The response array or a WP_Error on failure
      */
-    private function refresh_tokens()
+    private function refresh_tokens(): void
     {
         $request_path = 'v2/user/accessToken/web';
 
@@ -439,6 +439,6 @@ class Woocommerce_Tapsi_API
             'timeout' => 20
         );
 
-        return $this->request_token($request_path, $request_args);
+        $this->request_token($request_path, $request_args);
     }
 }

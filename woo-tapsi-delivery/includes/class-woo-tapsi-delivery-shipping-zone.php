@@ -7,7 +7,7 @@
  * so that it is ready for translation.
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -19,7 +19,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
@@ -45,7 +45,7 @@ class Woocommerce_Tapsi_shipping_zone
     /**
      * Load the plugin text domain for translation.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function set_shipping_zone()
     {

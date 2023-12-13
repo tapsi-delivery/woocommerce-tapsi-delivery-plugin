@@ -6,7 +6,7 @@
  * Adds WooCommerce settings and settings pages for the plugin
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -17,7 +17,7 @@
  *
  * Adds WooCommerce settings and settings pages for the plugin
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
@@ -32,7 +32,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     /**
      * Constructor
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function __construct()
     {

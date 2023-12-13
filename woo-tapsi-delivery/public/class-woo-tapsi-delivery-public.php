@@ -4,7 +4,7 @@
  * The public-facing functionality of the plugin.
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/public
@@ -28,7 +28,7 @@ class Woocommerce_Tapsi_Public
     /**
      * The ID of this plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      * @var      string $plugin_name The ID of this plugin.
      */
@@ -37,7 +37,7 @@ class Woocommerce_Tapsi_Public
     /**
      * The version of this plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      * @var      string $version The current version of this plugin.
      */
@@ -48,7 +48,7 @@ class Woocommerce_Tapsi_Public
      *
      * @param string $plugin_name The name of the plugin.
      * @param string $version The version of this plugin.
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function __construct($plugin_name, $version)
     {
@@ -61,7 +61,7 @@ class Woocommerce_Tapsi_Public
     /**
      * Register the stylesheets for the public-facing side of the site.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function enqueue_styles()
     {
@@ -85,7 +85,7 @@ class Woocommerce_Tapsi_Public
     /**
      * Register the JavaScript for the public-facing side of the site.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function enqueue_scripts()
     {

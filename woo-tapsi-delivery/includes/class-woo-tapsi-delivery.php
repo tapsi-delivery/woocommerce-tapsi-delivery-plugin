@@ -7,7 +7,7 @@
  * public-facing side of the site and the admin area.
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -22,7 +22,7 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
@@ -34,7 +34,7 @@ class Woocommerce_Tapsi
      * The loader that's responsible for maintaining and registering all hooks that power
      * the plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   protected
      * @var      Woocommerce_Tapsi_Loader $loader Maintains and registers all hooks for the plugin.
      */
@@ -43,7 +43,7 @@ class Woocommerce_Tapsi
     /**
      * Allows access to the Tapsi API class
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   public
      * @var      Woocommerce_Tapsi_API $api Handles Tapsi API operations
      */
@@ -52,7 +52,7 @@ class Woocommerce_Tapsi
     /**
      * Access the WooCommerce logger
      *
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      * @var Woocommerce_Tapsi_Logger
      */
@@ -61,7 +61,7 @@ class Woocommerce_Tapsi
     /**
      * The unique identifier of this plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   protected
      * @var      string $plugin_name The string used to uniquely identify this plugin.
      */
@@ -70,7 +70,7 @@ class Woocommerce_Tapsi
     /**
      * The current version of the plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   protected
      * @var      string $version The current version of the plugin.
      */
@@ -83,7 +83,7 @@ class Woocommerce_Tapsi
      * Load the dependencies, define the locale, and set the hooks for the admin area and
      * the public-facing side of the site.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function __construct()
     {
@@ -114,7 +114,7 @@ class Woocommerce_Tapsi
      * Create an instance of the loader which will be used to register the hooks
      * with WordPress.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      */
     private function load_dependencies()
@@ -203,7 +203,7 @@ class Woocommerce_Tapsi
      * Uses the Woocommerce_Tapsi_i18n class in order to set the domain and to register the hook
      * with WordPress.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      */
     private function set_locale()
@@ -219,7 +219,7 @@ class Woocommerce_Tapsi
      * Register all the hooks related to the admin area functionality
      * of the plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      */
     private function define_admin_hooks()
@@ -344,10 +344,10 @@ class Woocommerce_Tapsi
     }
 
     /**
-     * Register all of the hooks related to the public-facing functionality
+     * Register all the hooks related to the public-facing functionality
      * of the plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      */
     private function define_public_hooks()
@@ -396,9 +396,9 @@ class Woocommerce_Tapsi
     }
 
     /**
-     * Run the loader to execute all of the hooks with WordPress.
+     * Run the loader to execute all the hooks with WordPress.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function run()
     {
@@ -410,7 +410,7 @@ class Woocommerce_Tapsi
      * WordPress and to define internationalization functionality.
      *
      * @return    string    The name of the plugin.
-     * @since     1.0.0
+     * @since     0.1.0
      */
     public function get_plugin_name()
     {
@@ -421,7 +421,7 @@ class Woocommerce_Tapsi
      * The reference to the class that orchestrates the hooks with the plugin.
      *
      * @return    Woocommerce_Tapsi_Loader    Orchestrates the hooks of the plugin.
-     * @since     1.0.0
+     * @since     0.1.0
      */
     public function get_loader()
     {
@@ -432,7 +432,7 @@ class Woocommerce_Tapsi
      * Retrieve the version number of the plugin.
      *
      * @return    string    The version number of the plugin.
-     * @since     1.0.0
+     * @since     0.1.0
      */
     public function get_version()
     {

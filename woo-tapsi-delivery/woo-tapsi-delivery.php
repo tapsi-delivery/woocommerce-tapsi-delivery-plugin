@@ -2,7 +2,7 @@
 
 /**
  * @link              https://www.inverseparadox.com
- * @since             1.0.0
+ * @since             0.1.0
  * @package           Woocommerce_Tapsi
  *
  * @wordpress-plugin
@@ -62,7 +62,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-woo-tapsi-delivery.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.0
+ * @since    0.1.0
  * @return Woocommerce_Tapsi Static instance of the plugin
  */
 function WCDD() {

@@ -1052,7 +1052,10 @@ class Woocommerce_Tapsi_Public
      */
     public function disable_problematic_filters(): void
     {
-        remove_filter('woocommerce_form_field_select', array(\QuadLayers\WOOCCM\View\Frontend\Fields_Filter::instance(), 'custom_field'), 10);
+        try {
+            remove_filter('woocommerce_form_field_select', array(\QuadLayers\WOOCCM\View\Frontend\Fields_Filter::instance(), 'custom_field'), 10);
+        } catch (Error $e) {
+        }
     }
 
     /**
@@ -1060,7 +1063,10 @@ class Woocommerce_Tapsi_Public
      */
     public function enable_problematic_filters(): void
     {
-        remove_filter('woocommerce_form_field_select', array(\QuadLayers\WOOCCM\View\Frontend\Fields_Filter::instance(), 'custom_field'), 10, 4);
+        try {
+            add_filter('woocommerce_form_field_select', array(\QuadLayers\WOOCCM\View\Frontend\Fields_Filter::instance(), 'custom_field'), 10, 4);
+        } catch (Error $e) {
+        }
     }
 
 }

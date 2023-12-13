@@ -30,7 +30,7 @@ if ($is_token_valid) {
 
 echo '<section class="wc-tapsi-location name">';
 woocommerce_form_field('tapsi_phone', array(
-    'type' => 'tel',  // TODO: check
+    'type' => 'tel',
     'required' => true,
     'label' => __('Phone Number: ', 'woo-tapsi-delivery'),
     'placeholder' => __('09', 'woo-tapsi-delivery'),

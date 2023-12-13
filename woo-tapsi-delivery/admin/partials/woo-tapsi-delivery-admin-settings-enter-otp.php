@@ -23,7 +23,7 @@ echo '<p>' . __('Enter the OTP sent to your phone number.', 'woo-tapsi-delivery'
 
 echo '<section class="wc-tapsi-location name">';
 woocommerce_form_field('tapsi_otp', array(
-    'type' => 'tel',  // TODO: check
+    'type' => 'tel',
     'required' => true,
     'label' => __('Sent OTP: ', 'woo-tapsi-delivery'),
     'placeholder' => __('12345', 'woo-tapsi-delivery'),

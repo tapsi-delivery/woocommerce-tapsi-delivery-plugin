@@ -198,9 +198,9 @@ class Woocommerce_Tapsi_Delivery
     public function format_phone($phone)
     {
         if (!empty($phone)) $phone = wc_sanitize_phone_number($phone);
-        else $phone = '18004444444'; // Drive API requires phone, use a dummy if it's not set yet
+        else $phone = '09121112233'; // Drive API requires phone, use a dummy if it's not set yet
 
-        if (strlen($phone) == 10) $phone = '1' . $phone; // TODO: use the get_locale function to check the length and format
+        if (strlen($phone) == 10) $phone = '0' . $phone;
         return $phone;
     }
 

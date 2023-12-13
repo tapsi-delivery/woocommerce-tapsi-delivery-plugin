@@ -12,8 +12,8 @@
  * @subpackage Woocommerce_Tapsi/admin/partials
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 ?>
 
@@ -23,6 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     }
 </style>
 <h2 class="wc-tapsi-locations-heading">
-	<?php _e( 'Use the following link to track your shop deliveries.', 'woo-tapsi-delivery' ); ?>
+    <?php _e('Use the following link to track your shop deliveries.', 'woo-tapsi-delivery'); ?>
 </h2>
-<a target="_blank" href="https://pack.tapsi.ir"><?php echo __( 'Tapsi Pack Taker Panel', 'woo-tapsi-delivery' ); ?></a>
+<a target="_blank" href="https://pack.tapsi.ir"><?php echo __('Tapsi Pack Taker Panel', 'woo-tapsi-delivery'); ?></a>

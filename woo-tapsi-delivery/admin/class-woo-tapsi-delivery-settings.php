@@ -60,7 +60,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 //            '' => __('Settings', 'woo-tapsi-delivery'),
 //            'webhooks' => __('Webhooks', 'woo-tapsi-delivery'),
             'locations' => __('My Addresses', 'woo-tapsi-delivery'),
-	        'tracking' => __('Tracking Orders', 'woo-tapsi-delivery'),
+            'tracking' => __('Tracking Orders', 'woo-tapsi-delivery'),
         );
 
         return apply_filters('woocommerce_get_sections_' . $this->id, $sections);
@@ -78,9 +78,9 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
         $prefix = 'woocommerce_tapsi_'; // used in the partials
 
-	    $settings = array(
-		    array(),
-	    );
+        $settings = array(
+            array(),
+        );
 
         return apply_filters('woocommerce_get_settings_' . $this->id, $settings, $current_section);
     }
@@ -107,8 +107,8 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 $this->output_locations_screen();
             }
         } elseif ('tracking' == $current_section) {
-	        $hide_save_button = true;
-	        $this->output_tracking_orders_screen();
+            $hide_save_button = true;
+            $this->output_tracking_orders_screen();
         }
     }
 
@@ -134,34 +134,34 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
             if (strlen($phone) == 10) $phone = '1' . $phone;
             // $phone = '+' . $phone;
 
-			$data = array(
-				'ID'            => $location_id,
-				'name'          => sanitize_text_field( $_REQUEST['location_name'] ),
-				'enabled'       => isset( $_REQUEST['location_enabled'] ) ? true : false,
-				'email'         => sanitize_email( $_REQUEST['location_email'] ),
-				'phone'         => $phone,
-				'address_1'     => sanitize_text_field( $_REQUEST['location_address_1'] ),
-				'latitude'      => sanitize_text_field( $_REQUEST['wctd_tapsi_origin_lat'] ),
-				'longitude'     => sanitize_text_field( $_REQUEST['wctd_tapsi_origin_long'] ),
-				'should_hide'     => sanitize_text_field( $_REQUEST['hide_location_address'] ),
-				'city'          => sanitize_text_field( $_REQUEST['location_city'] ),
-				'state'         => sanitize_text_field( $_REQUEST['location_state'] ),
-				'postcode'      => sanitize_text_field( $_REQUEST['location_postcode'] ),
-				'country'       => sanitize_text_field( $_REQUEST['location_country'] ),
-				'pickup_instructions' => '',
-				'has_hours'     => isset( $_REQUEST['location_hours_enabled'] ) ? true : false,
-				'weekly_hours'  => array(
-					'sunday'    => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_sunday_hours'] ) ),
-					'monday'    => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_monday_hours'] ) ),
-					'tuesday'   => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_tuesday_hours'] ) ),
-					'wednesday' => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_wednesday_hours'] ) ),
-					'thursday'  => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_thursday_hours'] ) ),
-					'friday'    => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_friday_hours'] ) ),
-					'saturday'  => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_saturday_hours'] ) ),
-				),
-			);
-			// Update the location and get the location ID from the saved post
-			$location_id = $location->update( $data );
+            $data = array(
+                'ID' => $location_id,
+                'name' => sanitize_text_field($_REQUEST['location_name']),
+                'enabled' => isset($_REQUEST['location_enabled']) ? true : false,
+                'email' => sanitize_email($_REQUEST['location_email']),
+                'phone' => $phone,
+                'address_1' => sanitize_text_field($_REQUEST['location_address_1']),
+                'latitude' => sanitize_text_field($_REQUEST['wctd_tapsi_origin_lat']),
+                'longitude' => sanitize_text_field($_REQUEST['wctd_tapsi_origin_long']),
+                'should_hide' => sanitize_text_field($_REQUEST['hide_location_address']),
+                'city' => sanitize_text_field($_REQUEST['location_city']),
+                'state' => sanitize_text_field($_REQUEST['location_state']),
+                'postcode' => sanitize_text_field($_REQUEST['location_postcode']),
+                'country' => sanitize_text_field($_REQUEST['location_country']),
+                'pickup_instructions' => '',
+                'has_hours' => isset($_REQUEST['location_hours_enabled']) ? true : false,
+                'weekly_hours' => array(
+                    'sunday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_sunday_hours'])),
+                    'monday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_monday_hours'])),
+                    'tuesday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_tuesday_hours'])),
+                    'wednesday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_wednesday_hours'])),
+                    'thursday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_thursday_hours'])),
+                    'friday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_friday_hours'])),
+                    'saturday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_saturday_hours'])),
+                ),
+            );
+            // Update the location and get the location ID from the saved post
+            $location_id = $location->update($data);
 
             if ($_REQUEST['location_id'] != $location_id) {
                 // If this was a new location, redirect to the newly created location
@@ -210,20 +210,21 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         }
     }
 
-	/**
-	 * Show the individual location editor
-	 *
-	 * @return void
-	 */
-	public function output_location_edit_screen() {
-		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $_GET['location_id'] ) );
-		wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
-		wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'https://static.tapsi.cab/pack/wp-plugin/map/map-admin.css');
-		// TODO: MARYAM: Replace all localhosts
-		// TODO: MARYAM: Send q-params with request for future customization
-		wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
-		include 'partials/woo-tapsi-delivery-admin-settings-edit-location.php';
-	}
+    /**
+     * Show the individual location editor
+     *
+     * @return void
+     */
+    public function output_location_edit_screen()
+    {
+        $location = new Woocommerce_Tapsi_Pickup_Location(intval($_GET['location_id']));
+        wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
+        wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'https://static.tapsi.cab/pack/wp-plugin/map/map-admin.css');
+        // TODO: MARYAM: Replace all localhosts
+        // TODO: MARYAM: Send q-params with request for future customization
+        wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
+        include 'partials/woo-tapsi-delivery-admin-settings-edit-location.php';
+    }
 
     /**
      * Handle location hours toggle
@@ -341,15 +342,16 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      *
      * @return void
      */
-    public function output_tracking_orders_screen(){
-	    include 'partials/woo-tapsi-delivery-admin-tracking-orders.php';
+    public function output_tracking_orders_screen()
+    {
+        include 'partials/woo-tapsi-delivery-admin-tracking-orders.php';
     }
 
-	/**
-	 * Show the individual location editor
-	 *
-	 * @return void
-	 */
+    /**
+     * Show the individual location editor
+     *
+     * @return void
+     */
 
     /**
      * Show the individual phone field
@@ -362,24 +364,25 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     }
 
 
-	/**
-	 * Handle location deletion from the locations listing screen
-	 *
-	 * @return bool True on deletion, false otherwise
-	 */
-	protected function maybe_delete_location() {
-		if ( array_key_exists( 'delete_location', $_GET ) && wp_verify_nonce( $_GET['_wpnonce'], 'delete_location' ) ) {
-			// Delete the post, save the posts's data so we can display the title
-			$deleted = wp_delete_post( intval( $_GET['delete_location'] ) );
-			if ( $deleted ) {
-				// If the post deletion was successful, show the message. (Otherwise this is probably a refresh)
-				$message = sprintf( __( 'Location "%s" deleted.', 'woo-tapsi-delivery' ), $deleted->post_title );
-				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message );
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * Handle location deletion from the locations listing screen
+     *
+     * @return bool True on deletion, false otherwise
+     */
+    protected function maybe_delete_location()
+    {
+        if (array_key_exists('delete_location', $_GET) && wp_verify_nonce($_GET['_wpnonce'], 'delete_location')) {
+            // Delete the post, save the posts's data so we can display the title
+            $deleted = wp_delete_post(intval($_GET['delete_location']));
+            if ($deleted) {
+                // If the post deletion was successful, show the message. (Otherwise this is probably a refresh)
+                $message = sprintf(__('Location "%s" deleted.', 'woo-tapsi-delivery'), $deleted->post_title);
+                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message);
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     /**

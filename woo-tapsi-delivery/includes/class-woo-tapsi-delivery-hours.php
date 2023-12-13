@@ -52,7 +52,7 @@ class Woocommerce_Tapsi_Hours
         foreach ($ranges as &$range) {
             $range = date($this->time_fmt, $range[0]) . '-' . date($this->time_fmt, $range[1]);
         }
-        
+
         return implode(', ', $ranges);
     }
 

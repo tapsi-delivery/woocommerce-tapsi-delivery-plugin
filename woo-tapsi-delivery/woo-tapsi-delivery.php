@@ -19,41 +19,43 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (!defined('WPINC')) {
+    die;
 }
 
 /**
  * Current plugin version.
  */
-define( 'WOOCOMMERCE_TAPSI_VERSION', '0.1.10' );
+define('WOOCOMMERCE_TAPSI_VERSION', '0.1.10');
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-woo-tapsi-delivery-activator.php
  */
-function activate_woocommerce_tapsi() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-tapsi-delivery-activator.php';
-	Woocommerce_Tapsi_Activator::activate();
+function activate_woocommerce_tapsi()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-woo-tapsi-delivery-activator.php';
+    Woocommerce_Tapsi_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-woo-tapsi-delivery-deactivator.php
  */
-function deactivate_woocommerce_tapsi() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-tapsi-delivery-deactivator.php';
-	Woocommerce_Tapsi_Deactivator::deactivate();
+function deactivate_woocommerce_tapsi()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-woo-tapsi-delivery-deactivator.php';
+    Woocommerce_Tapsi_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_woocommerce_tapsi' );
-register_deactivation_hook( __FILE__, 'deactivate_woocommerce_tapsi' );
+register_activation_hook(__FILE__, 'activate_woocommerce_tapsi');
+register_deactivation_hook(__FILE__, 'deactivate_woocommerce_tapsi');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-woo-tapsi-delivery.php';
+require plugin_dir_path(__FILE__) . 'includes/class-woo-tapsi-delivery.php';
 
 /**
  * Begins execution of the plugin.
@@ -62,34 +64,35 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-woo-tapsi-delivery.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    0.1.0
  * @return Woocommerce_Tapsi Static instance of the plugin
+ * @since    0.1.0
  */
-function WCDD() {
-	// Only run the plugin if WooCommerce is active
-	if ( ! class_exists( 'WooCommerce' ) ) {
-		// If WooCommerce is not active, display a notice.
-		add_action( 'admin_notices', function() {
-			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Tapsi Delivery requires WooCommerce to be installed and active.', 'woo-tapsi-delivery' ) ); 
-		} );
-		return false;
-	}
+function WCDD()
+{
+    // Only run the plugin if WooCommerce is active
+    if (!class_exists('WooCommerce')) {
+        // If WooCommerce is not active, display a notice.
+        add_action('admin_notices', function () {
+            printf('<div class="notice notice-error"><p>%s</p></div>', esc_html__('Tapsi Delivery requires WooCommerce to be installed and active.', 'woo-tapsi-delivery'));
+        });
+        return false;
+    }
 
-	// Retrieve static instance of plugin
-	static $plugin;
+    // Retrieve static instance of plugin
+    static $plugin;
 
-	// If static instance isn't set, run the plugin
-	if ( ! isset( $plugin ) ) {
-		$plugin = new Woocommerce_Tapsi();
-		$plugin->run();
-	}
+    // If static instance isn't set, run the plugin
+    if (!isset($plugin)) {
+        $plugin = new Woocommerce_Tapsi();
+        $plugin->run();
+    }
 
-	// Return the Static Instance
-	return $plugin;
+    // Return the Static Instance
+    return $plugin;
 }
 
 // Load the plugin
-add_action( 'plugins_loaded', 'WCDD' );
+add_action('plugins_loaded', 'WCDD');
 
 /**
  * Adds settings link to plugin listing
@@ -97,8 +100,10 @@ add_action( 'plugins_loaded', 'WCDD' );
  * @param array $links Links for plugin
  * @return array Filtered links
  */
-function wcdd_add_action_links ( $links ) {
-	array_unshift( $links, sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=woo-tapsi-delivery' ), __( 'Settings', 'woo-tapsi-delivery' ) ) );
-	return $links;
+function wcdd_add_action_links($links)
+{
+    array_unshift($links, sprintf('<a href="%s">%s</a>', admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery'), __('Settings', 'woo-tapsi-delivery')));
+    return $links;
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wcdd_add_action_links' );
+
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'wcdd_add_action_links');

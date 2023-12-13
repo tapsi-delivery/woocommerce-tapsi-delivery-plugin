@@ -333,7 +333,7 @@ class Woocommerce_Tapsi_API
             }
 
             // Add a notice for server connectivity issues
-            if (500 >= $response_code && $response_code < 600) {
+            if ($response_code < 600 && 500 >= $response_code) {
                 wc_add_notice(__('There was a problem communicating with Tapsi. Please try again later.', 'woo-tapsi-delivery'), 'notice');
             }
         }

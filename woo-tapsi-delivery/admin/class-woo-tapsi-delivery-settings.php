@@ -33,6 +33,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      * Constructor
      *
      * @since    0.1.0
+     * @noinspection PhpMissingParentConstructorInspection
      */
     public function __construct()
     {
@@ -44,7 +45,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         add_action('woocommerce_sections_' . $this->id, array($this, 'output_sections'));
         add_action('woocommerce_settings_' . $this->id, array($this, 'output'));
         add_action('woocommerce_settings_save_' . $this->id, array($this, 'save'));
-
     }
 
     /**
@@ -66,7 +66,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     /**
      * Get the settings for the current page
      *
-     * @return void
+     * @return mixed
      */
     public function get_settings()
     {
@@ -132,7 +132,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
             $data = array(
                 'ID' => $location_id,
                 'name' => sanitize_text_field($_REQUEST['location_name']),
-                'enabled' => isset($_REQUEST['location_enabled']) ? true : false,
+                'enabled' => isset($_REQUEST['location_enabled']),
                 'email' => sanitize_email($_REQUEST['location_email']),
                 'phone' => $phone,
                 'address_1' => sanitize_text_field($_REQUEST['location_address_1']),
@@ -144,7 +144,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 'postcode' => sanitize_text_field($_REQUEST['location_postcode']),
                 'country' => sanitize_text_field($_REQUEST['location_country']),
                 'pickup_instructions' => '',
-                'has_hours' => isset($_REQUEST['location_hours_enabled']) ? true : false,
+                'has_hours' => isset($_REQUEST['location_hours_enabled']),
                 'weekly_hours' => array(
                     'sunday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_sunday_hours'])),
                     'monday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_monday_hours'])),
@@ -225,7 +225,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      *
      * @return bool True on toggle, false otherwise
      */
-    protected function maybe_toggle_location_hours()
+    protected function maybe_toggle_location_hours(): bool
     {
         if (array_key_exists('location_toggle_hours', $_GET) && wp_verify_nonce($_GET['_wpnonce'], 'location_toggle_hours')) {
             // Get the post we're operating on
@@ -249,7 +249,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      *
      * @return bool True on location toggled, false otherwise
      */
-    protected function maybe_toggle_location_enabled()
+    protected function maybe_toggle_location_enabled(): bool
     {
         if (array_key_exists('location_toggle_enabled', $_GET) && wp_verify_nonce($_GET['_wpnonce'], 'location_toggle_enabled')) {
             // Get the post we're toggling
@@ -363,7 +363,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      *
      * @return bool True on deletion, false otherwise
      */
-    protected function maybe_delete_location()
+    protected function maybe_delete_location(): bool
     {
         if (array_key_exists('delete_location', $_GET) && wp_verify_nonce($_GET['_wpnonce'], 'delete_location')) {
             // Delete the post, save the posts's data so we can display the title
@@ -395,7 +395,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      *
      * @return array Array of Woocommerce_Tapsi_Pickup_Location objects
      */
-    public function get_all_locations()
+    public function get_all_locations(): array
     {
         $locations = get_posts(array(
             'post_type' => 'dd_pickup_location',

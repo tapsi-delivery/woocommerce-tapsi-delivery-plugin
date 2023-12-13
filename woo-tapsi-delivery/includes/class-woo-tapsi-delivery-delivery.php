@@ -13,7 +13,7 @@
 /**
  * Tapsi Delivery Object
  *
- * Represents a Tapsi delivery, and contains all the datapoints
+ * Represents a Tapsi delivery, and contains all the data points
  * needed to create a delivery in the Drive API
  *
  * @package    Woocommerce_Tapsi
@@ -420,19 +420,4 @@ class Woocommerce_Tapsi_Delivery
     {
         return str_replace('_', '-', get_user_locale($user_id));
     }
-
-    /**
-     * Get the support reference ID for the delivery
-     *
-     * @return string|false String with support ref if set, false if not found
-     */
-    public function get_support_reference()
-    {
-        if (array_key_exists('support_reference', $this->data) && !empty($this->data['support_reference'])) {
-            return $this->data['support_reference'];
-        } else {
-            return false;
-        }
-    }
-
 }

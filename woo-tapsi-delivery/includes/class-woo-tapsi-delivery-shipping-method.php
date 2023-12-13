@@ -27,6 +27,7 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
      * Shipping class constructor.
      *
      * @since    0.1.0
+     * @noinspection PhpMissingParentConstructorInspection
      */
     public function __construct($instance_id = 0)
     {
@@ -92,7 +93,6 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
                 'tapsi_external_delivery_id' => $delivery->get_id(),
                 'tapsi_pickup_time' => $delivery->get_pickup_time(),
                 'tapsi_dropoff_time' => $delivery->get_dropoff_time(),
-                'tapsi_support_reference' => $delivery->get_support_reference(),
             )
         ));
     }

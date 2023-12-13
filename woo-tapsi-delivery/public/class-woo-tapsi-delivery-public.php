@@ -183,7 +183,7 @@ class Woocommerce_Tapsi_Public
                         'required' => true,
                         'default' => $selected_location,
                         'options' => $this->generate_locations_options($locations), // Use the enabled locations to generate an option array
-                    ), $selected_location); // $checkout->get_value( 'tapsi_pickup_location' ) );
+                    ), $selected_location);
                 }
 
 

@@ -79,7 +79,7 @@ if (!defined('ABSPATH')) {
             <!-- {{ data.location_hours_yesno }} -->
             <a class="wc-tapsi-location-hours-toggle-enabled"
                href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=locations'), 'location_toggle_hours')); ?>&amp;location_toggle_hours={{data.location_id}}">
-                <span class="woocommerce-input-toggle woocommerce-input-toggle--{{data.location_hours}}" aria-label="">{{data.location_hours_yesno}}</a>
+                <span class="woocommerce-input-toggle woocommerce-input-toggle--{{data.location_hours}}" aria-label="">{{data.location_hours_yesno}}
             </a>
         </td>
         <td class="wc-tapsi-location-enabled">
@@ -87,7 +87,7 @@ if (!defined('ABSPATH')) {
             <a class="wc-tapsi-location-toggle-enabled"
                href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=locations'), 'location_toggle_enabled')); ?>&amp;location_toggle_enabled={{data.location_id}}">
                 <span class="woocommerce-input-toggle woocommerce-input-toggle--{{data.location_enabled}}"
-                      aria-label="">{{data.location_enabled_yesno}}</a>
+                      aria-label="">{{data.location_enabled_yesno}}
             </a>
         </td>
     </tr>

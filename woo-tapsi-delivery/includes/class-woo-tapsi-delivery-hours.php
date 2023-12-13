@@ -27,7 +27,7 @@ class Woocommerce_Tapsi_Hours
      *
      * @var string
      */
-    public $time_fmt;
+    public string $time_fmt;
 
     /**
      * Initialize

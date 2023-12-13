@@ -68,7 +68,7 @@ class Woocommerce_Tapsi_Admin
          * This function is provided for demonstration purposes only.
          *
          * An instance of this class should be passed to the run() function
-         * defined in Woocommerce_Tapsi_Loader as all of the hooks are defined
+         * defined in Woocommerce_Tapsi_Loader as all the hooks are defined
          * in that particular class.
          *
          * The Woocommerce_Tapsi_Loader will then create the relationship
@@ -92,7 +92,7 @@ class Woocommerce_Tapsi_Admin
          * This function is provided for demonstration purposes only.
          *
          * An instance of this class should be passed to the run() function
-         * defined in Woocommerce_Tapsi_Loader as all of the hooks are defined
+         * defined in Woocommerce_Tapsi_Loader as all the hooks are defined
          * in that particular class.
          *
          * The Woocommerce_Tapsi_Loader will then create the relationship
@@ -165,7 +165,7 @@ class Woocommerce_Tapsi_Admin
     }
 
     /**
-     * Change the displayed meta key of the pickup location to something human readable
+     * Change the displayed meta key of the pickup location to something human-readable
      *
      * @param string $displayed_key Meta key to display to the user
      * @param WC_Meta $meta Meta object
@@ -187,9 +187,6 @@ class Woocommerce_Tapsi_Admin
                     break;
                 case 'tapsi_dropoff_time':
                     $displayed_key = __('Estimated Dropoff', 'woo-tapsi-delivery');
-                    break;
-                case 'tapsi_support_reference':
-                    $displayed_key = __('Support Reference', 'woo-tapsi-delivery');
                     break;
             }
         }
@@ -292,12 +289,6 @@ class Woocommerce_Tapsi_Admin
             $displayed_value = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $time + $gmt_offset);
             $note .= sprintf(' Estimated dropoff at %s.', $displayed_value);
             $order->add_meta_data('tapsi_dropoff_time', $delivery->get_dropoff_time());
-        }
-
-        // Add support reference
-        if ($delivery->get_support_reference()) {
-            $note .= sprintf(' Support Reference #%s.', $delivery->get_support_reference());
-            $order->add_meta_data('tapsi_support_reference', $delivery->get_support_reference());
         }
 
         if ($delivery->get_tracking_url()) {

@@ -323,19 +323,6 @@ class Woocommerce_Tapsi_Pickup_Location
     }
 
     /**
-     * Get the weekly hours for the location meta editor screen
-     *
-     * @param string $key Day of week for hours
-     * @return void
-     */
-    public function get_weekly_hours_meta($key)
-    {
-        $key = strtolower($key);
-        if (array_key_exists($key, $this->data['weekly_hours'])) return $this->data['weekly_hours'][$key];
-        else return '';
-    }
-
-    /**
      * Gets values and labels for the available delivery days for the location
      *
      * @return array Array with timestamp => labels
@@ -424,7 +411,7 @@ class Woocommerce_Tapsi_Pickup_Location
         while ($i <= $number_of_days) {
 
             // Get a day string for the current weekday
-            $day_of_week = date('l', $current_day);// + $gmt_offset );
+            $day_of_week = date('l', $current_day);
             // Get the hours for the current day
             $day_hours = $this->get_weekly_hours($day_of_week);
 
@@ -445,7 +432,7 @@ class Woocommerce_Tapsi_Pickup_Location
                         return $time - $gmt_offset;
                     }
 
-                    // If the target time is less than the open and close time, we can delivery at the open time (plus lead time and average delivery time)
+                    // If the target time is less than the open and close time, we can deliver at the open time (plus lead time and average delivery time)
                     if ($time <= $open && $time <= $close) {
                         return $open - $gmt_offset + ($this->get_average_delivery_time() * MINUTE_IN_SECONDS);
                     }

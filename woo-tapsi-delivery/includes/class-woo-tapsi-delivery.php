@@ -246,9 +246,6 @@ class Woocommerce_Tapsi
         $this->loader->add_filter('option_woocommerce_tapsi_sandbox_key_id', $encryption, 'decrypt_meta', 10, 2);
         $this->loader->add_filter('option_woocommerce_tapsi_production_key_id', $encryption, 'decrypt_meta', 10, 2);
 
-        // Decrypt our options on the alloptions autoloader
-        // $this->loader->add_filter( 'alloptions', $encryption, 'get_all_options', 9999, 1 );
-
         // Filter the default and location hours before save
         $this->loader->add_filter('pre_update_option', $plugin_admin, 'update_default_hours', 10, 3);
 
@@ -263,7 +260,7 @@ class Woocommerce_Tapsi
         $this->loader->add_filter('woocommerce_order_item_display_meta_value', $plugin_admin, 'filter_order_item_displayed_meta_value', 20, 3);
 
         // Accept delivery quote when order is paid
-        $this->loader->add_action('woocommerce_payment_complete', $plugin_admin, 'accept_delivery_quote', 10, 1);
+        $this->loader->add_action('woocommerce_payment_complete', $plugin_admin, 'accept_delivery_quote');
 
         // Send email to selected location when order is placed
         $this->loader->add_action('woocommerce_email_recipient_new_order', $plugin_admin, 'new_order_email_recipient', 10, 3);
@@ -412,20 +409,9 @@ class Woocommerce_Tapsi
      * @return    string    The name of the plugin.
      * @since     0.1.0
      */
-    public function get_plugin_name()
+    public function get_plugin_name(): string
     {
         return $this->plugin_name;
-    }
-
-    /**
-     * The reference to the class that orchestrates the hooks with the plugin.
-     *
-     * @return    Woocommerce_Tapsi_Loader    Orchestrates the hooks of the plugin.
-     * @since     0.1.0
-     */
-    public function get_loader()
-    {
-        return $this->loader;
     }
 
     /**
@@ -434,7 +420,7 @@ class Woocommerce_Tapsi
      * @return    string    The version number of the plugin.
      * @since     0.1.0
      */
-    public function get_version()
+    public function get_version(): string
     {
         return $this->version;
     }

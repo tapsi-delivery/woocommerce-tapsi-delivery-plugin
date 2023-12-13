@@ -16,9 +16,7 @@ echo '<p>' . __('Please choose the precise coordinate that matches your address 
 echo '<p class="wctd-tapsi-pack-delivery-map-notification privacy_requests">' . __("Make sure to check the compatibility between the address and the pin. In case of incompatibility, The pin location is Tapsi Pack's reference for your delivery!!!", 'woo-tapsi-delivery') . '</p>';
 echo '<div id="wctd-tapsi-pack-maplibre-map-root-id">';
 echo '<div id="wctd-tapsi-pack-maplibre-map-container-id"></div>';
-echo '<img id="wctd-tapsi-pack-maplibre-map-center-marker-id" src="https://static.tapsi.cab/pack/wp-plugin/map/map-center-marker.svg"/>';
+echo '<img id="wctd-tapsi-pack-maplibre-map-center-marker-id" src="https://static.tapsi.cab/pack/wp-plugin/map/map-center-marker.svg" alt="."/>';
 echo '</div>';
 echo '<script src="https://static.tapsi.cab/pack/wp-plugin/map/map-admin.js"></script>';
 echo '</section>';
-
-?>

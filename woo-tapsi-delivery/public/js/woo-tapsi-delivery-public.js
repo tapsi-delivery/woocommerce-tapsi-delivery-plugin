@@ -73,11 +73,6 @@
 		}
 
 
-		// Enhanced select on location dropdown
-		// Need to make this fire when the shipping method is selected/updated as well
-		// $('#tapsi_pickup_location').selectWoo();
-
-
 		// Updates session when changing pickup location on cart
 		$('body.woocommerce-cart').on( 'change', '#tapsi_pickup_location', () => {
 			onLocationChange({"location_id":this.value}, '');

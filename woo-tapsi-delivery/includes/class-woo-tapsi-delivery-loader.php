@@ -99,7 +99,7 @@ class Woocommerce_Tapsi_Loader
      * @since    0.1.0
      * @access   private
      */
-    private function add($hooks, $hook, $component, $callback, $priority, $accepted_args)
+    private function add($hooks, $hook, $component, $callback, $priority, $accepted_args): array
     {
 
         $hooks[] = array(

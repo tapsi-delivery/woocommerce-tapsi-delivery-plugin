@@ -38,7 +38,7 @@ class Woocommerce_Tapsi_Logger
      *
      * @var array
      */
-    public $context = array(
+    public array $context = array(
         'source' => 'woo-tapsi-delivery'
     );
 
@@ -47,7 +47,7 @@ class Woocommerce_Tapsi_Logger
      *
      * @var array
      */
-    private $levels;
+    private array $levels;
 
     /**
      * The minimum log level we will handle. Filterable.
@@ -82,11 +82,11 @@ class Woocommerce_Tapsi_Logger
      * This method intercepts nonexistent methods
      * If the method is a WooCommerce log level, it logs the message
      *
-     * @param string $method Name of the log level
+     * @param $level
      * @param array $args Array of arguments. First is the message
      * @return void
      */
-    public function __call($level, $args)
+    public function __call($level, array $args)
     {
         error_log('level: ' . $level . ' - args: ' . print_r($args, true));
 

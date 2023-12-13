@@ -275,10 +275,6 @@ class Woocommerce_Tapsi_Public
 							<li>- ' . __('After starting the trip, the driver\'s information and the approximate arrival time will be sent to you via SMS.', 'woo-tapsi-delivery') . '</li>
 						</ul>
 					 </section>';
-
-//                    <li>- ' . __('The package delivery is done within 3 hours in the same day.', 'woo-tapsi-delivery') . '</li>
-//                    <li>- ' . __('Delivery is done in Tehran only.', 'woo-tapsi-delivery') . '</li>
-//                    <li>- ' . __('The allowed dimensions of the packages are 50cmx50cmx50cm.', 'woo-tapsi-delivery') . '</li>
                 }
 
                 if (apply_filters('wcdd_show_tapsi_logo', true)) {
@@ -709,41 +705,6 @@ class Woocommerce_Tapsi_Public
 
         exit;
     }
-
-    // TODO: PRUNE this function is used to add tipping amount to the cart. commented due to probability of usage in the future
-
-//    /**
-//     * Adds tip fee if the tip is attached to the order
-//     *
-//     * @hooked woocommerce_cart_calculate_fees - 10
-//     *
-//     * @return void
-//     */
-//    public function maybe_add_tip()
-//    {
-//        // Bail if tipping is disabled
-//        if (get_option('woocommerce_tapsi_tipping') != 'enabled') return;
-//
-//        // Get the selected method
-//        $chosen_shipping_rate = WC()->session->get('chosen_shipping_methods');
-//        if (is_array($chosen_shipping_rate)) {
-//            $chosen_shipping_rate_id = $chosen_shipping_rate[0]; // [0]
-//            if (false !== strpos($chosen_shipping_rate_id, 'woocommerce_tapsi') && WC()->session->get('tapsi_pickup_location') != 0) {
-//                $tip_select = WC()->session->get('tapsi_tip_select') ? WC()->session->get('tapsi_tip_select') : apply_filters('wcdd_default_tip_option', '.20');
-//                if ('other' != $tip_select) {
-//                    if (strpos($tip_select, '%') !== false) $tip_select = floatval($tip_select) / 100;
-//                    $tip_amount = WC()->cart->get_subtotal() * floatval($tip_select);
-//                } else {
-//                    $tip_amount = WC()->session->get('tapsi_tip_amount');
-//                }
-//
-//                if ($tip_amount > 0) {
-//                    // Only add the fee if there is a tip attached
-//                    WC()->cart->add_fee(__('Driver Tip', 'woo-tapsi-delivery'), $tip_amount);
-//                }
-//            }
-//        }
-//    }
 
     /**
      * Clear the stored rates when updating the cart

@@ -51,23 +51,13 @@ echo '</section>';
 echo '<section class="wc-tapsi-location info">';
 woocommerce_form_field('location_email', array(
     'type' => 'hidden',
-//    'label' => __('Email Address', 'woo-tapsi-delivery'),
     'required' => true,
-//    'description' => __('New order notifications for this location will be sent to this email address.', 'woo-tapsi-delivery')
 ), $location->get_email());
 
 woocommerce_form_field('location_phone', array(
-//    'type' => 'tel',
     'type' => 'hidden',
-//    'label' => __('Phone Number', 'woo-tapsi-delivery'),
     'required' => false,
 ), $location->get_phone_number());
-
-//		woocommerce_form_field( 'location_pickup_instructions', array(
-//			'type' => 'text',
-//			'label' => __( 'Pickup Instructions', 'woo-tapsi-delivery' ),
-//			'description' => __( 'Pickup instructions for this location. Leave blank to use the default pickup instructions.', 'woo-tapsi-delivery' )
-//		), $location->get_pickup_instructions() );
 
 echo '</section>';
 
@@ -122,7 +112,6 @@ woocommerce_form_field('location_state', array(
 woocommerce_form_field('location_country', array(
     'type' => 'hidden',
     'required' => false,
-//    'label' => __('Country', 'woo-tapsi-delivery'),
 ), $address['country']);
 echo '</section>';
 
@@ -159,7 +148,6 @@ $weekdays = array(
     'tuesday' => __('Tuesday', 'woo-tapsi-delivery'),
     'wednesday' => __('Wednesday', 'woo-tapsi-delivery'),
     'thursday' => __('Thursday', 'woo-tapsi-delivery'),
-//    'friday' => __('Friday', 'woo-tapsi-delivery'),
 );
 
 echo '<section class="wc-tapsi-location hours">';

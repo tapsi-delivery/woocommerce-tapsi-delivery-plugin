@@ -55,10 +55,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     public function get_sections()
     {
         $sections = array(
-//            '' => __('Login', 'woo-tapsi-delivery'),
             'login' => __('Login', 'woo-tapsi-delivery'),
-//            '' => __('Settings', 'woo-tapsi-delivery'),
-//            'webhooks' => __('Webhooks', 'woo-tapsi-delivery'),
             'locations' => __('My Addresses', 'woo-tapsi-delivery'),
             'tracking' => __('Tracking Orders', 'woo-tapsi-delivery'),
         );
@@ -131,8 +128,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
             $location = new Woocommerce_Tapsi_Pickup_Location($_REQUEST['location_id']);
 
             $phone = str_replace(['-', '(', ')', ' ', '+'], '', sanitize_text_field($_REQUEST['location_phone']));
-            if (strlen($phone) == 10) $phone = '1' . $phone;
-            // $phone = '+' . $phone;
 
             $data = array(
                 'ID' => $location_id,

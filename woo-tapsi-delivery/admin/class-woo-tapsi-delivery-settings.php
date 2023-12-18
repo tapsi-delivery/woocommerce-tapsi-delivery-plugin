@@ -213,10 +213,12 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     public function output_location_edit_screen()
     {
         $location = new Woocommerce_Tapsi_Pickup_Location(intval($_GET['location_id']));
+        // load map box styles - custom styles for displaying map container in the admin panel is put in the woo-tapsi-delivery-admin.css file
         wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
-        wp_enqueue_style('wctd-tapsi-pack-maplibre-custom-stylesheet', 'https://static.tapsi.cab/pack/wp-plugin/map/map-admin.css');
-        // TODO: MARYAM: Send q-params with request for future customization
+        // load map box script
         wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
+        // load admin map handler
+        wp_enqueue_script('woo-tapsi-delivery-admin-map');
         include 'partials/woo-tapsi-delivery-admin-settings-edit-location.php';
     }
 

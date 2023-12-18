@@ -834,8 +834,7 @@ class Woocommerce_Tapsi_Public
         $current_url = $_SERVER['REQUEST_URI'];
 
         if (strpos($current_url, 'checkout') !== false) {
-            wp_enqueue_style('wctd-tapsi-pack-map-modal-public-stylesheet', 'https://static.tapsi.cab/pack/wp-plugin/map/map-public.css');
-            // Map Libre Js and Map Libre CSS where previously added by enqueue script function
+            // Map Libre Js and Map Libre CSS where previously added by enqueue script function (Map Css is included inside woo-tapsi-delivery-public.css)
             require_once 'partials/wctd-taps-pack-maplibre-map-modal.php';
             // Map Js is handled inside the woo-tapsi-delivery-public file
         }

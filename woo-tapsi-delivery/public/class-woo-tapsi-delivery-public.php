@@ -996,6 +996,8 @@ class Woocommerce_Tapsi_Public
      */
     public function update_fee($time_slot_key): void
     {
+        if (!is_string($time_slot_key)) return;
+
         $selected_time_key_parts = explode("--", $time_slot_key);
 
         if (isset($selected_time_key_parts[1])) {

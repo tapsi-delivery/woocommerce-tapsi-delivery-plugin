@@ -323,6 +323,19 @@ class Woocommerce_Tapsi_Pickup_Location
     }
 
     /**
+     * Get the weekly hours for the location meta editor screen
+     *
+     * @param string $key Day of week for hours
+     * @return string
+     */
+    public function get_weekly_hours_meta($key)
+    {
+        $key = strtolower($key);
+        if (array_key_exists($key, $this->data['weekly_hours'])) return $this->data['weekly_hours'][$key];
+        else return '';
+    }
+
+    /**
      * Gets values and labels for the available delivery days for the location
      *
      * @return array Array with timestamp => labels

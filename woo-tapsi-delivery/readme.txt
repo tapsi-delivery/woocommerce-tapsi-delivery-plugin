@@ -1,5 +1,5 @@
 === Tapsi Delivery ===
-Contributors: ChamRun, MaryamAlikarami, MahdiBohlul
+Contributors: ChamRun, MAlikarami, MahdiBohlul
 Powered by: https://pack.tapsi.ir/landing
 Tags: woocommerce, shipping, delivery, tapsi, checkout, AI
 Requires at least: 3.0.1

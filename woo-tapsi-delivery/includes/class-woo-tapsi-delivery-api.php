@@ -4,7 +4,7 @@
  * Tapsi API
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -22,20 +22,17 @@
  */
 class Woocommerce_Tapsi_API
 {
-    protected $env;
-    protected $key_id;
     protected string $cookie;
     protected string $x_agw_user_role = 'SCHEDULED_DELIVERY_SENDER';
-    protected string $x_agent = 'v0.1.0|WOOCOMMERCE_PLUGIN|WEB|0.1.10';
+    protected string $x_agent = 'v0.1.0|WOOCOMMERCE_PLUGIN|WEB|0.1.11';
     protected string $base_url = "https://api.tapsi.ir/api/";
 
     public function __construct()
     {
-        $this->set_base_url('prod');
         $this->get_keys();
     }
 
-    protected function get_keys()
+    protected function get_keys(): bool
     {
         // If the JWT already exists we're set
         if (!empty($this->cookie)) return true;
@@ -100,7 +97,7 @@ class Woocommerce_Tapsi_API
     /**
      * Send a message to phone number of user, containing OTP
      *
-     * @param int $phone phone number of user
+     * @param string $phone phone number of user
      * @return object containing `result` key, and value of `result` would be `OK` on success.
      */
     public function send_otp(string $phone): object
@@ -154,7 +151,7 @@ class Woocommerce_Tapsi_API
             'body' => json_encode($request_body),
             'headers' => array(
                 'Content-Type' => 'application/json',
-                'x-agent' => 'v0.1.0|SCHEDULED_DELIVERY_SENDER|WEB|0.1.10'
+                'x-agent' => 'v0.1.0|SCHEDULED_DELIVERY_SENDER|WEB|0.1.11'
             ),
             'timeout' => 20
         );
@@ -182,17 +179,6 @@ class Woocommerce_Tapsi_API
         return $this->client_request($request_path, $request_args);
     }
 
-
-    /**
-     * Returns the current API mode, sandbox or production
-     *
-     * @return string 'sandbox' or 'production'
-     */
-    public function get_env()
-    {
-        return $this->env;
-    }
-
     /**
      * @param string $request_url
      * @param array $request_args
@@ -218,32 +204,9 @@ class Woocommerce_Tapsi_API
     }
 
     /**
-     * Encodes data for generating token
-     *
-     * @param string $data Data to encode
-     * @return string Encoded data
-     */
-    protected function base64_url_encode($data)
-    {
-        $base64_url = strtr(base64_encode($data), '+/', '-_');
-        return rtrim($base64_url, '=');
-    }
-
-    /**
-     * Decode base64 data from URL
-     *
-     * @param string $base64_url Encoded data
-     * @return string Decoded data
-     */
-    protected function base64_url_decode($base64_url)
-    {
-        return base64_decode(strtr($base64_url, '-_', '+/'));
-    }
-
-    /**
      * @return string saved cookie
      */
-    public function get_cookie()
+    public function get_cookie(): string
     {
         if (!empty($this->cookie)) return $this->cookie;
         $this->cookie = get_option('woocommerce_tapsi_cookie');
@@ -370,7 +333,7 @@ class Woocommerce_Tapsi_API
             }
 
             // Add a notice for server connectivity issues
-            if (500 >= $response_code && $response_code > 600) {
+            if ($response_code < 600 && 500 >= $response_code) {
                 wc_add_notice(__('There was a problem communicating with Tapsi. Please try again later.', 'woo-tapsi-delivery'), 'notice');
             }
         }
@@ -457,23 +420,12 @@ class Woocommerce_Tapsi_API
         }
     }
 
-    private function set_base_url(string $env)
-    {
-        if ($env == 'prod') {
-            $this->base_url = "https://api.tapsi.ir/api/";
-        } elseif ($env == 'dev') {
-            $this->base_url = "https://frodo.backyard.tapsi.tech/api/";
-        } elseif ($env == 'local') {
-            $this->base_url = "http://localhost:51051/api/";
-        }
-    }
-
     /**
      * Sends a request for Admin, like requesting an OTP or verifying it
      *
-     * @return object|WP_Error The response array or a WP_Error on failure
+     * @return void The response array or a WP_Error on failure
      */
-    private function refresh_tokens()
+    private function refresh_tokens(): void
     {
         $request_path = 'v2/user/accessToken/web';
 
@@ -487,6 +439,6 @@ class Woocommerce_Tapsi_API
             'timeout' => 20
         );
 
-        return $this->request_token($request_path, $request_args);
+        $this->request_token($request_path, $request_args);
     }
 }

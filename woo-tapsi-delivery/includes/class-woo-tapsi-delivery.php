@@ -7,7 +7,7 @@
  * public-facing side of the site and the admin area.
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -22,7 +22,7 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
@@ -34,7 +34,7 @@ class Woocommerce_Tapsi
      * The loader that's responsible for maintaining and registering all hooks that power
      * the plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   protected
      * @var      Woocommerce_Tapsi_Loader $loader Maintains and registers all hooks for the plugin.
      */
@@ -43,7 +43,7 @@ class Woocommerce_Tapsi
     /**
      * Allows access to the Tapsi API class
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   public
      * @var      Woocommerce_Tapsi_API $api Handles Tapsi API operations
      */
@@ -52,7 +52,7 @@ class Woocommerce_Tapsi
     /**
      * Access the WooCommerce logger
      *
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      * @var Woocommerce_Tapsi_Logger
      */
@@ -61,7 +61,7 @@ class Woocommerce_Tapsi
     /**
      * The unique identifier of this plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   protected
      * @var      string $plugin_name The string used to uniquely identify this plugin.
      */
@@ -70,7 +70,7 @@ class Woocommerce_Tapsi
     /**
      * The current version of the plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   protected
      * @var      string $version The current version of the plugin.
      */
@@ -83,14 +83,14 @@ class Woocommerce_Tapsi
      * Load the dependencies, define the locale, and set the hooks for the admin area and
      * the public-facing side of the site.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function __construct()
     {
         if (defined('WOOCOMMERCE_TAPSI_VERSION')) {
             $this->version = WOOCOMMERCE_TAPSI_VERSION;
         } else {
-            $this->version = '0.1.10';
+            $this->version = '0.1.11';
         }
         $this->plugin_name = 'woo-tapsi-delivery';
 
@@ -114,7 +114,7 @@ class Woocommerce_Tapsi
      * Create an instance of the loader which will be used to register the hooks
      * with WordPress.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      */
     private function load_dependencies()
@@ -203,7 +203,7 @@ class Woocommerce_Tapsi
      * Uses the Woocommerce_Tapsi_i18n class in order to set the domain and to register the hook
      * with WordPress.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      */
     private function set_locale()
@@ -219,7 +219,7 @@ class Woocommerce_Tapsi
      * Register all the hooks related to the admin area functionality
      * of the plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      */
     private function define_admin_hooks()
@@ -246,14 +246,8 @@ class Woocommerce_Tapsi
         $this->loader->add_filter('option_woocommerce_tapsi_sandbox_key_id', $encryption, 'decrypt_meta', 10, 2);
         $this->loader->add_filter('option_woocommerce_tapsi_production_key_id', $encryption, 'decrypt_meta', 10, 2);
 
-        // Decrypt our options on the alloptions autoloader
-        // $this->loader->add_filter( 'alloptions', $encryption, 'get_all_options', 9999, 1 );
-
         // Filter the default and location hours before save
         $this->loader->add_filter('pre_update_option', $plugin_admin, 'update_default_hours', 10, 3);
-
-        // Show a notice in sandbox mode
-        $this->loader->add_action('admin_notices', $plugin_admin, 'admin_sandbox_notice');
 
         // Add custom post type for the Pickup Locations
         $this->loader->add_action('init', $plugin_admin, 'register_pickup_location_cpt');
@@ -261,25 +255,15 @@ class Woocommerce_Tapsi
         // Register a shipping method
         $this->loader->add_filter('woocommerce_shipping_methods', $plugin_admin, 'register_shipping_method');
 
-        // setup tapsi order statuses
-        $this->loader->add_action('init', $plugin_admin, 'register_tapsi_order_statuses');
-        $this->loader->add_filter('wc_order_statuses', $plugin_admin, 'add_tapsi_order_statuses');
-
-        // register custom endpoint / route to update order statuses
-        $this->loader->add_action('rest_api_init', $plugin_admin, 'wc_tapsi_register_rest_route');
-
         // Filter meta key and value display
         $this->loader->add_filter('woocommerce_order_item_display_meta_key', $plugin_admin, 'filter_order_item_displayed_meta_key', 20, 3);
         $this->loader->add_filter('woocommerce_order_item_display_meta_value', $plugin_admin, 'filter_order_item_displayed_meta_value', 20, 3);
 
         // Accept delivery quote when order is paid
-        $this->loader->add_action('woocommerce_payment_complete', $plugin_admin, 'accept_delivery_quote', 10, 1);
+        $this->loader->add_action('woocommerce_payment_complete', $plugin_admin, 'accept_delivery_quote');
 
         // Send email to selected location when order is placed
         $this->loader->add_action('woocommerce_email_recipient_new_order', $plugin_admin, 'new_order_email_recipient', 10, 3);
-
-        // Adds custom tracking provider for Tapsi to the WooCommerce Shipment Tracking plugin
-        $this->loader->add_action('wc_shipment_tracking_get_providers', $plugin_admin, 'wc_shipment_tracking_add_tapsi_provider', 10, 1);
 
         $this->merge_zones();
     }
@@ -357,10 +341,10 @@ class Woocommerce_Tapsi
     }
 
     /**
-     * Register all of the hooks related to the public-facing functionality
+     * Register all the hooks related to the public-facing functionality
      * of the plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      */
     private function define_public_hooks()
@@ -409,9 +393,9 @@ class Woocommerce_Tapsi
     }
 
     /**
-     * Run the loader to execute all of the hooks with WordPress.
+     * Run the loader to execute all the hooks with WordPress.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function run()
     {
@@ -423,31 +407,20 @@ class Woocommerce_Tapsi
      * WordPress and to define internationalization functionality.
      *
      * @return    string    The name of the plugin.
-     * @since     1.0.0
+     * @since     0.1.0
      */
-    public function get_plugin_name()
+    public function get_plugin_name(): string
     {
         return $this->plugin_name;
-    }
-
-    /**
-     * The reference to the class that orchestrates the hooks with the plugin.
-     *
-     * @return    Woocommerce_Tapsi_Loader    Orchestrates the hooks of the plugin.
-     * @since     1.0.0
-     */
-    public function get_loader()
-    {
-        return $this->loader;
     }
 
     /**
      * Retrieve the version number of the plugin.
      *
      * @return    string    The version number of the plugin.
-     * @since     1.0.0
+     * @since     0.1.0
      */
-    public function get_version()
+    public function get_version(): string
     {
         return $this->version;
     }

@@ -4,7 +4,7 @@
  * Register all actions and filters for the plugin
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -27,7 +27,7 @@ class Woocommerce_Tapsi_Loader
     /**
      * The array of actions registered with WordPress.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   protected
      * @var      array $actions The actions registered with WordPress to fire when the plugin loads.
      */
@@ -36,7 +36,7 @@ class Woocommerce_Tapsi_Loader
     /**
      * The array of filters registered with WordPress.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   protected
      * @var      array $filters The filters registered with WordPress to fire when the plugin loads.
      */
@@ -45,7 +45,7 @@ class Woocommerce_Tapsi_Loader
     /**
      * Initialize the collections used to maintain the actions and filters.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function __construct()
     {
@@ -63,7 +63,7 @@ class Woocommerce_Tapsi_Loader
      * @param string $callback The name of the function definition on the $component.
      * @param int $priority Optional. The priority at which the function should be fired. Default is 10.
      * @param int $accepted_args Optional. The number of arguments that should be passed to the $callback. Default is 1.
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function add_action($hook, $component, $callback, $priority = 10, $accepted_args = 1)
     {
@@ -78,7 +78,7 @@ class Woocommerce_Tapsi_Loader
      * @param string $callback The name of the function definition on the $component.
      * @param int $priority Optional. The priority at which the function should be fired. Default is 10.
      * @param int $accepted_args Optional. The number of arguments that should be passed to the $callback. Default is 1
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function add_filter($hook, $component, $callback, $priority = 10, $accepted_args = 1)
     {
@@ -96,10 +96,10 @@ class Woocommerce_Tapsi_Loader
      * @param int $priority The priority at which the function should be fired.
      * @param int $accepted_args The number of arguments that should be passed to the $callback.
      * @return   array                                  The collection of actions and filters registered with WordPress.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      */
-    private function add($hooks, $hook, $component, $callback, $priority, $accepted_args)
+    private function add($hooks, $hook, $component, $callback, $priority, $accepted_args): array
     {
 
         $hooks[] = array(
@@ -117,7 +117,7 @@ class Woocommerce_Tapsi_Loader
     /**
      * Register the filters and actions with WordPress.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function run()
     {

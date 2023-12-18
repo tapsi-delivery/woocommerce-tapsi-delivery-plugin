@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Tapsi Delivery\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 10:07+0330\n"
-"Last-Translator: \n"
-"PO-Revision-Date: 2023-12-12 13:59+0000\n"
+"Last-Translator: ادمین فروشگاه\n"
+"PO-Revision-Date: 2023-12-13 07:46+0000\n"
 "Language-Team: فارسی\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.6; wp-6.3.2"
+"X-Loco-Version: 2.6.6; wp-6.4.2"
 
 #: includes/class-woo-tapsi-delivery-api.php:341
 msgid ""
@@ -330,7 +330,7 @@ msgstr "فعال"
 #: admin/partials/woo-tapsi-delivery-admin-settings-locations.php:24
 msgid "Enabled locations can be selected by users at checkout."
 msgstr ""
-"در مرحله‌ی تصفیه حساب، کاربران می‌توانند هر یک از مکان‌های فعال را انتخاب "
+"در مرحله‌ی تسویه حساب، کاربران می‌توانند هر یک از مکان‌های فعال را انتخاب "
 "کنند."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-enter-phone.php:21
@@ -912,7 +912,7 @@ msgstr ""
 msgid ""
 "Users will be able to select the location their order will be fulfilled from "
 "during checkout."
-msgstr "کابران در مرحله‌ی تصفیه حساب، می‌توانند مبدا را انتخاب کنند."
+msgstr "کابران در مرحله‌ی تسویه حساب، می‌توانند مبدا را انتخاب کنند."
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:21
 msgid ""

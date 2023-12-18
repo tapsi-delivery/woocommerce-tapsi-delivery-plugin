@@ -6,7 +6,7 @@
  * Adds WooCommerce settings and settings pages for the plugin
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -17,7 +17,7 @@
  *
  * Adds WooCommerce settings and settings pages for the plugin
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
@@ -32,7 +32,8 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     /**
      * Constructor
      *
-     * @since    1.0.0
+     * @since    0.1.0
+     * @noinspection PhpMissingParentConstructorInspection
      */
     public function __construct()
     {
@@ -44,7 +45,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         add_action('woocommerce_sections_' . $this->id, array($this, 'output_sections'));
         add_action('woocommerce_settings_' . $this->id, array($this, 'output'));
         add_action('woocommerce_settings_save_' . $this->id, array($this, 'save'));
-
     }
 
     /**
@@ -55,12 +55,9 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     public function get_sections()
     {
         $sections = array(
-//            '' => __('Login', 'woo-tapsi-delivery'),
             'login' => __('Login', 'woo-tapsi-delivery'),
-//            '' => __('Settings', 'woo-tapsi-delivery'),
-//            'webhooks' => __('Webhooks', 'woo-tapsi-delivery'),
             'locations' => __('My Addresses', 'woo-tapsi-delivery'),
-	        'tracking' => __('Tracking Orders', 'woo-tapsi-delivery'),
+            'tracking' => __('Tracking Orders', 'woo-tapsi-delivery'),
         );
 
         return apply_filters('woocommerce_get_sections_' . $this->id, $sections);
@@ -69,7 +66,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     /**
      * Get the settings for the current page
      *
-     * @return void
+     * @return mixed
      */
     public function get_settings()
     {
@@ -78,9 +75,9 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
         $prefix = 'woocommerce_tapsi_'; // used in the partials
 
-	    $settings = array(
-		    array(),
-	    );
+        $settings = array(
+            array(),
+        );
 
         return apply_filters('woocommerce_get_settings_' . $this->id, $settings, $current_section);
     }
@@ -107,8 +104,8 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 $this->output_locations_screen();
             }
         } elseif ('tracking' == $current_section) {
-	        $hide_save_button = true;
-	        $this->output_tracking_orders_screen();
+            $hide_save_button = true;
+            $this->output_tracking_orders_screen();
         }
     }
 
@@ -131,37 +128,35 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
             $location = new Woocommerce_Tapsi_Pickup_Location($_REQUEST['location_id']);
 
             $phone = str_replace(['-', '(', ')', ' ', '+'], '', sanitize_text_field($_REQUEST['location_phone']));
-            if (strlen($phone) == 10) $phone = '1' . $phone;
-            // $phone = '+' . $phone;
 
-			$data = array(
-				'ID'            => $location_id,
-				'name'          => sanitize_text_field( $_REQUEST['location_name'] ),
-				'enabled'       => isset( $_REQUEST['location_enabled'] ) ? true : false,
-				'email'         => sanitize_email( $_REQUEST['location_email'] ),
-				'phone'         => $phone,
-				'address_1'     => sanitize_text_field( $_REQUEST['location_address_1'] ),
-				'latitude'      => sanitize_text_field( $_REQUEST['wctd_tapsi_origin_lat'] ),
-				'longitude'     => sanitize_text_field( $_REQUEST['wctd_tapsi_origin_long'] ),
-				'should_hide'     => sanitize_text_field( $_REQUEST['hide_location_address'] ),
-				'city'          => sanitize_text_field( $_REQUEST['location_city'] ),
-				'state'         => sanitize_text_field( $_REQUEST['location_state'] ),
-				'postcode'      => sanitize_text_field( $_REQUEST['location_postcode'] ),
-				'country'       => sanitize_text_field( $_REQUEST['location_country'] ),
-				'pickup_instructions' => '',
-				'has_hours'     => isset( $_REQUEST['location_hours_enabled'] ) ? true : false,
-				'weekly_hours'  => array(
-					'sunday'    => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_sunday_hours'] ) ),
-					'monday'    => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_monday_hours'] ) ),
-					'tuesday'   => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_tuesday_hours'] ) ),
-					'wednesday' => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_wednesday_hours'] ) ),
-					'thursday'  => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_thursday_hours'] ) ),
-					'friday'    => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_friday_hours'] ) ),
-					'saturday'  => $hours->normalize_hour_ranges( sanitize_text_field( $_REQUEST['location_saturday_hours'] ) ),
-				),
-			);
-			// Update the location and get the location ID from the saved post
-			$location_id = $location->update( $data );
+            $data = array(
+                'ID' => $location_id,
+                'name' => sanitize_text_field($_REQUEST['location_name']),
+                'enabled' => isset($_REQUEST['location_enabled']),
+                'email' => sanitize_email($_REQUEST['location_email']),
+                'phone' => $phone,
+                'address_1' => sanitize_text_field($_REQUEST['location_address_1']),
+                'latitude' => sanitize_text_field($_REQUEST['wctd_tapsi_origin_lat']),
+                'longitude' => sanitize_text_field($_REQUEST['wctd_tapsi_origin_long']),
+                'should_hide' => sanitize_text_field($_REQUEST['hide_location_address']),
+                'city' => sanitize_text_field($_REQUEST['location_city']),
+                'state' => sanitize_text_field($_REQUEST['location_state']),
+                'postcode' => sanitize_text_field($_REQUEST['location_postcode']),
+                'country' => sanitize_text_field($_REQUEST['location_country']),
+                'pickup_instructions' => '',
+                'has_hours' => isset($_REQUEST['location_hours_enabled']),
+                'weekly_hours' => array(
+                    'sunday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_sunday_hours'])),
+                    'monday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_monday_hours'])),
+                    'tuesday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_tuesday_hours'])),
+                    'wednesday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_wednesday_hours'])),
+                    'thursday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_thursday_hours'])),
+                    'friday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_friday_hours'])),
+                    'saturday' => $hours->normalize_hour_ranges(sanitize_text_field($_REQUEST['location_saturday_hours'])),
+                ),
+            );
+            // Update the location and get the location ID from the saved post
+            $location_id = $location->update($data);
 
             if ($_REQUEST['location_id'] != $location_id) {
                 // If this was a new location, redirect to the newly created location
@@ -210,28 +205,29 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         }
     }
 
-	/**
-	 * Show the individual location editor
-	 *
-	 * @return void
-	 */
-	public function output_location_edit_screen() {
-		$location = new Woocommerce_Tapsi_Pickup_Location( intval( $_GET['location_id'] ) );
-		// load map box styles - custom styles for displaying map container in the admin panel is put in the woo-tapsi-delivery-admin.css file
-		wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
-		// load map box script
-		wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
-		// load admin map handler
-		wp_enqueue_script('woo-tapsi-delivery-admin-map');
-		include 'partials/woo-tapsi-delivery-admin-settings-edit-location.php';
-	}
+    /**
+     * Show the individual location editor
+     *
+     * @return void
+     */
+    public function output_location_edit_screen()
+    {
+        $location = new Woocommerce_Tapsi_Pickup_Location(intval($_GET['location_id']));
+        // load map box styles - custom styles for displaying map container in the admin panel is put in the woo-tapsi-delivery-admin.css file
+        wp_enqueue_style('wctd-tapsi-pack-maplibre-stylesheet', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css');
+        // load map box script
+        wp_enqueue_script('wctd-tapsi-pack-maplibre-library-source', 'https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js');
+        // load admin map handler
+        wp_enqueue_script('woo-tapsi-delivery-admin-map');
+        include 'partials/woo-tapsi-delivery-admin-settings-edit-location.php';
+    }
 
     /**
      * Handle location hours toggle
      *
      * @return bool True on toggle, false otherwise
      */
-    protected function maybe_toggle_location_hours()
+    protected function maybe_toggle_location_hours(): bool
     {
         if (array_key_exists('location_toggle_hours', $_GET) && wp_verify_nonce($_GET['_wpnonce'], 'location_toggle_hours')) {
             // Get the post we're operating on
@@ -255,7 +251,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      *
      * @return bool True on location toggled, false otherwise
      */
-    protected function maybe_toggle_location_enabled()
+    protected function maybe_toggle_location_enabled(): bool
     {
         if (array_key_exists('location_toggle_enabled', $_GET) && wp_verify_nonce($_GET['_wpnonce'], 'location_toggle_enabled')) {
             // Get the post we're toggling
@@ -342,15 +338,16 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      *
      * @return void
      */
-    public function output_tracking_orders_screen(){
-	    include 'partials/woo-tapsi-delivery-admin-tracking-orders.php';
+    public function output_tracking_orders_screen()
+    {
+        include 'partials/woo-tapsi-delivery-admin-tracking-orders.php';
     }
 
-	/**
-	 * Show the individual location editor
-	 *
-	 * @return void
-	 */
+    /**
+     * Show the individual location editor
+     *
+     * @return void
+     */
 
     /**
      * Show the individual phone field
@@ -363,24 +360,25 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     }
 
 
-	/**
-	 * Handle location deletion from the locations listing screen
-	 *
-	 * @return bool True on deletion, false otherwise
-	 */
-	protected function maybe_delete_location() {
-		if ( array_key_exists( 'delete_location', $_GET ) && wp_verify_nonce( $_GET['_wpnonce'], 'delete_location' ) ) {
-			// Delete the post, save the posts's data so we can display the title
-			$deleted = wp_delete_post( intval( $_GET['delete_location'] ) );
-			if ( $deleted ) {
-				// If the post deletion was successful, show the message. (Otherwise this is probably a refresh)
-				$message = sprintf( __( 'Location "%s" deleted.', 'woo-tapsi-delivery' ), $deleted->post_title );
-				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message );
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * Handle location deletion from the locations listing screen
+     *
+     * @return bool True on deletion, false otherwise
+     */
+    protected function maybe_delete_location(): bool
+    {
+        if (array_key_exists('delete_location', $_GET) && wp_verify_nonce($_GET['_wpnonce'], 'delete_location')) {
+            // Delete the post, save the posts's data so we can display the title
+            $deleted = wp_delete_post(intval($_GET['delete_location']));
+            if ($deleted) {
+                // If the post deletion was successful, show the message. (Otherwise this is probably a refresh)
+                $message = sprintf(__('Location "%s" deleted.', 'woo-tapsi-delivery'), $deleted->post_title);
+                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message);
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     /**
@@ -399,7 +397,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
      *
      * @return array Array of Woocommerce_Tapsi_Pickup_Location objects
      */
-    public function get_all_locations()
+    public function get_all_locations(): array
     {
         $locations = get_posts(array(
             'post_type' => 'dd_pickup_location',
@@ -414,48 +412,6 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
         }
 
         return $locations;
-    }
-
-	// TODO: PRUNE the following screen should be pruned
-    /**
-     * Display the screen to generate API credentials for Tapsi webhooks
-     *
-     * @return void
-     */
-    public function output_webhooks_screen()
-    {
-        printf('<h1>%s</h1>', __('Webhooks Configuration', 'woo-tapsi-delivery'));
-        $header = get_transient('woocommerce_tapsi_auth_header');
-
-        if (!empty($header)) {
-            printf('<p>%s</p>', __('Your authorization header has been generated.', 'woo-tapsi-delivery'));
-            printf('<h2>%s</h2>', __('This information will only be displayed once.', 'woo-tapsi-delivery'));
-            echo '<ol>';
-            printf('<li>%s</li>', __('Visit the <a target="_blank" href="https://developer.tapsi.com/portal/integration/drive/webhooks">Webhooks configuration in the Tapsi Developer Portal</a>.', 'woo-tapsi-delivery'));
-            printf('<li>%s</li>', __('Click the button to configure a Sandbox or Production endpoint.', 'woo-tapsi-delivery'));
-            printf('<li>%s</li>', __('Copy the values below into the form and click <strong>Configure Endpoint</strong>.', 'woo-tapsi-delivery'));
-            echo '</ol>';
-
-            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Webhook Delivery URL', 'woo-tapsi-delivery'), rest_url('wc/v3/tapsi/status_updated'), __('Copy', 'woo-tapsi-delivery'));
-            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Authentication Type', 'woo-tapsi-delivery'), 'Basic', __('Copy', 'woo-tapsi-delivery'));
-            printf('<p class="form-row"><label>%s</label><span class="woocommerce-input-wrapper"><input type="text" class="widefat input-text has-copy-button" readonly value="%s" /><button class="copy-button">%s</button></span></p>', __('Authorization Header', 'woo-tapsi-delivery'), $header, __('Copy', 'woo-tapsi-delivery'));
-            delete_transient('woocommerce_tapsi_auth_header');
-        } else {
-
-            printf('<p>%s</p>', __('Tapsi webhooks are used to update your WooCommerce orders with delivery status from Tapsi in real-time as the order is being delivered.', 'woo-tapsi-delivery'));
-            printf('<p>%s</p>', __('Use this page to generate WooCommerce credentials that you can paste into the Tapsi developer portal to connect your application.', 'woo-tapsi-delivery'));
-            printf('<p>%s <a href="%s"><em>%s</em></a></p>', __('Previously generated credentials can be managed under', 'woo-tapsi-delivery'), admin_url('admin.php?page=wc-settings&tab=advanced&section=keys'), __('WooCommerce Settings > Advanced > REST API', 'woo-tapsi-delivery'));
-            $auth_url = get_site_url() . '/wc-auth/v1/authorize';
-            $auth_url = add_query_arg(array(
-                'app_name' => 'Tapsi',
-                'scope' => 'write',
-                'user_id' => get_current_user_id(),
-                'return_url' => urlencode(admin_url('admin.php?page=wc-settings&tab=woo-tapsi-delivery&section=webhooks')),
-                'callback_url' => urlencode(rest_url('wc/v3/tapsi/save_auth_header')),
-            ), $auth_url);
-
-            printf('<a href="%s" class="button">%s</a>', esc_url($auth_url), __('Generate Credentials', 'woo-tapsi-delivery'));
-        }
     }
 }
 

@@ -51,7 +51,6 @@
 		 * Adds Copy buttons for some inputs
 		 */
 		function addCopyButtons() {
-			// $('.has-copy-button').after('<button class="copy-button">' + __('Copy', 'woo-tapsi-delivery') + '</button>');
 			$('.copy-button').on( 'click', function(e) {
 				e.preventDefault();
 				var $button = $(this), $input = $button.siblings('.has-copy-button'), $row = $button.parents('.form-row');

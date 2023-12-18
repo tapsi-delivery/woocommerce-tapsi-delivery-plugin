@@ -4,7 +4,7 @@
  * Tapsi Encryption
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -27,7 +27,7 @@ class Woocommerce_Tapsi_Encryption
      *
      * @var string
      */
-    protected $cipher = "aes-256-gcm";
+    protected string $cipher = "aes-256-gcm";
 
     /**
      * Encrypt sensitive data before storing in the database
@@ -52,7 +52,7 @@ class Woocommerce_Tapsi_Encryption
      *
      * @param string $value The value read from the database
      * @param string $option Option name (dynamic part of the hook name)
-     * @return void
+     * @return false|string
      */
     public function decrypt_meta($value, $option)
     {

@@ -4,7 +4,7 @@
  * Tapsi Delivery Object
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -13,7 +13,7 @@
 /**
  * Tapsi Delivery Object
  *
- * Represents a Tapsi delivery, and contains all the datapoints
+ * Represents a Tapsi delivery, and contains all the data points
  * needed to create a delivery in the Drive API
  *
  * @package    Woocommerce_Tapsi
@@ -198,9 +198,9 @@ class Woocommerce_Tapsi_Delivery
     public function format_phone($phone)
     {
         if (!empty($phone)) $phone = wc_sanitize_phone_number($phone);
-        else $phone = '18004444444'; // Drive API requires phone, use a dummy if it's not set yet
+        else $phone = '09121112233'; // Drive API requires phone, use a dummy if it's not set yet
 
-        if (strlen($phone) == 10) $phone = '1' . $phone; // TODO: use the get_locale function to check the length and format
+        if (strlen($phone) == 10) $phone = '0' . $phone;
         return $phone;
     }
 
@@ -420,19 +420,4 @@ class Woocommerce_Tapsi_Delivery
     {
         return str_replace('_', '-', get_user_locale($user_id));
     }
-
-    /**
-     * Get the support reference ID for the delivery
-     *
-     * @return string|false String with support ref if set, false if not found
-     */
-    public function get_support_reference()
-    {
-        if (array_key_exists('support_reference', $this->data) && !empty($this->data['support_reference'])) {
-            return $this->data['support_reference'];
-        } else {
-            return false;
-        }
-    }
-
 }

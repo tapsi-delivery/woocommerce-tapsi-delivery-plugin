@@ -7,7 +7,7 @@
  * so that it is ready for translation.
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -19,7 +19,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
@@ -31,7 +31,7 @@ class Woocommerce_Tapsi_i18n
     /**
      * Load the plugin text domain for translation.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function load_plugin_textdomain()
     {
@@ -39,7 +39,7 @@ class Woocommerce_Tapsi_i18n
         load_plugin_textdomain(
             'woo-tapsi-delivery',
             false,
-            dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
+            dirname(plugin_basename(__FILE__), 2) . '/languages/'
         );
 
     }

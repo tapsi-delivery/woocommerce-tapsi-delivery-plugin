@@ -4,7 +4,7 @@
  * Fired during plugin activation
  *
  * @link       https://www.inverseparadox.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
@@ -15,7 +15,7 @@
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    Woocommerce_Tapsi
  * @subpackage Woocommerce_Tapsi/includes
  * @author     Inverse Paradox <erik@inverseparadox.net>
@@ -26,7 +26,8 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
     /**
      * Shipping class constructor.
      *
-     * @since    1.0.0
+     * @since    0.1.0
+     * @noinspection PhpMissingParentConstructorInspection
      */
     public function __construct($instance_id = 0)
     {
@@ -92,7 +93,6 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
                 'tapsi_external_delivery_id' => $delivery->get_id(),
                 'tapsi_pickup_time' => $delivery->get_pickup_time(),
                 'tapsi_dropoff_time' => $delivery->get_dropoff_time(),
-                'tapsi_support_reference' => $delivery->get_support_reference(),
             )
         ));
     }

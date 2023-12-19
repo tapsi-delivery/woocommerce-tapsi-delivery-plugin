@@ -1,6 +1,7 @@
 === Tapsi Delivery ===
 Contributors: ChamRun, MAlikarami, MahdiBohlul
 Powered by: https://pack.tapsi.ir/landing
+Plugin Homepage: https://tapsi-pack.github.io/woocommerce-plugin
 Tags: woocommerce, shipping, delivery, tapsi, checkout, AI
 Requires at least: 3.0.1
 Requires PHP: 7.4

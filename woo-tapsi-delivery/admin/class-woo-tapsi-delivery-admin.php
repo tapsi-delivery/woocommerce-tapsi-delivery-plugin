@@ -449,7 +449,10 @@ class Woocommerce_Tapsi_Admin
             )
         );
 
-        $pack = array('description' => $delivery->get_dropoff_instructions());  // TODO: add pickup instructions
+        $pack_description = $this->get_pack_description(
+            $delivery->get_pickup_instructions(), $delivery->get_dropoff_instructions());
+
+        $pack = array('description' => $pack_description);
         $time_slot_id = $delivery->get_time_slot_id();
         $preview_token = $delivery->get_preview_token();
 
@@ -461,5 +464,25 @@ class Woocommerce_Tapsi_Admin
         }
 
         return WCDD()->api->submit_delivery_order($receiver, $sender, $pack, $time_slot_id, $preview_token);
+    }
+
+    /**
+     * @param $pickup_instructions
+     * @param $dropoff_instructions
+     * @return string
+     */
+    public function get_pack_description($pickup_instructions, $dropoff_instructions): string
+    {
+        $instructions = '';
+
+        if ($pickup_instructions && $pickup_instructions != '') {
+            $instructions .= __('Sender Instructions', 'woo-tapsi-delivery') . ': ' . $pickup_instructions . ' | ';
+        }
+
+        if ($dropoff_instructions && $dropoff_instructions != '') {
+            $instructions .= __('Receiver Instructions', 'woo-tapsi-delivery') . ': ' . $dropoff_instructions;
+        }
+
+        return $instructions;
     }
 }

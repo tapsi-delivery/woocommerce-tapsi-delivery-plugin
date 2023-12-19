@@ -264,9 +264,19 @@ class Woocommerce_Tapsi_Delivery
      */
     public function get_fee()
     {
-        $quoted = $this->get_quoted_rate();
+        $fees_mode = get_option('woocommerce_tapsi_fees_mode');
+        $delivery_fee = get_option('woocommerce_tapsi_delivery_fee');
 
-        return $quoted ?? 0;
+        if ($fees_mode == 'no_rate') {
+            return 0;
+        } else if ($fees_mode == 'quoted_rate' && is_numeric($delivery_fee)) {
+            $quoted = $this->get_quoted_rate();
+            return $quoted + (float)$delivery_fee;
+        } else if ($fees_mode == 'fixed_rate') {
+            return $delivery_fee;
+        }
+
+        return 0;
     }
 
     /**

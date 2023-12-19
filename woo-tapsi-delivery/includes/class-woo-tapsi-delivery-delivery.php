@@ -142,7 +142,7 @@ class Woocommerce_Tapsi_Delivery
             'pickup_address' => $location->get_formatted_address(),
             'pickup_business_name' => $location->get_name(),
             'pickup_phone_number' => $location->get_phone_number(),
-            'pickup_instructions' => '',
+            'pickup_instructions' => get_option('woocommerce_tapsi_default_pickup_instructions'),
             'pickup_reference_tag' => '',
             'dropoff_address' => $this->format_address($customer_information),
             'dropoff_business_name' => $customer_information['company'],
@@ -396,15 +396,28 @@ class Woocommerce_Tapsi_Delivery
 
 
     /**
-     * Retrieve the estimated dropoff time for the order
+     * Retrieve the drop-off instructions for the order.
      *
-     * @param bool $timestamp True to return a UNIX timestamp, false to return raw value from API
-     * @return string|false String with dropoff time or false if no time is available
+     * @return string The drop-off instructions or an empty string if none is available.
      */
     public function get_dropoff_instructions(): string
     {
         if (array_key_exists('dropoff_instructions', $this->data) && !empty($this->data['dropoff_instructions'])) {
             return $this->data['dropoff_instructions'];
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     * Retrieve the pickup instructions for the order.
+     *
+     * @return string The pickup instructions or an empty string if none is available.
+     */
+    public function get_pickup_instructions(): string
+    {
+        if (array_key_exists('pickup_instructions', $this->data) && !empty($this->data['pickup_instructions'])) {
+            return $this->data['pickup_instructions'];
         } else {
             return '';
         }

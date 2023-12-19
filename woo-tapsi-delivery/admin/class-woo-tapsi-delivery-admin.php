@@ -104,8 +104,8 @@ class Woocommerce_Tapsi_Admin
 
         wp_register_script('woo-tapsi-delivery-admin-locations', plugin_dir_url(__FILE__) . 'js/woo-tapsi-delivery-admin-locations.js', array('jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-backbone-modal'), $this->version, false);
 
-	    // register admin map handler
-	    wp_register_script('woo-tapsi-delivery-admin-map', plugin_dir_url(__FILE__) . 'js/woo-tapsi-delivery-admin-map.js', array('jquery', 'wctd-tapsi-pack-maplibre-library-source'), $this->version, false);
+        // register admin map handler
+        wp_register_script('woo-tapsi-delivery-admin-map', plugin_dir_url(__FILE__) . 'js/woo-tapsi-delivery-admin-map.js', array('jquery', 'wctd-tapsi-pack-maplibre-library-source'), $this->version, false);
     }
 
     /**

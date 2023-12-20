@@ -267,6 +267,8 @@ class Woocommerce_Tapsi_Delivery
         $fees_mode = get_option('woocommerce_tapsi_fees_mode');
         $delivery_fee = get_option('woocommerce_tapsi_delivery_fee');
 
+        if (!is_numeric($delivery_fee)) $delivery_fee = 0;
+
         if ($fees_mode == 'no_rate') {
             return 0;
         } else if ($fees_mode == 'quoted_rate' && is_numeric($delivery_fee)) {

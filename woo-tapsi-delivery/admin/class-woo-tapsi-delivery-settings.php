@@ -55,6 +55,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     public function get_sections()
     {
         $sections = array(
+            '' => __('Settings', 'woo-tapsi-delivery'),
             'login' => __('Login', 'woo-tapsi-delivery'),
             'locations' => __('My Addresses', 'woo-tapsi-delivery'),
             'tracking' => __('Tracking Orders', 'woo-tapsi-delivery'),
@@ -73,11 +74,19 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
 
         global $current_section;
 
-        $prefix = 'woocommerce_tapsi_'; // used in the partials
+        $prefix = 'woocommerce_tapsi_';
 
-        $settings = array(
-            array(),
-        );
+        switch ($current_section) {
+            case 'locations':
+            case 'webhooks':
+                $settings = array(
+                    array(),
+                );
+                break;
+            default:
+                $settings = include 'partials/woo-tapsi-delivery-admin-settings-main.php';
+                break;
+        }
 
         return apply_filters('woocommerce_get_settings_' . $this->id, $settings, $current_section);
     }
@@ -90,7 +99,10 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
     public function output()
     {
         global $current_section, $hide_save_button;
-        if ('' == $current_section || 'login' == $current_section) {
+        if ('' == $current_section) {
+            $settings = $this->get_settings();
+            WC_Admin_Settings::output_fields($settings);
+        } else if ('login' == $current_section) {
             if (array_key_exists('phone', $_GET)) {
                 $this->output_enter_otp_screen();
             } else {
@@ -139,6 +151,7 @@ class Woocommerce_Tapsi_Settings extends WC_Settings_Page
                 'latitude' => sanitize_text_field($_REQUEST['wctd_tapsi_origin_lat']),
                 'longitude' => sanitize_text_field($_REQUEST['wctd_tapsi_origin_long']),
                 'should_hide' => sanitize_text_field($_REQUEST['hide_location_address']),
+                'processing_duration_minutes' => sanitize_text_field($_REQUEST['location_processing_duration']),
                 'city' => sanitize_text_field($_REQUEST['location_city']),
                 'state' => sanitize_text_field($_REQUEST['location_state']),
                 'postcode' => sanitize_text_field($_REQUEST['location_postcode']),

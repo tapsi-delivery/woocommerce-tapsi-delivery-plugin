@@ -17,19 +17,19 @@ return array(
     array(
         'id' => $prefix . 'api_config_settings',
         'name' => __('API Configuration', 'woo-tapsi-delivery'),
-        'type' => 'title',
+        'type' => 'hidden',
         'desc' => __('Visit the <a href="https://developer.tapsi.com/en-US/docs/drive/how_to/manage_credentials" target="_blank">Tapsi Documentation</a> for instructions on how to sign in to the <a href="https://developer.tapsi.com/portal/integration/drive/credentials" target="_blank">Tapsi Developer Portal</a> and create your access keys.', 'woo-tapsi-delivery'),
     ),
     array(
         'id' => $prefix . 'developer_id',
         'name' => __('Developer ID', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
         'desc_tip' => __('Paste your Developer ID obtained from the Tapsi Developer Portal.', 'woo-tapsi-delivery'),
     ),
     array(
         'id' => $prefix . 'api_environment',
         'name' => __('Active Environment', 'woo-tapsi-delivery'),
-        'type' => 'select',
+        'type' => 'hidden',
         'options' => array(
             'sandbox' => 'Sandbox',
             'production' => 'Production',
@@ -41,46 +41,45 @@ return array(
         'id' => $prefix . 'production_key_id',
         'class' => 'wcdd-api-keys__production',
         'name' => __('Key ID', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
         'desc_tip' => __('Paste your <em>Production</em> Key ID obtained from the Tapsi Developer Portal.', 'woo-tapsi-delivery'),
     ),
     array(
         'id' => $prefix . 'production_signing_secret',
         'class' => 'wcdd-api-keys__production',
         'name' => __('Signing Secret', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
         'desc_tip' => __('Paste your <em>Production</em> Signing Secret obtained from the Tapsi Developer Portal.', 'woo-tapsi-delivery'),
     ),
     array(
         'id' => $prefix . 'sandbox_key_id',
         'class' => 'wcdd-api-keys__sandbox',
         'name' => __('Key ID', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
         'desc_tip' => __('Paste your <em>Sandbox</em> Key ID obtained from the Tapsi Developer Portal.', 'woo-tapsi-delivery'),
     ),
     array(
         'id' => $prefix . 'sandbox_signing_secret',
         'class' => 'wcdd-api-keys__sandbox',
         'name' => __('Signing Secret', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
         'desc_tip' => __('Paste your <em>Sandbox</em> Signing Secret obtained from the Tapsi Developer Portal.', 'woo-tapsi-delivery'),
     ),
     array(
         'id' => $prefix . 'api_config_settings',
         'name' => __('API Configuration', 'woo-tapsi-delivery'),
-        'type' => 'sectionend',
+        'type' => 'hidden',
     ),
 
     array(
         'id' => $prefix . 'delivery_config_settings',
         'name' => __('Delivery Configuration', 'woo-tapsi-delivery'),
         'type' => 'title',
-        'desc' => __('Configure settings for deliveries in your WooCommerce shop.', 'woo-tapsi-delivery'),
     ),
     array(
         'id' => $prefix . 'delivery_scheduling',
         'name' => __('Delivery Scheduling', 'woo-tapsi-delivery'),
-        'type' => 'select',
+        'type' => 'hidden',
         // 'class'     => 'wc-enhanced-select',
         'options' => array(
             'both' => 'Both ASAP and Scheduled Deliveries',
@@ -92,7 +91,7 @@ return array(
     array(
         'id' => $prefix . 'number_of_days_ahead',
         'name' => __('Scheduled Delivery Days Ahead', 'woo-tapsi-delivery'),
-        'type' => 'number',
+        'type' => 'hidden',
         'desc_tip' => __('Number of days ahead that deliveries can be scheduled.', 'woo-tapsi-delivery'),
         'css' => 'max-width:120px;',
         'custom_attributes' => array('min' => 1, 'max' => 90),
@@ -101,7 +100,7 @@ return array(
     array(
         'id' => $prefix . 'lead_time',
         'name' => __('Order Lead Time', 'woo-tapsi-delivery'),
-        'type' => 'number',
+        'type' => 'hidden',
         'desc_tip' => __('Number of minutes to allow for preparation of an order.', 'woo-tapsi-delivery'),
         'css' => 'max-width:120px;',
     ),
@@ -109,12 +108,12 @@ return array(
         'id' => $prefix . 'default_pickup_instructions',
         'name' => __('Default Pickup Instructions', 'woo-tapsi-delivery'),
         'type' => 'text',
-        'desc_tip' => __('These instructions will be provided to Drivers when picking up orders. These instructions can be overridden for each location on the <em>Edit Location</em> screen.', 'woo-tapsi-delivery'),
+        'desc_tip' => __('These instructions will be provided to Drivers when picking up orders.', 'woo-tapsi-delivery'),
     ),
     array(
         'id' => $prefix . 'enable_alcohol_tobacco',
         'name' => __('Liquor Store/Smoke Shop Mode', 'woo-tapsi-delivery'),
-        'type' => 'select',
+        'type' => 'hidden',
         'options' => array(
             'disabled' => 'Disabled',
             'enabled' => 'Enabled',
@@ -139,9 +138,9 @@ return array(
         'name' => __('Delivery Fees Mode', 'woo-tapsi-delivery'),
         'type' => 'select',
         'options' => array(
-//			'no_rate' => __( 'No charge for customer (shop pays)', 'woo-tapsi-delivery' ),
+            'no_rate' => __('No charge for customer (shop pays)', 'woo-tapsi-delivery'),
             'quoted_rate' => __('Charge customer the quoted Tapsi rate', 'woo-tapsi-delivery'),
-//			'fixed_rate' => __( 'Charge customer a fixed rate', 'woo-tapsi-delivery' ),
+            'fixed_rate' => __('Charge customer a fixed rate', 'woo-tapsi-delivery'),
         ),
         'desc_tip' => __('Choose how the customer will be charged for deliveries.', 'woo-tapsi-delivery'),
     ),
@@ -155,7 +154,7 @@ return array(
     array(
         'id' => $prefix . 'tipping',
         'name' => __('Driver Tipping', 'woo-tapsi-delivery'),
-        'type' => 'select',
+        'type' => 'hidden',
         'desc_tip' => __('Select Enabled to allow your customers to add a tip for their Tapsier. 100% of tips are passed on to the Driver.', 'woo-tapsi-delivery'),
         'options' => array(
             'enabled' => __('Enabled', 'woo-tapsi-delivery'),
@@ -172,7 +171,7 @@ return array(
     array(
         'id' => $prefix . 'hours_config_settings',
         'name' => __('Default Delivery Hours', 'woo-tapsi-delivery'),
-        'type' => 'title',
+        'type' => 'hidden',
         'css' => 'max-width: 300px',
         'desc' => sprintf(__('Set the default hours that your shop will fulfill deliveries. These will be the default when new locations are created, if a location&rsquo;s individual hours are disabled, or if no locations have been configured.
 		
@@ -185,42 +184,42 @@ return array(
     array(
         'id' => $prefix . 'sunday_hours',
         'name' => __('Sunday', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
     ),
     array(
         'id' => $prefix . 'monday_hours',
         'name' => __('Monday', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
     ),
     array(
         'id' => $prefix . 'tuesday_hours',
         'name' => __('Tuesday', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
     ),
     array(
         'id' => $prefix . 'wednesday_hours',
         'name' => __('Wednesday', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
     ),
     array(
         'id' => $prefix . 'thursday_hours',
         'name' => __('Thursday', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
     ),
     array(
         'id' => $prefix . 'friday_hours',
         'name' => __('Friday', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
     ),
     array(
         'id' => $prefix . 'saturday_hours',
         'name' => __('Saturday', 'woo-tapsi-delivery'),
-        'type' => 'text',
+        'type' => 'hidden',
     ),
     array(
         'id' => $prefix . 'hours_config_settings',
         'name' => __('Default Delivery Hours', 'woo-tapsi-delivery'),
-        'type' => 'sectionend',
+        'type' => 'hidden',
     ),
 
 );

@@ -68,7 +68,6 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
      */
     public function calculate_shipping($package = array())
     {
-
         $chosen_shipping_rate_id = WC()->session->get('chosen_shipping_methods')[0];
         if (false === strpos($chosen_shipping_rate_id, 'woocommerce_tapsi')) {
             $this->add_rate(array(
@@ -84,17 +83,26 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
 
         WC()->session->set('tapsi_external_delivery_id', $delivery->get_id());
 
-        $this->add_rate(array(
-            'label' => $this->title,
+
+        $label = $this->title;
+        $fee = $delivery->get_fee();
+
+        if ($fee == 0) {
+            $label .= __( '(Average: 40000T)', 'woo-tapsi-delivery' );
+        }
+
+        $rate = array(
+            'label' => $label,
             'package' => $package,
-            'cost' => $delivery->get_fee(),
+            'cost' => $fee,
             'meta_data' => array(
                 'tapsi_delivery' => $delivery,
                 'tapsi_external_delivery_id' => $delivery->get_id(),
                 'tapsi_pickup_time' => $delivery->get_pickup_time(),
                 'tapsi_dropoff_time' => $delivery->get_dropoff_time(),
             )
-        ));
+        );
+        $this->add_rate($rate);
     }
 
     public function init_form_fields()

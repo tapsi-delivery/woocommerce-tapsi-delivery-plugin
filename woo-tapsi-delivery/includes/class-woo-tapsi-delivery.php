@@ -262,9 +262,6 @@ class Woocommerce_Tapsi
         // Accept delivery quote when order is paid
         $this->loader->add_action('woocommerce_payment_complete', $plugin_admin, 'accept_delivery_quote');
 
-        // Send email to selected location when order is placed
-        $this->loader->add_action('woocommerce_email_recipient_new_order', $plugin_admin, 'new_order_email_recipient', 10, 3);
-
         $this->merge_zones();
     }
 

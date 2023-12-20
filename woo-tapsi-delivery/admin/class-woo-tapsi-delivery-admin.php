@@ -104,8 +104,8 @@ class Woocommerce_Tapsi_Admin
 
         wp_register_script('woo-tapsi-delivery-admin-locations', plugin_dir_url(__FILE__) . 'js/woo-tapsi-delivery-admin-locations.js', array('jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-backbone-modal'), $this->version, false);
 
-	    // register admin map handler
-	    wp_register_script('woo-tapsi-delivery-admin-map', plugin_dir_url(__FILE__) . 'js/woo-tapsi-delivery-admin-map.js', array('jquery', 'wctd-tapsi-pack-maplibre-library-source'), $this->version, false);
+        // register admin map handler
+        wp_register_script('woo-tapsi-delivery-admin-map', plugin_dir_url(__FILE__) . 'js/woo-tapsi-delivery-admin-map.js', array('jquery', 'wctd-tapsi-pack-maplibre-library-source'), $this->version, false);
     }
 
     /**
@@ -360,40 +360,6 @@ class Woocommerce_Tapsi_Admin
         WC()->session->set('tapsi_customer_information', '');
 
         do_action('wcdd_delivery_quote_accepted', $delivery, $order);
-    }
-
-    /**
-     * Adds the email address configured on the selected pickup location to the admin new order email
-     *
-     * @param string $recipient Comma separated list of email recipients
-     * @param WC_Order $order Order object
-     * @param WC_Email_New_Order $email The WooCommerce email being processed
-     * @return string Filtered list of recipients
-     */
-    public function new_order_email_recipient($recipient, $order, $email)
-    {
-        // Allow developers to disable this functionality
-        if (!apply_filters('wcdd_email_new_order_to_location', true, $recipient, $order)) return $recipient;
-
-        // Only run this when dealing with a real order (fixes fatal error on WooCommerce > Settings > Emails screen)
-        if (!is_a($order, 'WC_Order')) return $recipient;
-
-        // Get the shipping method for the order
-        $methods = $order->get_shipping_methods();
-        $method = array_shift($methods);
-
-        // Get the location ID from the meta if it exists
-        $location_id = (int)$method->get_meta("_tapsi_pickup_location");
-
-        if ($location_id) {
-            // Get the location object
-            $location = new Woocommerce_Tapsi_Pickup_Location($location_id);
-            // Get the email from the location and add it to the recipient list
-            $recipient .= ',' . $location->get_email();
-        }
-
-        // Send the list of recipients back to the email class
-        return $recipient;
     }
 
     /**

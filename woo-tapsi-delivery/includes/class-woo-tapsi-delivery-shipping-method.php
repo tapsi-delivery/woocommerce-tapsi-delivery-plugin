@@ -71,7 +71,7 @@ class Woocommerce_Tapsi_Shipping_Method extends WC_Shipping_Method
         $chosen_shipping_rate_id = WC()->session->get('chosen_shipping_methods')[0];
         if (false === strpos($chosen_shipping_rate_id, 'woocommerce_tapsi')) {
             $this->add_rate(array(
-                'label' => $this->title,
+                'label' => $this->title . __( '(Average: 40000T)', 'woo-tapsi-delivery' ),
                 'package' => $package,
                 'cost' => 0,
             ));

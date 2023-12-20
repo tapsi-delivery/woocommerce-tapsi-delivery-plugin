@@ -232,25 +232,28 @@ class Woocommerce_Tapsi_Public
 
                     $delivery_days_keys = array_keys($delivery_days);
                     $selected_date = !empty(WC()->session->get('tapsi_delivery_date')) ? WC()->session->get('tapsi_delivery_date') : array_shift($delivery_days_keys);
-                    $delivery_times_for_date = $this->get_time_slots($selected_date);
+                    $delivery_times = $this->get_time_slots($selected_date);
 
-                    $selected_time_key = WC()->session->get('tapsi_delivery_time');
+                    if (empty($delivery_times)) {
+                        $selected_time_key = '';
+                    } else {
+                        $first_delivery_time = array_key_first($delivery_times);
+                        $selected_time_key = WC()->session->get('tapsi_delivery_time') ?: $first_delivery_time;
+                        woocommerce_form_field('tapsi_delivery_time', array(
+                            'type' => 'select',
+                            'label' => __('Time', 'woo-tapsi-delivery'),
+                            'class' => array('wcdd-delivery-time-select', 'update_totals_on_change'),
+                            'required' => true,
+                            'default' => $selected_time_key,
+                            'options' => $delivery_times,
+                        ), $selected_time_key);
+                    }
                     $this->update_fee($selected_time_key);
 
-                    woocommerce_form_field('tapsi_delivery_time', array(
-                        'type' => 'select',
-                        'label' => __('Time', 'woo-tapsi-delivery'),
-                        'class' => array('wcdd-delivery-time-select', 'update_totals_on_change'),
-                        'required' => true,
-                        'default' => $selected_time_key,
-                        'options' => $delivery_times_for_date,
-                    ), $selected_time_key);
                     $this->enable_problematic_filters();
 
                     echo '</div>';
-                    $gmt_offset = get_option('gmt_offset') * HOUR_IN_SECONDS;
 
-                    // Output the Dropoff Instructions field
                     woocommerce_form_field('tapsi_dropoff_instructions', array(
                         'type' => 'text',
                         'label' => __('Dropoff Instructions', 'woo-tapsi-delivery'),
@@ -267,7 +270,7 @@ class Woocommerce_Tapsi_Public
                 ), WC()->checkout->get_value('tapsi_external_delivery_id'));
 
                 // Render the rules when the user has seen the price
-                if (!empty($delivery_times_for_date)) {
+                if (!empty($delivery_times)) {
                     echo '<section class="wcts-tapsi-pack-rules-section" >
 						<button id="wctd-tapsi-pack-rules-button">' . __('Rules', 'woo-tapsi-delivery') . '</button>
 						<ul id="wctd-tapsi-pack-rules">
@@ -664,8 +667,6 @@ class Woocommerce_Tapsi_Public
             $tapsi_tip_amount = 0;
         }
         WC()->session->set('tapsi_tip_amount', number_format($tapsi_tip_amount, 2, '.', ''));
-
-        return;
     }
 
     /**
@@ -1006,16 +1007,16 @@ class Woocommerce_Tapsi_Public
      */
     public function update_fee($time_slot_key): void
     {
-        if (!is_string($time_slot_key)) return;
+        if (!is_string($time_slot_key)) {
+            $new_price = 0;
+        } else {
+            $selected_time_key_parts = explode("--", $time_slot_key);
+            $new_price = $selected_time_key_parts[1] ?? 0;
+        }
 
-        $selected_time_key_parts = explode("--", $time_slot_key);
-
-        if (isset($selected_time_key_parts[1])) {
-            $new_price = $selected_time_key_parts[1];
-            $last_price = WC()->session->get('tapsi_delivery_fee');
-            if ($new_price != $last_price) {
-                WC()->session->set('tapsi_delivery_fee', $new_price);
-            }
+        $last_price = WC()->session->get('tapsi_delivery_fee');
+        if ($new_price != $last_price) {
+            WC()->session->set('tapsi_delivery_fee', $new_price);
         }
     }
 

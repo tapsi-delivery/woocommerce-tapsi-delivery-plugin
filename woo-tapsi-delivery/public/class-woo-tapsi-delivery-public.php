@@ -862,6 +862,7 @@ class Woocommerce_Tapsi_Public
             'start_min' => intval($obj_start_timestamp->format('i')),
             'end_hour' => intval($obj_end_timestamp->format('H')),
             'end_min' => intval($obj_end_timestamp->format('i')),
+            'start_timestamp' => $int_start_timestamp
         );
     }
 
@@ -955,6 +956,15 @@ class Woocommerce_Tapsi_Public
                 $timeslotId = $raw_timeslot->timeslotId;
                 $timeslot_interval = $this->get_timeslot_interval($raw_timeslot);
 
+
+                $processing_duration = $pickup_location->get_processing_duration_in_minutes();
+
+                if ($processing_duration != 0 && !$this->is_ready_on_time_slot($timeslot_interval, $processing_duration)) {
+                    $timeslot['status'] = 'store_unavailable';
+                    $timeslots[] = $timeslot;
+                    continue;
+                }
+
                 if ($pickup_location->has_hours()) {
                     $weekday = $this->get_weekday($raw_timeslot);
                     $working_hour = $pickup_location->get_weekly_hours($weekday);
@@ -1031,4 +1041,16 @@ class Woocommerce_Tapsi_Public
         }
     }
 
+    /**
+     * @param $timeslot_interval
+     * @param $processing_duration
+     * @return bool
+     */
+    public function is_ready_on_time_slot($timeslot_interval, $processing_duration): bool
+    {
+        $current_timestamp = time();
+        $processing_end_timestamp = $current_timestamp + ($processing_duration * 60);
+
+        return $processing_end_timestamp < $timeslot_interval['start_timestamp'];
+    }
 }

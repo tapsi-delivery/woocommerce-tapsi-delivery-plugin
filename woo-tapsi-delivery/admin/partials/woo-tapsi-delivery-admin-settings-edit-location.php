@@ -113,6 +113,12 @@ woocommerce_form_field('location_country', array(
     'type' => 'hidden',
     'required' => false,
 ), $address['country']);
+
+woocommerce_form_field("location_processing_duration", array(
+    'type' => 'text',
+    'label' => __('Processing Duration Minutes', 'woo-tapsi-delivery'),
+), $location->get_processing_duration_in_minutes());
+
 echo '</section>';
 
 include 'wctd-taps-pack-maplibre-map.php';
@@ -125,7 +131,6 @@ woocommerce_form_field('hide_location_address', array(
     'description' => __('The exact address of your shop will be hidden to the customers but they can still see the coordinates of your shop in the track link that is sent to them.', 'woo-tapsi-delivery'),
 ), $address['should_hide']);
 echo '</section>';
-
 
 /**
  * Output the Location Hours section

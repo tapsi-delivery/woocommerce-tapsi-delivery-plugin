@@ -30,6 +30,7 @@ class Woocommerce_Tapsi_Pickup_Location
         'latitude' => '',
         'longitude' => '',
         'should_hide' => true,
+        'processing_duration_minutes' => 0,
         'city' => '',
         'postcode' => '',
         'country' => '',
@@ -98,6 +99,7 @@ class Woocommerce_Tapsi_Pickup_Location
             'latitude' => $post->latitude,
             'longitude' => $post->longitude,
             'should_hide' => $post->should_hide,
+            'processing_duration_minutes' => $post->processing_duration_minutes,
             'city' => $post->city,
             'state' => $post->state,
             'postcode' => $post->postcode,
@@ -320,6 +322,21 @@ class Woocommerce_Tapsi_Pickup_Location
         $key = strtolower($key);
         if ($this->has_hours() && array_key_exists($key, $this->data['weekly_hours'])) return $this->data['weekly_hours'][$key];
         else return get_option("woocommerce_tapsi_{$key}_hours");
+    }
+
+
+    /**
+     * Get processing duration in minutes
+     *
+     * @return int
+     */
+    public function get_processing_duration_in_minutes(): int
+    {
+        if (array_key_exists('processing_duration_minutes', $this->data) && is_numeric($this->data['processing_duration_minutes'])) {
+            return intval($this->data['processing_duration_minutes']);
+        } else {
+            return 0;
+        }
     }
 
     /**

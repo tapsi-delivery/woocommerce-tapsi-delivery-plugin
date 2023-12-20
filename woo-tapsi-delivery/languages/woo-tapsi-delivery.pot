@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-19 15:42+0330\n"
+"POT-Creation-Date: 2023-12-19 17:16+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,60 +39,60 @@ msgstr ""
 msgid "Tracking Orders"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:209
+#: admin/class-woo-tapsi-delivery-settings.php:210
 msgid "Phone number"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:253
+#: admin/class-woo-tapsi-delivery-settings.php:254
 #, php-format
 msgid "%s hours %s."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:253
-#: admin/class-woo-tapsi-delivery-settings.php:277
+#: admin/class-woo-tapsi-delivery-settings.php:254
+#: admin/class-woo-tapsi-delivery-settings.php:278
 msgid "enabled"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:253
-#: admin/class-woo-tapsi-delivery-settings.php:277
+#: admin/class-woo-tapsi-delivery-settings.php:254
+#: admin/class-woo-tapsi-delivery-settings.php:278
 msgid "disabled"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:331
+#: admin/class-woo-tapsi-delivery-settings.php:332
 msgid "Your changed data will be lost if you leave this page without saving."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:332
+#: admin/class-woo-tapsi-delivery-settings.php:333
 msgid ""
 "Do you wish to save your changes first? Your changed data will be discarded "
 "if you choose to cancel."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:333
+#: admin/class-woo-tapsi-delivery-settings.php:334
 msgid "Your changes were not saved. Please retry."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:334
+#: admin/class-woo-tapsi-delivery-settings.php:335
 msgid "Are you sure you want to delete this pickup location?"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:335
+#: admin/class-woo-tapsi-delivery-settings.php:336
 msgid "Pickup location could not be added. Please retry."
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:336
+#: admin/class-woo-tapsi-delivery-settings.php:337
 msgid "Yes"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:337
+#: admin/class-woo-tapsi-delivery-settings.php:338
 msgid "No"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:338
+#: admin/class-woo-tapsi-delivery-settings.php:339
 msgid "Location"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-settings.php:387
+#: admin/class-woo-tapsi-delivery-settings.php:388
 #, php-format
 msgid "Location \"%s\" deleted."
 msgstr ""
@@ -297,27 +297,27 @@ msgid ""
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:186
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:146
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:151
 msgid "Sunday"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:191
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:147
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:152
 msgid "Monday"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:196
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:148
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:153
 msgid "Tuesday"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:201
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:149
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:154
 msgid "Wednesday"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:206
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:150
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:155
 msgid "Thursday"
 msgstr ""
 
@@ -326,7 +326,7 @@ msgid "Friday"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-main.php:216
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:145
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:150
 msgid "Saturday"
 msgstr ""
 
@@ -414,35 +414,39 @@ msgid "City"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:102
-#: includes/class-woo-tapsi-delivery-pickup-location.php:267
+#: includes/class-woo-tapsi-delivery-pickup-location.php:269
 msgid "Postcode"
 msgstr ""
 
 #: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:109
-#: includes/class-woo-tapsi-delivery-pickup-location.php:266
+#: includes/class-woo-tapsi-delivery-pickup-location.php:268
 msgid "Building Number"
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:124
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:119
+msgid "Processing Duration Minutes"
+msgstr ""
+
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:130
 msgid "Hide"
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:125
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:131
 msgid ""
 "The exact address of your shop will be hidden to the customers but they can "
 "still see the coordinates of your shop in the track link that is sent to "
 "them."
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:133
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:138
 msgid "Sending Hours"
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:135
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:140
 msgid "Enter the hours for the location."
 msgstr ""
 
-#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:140
+#: admin/partials/woo-tapsi-delivery-admin-settings-edit-location.php:145
 msgid "Customize hours for this location"
 msgstr ""
 
@@ -609,11 +613,11 @@ msgstr ""
 msgid "Could not submit delivery! Try Again"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:478
+#: admin/class-woo-tapsi-delivery-admin.php:479
 msgid "Sender Instructions"
 msgstr ""
 
-#: admin/class-woo-tapsi-delivery-admin.php:482
+#: admin/class-woo-tapsi-delivery-admin.php:483
 msgid "Receiver Instructions"
 msgstr ""
 
@@ -655,7 +659,7 @@ msgstr ""
 msgid "There was a problem communicating with Tapsi. Please try again later."
 msgstr ""
 
-#: includes/class-woo-tapsi-delivery-pickup-location.php:262
+#: includes/class-woo-tapsi-delivery-pickup-location.php:264
 msgid "Shop"
 msgstr ""
 

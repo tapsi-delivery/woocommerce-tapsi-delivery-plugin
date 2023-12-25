@@ -258,16 +258,14 @@ class Woocommerce_Tapsi_Admin
         $methods = $order->get_shipping_methods();
         $method = array_shift($methods);
 
-        // Get the delivery ID and object from the shipping method
-        $delivery_id = $method->get_meta("tapsi_external_delivery_id");
+        if (empty($method) || $method->get_method_title() != 'woocommerce_tapsi') {
+            return;
+        }
 
         /**
          * @var Woocommerce_Tapsi_Delivery $delivery
          */
         $delivery = $method->get_meta("tapsi_delivery");
-
-        // If the delivery ID isn't set, bail out here
-        if (empty($delivery_id)) return;
 
         // Update the delivery object stored in the shipping method's meta
         $method->update_meta_data('tapsi_delivery', $delivery);

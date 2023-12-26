@@ -33,11 +33,13 @@ class Woocommerce_Tapsi_shipping_zone
     private static array $tapsi_shipping_locations = array(
         array(
             'code' => 'IR:THR',
-            'type' => 'state'
+            'type' => 'state',
+            'always_add' => true
         ),
         array(
             'code' => 'IR:276',
-            'type' => 'state'
+            'type' => 'state',
+            'always_add' => false
         )
     );
 
@@ -86,7 +88,14 @@ class Woocommerce_Tapsi_shipping_zone
         $new_zone->set_zone_name(self::$tapsi_zone_name);
 
         foreach (self::$tapsi_shipping_locations as $location) {
-            $new_zone->add_location($location['code'], $location['type']);
+            if ($location['always_add']) {
+                $new_zone->add_location($location['code'], $location['type']);
+            } else {
+                $all_states = WC()->countries->get_states();
+                if (isset($all_states[$location['code']][$location['type']])) {
+                    $new_zone->add_location($location['code'], $location['type']);
+                }
+            }
         }
 
         $new_zone->add_shipping_method(self::$tapsi_shipping_method_id);

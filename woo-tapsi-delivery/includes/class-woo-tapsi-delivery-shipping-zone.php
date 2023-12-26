@@ -49,10 +49,9 @@ class Woocommerce_Tapsi_shipping_zone
      */
     public function set_shipping_zone()
     {
-        $tapsi_zone = self::get_tapsi_zone();
+        $tapsi_zone_exists = self::tapsi_zone_exists();
 
-        if (!$tapsi_zone) {
-            // Tapsi Zone doesn't exist, so create it
+        if (!$tapsi_zone_exists) {
             self::create_tapsi_zone();
         }
     }
@@ -61,15 +60,15 @@ class Woocommerce_Tapsi_shipping_zone
     /**
      * Check if Tehran Zone exists.
      *
-     * @return WC_Shipping_Zone|false
+     * @return bool
      */
-    public static function get_tapsi_zone()
+    public static function tapsi_zone_exists()
     {
         $zones = WC_Shipping_Zones::get_zones();
 
         foreach ($zones as $zone) {
             if ($zone['zone_name'] === self::$tapsi_zone_name) {
-                return new WC_Shipping_Zone($zone['id']);
+                return true;
             }
         }
         return false;

@@ -365,3 +365,9 @@ ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
 /**
 	Tapsi Delivery Map Styles End
 */
+
+/* always vertical checkout page */
+.woocommerce-page .woocommerce-checkout #customer_details, .woocommerce-page .woocommerce-checkout .col2-set, .woocommerce-page.woocommerce-order-pay #customer_details, .woocommerce-page.woocommerce-order-pay .col2-set {
+	width: 100%;
+	float: none
+}

@@ -271,14 +271,14 @@ class Woocommerce_Tapsi_Delivery
 
         if ($fees_mode == 'no_rate') {
             return 0;
-        } else if ($fees_mode == 'quoted_rate' && is_numeric($delivery_fee)) {
+        } else if ($fees_mode == 'quoted_rate') {
             $quoted = $this->get_quoted_rate();
             return $quoted + (float)$delivery_fee;
         } else if ($fees_mode == 'fixed_rate') {
             return $delivery_fee;
+        } else {
+            return $delivery_fee;
         }
-
-        return 0;
     }
 
     /**

@@ -90,7 +90,7 @@ class Woocommerce_Tapsi
         if (defined('WOOCOMMERCE_TAPSI_VERSION')) {
             $this->version = WOOCOMMERCE_TAPSI_VERSION;
         } else {
-            $this->version = '0.1.13';
+            $this->version = '0.1.14';
         }
         $this->plugin_name = 'woo-tapsi-delivery';
 

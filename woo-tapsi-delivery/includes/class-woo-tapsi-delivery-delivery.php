@@ -276,9 +276,9 @@ class Woocommerce_Tapsi_Delivery
             return $quoted + (float)$delivery_fee;
         } else if ($fees_mode == 'fixed_rate') {
             return $delivery_fee;
+        } else {
+            return $delivery_fee;
         }
-
-        return 0;
     }
 
     /**

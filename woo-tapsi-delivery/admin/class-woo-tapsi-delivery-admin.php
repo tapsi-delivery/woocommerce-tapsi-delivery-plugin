@@ -258,7 +258,7 @@ class Woocommerce_Tapsi_Admin
         $methods = $order->get_shipping_methods();
         $method = array_shift($methods);
 
-        if (empty($method) || $method->get_method_title() != 'woocommerce_tapsi') {
+        if (empty($method) || $method->get_method_id() != 'woocommerce_tapsi') {
             return;
         }
 

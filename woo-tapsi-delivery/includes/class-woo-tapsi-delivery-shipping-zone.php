@@ -33,11 +33,13 @@ class Woocommerce_Tapsi_shipping_zone
     private static array $tapsi_shipping_locations = array(
         array(
             'code' => 'IR:THR',
-            'type' => 'state'
+            'type' => 'state',
+            'always_add' => true
         ),
         array(
             'code' => 'IR:276',
-            'type' => 'state'
+            'type' => 'state',
+            'always_add' => false
         )
     );
 
@@ -49,10 +51,9 @@ class Woocommerce_Tapsi_shipping_zone
      */
     public function set_shipping_zone()
     {
-        $tapsi_zone = self::get_tapsi_zone();
+        $tapsi_zone_exists = self::tapsi_zone_exists();
 
-        if (!$tapsi_zone) {
-            // Tapsi Zone doesn't exist, so create it
+        if (!$tapsi_zone_exists) {
             self::create_tapsi_zone();
         }
     }
@@ -61,15 +62,15 @@ class Woocommerce_Tapsi_shipping_zone
     /**
      * Check if Tehran Zone exists.
      *
-     * @return WC_Shipping_Zone|false
+     * @return bool
      */
-    public static function get_tapsi_zone()
+    public static function tapsi_zone_exists()
     {
         $zones = WC_Shipping_Zones::get_zones();
 
         foreach ($zones as $zone) {
             if ($zone['zone_name'] === self::$tapsi_zone_name) {
-                return new WC_Shipping_Zone($zone['id']);
+                return true;
             }
         }
         return false;
@@ -87,7 +88,14 @@ class Woocommerce_Tapsi_shipping_zone
         $new_zone->set_zone_name(self::$tapsi_zone_name);
 
         foreach (self::$tapsi_shipping_locations as $location) {
-            $new_zone->add_location($location['code'], $location['type']);
+            if ($location['always_add']) {
+                $new_zone->add_location($location['code'], $location['type']);
+            } else {
+                $all_states = WC()->countries->get_states();
+                if (isset($all_states[$location['code']][$location['type']])) {
+                    $new_zone->add_location($location['code'], $location['type']);
+                }
+            }
         }
 
         $new_zone->add_shipping_method(self::$tapsi_shipping_method_id);

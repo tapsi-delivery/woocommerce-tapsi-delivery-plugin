@@ -10,6 +10,7 @@
 	// Run on DOM ready
 	$(function() {
 
+		makeTapsiPackShippingRowFullWidth();
 		addListeners();
 		const chooseLocationButton = $('#wctd-tapsi-pack-show-map-button-checkout-page');
 		chooseLocationButton.html('در حال بارگزاری...');
@@ -236,6 +237,41 @@
 	});
 
 	/**
+	 * makeTapsiPackShippingRowFullWidth
+	 *		Adds "wctd-tapsi-checkout" class-name to woocommerce checkout form if the admin has
+	 * 		checked the option in woo-tapsi-delivery-setting
+	 *
+	 * What does "wctd-tapsi-checkout" do?
+	 * 		this class name makes all the columns in checkout form (order review and customer details)
+	 * 		to float vertically instead of horizontally -> check "woo-tapsi-delivery-public.css"
+	 *
+ 	 * Future note:
+	 * 		automation can be done by checking the width of the "shipping" section and if the width is lower than
+	 * 		x pixels, the "wctd-tapsi-checkout" class-name can be added to the checkout form automatically
+	 * **/
+	var makeTapsiPackShippingRowFullWidth = function (){
+		const userChoice = $('#wctd_tapsi_extra_space').val();
+		const checkoutForm = $('form.woocommerce-checkout').first();
+		console.log(checkoutForm, userChoice, checkoutForm.hasClass('wctd-tapsi-checkout'));
+
+		if (userChoice === 'yes') {
+			if (!checkoutForm.hasClass('wctd-tapsi-checkout')){
+				checkoutForm.addClass('wctd-tapsi-checkout');
+			}
+			const tapsiPackMinWidth = 250;
+			const row = $("tr.woocommerce-shipping-totals.shipping").find('td').first();
+			const heading =  $( "tr.woocommerce-shipping-totals.shipping" ).find('th').first();
+			const currentWidth = heading.width();
+			console.log(currentWidth);
+			if (!!heading && currentWidth && currentWidth < tapsiPackMinWidth){
+				$("tr.woocommerce-shipping-totals.shipping").find('th').first().remove();
+				row.attr('colspan', '2');
+				row.prepend('<h3>حمل و نقل</h3>');
+			}
+		}
+	}
+
+	/**
 	 * Adds mobile classes to containers based on the width of the shipping method container.
 	 * This can probably be reworked in the future with CSS container queries.
 	 */
@@ -280,6 +316,7 @@
 
 		// Add mobile view classes if necessary
 		mobileViews();
+		makeTapsiPackShippingRowFullWidth();
 	} );
 
 	jQuery(document).ready(function ($) {

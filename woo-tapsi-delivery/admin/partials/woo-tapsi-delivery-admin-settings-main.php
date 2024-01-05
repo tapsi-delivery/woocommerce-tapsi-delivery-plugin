@@ -137,6 +137,7 @@ return array(
 		'name' => __('Dedicate more space to shipping', 'woo-tapsi-delivery'),
 		'type' => 'checkbox',
 		'desc' => __('You can dedicate more space to the shipping section in the checkout page by enabling this option.', 'woo-tapsi-delivery'),
+		'desc_tip' => __('This option is useful for websites that their theme does not support vertical checkout layout. ', 'woo-tapsi-delivery'),
 	),
 	array(
 		'id' => $prefix . 'checkout_display_setting',

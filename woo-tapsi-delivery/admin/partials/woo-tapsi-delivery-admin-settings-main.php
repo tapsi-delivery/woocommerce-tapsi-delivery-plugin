@@ -127,6 +127,23 @@ return array(
         'type' => 'sectionend',
     ),
 
+	array(
+		'id' => $prefix . 'checkout_display_setting',
+		'name' => __('Display Setting', 'woo-tapsi-delivery'),
+		'type' => 'title',
+	),
+	array(
+		'id' => $prefix . 'dedicate_more_space_to_shipping',
+		'name' => __('Dedicate more space to shipping', 'woo-tapsi-delivery'),
+		'type' => 'checkbox',
+		'desc' => __('You can dedicate more space to the shipping section in the checkout page by enabling this option.', 'woo-tapsi-delivery'),
+	),
+	array(
+		'id' => $prefix . 'checkout_display_setting',
+		'name' => __('Delivery Display Setting', 'woo-tapsi-delivery'),
+		'type' => 'sectionend',
+	),
+
     array(
         'id' => $prefix . 'fee_settings',
         'name' => __('Fees Configuration', 'woo-tapsi-delivery'),

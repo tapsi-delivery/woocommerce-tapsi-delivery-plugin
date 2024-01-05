@@ -143,7 +143,16 @@ class Woocommerce_Tapsi_Public
 
         // Only output the fields in the checkout page
         if (is_checkout()) {
-            // Only output the field if the selected method is a WooCommerce Tapsi method
+
+	        $dedicate_more_space_to_shipping = get_option('woocommerce_tapsi_dedicate_more_space_to_shipping');
+	        woocommerce_form_field('wctd_tapsi_extra_space', array(
+		        'id' => 'wctd_tapsi_extra_space',
+		        'type' => 'hidden',
+		        'class' => array('wctd_tapsi_extra_space'),
+		        'default' => $dedicate_more_space_to_shipping,
+	        ), $dedicate_more_space_to_shipping);
+
+	        // Only output the field if the selected method is a WooCommerce Tapsi method
             if (false !== strpos($chosen_shipping_rate_id, 'woocommerce_tapsi') && $shipping_rate->id === $chosen_shipping_rate_id) {
                 echo '<div class="wcdd-delivery-options">';
 

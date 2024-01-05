@@ -365,3 +365,23 @@ ul#shipping_method .wcdd-delivery-options input#tapsi_dropoff_instructions {
 /**
 	Tapsi Delivery Map Styles End
 */
+
+
+/** wctd-tapsi-checkout Start **/
+/* always vertical checkout page - optionally activated by the admin user */
+.woocommerce-page .woocommerce .woocommerce-checkout.wctd-tapsi-checkout .col2-set {
+	float: none !important;
+	width: 100%;
+}
+.woocommerce-page .woocommerce .woocommerce-checkout.wctd-tapsi-checkout #order_review {
+	width: 100%;
+	float: none !important;
+}
+.woocommerce-page .woocommerce .woocommerce-checkout.wctd-tapsi-checkout  #order_review_heading {
+	float: none !important;
+}
+.woocommerce-page .woocommerce .woocommerce-checkout.wctd-tapsi-checkout #customer_details {
+	float: none !important;
+	width: 100%;
+}
+/** wctd-tapsi-checkout End **/

@@ -253,8 +253,21 @@
 		const userChoice = $('#wctd_tapsi_extra_space').val();
 		const checkoutForm = $('form.woocommerce-checkout').first();
 		console.log(checkoutForm, userChoice, checkoutForm.hasClass('wctd-tapsi-checkout'));
-		if (userChoice ==='yes' && !checkoutForm.hasClass('wctd-tapsi-checkout')){
-			checkoutForm.addClass('wctd-tapsi-checkout');
+
+		if (userChoice === 'yes') {
+			if (!checkoutForm.hasClass('wctd-tapsi-checkout')){
+				checkoutForm.addClass('wctd-tapsi-checkout');
+			}
+			const tapsiPackMinWidth = 250;
+			const row = $("tr.woocommerce-shipping-totals.shipping").find('td').first();
+			const heading =  $( "tr.woocommerce-shipping-totals.shipping" ).find('th').first();
+			const currentWidth = heading.width();
+			console.log(currentWidth);
+			if (!!heading && currentWidth && currentWidth < tapsiPackMinWidth){
+				$("tr.woocommerce-shipping-totals.shipping").find('th').first().remove();
+				row.attr('colspan', '2');
+				row.prepend('<h3>حمل و نقل</h3>');
+			}
 		}
 	}
 
